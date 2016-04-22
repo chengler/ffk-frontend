@@ -1,0 +1,6 @@
+# alles was in packages.json für nodejs vorgesehen wurde
+node_modules
+
+# Abhängigkeiten, welche von Bower aufgelöst werden
+WebContent/bower_components/
+
