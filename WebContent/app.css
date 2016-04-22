@@ -1,0 +1,235 @@
+.btn-group > .medien {
+    color: red;
+} 
+
+.btn-group > .medien.active,
+.btn-group > .medien:active  {
+    color: green;
+} 
+
+/*
+Mausgeschichten
+*/
+.pointer {
+	cursor: pointer;
+}
+
+.grabbing {
+	cursor: grabbing;
+}
+
+.notallowed {
+	cursor: not-allowed;
+}
+
+.inforahmen {
+	border: 1px solid;
+	padding: 5px;
+	border-radius: 4px;
+	background-color: wheat;
+}
+
+.infofenster {
+	background-color: wheat;
+	min-height: 200px;
+}
+
+/*
+http: //blog.parkji.co.uk /2013/08/11/native-drag-and-drop-in-angularjs.html
+Drag and drop
+*/
+.drag {
+	opacity: 0.5;
+}
+
+.over {
+	background: green;
+}
+
+.pos {
+	position: absolute;
+}
+
+/*
+FArben
+*/
+.ok {
+	color: DarkGreen;
+}
+
+.notOK {
+	color: Crimson;
+}
+
+.draggable {
+	color: darkorange;
+}
+
+.bc-g0 {
+	background-color: #CCCCCC;
+}
+
+.bc-g2 {
+	background-color: #dedede;
+}
+
+.bc-g1 {
+	background-color: #ededed;
+}
+
+.bc-000 {
+	background-color: grey;
+}
+.bc-00 {
+	background-color: DeepSkyBlue;
+}
+.bc-01 {
+	background-color: PowderBlue;
+}
+.bc-02 {
+	background-color: LightBlue;
+}
+.bc-10 {
+	background-color: DarkTurquoise;
+}
+.bc-11 {
+	background-color: LightCyan;
+}
+.bc-12 {
+	background-color: PaleTurquoise;
+}
+
+.bc-20 {
+	background-color: SpringGreen;
+}
+.bc-21 {
+	background-color: PaleGreen;
+}
+.bc-22 {
+	background-color: LightGreen;
+}
+
+.bc-30 {
+	background-color: Lime;
+}
+.bc-31 {
+	background-color: #64FE2E;
+}
+.bc-32 {
+	background-color: #74DF00;
+}
+
+
+
+.bc-40 {
+	background-color: #db8dd8;
+}
+.bc-41 {
+	background-color: #fbc1fb;
+}
+.bc-42 {
+	background-color: #fca2fc;
+}
+.bc-50 {
+	background-color: HotPink;
+}
+.bc-51 {
+	background-color: Pink;
+}
+.bc-52 {
+	background-color: LightPink;
+}
+
+.bc-60 {
+	background-color: gold;
+}
+.bc-61 {
+	background-color: #D7DF01;
+}
+.bc-62 {
+	background-color: #F4FA58;
+
+}
+
+.bc-70 {
+	background-color: #d4a464;
+}
+.bc-71 {
+	background-color: #dbb88c;
+}
+.bc-72 {
+	background-color: #e1caad;
+}
+
+.bc-80 {
+	background-color: Chocolate;
+}
+.bc-81 {
+	background-color: SandyBrown;
+}
+.bc-82 {
+	background-color: NavajoWhite;
+}
+.bc-90 {
+	background-color: Tomato;
+}
+.bc-91 {
+	background-color: Coral;
+}
+.bc-92 {
+	background-color: LightSalmon;
+}
+
+/* Anmeldeformular */
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-signin .form-signin-heading, .form-signin .checkbox {
+	margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+	font-weight: normal;
+}
+
+.form-signin .form-control {
+	position: relative;
+	font-size: 16px;
+	height: auto;
+	padding: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="text"] {
+	margin-bottom: -1px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.account-wall {
+	margin-top: 20px;
+	padding: 40px 0px 20px 0px;
+	background-color: #f7f7f7;
+	-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.need-help {
+	margin-top: 10px;
+}
