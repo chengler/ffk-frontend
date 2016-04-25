@@ -1,0 +1,34 @@
+<div class="row col-md-12">
+    <div>
+        <strong>{{modus.spielOrtInfo}}</strong> <span>{{modus.abspielmoeglichkeiten}}</span>
+    </div>
+
+	<!-- Auswahl für Filme -->
+	<span ng-if="modus.status == 'buchbar' && sid != 'false' ">
+		<span ng-repeat=" (key, value) in medienLeihbar">
+			<button class=" btn btn-success" type="button" ng-click="buchen(medium)">{{value}} buchen</button>
+		</span>
+			<button class=" btn btn-success " type="button" ng-click="buchen()">ohne Medium	buchen</button>
+	</span>
+
+	<!-- Auswahl für WunschFilme -->
+	<span ng-if="modus.status == 'gewunschen'" >
+		<span ng-if="users[logedInUser.uid].role == 'admin'">
+			<button class=" btn btn-success " type="button" ng-click="machBuchbar()">als buchbar setzen</button>
+		</span>
+		<span  ng-if="sid != 'false'">
+			<button class=" btn btn-success " type="button" ng-click="mitspielen()">Mitspielinteresse bekunden</button>
+			<button class=" btn btn-warning " type="button" ng-click="garantieUebernehmen()">Mindestgarantie übernehmen</button>
+		</span>
+	</span>
+    <button class="btn btn-danger " type="button" ng-click="abbrechen()">abbrechen</button>
+</div>
+
+<div class="row col-md-12">
+	<h4>Debug Infos</h4>
+    <div>kwinfos {{kwinfos}}</div>
+    <div>buchung {{buchung}}</div>
+    <div>sid {{sid}}</div>
+    <div>modus {{modus}}</div>
+    <div>medienSpielort {{medienSpielort}}</div>
+</div>

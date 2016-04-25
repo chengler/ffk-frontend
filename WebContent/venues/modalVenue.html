@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Filmbearbeitung</title>
+</head>
+<body>
+
+	<div class="modal-header">
+		<div class="row">
+
+			<div class="col-md-12">
+				<h3 class="modal-title" ng-bind="header"></h3>
+			</div>
+
+
+
+		</div>
+
+		<div class="modal-body">
+
+			<div class="well">
+
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="Name" class="control-label col-sm-2">Bezeichnung:</label>
+						<div class="col-sm-5  alert-info" ng-bind="spielorte[sid]['name']"></div>
+						<div class="col-sm-5" ng-if="bearbeiten">
+							<input type="text" class="form-control" id="Bezeichnung" placeholder="Bezeichnung"
+								ng-model="thisVenue.name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="Ort" class="control-label col-sm-2">Spielort:</label>
+						<div class="col-sm-5  alert-info" ng-bind="spielorte[sid]['ort']"></div>
+						<div class="col-sm-5" ng-if="logedInUser.role == 'admin'">
+							<input type="text" class="form-control" id="Spielort" placeholder="Spielort"
+								ng-model="thisVenue.ort">
+						</div>
+					</div>
+
+
+					
+
+					<div class="form-group">
+						<label for="Email" class="control-label col-sm-2">Email:</label>
+						<div class="col-sm-5  alert-info" ng-bind="spielorte[sid]['email']"></div>
+						<div class="col-sm-5" ng-if="bearbeiten">
+							<input type="email" class="form-control" id="Email" placeholder="Email"
+								ng-model="thisVenue.email">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="Telefon" class="control-label col-sm-2">Telefon:</label>
+						<div class="col-sm-5  alert-info" ng-bind="spielorte[sid]['tel']"></div>
+						<div class="col-sm-5" ng-if="bearbeiten">
+							<input type="tel" class="form-control" id="Telefon" placeholder="Telefonnummer"
+								ng-model="thisVenue.tel">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="Website" class="control-label col-sm-2">Website</label>
+						<div class="col-sm-5  alert-info"">
+							<a ng-href="{{spielorte[sid]['url']}}" class="alert-link"
+								ng-bind="spielorte[sid]['url']"></a>
+						</div>
+						<div class="col-sm-5" ng-if="bearbeiten">
+							<input type="url" class="form-control" id="Website" placeholder="www.irgendwo.de"
+								ng-model="thisVenue.url">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-12" for="Postanschrift">Postanschrift /
+							Lieferanschrift(en) </label>
+						<div class="col-sm-7  alert-info" ng-bind="spielorte[sid]['anschrift']"></div>
+						<div class=" col-sm-5" ng-if="bearbeiten">
+							<textarea class="form-control" rows="3" id="Postanschrift"
+								placeholder="Falls für Plakatlieferungen etc. eine andere Adresse ansteht, bitte hier angeben."
+								ng-model="thisVenue.anschrift"></textarea>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-12 " for="sonstiges">sonstiges</label>
+						<div class="col-sm-7  alert-info" ng-bind="spielorte[sid]['sonstiges']"></div>
+						<div class=" col-sm-5" ng-if="bearbeiten">
+							<textarea class="form-control" rows="2" id="sonstiges"
+								placeholder="zur freien Verfügung. z.B. Name des Ansprechpartners ..."
+								ng-model="thisVenue.sonstiges"></textarea>
+						</div>
+					</div>
+				</form>
+
+				<button ng-if="bearbeiten" type="button" class="btn btn-success " ng-click="speichern()">Spielort
+					speichern</button>
+				<button type="button" class="btn btn-danger" ng-click="abbrechen()">Abbrechen</button>
+			</div>
+
+
+
+
+
+
+		</div>
+
+
+		<div class="modal-footer"></div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Filmbearbeitung</title>
+</head>
+<body>
+
+	<div class="modal-header">
+		<div class="row">
+
+			<div class="col-md-12">
+				<h3 class="modal-title" ng-bind="header"></h3>
+			</div>
+
+		</div>
+
+		<div class="modal-body">
+
+			<div class="well">
+
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="Name" class="control-label col-sm-2">Anmeldename:</label>
+						<div class="col-sm-5  alert-info" ng-bind="users[uid]['logName']"></div>
+						<div class="col-sm-5" ng-if="bearbeiten">
+							<input type="text" class="form-control" id="Anmeldename" placeholder="Anmeldename"
+								ng-model="thisUser.logName">
+						</div>
+					</div>
+					<div class="form-group" ng-if="bearbeiten">
+						<label for="Ort" class="control-label col-sm-2">Passwort:</label>
+						<div class="col-sm-5  alert-info">Passwort ändern/setzen</div>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="Passwort" placeholder="Passwort"
+								ng-model="thisUser.paswd">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="Name" class="control-label col-sm-2">Name:</label>
+						<div class="col-sm-5  alert-info" ng-bind="users[uid]['name']"></div>
+						<div class="col-sm-5" ng-if="bearbeiten">
+							<input type="text" class="form-control" id="Name" placeholder="Name"
+								ng-model="thisUser.name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="Email" class="control-label col-sm-2">Email:</label>
+						<div class="col-sm-5  alert-info" ng-bind="users[uid]['email']"></div>
+						<div class="col-sm-5" ng-if="bearbeiten">
+							<input type="email" class="form-control" id="Email" placeholder="Email"
+								ng-model="thisUser.email">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="Telefon" class="control-label col-sm-2">Telefon:</label>
+						<div class="col-sm-5  alert-info" ng-bind="users[uid]['tel']"></div>
+						<div class="col-sm-5" ng-if="bearbeiten">
+							<input type="tel" class="form-control" id="Telefon" placeholder="Telefonnummer"
+								ng-model="thisUser.tel">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="Rolle" class="control-label col-sm-2">Rolle:</label>
+						<div class="col-sm-5  alert-info" ng-bind="users[uid]['role']"></div>
+						<div class="col-sm-5" ng-show="logedInUser.role == 'admin'">
+							<div class="radio form-control">
+								<input type="radio" value="spieler" data-ng-model="thisUser.role" ng-change='delVid()'>Spieler wählt
+								Filme aus.
+							</div>
+							<div class="radio form-control">
+								<input type="radio" value="verleih" data-ng-model="thisUser.role" ng-change='delSid()'>Verleih 
+								stellt Filme zur verfügung.
+							</div>
+							<div class="radio form-control">
+								<input type="radio" value="admin" data-ng-model="thisUser.role">Koordination	(Adminrechte)
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="Zuständigkeit" class="control-label col-sm-2">Zuständigkeit:</label>
+						<div class="col-sm-5  alert-info" ng-bind="getRefName(users[uid]['ref'])"></div>
+						<div class="col-sm-5" ng-show="logedInUser.role == 'admin'">
+							<select data-ng-show="thisUser.role != 'verleih'" class="form-control" data-ng-model="sid" ng-change='delVid()'>
+								<option value="" selected="true" >Den Spielort auswählen</option>
+								<option data-ng-repeat="ort in spielorteSortiert" value="{{ort[0]}}">{{ort[1]}}</option>
+							</select>
+							 <select data-ng-show="thisUser.role != 'spieler' " class="form-control" data-ng-model="vid" ng-change='delSid()'>
+								<option value="" > Den Verleih	auswählen.</option>
+								<option data-ng-repeat="v in verleiherSortiert" value="{{v[0]}}">{{v[1]}}</option>
+							</select>
+						</div>
+					</div>
+			</div>
+			</form>
+
+			
+
+
+			<button ng-if="bearbeiten" type="button" class="btn btn-success "
+				ng-click="speichern()">Spielort speichern</button>
+			<button type="button" class="btn btn-danger" ng-click="abbrechen()">Abbrechen</button>
+		</div>
+
+
+
+
+
+
+	</div>
+<div>thisUser.role {{thisUser.role}}</div>
+<div>users[uid]['role'] {{users[uid]['role']}}</div>
+<div>vid {{vid}}</div>
+<div>sid {{sid}}</div>
+<div>thisUser.id {{thisUser.id}}</div>
+	<div class="modal-footer"></div>
+</body>
+</html>

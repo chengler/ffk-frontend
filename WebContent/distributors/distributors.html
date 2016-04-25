@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+
+<script type="text/javascript" src="./modalDistributor.js"></script>
+
+
+<title>Distributors</title>
+</head>
+<body>
+	<div data-ng-app="app.distributors">
+		<div data-ng-controller="distributorsCtrl">
+			<div class=" container">
+				<h2>Filmverleiher!</h2>
+			
+			</div>
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<th class="col-sm-1">VID</th>
+						<th class="col-sm-2">Kurzbezeichnung</th>
+						<th class="col-sm-1">alle Infos</th>
+						
+						<th class="col-sm-1" ng-if="logedInUser.role == 'admin'">
+							<button class="btn btn-success" data-ng-click="showVerleih()">Verleiher
+								anlegen</button>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-ng-repeat="verleih in verleiherSortiert">
+						<!-- performance: http://ng-perf.com/ -->
+						<!-- mit html			per ng-bind-html="::fadsf"" -->
+						<!-- als conditional template -->
+						<!-- http://stackoverflow.com/questions/15974086/conditional-ng-include-in-angularjs -->
+						<!-- eine push Lösung für ::bindings? http://stackoverflow.com/questions/14702981/angularjs-model-changes-after-websocket-data-push-from-server -->
+
+						<!-- 						<td class="col-sm-1" data-ng-bind="user.id"></td> -->
+						<td class="col-sm-1" data-ng-bind="::verleih[0]"></td>
+						<td class="col-sm-2" data-ng-bind="verleih[1]"></td>
+						<td class="col-sm-1"><button class="btn btn-info"
+								data-ng-click="showVerleih(verleih[0])">Details anzeigen</button></td>
+						<td class="col-sm-1" ng-if="logedInUser.role == 'admin'"><button class="btn btn-warning"
+								data-ng-click="deleteVerleih(verleih[0])">Verleiher löschen</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

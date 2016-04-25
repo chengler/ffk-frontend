@@ -1,8 +1,5 @@
 "use strict";
 
-//agGrid.initialiseAgGridWithAngular1(angular);
-//http://stackoverflow.com/questions/16028678/angularjs-access-elements-outside-of-ng-view
-
 var app = angular
 		.module('app', [ 'app.filme', 'app.auth', 'ngRoute', 'app.version', 'app.dashboard',
 				'app.users',  'app.distributors', 'app.venue',    'app.programm', 'agGrid', 'ui.bootstrap',  'ffkTableModul',
@@ -12,27 +9,27 @@ app.config([ '$routeProvider', function($routeProvider) {
 	console.log("app.config start");
 	$routeProvider.when('/users', {
 		title : 'Benutzer | FfK',
-		templateUrl : './resources/scripts/users/users.html?' + Math.random()
+		templateUrl : './users/users.html?' + Math.random()
 //		controller : 'userCtrl'
 			
 	}).when('/Dashboard', {
 		title : 'Übersicht | FfK',
-		templateUrl : './resources/scripts/dashboard/dashboard.html?' + Math.random()
+		templateUrl : './dashboard/dashboard.html?' + Math.random()
 //		controller : 'dashboardCtrl'
 			
 	}).when('/Programm', {
 		title : 'Programm | FfK',
-		templateUrl : './resources/scripts/programm/programm.html?' + Math.random()
+		templateUrl : './programm/programm.html?' + Math.random()
 //		controller : 'ProgrammCtrl'
 			
 	}).when('/Distributors', {
 		title : 'Filmverleiher | FfK',
-		templateUrl : './resources/scripts/distributors/distributors.html?' + Math.random()
+		templateUrl : './distributors/distributors.html?' + Math.random()
 //		controller : 'distributorsCtrl'
 		
 	}).when('/Venues', {
 		title : 'Spielorte | FfK',
-		templateUrl : './resources/scripts/venues/venues.html?' + Math.random()
+		templateUrl : './venues/venues.html?' + Math.random()
 //		controller : 'venueCtrl'
 			
 	        

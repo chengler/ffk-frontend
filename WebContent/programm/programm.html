@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+
+</head>
+<body>
+	<div class=" container">
+		<div data-ng-app="app.programm">
+
+			<div data-ng-controller="ProgrammCtrl">
+
+				<h2>Programmübersicht!</h2>
+				<button type="button" class="btn btn-info" ng-click="ganzeSpalte()">Spalten
+					ganz anzeigen</button>
+				<button type="button" class="btn btn-info" ng-click="alleSpalten()">alle
+					Spalten anzeigen</button>
+				<button type="button" class="btn btn-warning" ng-click="toggleWunschfilme()"
+					ng-bind="wunschFilmTextBtn"></button>
+
+
+
+				<div>Serveraktionen: {{server}}</div>
+				<div ag-grid="gridOptions" class="ag-fresh" style="height: 600px; width: 100%"></div>
+
+
+				<div>rd3 {{rd3}}</div>
+				<div>rd4 {{rd4}}</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- 			<img src="./resources/images/programm.jpg" class="img-rounded" alt="Cinque Terre" -->
+	<!-- 				width="800" height="600"> -->
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Filmbearbeitung</title>
+</head>
+<body>
+
+<div class="modal-header"
+     ng-include="'./components/filme/templateModalRowHeader.html?33'">
+
+</div>
+
+<div class="modal-body">
+    <div class="well ">
+        <div class="row">
+            <!-- linke Spalte -->
+            <!-- Filmübersicht -->
+            <div class="col-md-4">
+                <h3>Filme in KW {{kw}}</h3>
+                <div class=" inforahmen">
+                    <table class="table" style="width: 100%">
+                        <tr ng-repeat="film in filmObject track by $index">
+                            <td class="{{film.bc}} pointer" ng-bind="film.titel"
+                                ng-click="loadBuchbar(film.col)"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Wunschübersicht -->
+                <h3>Wünsche in KW {{kw}}</h3>
+                <div class=" inforahmen">
+                    <table class="table" style="width: 100%">
+                        <tr class="rounded" ng-repeat="wunsch in wochenWunschFilme">
+                            <td class="{{wunsch.bc}} pointer" ng-bind="wunsch.titel"
+                                ng-click="loadGewunschen(wunsch)"></td>
+                        </tr>
+                        <td class="pointer bc-000" ng-click="neuerWunsch()">neuer Wunschfilm</td>
+                    </table>
+                </div>
+            </div>
+            <!-- /linke Spalte -->
+            <!-- rechte Spalte -->
+            <div class="col-md-8">
+                <h3 ng-bind="modus.text"></h3>
+                <div class="infofenster inforahmen">
+                    <h4 ng-bind="modus.hinweis" ng-if="modus.status == 'unbekannt' "></h4>
+
+                    <div ng-show=" modus.status == 'buchbar' ||  modus.status == 'gewunschen' "
+                         ng-include="'./components/filme/templateFilmInfosAnzeigen.html?ffs'"></div>
+
+                    <!-- WUNSCH anlegen oder Film bearbeiten -->
+                    <div ng-show=" modus.status == 'neuerWunsch' ||
+                        modus.status == 'bearbeiteFilm' ||  modus.status == 'bearbeiteWunsch'"
+                         ng-include="'./components/filme/templateFilmBearbeiten.html?ssffs'"></div>
+                    <!-- Ende Wunschfilm anlegen -->
+                </div>
+            </div>
+            <!-- / rechte Spalte -->
+
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer"
+     ng-include="'./components/filme/templateModalRowFooter.html'">
+</div>
+</body>
+</html>

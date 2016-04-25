@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+
+</head>
+<body>
+	<div class=" container">
+
+		<div data-ng-app="app.dashboard">
+			<div data-ng-controller="dashboardCtrl">
+
+				<div data-ng-if="loggedIn">
+					<h2>Übersicht!</h2>
+
+
+					Kontextbezogen:<br> der Verleih sieht seine aktuell laufenden Filme und die
+					Einspielergebnisse. Alle filme sieht er im Programm<br> der Spielort sieht
+					fehlende Rückmeldungen, den status der nächsten Filme, neue Filmwünsche <br> Der
+					Admin sieht fehlende Rückmeldungen, anstehende Buchungen, neue Filmwünsche<br>
+
+					<h2>Datenformate!</h2>
+
+					<h4>Boolean</h4>
+					<div>
+						<strong>loggedIn</strong>: {{loggedIn}}
+					</div>
+
+					<h4>Objekte</h4>
+
+					<div>
+						<strong>logedInUser</strong>: {{logedInUser}} (könnt vielleicht auf uid reduzeirt
+						werden)
+					</div>
+				
+					<h4>Array von Objekten</h4>
+					<div>
+						<strong>users</strong> [{
+						<div ng-repeat="  (key , val) in users">{{key}} : {{val}},</div>
+						}]
+					</div>
+					<div>
+						<strong>spielorte</strong> [{
+						<div ng-repeat="  (key , val) in spielorte">{{key}} : {{val}},</div>
+						}]
+					</div>
+					<div>
+						<strong>verleiher</strong> [{
+						<div ng-repeat="  (key , val) in verleiher">{{key}} : {{val}},</div>
+						}]
+					</div>
+
+					<div>
+						<strong>filme</strong> [{
+						<div ng-repeat="  (key , val) in filme">{{key}} : {{val}},</div>
+						}]
+					</div>
+					<div>
+						<strong>buchungen</strong> [{
+						<div ng-repeat="  (key , val) in buchungen">{{key}} : {{val}},</div>
+						}]
+					</div>
+					
+					<h4>Arrays</h4>
+					<div>
+						<strong>spielorteSortiert: </strong>[
+						<div ng-repeat="  ar in spielorteSortiert">{{ar}},</div>
+						]
+					</div>
+					<div>
+						<strong>verleiherSortiert: </strong>[
+						<div ng-repeat="  ar in verleiherSortiert">{{ar}},</div>
+						]
+					</div>
+					<div>
+						<strong>usersSortiert: </strong>
+					</div>
+					[
+					<div ng-repeat="  ar in usersSortiert">{{ar}},</div>
+					]
+					<div>
+						<strong>filmlauf</strong> [
+						<div ng-repeat=" (key , val) in filmlauf">idx {{key}} = [ {{val}} ],</div>
+						]
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

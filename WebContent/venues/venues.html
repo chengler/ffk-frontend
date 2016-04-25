@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+
+<!-- <script type="text/javascript" src="./modalVenue.js"></script> -->
+
+
+
+
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<div data-ng-app="app.venue">
+			<div data-ng-controller="venueCtrl">
+				<h2>Spielorte!</h2>
+
+				Eine Übersicht der Spielorte mit der Möglichkeit der Kontaktaufnahme Für den Admin
+				auch die Möglichkeit der Datenänderung.
+
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th class="col-sm-1">ID</th>
+							<th class="col-sm-2">Ort</th>
+							<th class="col-sm-1">alle Infos</th>
+							<th class="col-sm-1" ng-if="logedInUser.role == 'admin'">
+								<button class="btn btn-success" data-ng-click="showSpielort()">Spielort
+									anlegen</button>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="ort in spielorteSortiert">
+							<!-- 							performance: http://ng-perf.com/ mit html per ng-bind-html="::fadsf"" als -->
+							<!-- 							conditional template -->
+							<!-- 							http://stackoverflow.com/questions/15974086/conditional-ng-include-in-angularjs -->
+							<!-- 							eine push Lösung für ::bindings? -->
+							<!-- 							http://stackoverflow.com/questions/14702981/angularjs-model-changes-after-websocket-data-push-from-server -->
+							<td class="col-sm-1" data-ng-bind="ort[0]"></td>
+							<td class="col-sm-2" data-ng-bind="ort[1]"></td>
+							<td class="col-sm-1"><button class="btn btn-info"
+									data-ng-click="showSpielort(ort[0])">Details anzeigen</button></td>
+							<td class="col-sm-1" ng-if="logedInUser.role == 'admin'"><button class="btn btn-warning"
+									data-ng-click="deleteSpielort(ort[0])">Spielort löschen</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

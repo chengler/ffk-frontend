@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+
+<title>Insert title here</title>
+</head>
+
+<body>
+	<div class=" container">
+
+		<!-- BENUTZER ANZEIGEN -->
+
+		<div data-ng-app="app.users">
+			<div data-ng-controller="userCtrl">
+
+				<!-- 					Benutzerübersicht -->
+				<h4>Benutzerübersicht!</h4>
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th class="col-sm-1">ID</th>
+							<th class="col-sm-1">Anmeldename</th>
+							<th class="col-sm-2">Name</th>
+							<th class="col-sm-1">Rolle</th>
+							<th class="col-sm-2">Zuordnung</th>
+							<th class="col-sm-1">Details</th>
+							<th class="col-sm-1" ng-if="logedInUser.role == 'admin'">
+							<button class="btn btn-success" data-ng-click="showUser()">Benutzer
+								anlegen</button>
+						</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="user in usersSortiert">
+							<!-- performance: http://ng-perf.com/ -->
+							<!-- mit html			per ng-bind-html="::fadsf"" -->
+							<!-- als conditional template -->
+							<!-- http://stackoverflow.com/questions/15974086/conditional-ng-include-in-angularjs -->
+							<!-- eine push Lösung für ::bindings? http://stackoverflow.com/questions/14702981/angularjs-model-changes-after-websocket-data-push-from-server -->
+							<td class="col-sm-1" data-ng-bind="::user[0]"></td>
+							<td class="col-sm-1" data-ng-bind="user[1]"></td>
+							<td class="col-sm-1" data-ng-bind="user[4]"></td>
+							<td class="col-sm-2" data-ng-bind="user[2]"></td>
+							<td class="col-sm-2" data-ng-bind="getRefName(user[3])"></td>
+							<td class="col-sm-1"><button class="btn btn-info"
+									data-ng-click="showUser(user[0])">Details anzeigen</button></td>
+							<td class="col-sm-1" ng-if="logedInUser.role == 'admin'"><button class="btn btn-warning"
+								data-ng-click="deleteBenutzer(user[0])">Benutzer löschen</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+	</div>
+
+
+
+</body>
+</html>

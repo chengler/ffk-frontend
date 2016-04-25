@@ -1,6 +1,12 @@
-# alles was in packages.json für nodejs vorgesehen wurde
+# alles was nach packages.json über npm install installiert wird
 node_modules
+node_modules/*
 
-# Abhängigkeiten, welche von Bower aufgelöst werden
+# Abhängigkeiten, welche durch npm über Bower installiert wird
 WebContent/bower_components/
+WebContent/bower_components/*
+
+#exampleData, da nicht abgeklärt ist, ob das öffentlich sein darf
+example_data
+example_data/*
 
