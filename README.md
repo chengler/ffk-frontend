@@ -2,13 +2,11 @@
 
 ein Studienprojekt
 
-Voraussetzungen:
-nodejs
-https://nodejs.org/en/download/
-git
-https://git-scm.com/downloads
+Voraussetzungen:</br>
+nodejs https://nodejs.org/en/download/ </br>
+git https://git-scm.com/downloads </br>
 
-Installation:
+Installation: </br>
 git clone https://github.com/chengler/ffk-frontend.git
 
 cd ffk-frontend
