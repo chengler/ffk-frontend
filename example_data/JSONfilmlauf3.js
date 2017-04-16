@@ -47,7 +47,9 @@
 				"medium" : "BD",
 				"medienID" : false,
 				"vonID" : false,
-				"nachID" : false
+				"nachID" : false,
+                "besucher" : [[20, 4],[11, 3.5]],
+                "gesamt" : [30, 118,5]
 			}
 		},
 		"col1w" : [ [ "sid2" ] ],

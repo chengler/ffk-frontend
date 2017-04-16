@@ -155,6 +155,7 @@ angular
 						} // end wochenBuchung wunsch
 
 						// gebe tagesBuchungLang zurück datum
+						// dies ist die übliche Anzeige in der Programmtabelle
 						function tagesBuchungLang() {
 							var fmax = 1;
 							var filmnr = 'f' + fmax;
@@ -229,16 +230,36 @@ angular
 								if ( $rootScope.logedInUser.sid == aktuelleBuchung.ortID || $rootScope.logedInUser.role == "admin" ){
 									myReturn = myReturn + "<span class=' pointer' ng-click='openModalBuchung(" + rowIdx + ","
 										+ colIdx + ","+ fmax + ")' >" + "<small>" + filmBID + "</small> " + filmOrt + "</span>"
-										+ check[1] + check[2] + von + medium + nach + "<br />";
+										+ check[1] + check[2] + von + medium + nach ;
 								} else {
-									myReturn = myReturn + "<small>" + filmBID + "</small> " + filmOrt + check[1] + check[2] + von + medium + nach + "<br />";
+									myReturn = myReturn + "<small>" + filmBID + "</small> " + filmOrt + check[1] + check[2] + von + medium + nach ;
 								}
+								// Bei false zeige fehlende Besucherzahlen, ansonsten zeige Besucherzahlen
+                                if ( "besucher" in aktuelleBuchung ) {
+									if ( aktuelleBuchung.besucher == false || aktuelleBuchung.besucher == undefined){
+                                        myReturn = myReturn + " Besucherzahlen fehlen!";
+									} else {
+                                        var arrayLength = aktuelleBuchung.besucher.length;
+                                        for (var i = 0; i < arrayLength; i++) {
+                                            var besucher  = aktuelleBuchung.besucher[i][0];
+                                            // formatiere cent zu euro
+											var eur = (aktuelleBuchung.besucher[i][1] / 100).toFixed(2);
+                                            myReturn = myReturn + " //" + besucher +"a"+ eur +"€";
+                                        }
+									}
+
+
+								}
+
+
+                                myReturn = myReturn + "<br />";
 
 								fmax = fmax + 1; // schaue, ob weiterer Film
 								// in col
 								filmnr = 'f' + fmax;
 							}
 							; // end while
+
 							return myReturn;
 						} // end tagesBuchunglang
 
@@ -259,6 +280,7 @@ angular
 							}
 							// end while
 
+                           // myReturn = myReturn + "tagesBuchungenKurz";
 							return myReturn;
 						} // end tagesBuchungenKurz
 
@@ -284,6 +306,8 @@ angular
 								// wrapper für Wunschfilme
 								wunsch = "<span style = ' opacity:1; z-index: 2; float: right;'>" + wunsch + "</span>";
 							}
+
+
 							return wunsch;
 						} // end wunschfilme
 

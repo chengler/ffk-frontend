@@ -46,7 +46,9 @@
 				"medium" : "BD",
 				"medienID" : "#3",
 				"vonID" : "sid2",
-				"nachID" : false
+				"nachID" : false,
+                "besucher" : [[20, 400],[11, 350]],
+                "gesamt" : [30, 11850]
 			}
 		},
 		"col1w" : { "bc" : "bc-40" , "sids" : [[ "sid2" ]] },
@@ -189,7 +191,8 @@
 				"medium" : "BD",
 			
 				"vonID" : false,
-				"nachID" : false
+				"nachID" : false,
+                "besucher" : false
 			}
 		},
 		"col2" : {

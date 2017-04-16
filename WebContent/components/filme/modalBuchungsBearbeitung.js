@@ -36,6 +36,8 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
                         $log.debug("modalBuchungsBearbeitung ModalBuchungsBearbeitungService ModalReturn: "
                             + JSON.stringify(buchungsChanges, 1, 4));
 
+
+
                         if (buchungsChanges.msg != undefined) {
                             console.log("zeige nur noch Meldung: " + buchungsChanges.msg);
                         } else {
@@ -44,9 +46,14 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
                             console.log("Änderung auf r/c/f " + rowIdx + "/" + colIdx + "/" + filmNr);
 
                             Object.keys(buchungsChanges).forEach(function (key) {
-                                console.log("Änderung" + key + " :" + buchungsChanges[key]);
+                                console.log("Änderung " + key + " :" + buchungsChanges[key]);
 //						buchung[key] = buchungsChanges[key];
-                                $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr][key] = buchungsChanges[key];
+                                if (key == "besucher"){
+                                    console.log("Besucher geändert "+buchungsChanges[key]);
+                                }else {
+                                    $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr][key] = buchungsChanges[key];
+
+                                }
 
                             });
                         }
@@ -89,6 +96,7 @@ angular.module('modalBuchungsBearbeitung').controller(
         $scope.refOrt = [$scope.buchung.ortID,
             FfkUtils.getRefName($rootScope.spielorteSortiert, $scope.buchung.ortID, 1)];
         // die Änderungen
+
         $scope.buchungsChanges = Object.create($scope.buchung);
 
         // fülle Medien {BD: anzahl, dvd:anzahl..}
@@ -124,6 +132,26 @@ angular.module('modalBuchungsBearbeitung').controller(
         };
         $scope.getMedienIDs();
 
+        // lese Besucherzahlen
+        //console.log($scope.buchung);
+        $scope.besucher=[ [0,0],[0,0] ];
+
+        $scope.getBesucher = function () {
+            if ( "besucher" in $scope.buchung ) {
+                if ( Array.isArray($scope.buchung.besucher)) {
+                    $scope.besucher=$scope.buchung.besucher;
+                  //  $scope.besucher.push([0,0]);
+                  console.log("besucher: " + $scope.besucher);
+                } else {
+                    console.log("getBesucher: not an Array " + $scope.buchung.besucher);
+                }
+            }
+        }
+        $scope.getBesucher();
+
+
+
+
         // von und nach Ort
         $scope.vonOrt = ["", ""];
         $scope.nachOrt = ["", ""];
@@ -135,6 +163,16 @@ angular.module('modalBuchungsBearbeitung').controller(
         if (bn != false) {
             $scope.nachOrt = [bn, FfkUtils.getRefName($rootScope.spielorteSortiert, bn, 1)];
         }
+
+// änderung der Besucher oder des eintritts
+        $scope.changeEintritt = function ( bes,eint ) {
+            if (! Array.isArray($scope.buchung.besucher)){
+                $scope.buchungsChanges.besucher= [] ;
+            }
+            $scope.buchungsChanges.besucher.push($scope.besucher[bes][eint]);
+        };
+
+
         $scope.changeVonOrt = function () {
             $scope.buchungsChanges.vonID = $scope.vonOrt[0];
         };
@@ -143,6 +181,7 @@ angular.module('modalBuchungsBearbeitung').controller(
         };
 
         $scope.ok = function (was) {
+            console.log("speicher! gebe "+$scope.besucher);
             console.log(was);
             $uibModalInstance.close($scope.buchungsChanges);
         };
