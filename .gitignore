@@ -6,7 +6,7 @@ node_modules/*
 WebContent/bower_components/
 WebContent/bower_components/*
 
-#exampleData, da nicht abgeklärt ist, ob das öffentlich sein darf
-example_data
-example_data/*
+#exampleData, 
+#example_data
+#example_data/*
 
