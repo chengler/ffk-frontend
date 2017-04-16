@@ -12,3 +12,5 @@ WebContent/bower_components/*
 
 # check git commit
 
+# infos der entwicklungsumgebung
+.idea
