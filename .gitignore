@@ -14,3 +14,4 @@ WebContent/bower_components/*
 
 # infos der entwicklungsumgebung
 .idea
+.idea/*
