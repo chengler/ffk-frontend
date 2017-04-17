@@ -7,7 +7,7 @@ angular.module('modalUser', [ 'ui.bootstrap', , 'ffkUtils' ]).constant('MODULE_V
 .service('OpenModalUserService', function($rootScope, $uibModal, $log, FfkUtils) {
 	this.editUser = function(uid) {
 		var modalInstance = $uibModal.open({
-			templateUrl : './resources/scripts/users/modalUser.html?' + Math.random(),
+			templateUrl : './users/modalUser.html?' + Math.random(),
 			controller : 'ModalUserInstanceCtrl',
 			size : "lg",
 			resolve : {

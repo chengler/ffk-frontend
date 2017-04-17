@@ -7,7 +7,7 @@ angular.module('modalVenue', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_VE
 .service('OpenModalVenueService', function($rootScope, $uibModal, $log, FfkUtils) {
 	this.editVenue = function(sid) {
 		var modalInstance = $uibModal.open({
-			templateUrl : './resources/scripts/venues/modalVenue.html?' + Math.random(),
+			templateUrl : './venues/modalVenue.html?' + Math.random(),
 			controller : 'ModalVenueInstanceCtrl',
 			size : "lg",
 			resolve : {

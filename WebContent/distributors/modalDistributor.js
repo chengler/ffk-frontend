@@ -7,7 +7,7 @@ angular.module('modalDistributor', [ 'ui.bootstrap', 'ffkUtils'  ]).constant('MO
 .service('OpenModalDistributorService', function($rootScope, $uibModal, $log, FfkUtils) {
 	this.editDistributor = function(vid) {
 		var modalInstance = $uibModal.open({
-			templateUrl : './resources/scripts/distributors/modalDistributor.html?' + Math.random(),
+			templateUrl : './distributors/modalDistributor.html?' + Math.random(),
 			controller : 'ModalDistributorInstanceCtrl',
 			size : "lg",
 			resolve : {
