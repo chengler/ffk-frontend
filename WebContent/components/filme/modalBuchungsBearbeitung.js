@@ -73,6 +73,8 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
 //
 // 
 // bezieht sich auf eine einzelbuchung aus dem Filmlauf
+// speicher Änderungen in der Variablen buchungsChanges
+// bei änderung werden diese dann übertragen, sonst verworfen
 angular.module('modalBuchungsBearbeitung').controller(
     'ModalBuchungsBearbeitungInstanceCtrl',
     function ($rootScope, $scope, $log, $uibModalInstance, rowIdx, colIdx, filmNr, FfkUtils) {
@@ -91,13 +93,23 @@ angular.module('modalBuchungsBearbeitung').controller(
 
         console.log(" verleihBuchung " + JSON.stringify(verleihBuchung, 0, 0));
         // die angeklickte zelle
-        $scope.buchung = $rootScope.filmlauf[rowIdx][col][film];
-        console.log(" buchung " + JSON.stringify($scope.buchung, 0, 0));
-        $scope.refOrt = [$scope.buchung.ortID,
-            FfkUtils.getRefName($rootScope.spielorteSortiert, $scope.buchung.ortID, 1)];
-        // die Änderungen
+        var ringBuchung = $rootScope.filmlauf[rowIdx][col][film];
+        /// $scope.buchung = $rootScope.filmlauf[rowIdx][col][film];
+        ///console.log(" buchung " + JSON.stringify($scope.buchung, 0, 0));
+        console.log(" ringBuchung " + JSON.stringify(ringBuchung, 0, 0));
 
-        $scope.buchungsChanges = Object.create($scope.buchung);
+        /// $scope.refOrt = [$scope.buchung.ortID,
+            /// FfkUtils.getRefName($rootScope.spielorteSortiert, $scope.buchung.ortID, 1)];
+
+        $scope.refOrt = [ringBuchung.ortID,
+            FfkUtils.getRefName($rootScope.spielorteSortiert, ringBuchung.ortID, 1)];
+
+        // getätigte Änderungen werden hier gespeichert
+        ///$scope.buchungsChanges = Object.create($scope.buchung);
+        ///$scope.buchungsChanges = Object.create(ringBuchung);
+        ///console.log(" buchungsChanges " + JSON.stringify($scope.buchungsChanges, 0, 0));
+
+
 
         // fülle Medien {BD: anzahl, dvd:anzahl..}
         $scope.medien = [];
@@ -105,7 +117,8 @@ angular.module('modalBuchungsBearbeitung').controller(
             // Medium steht zur verfügung
             if (verleihBuchung.medien[medium] <= datum) {
                 // füge nur hinzu, wenn nicht default
-                if ($scope.buchung.medium != medium) {
+                ///if ($scope.buchung.medium != medium) {
+                if (ringBuchung.medium != medium) {
                     $scope.medien.push(medium);
                 }
             }
@@ -117,61 +130,69 @@ angular.module('modalBuchungsBearbeitung').controller(
         // erzeuge mögliche #1, #2 ...
         $scope.getMedienIDs = function () {
             $scope.medienIDs = [];
-            var menge = parseInt(verleihBuchung.menge[$scope.buchungsChanges.medium]);
+            var menge = parseInt(verleihBuchung.menge[ringBuchung.medium]);
+///            var menge = parseInt(verleihBuchung.menge[$scope.buchungsChanges.medium]);
+
             if (menge > 0) {
                 for (var i = 1; i <= menge; i++) {
                     var id = "#" + i;
                     // füge nur hinzu, wenn nicht default
-                    if ($scope.buchung.medienID != id & id != false) {
+                    ///if ($scope.buchung.medienID != id & id != false) {
+                    if (ringBuchung.medienID != id & id != false) {
                         $scope.medienIDs.push(id);
                     }
                 }
             }
-            console.log(" medienIDs für " + $scope.buchungsChanges.medium + " = "
+           /// console.log(" medienIDs für " + $scope.buchungsChanges.medium + " = "
+            console.log(" medienIDs für " + ringBuchung.medium + " = "
                 + JSON.stringify($scope.medienIDs, 0, 0));
         };
         $scope.getMedienIDs();
 
-        // lese Besucherzahlen
+        // lese Besucherzahlen in die Variable scope.besucher
+        // ist in jedem Fall ein Array
         //console.log($scope.buchung);
-        $scope.besucher=[ [0,0],[0,0] ];
-
+        $scope.besucher=[ [,0], [,] ]; // keine eintragung für Besucher
+        console.log("length: " + $scope.besucher.length);
         $scope.getBesucher = function () {
-            if ( "besucher" in $scope.buchung ) {
-                if ( Array.isArray($scope.buchung.besucher)) {
-                    $scope.besucher=$scope.buchung.besucher;
-                  //  $scope.besucher.push([0,0]);
-                  console.log("besucher: " + $scope.besucher);
-                } else {
-                    console.log("getBesucher: not an Array " + $scope.buchung.besucher);
+            if ( "besucher" in ringBuchung ) {
+                if ( Array.isArray(ringBuchung.besucher)) {
+                    // !! ändere nicht das original!!
+                    $scope.besucher=angular.copy(ringBuchung.besucher);
+                    $scope.besucher.push([,0]);
+                    console.log("length 2!: " + $scope.besucher.length);
                 }
             }
+            console.log("getBesucher: " + $scope.besucher);
         }
         $scope.getBesucher();
-
-
-
 
         // von und nach Ort
         $scope.vonOrt = ["", ""];
         $scope.nachOrt = ["", ""];
-        var bv = $scope.buchung.vonID;
+        ///var bv = $scope.buchung.vonID;
+        var bv = ringBuchung.vonID;
         if (bv != false) {
             $scope.vonOrt = [bv, FfkUtils.getRefName($rootScope.spielorteSortiert, bv, 1)];
         }
-        var bn = $scope.buchung.nachID;
+        ///var bn = $scope.buchung.nachID;
+        var bn = ringBuchung.nachID;
         if (bn != false) {
             $scope.nachOrt = [bn, FfkUtils.getRefName($rootScope.spielorteSortiert, bn, 1)];
         }
 
-// änderung der Besucher oder des eintritts
-        $scope.changeEintritt = function ( bes,eint ) {
-            if (! Array.isArray($scope.buchung.besucher)){
-                $scope.buchungsChanges.besucher= [] ;
-            }
-            $scope.buchungsChanges.besucher.push($scope.besucher[bes][eint]);
-        };
 
+        // getätigte Änderungen werden hier gespeichert um nach dem Speichern bearbeitet zu werden
+        // 1x lokal und 1x RESTfull
+        ///$scope.buchungsChanges = Object.create($scope.buchung);
+        $scope.buchungsChanges = Object.create(ringBuchung);
+        console.log(" buchungsChanges " + JSON.stringify($scope.buchungsChanges, 0, 0));
+
+        // änderungen vom typ Besucher [0] oder Eintritt typ[1] (array)
+        $scope.changeEintritt = function ( idx, typ ) {
+            $scope.buchungsChanges.besucher = $scope.besucher;
+            console.log($scope.buchungsChanges.besucher +" idx " + idx + " typ " +typ)
+        };
 
         $scope.changeVonOrt = function () {
             $scope.buchungsChanges.vonID = $scope.vonOrt[0];
@@ -193,6 +214,8 @@ angular.module('modalBuchungsBearbeitung').controller(
         };
 
         $scope.cancel = function () {
+            $scope.besucher=null;
+             console.log("canceling ...");
             $uibModalInstance.dismiss('cancel');
         };
     });
