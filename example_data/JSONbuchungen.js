@@ -38,7 +38,7 @@
 		"menge" : {
 			"DCP" : 1
 		},
-		"vid" : "vid2",
+		"vid" : "vid1",
 		"start" : "20170114",
 		"laufzeit" : 1
 	},
@@ -66,7 +66,7 @@
 		"menge" : {
 			"DCP" : 1
 		},
-		"vid" : "vid2",
+		"vid" : "vid1",
 		"start" : "20170114",
 		"laufzeit" : 1
 	},
@@ -96,8 +96,7 @@
 
 		"v777" : {
 			"fID" : "f88",
-			"titel" : "The last Rasta",
-            "vid":"vid1"
+			"titel" : "The last Rasta"
 		}
 	}
 } ]
