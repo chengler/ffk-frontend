@@ -4,32 +4,38 @@
 		"col1" : {
 			"bc" : "bc-10",
 			"vBID" : "v123",
-			"fID" : "f30"
+			"fID" : "f30",
+        	"vid":"vid1"
 		},
 		"col1w" : {
 			"bc" : "bc-00",
 			"vBID" : "v777",
-			"fID" : "f88"
+			"fID" : "f88",
+        	"vid":"vid1"
 		},
 		"col2" : {
 			"bc" : "bc-20",
 			"vBID" : "v124",
-			"fID" : "f31"
+			"fID" : "f31",
+            "vid":"vid1"
 		},
 		"col3" : {
 			"bc" : "bc-30",
 			"vBID" : "v133",
-			"fID" : "f32"
+			"fID" : "f32",
+            "vid" : "vid2"
 		},
 		"col5" : {
 			"bc" : "bc-40",
 			"vBID" : "v524",
-			"fID" : "f34"
+			"fID" : "f34",
+            "vid" : "vid2"
 		},
 		"col6" : {
 			"bc" : "bc-50",
 			"vBID" : "v633",
-			"fID" : "f35"
+			"fID" : "f35",
+            "vid" : "vid1"
 		}
 	}
 }, {
