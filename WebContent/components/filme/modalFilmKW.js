@@ -30,7 +30,9 @@ angular.module('modalFilmKW', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_V
 				}
 			}
 		});
-		$log.debug("openModalFilmlauf mit filmlaufIdx: " + rowIdx + " colIdx: " + colIdx + "Filmtyp " + colTyp);
+		// Filmtyp 1 ist Wunschfilmm undefined = normal
+		$log.debug("filme/modalFilmKW.js mit filmlaufIdx: " + rowIdx + " colIdx: " + colIdx + " Filmtyp " + colTyp);
+		// die Rückgabe
 		modalInstance.result.then(function(res) {
 			$log.debug("ModalReturn: " + JSON.stringify(res, 1, 4));
 			var col = 'col' + colIdx; // col1 ...
