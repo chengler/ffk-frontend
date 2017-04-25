@@ -10,7 +10,8 @@
 		},
 		"vid" : "vid1",
 		"start" : "20170114",
-		"laufzeit" : 1
+		"laufzeit" : 1,
+        "fw1" : [30, 11850]
 	},
 	"v124" : {
 		"fID" : "f31",
@@ -38,7 +39,7 @@
 		"menge" : {
 			"DCP" : 1
 		},
-		"vid" : "vid1",
+		"vid" : "vid2",
 		"start" : "20170114",
 		"laufzeit" : 1
 	},
@@ -53,7 +54,7 @@
 			"BD" : 1,
 			"DCP" : 1
 		},
-		"vid" : "vid1",
+		"vid" : "vid2",
 		"start" : "20170114",
 		"laufzeit" : 1
 	},
@@ -66,7 +67,7 @@
 		"menge" : {
 			"DCP" : 1
 		},
-		"vid" : "vid1",
+		"vid" : "vid2",
 		"start" : "20170114",
 		"laufzeit" : 1
 	},
@@ -88,7 +89,7 @@
 		"menge" : {
 			"analog" : 1
 		},
-		"vid" : "vid1",
+		"vid" : "vid2",
 		"start" : "20170114",
 		"laufzeit" : 1
 	},

@@ -490,8 +490,21 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         };
 
         this.loadFilmlauf = function () {
-            $log.info("lade Filmlauf");
-            $http.get('../example_data//JSONfilmlauf2.js?' + Math.random()).success(
+            $log.info("ffkUtils.loadFilmlauf: lade Filmlauf");
+            // welcher filmlauf wird geladen
+            // standard ist 2
+            // wenn verleiher vid 1 wird 3 geladen
+            var filmlaufnr = "../example_data/JSONfilmlauf2.js";
+            if ($rootScope.logedInUser.role == "verleih"){
+                switch ($rootScope.logedInUser.vid){
+                    case "vid1":
+                        filmlaufnr = "../example_data/JSONfilmlauf3.js";
+                        break;
+                    }
+            }
+            $log.info("ffkUtils.loadFilmlauf: "+filmlaufnr +'?');
+            // $http.get('../example_data//JSONfilmlauf3.js?' + Math.random()).success(
+            $http.get(filmlaufnr + '?' + Math.random()).success(
                 function (data) {
                     // $rootScope.filmlauf = data;
                     for (var obj in data) {

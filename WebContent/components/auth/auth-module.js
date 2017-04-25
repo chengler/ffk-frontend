@@ -190,9 +190,10 @@
 			// anmeldung erfolgreich | gescheitert
 			if ($rootScope.loggedIn) {
 				console.log("angemeldet ist nun " + JSON.stringify($rootScope.logedInUser));
+
 			} else {
 				console.log("anmeldung gescheitert");
-				$scope.auth.username = "versuch max oder jh!";
+				$scope.auth.username = "versuch jh(admin, max(spieler) oder em(verleih)!";
 
 			}
 

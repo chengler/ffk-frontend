@@ -86,7 +86,10 @@
                         initFilmlauf("filmlaufGeladen");
                     }
                 }, true);
+                // lade Filmlauf sobald bekannt ist, wer sich angemeldet hat
+
                 // starte asyncron
+                // erst wenn user angemeldet
                 FfkUtils.loadFilmlauf();
             }
 
