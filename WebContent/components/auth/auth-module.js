@@ -193,7 +193,7 @@
 
 			} else {
 				console.log("anmeldung gescheitert");
-				$scope.auth.username = "versuch jh(admin, max(spieler) oder em(verleih)!";
+				$scope.auth.username = "jh(admin), max(spieler) oder em(verleih)!";
 
 			}
 

@@ -6,10 +6,10 @@
 
 </head>
 <body>
-	<div class=" container">
+	<div class="container">
 
 		<div data-ng-app="app.dashboard">
-			<div data-ng-controller="dashboardCtrl">
+			<div data-ng-controller="DashboardCtrl">
 
 				<div data-ng-if="loggedIn">
 					<h2>Übersicht!</h2>
@@ -33,13 +33,25 @@
 						<strong>logedInUser</strong>: {{logedInUser}} (könnt vielleicht auf uid reduzeirt
 						werden)
 					</div>
-				
+
 					<h4>Array von Objekten</h4>
-					<div>
+
 						<strong>users</strong> [{
 						<div ng-repeat="  (key , val) in users">{{key}} : {{val}},</div>
 						}]
-					</div>
+					<form class="form-inline">
+						<div class="form-group">
+						<button class="btn btn-success" data-ng-click="speicher('users')">speicher 'users'</button>
+						</div>
+						<div class="form-group">
+							<span> Oder ersetze durch Datei: </span>
+						</div>
+						<div class="form-group">
+							<input class="btn btn-warning" type="file" on-read-file="lade('users', $fileContent)" >
+						</div>
+					</form>
+
+
 					<div>
 						<strong>spielorte</strong> [{
 						<div ng-repeat="  (key , val) in spielorte">{{key}} : {{val}},</div>

@@ -495,14 +495,14 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             // standard ist 2
             // wenn verleiher vid 1 wird 3 geladen
             var filmlaufnr = "../example_data/JSONfilmlauf2.js";
-            if ($rootScope.logedInUser.role == "verleih"){
-                switch ($rootScope.logedInUser.vid){
+            if ($rootScope.logedInUser.role == "verleih") {
+                switch ($rootScope.logedInUser.vid) {
                     case "vid1":
                         filmlaufnr = "../example_data/JSONfilmlauf3.js";
                         break;
-                    }
+                }
             }
-            $log.info("ffkUtils.loadFilmlauf: "+filmlaufnr +'?');
+            $log.info("ffkUtils.loadFilmlauf: " + filmlaufnr + '?');
             // $http.get('../example_data//JSONfilmlauf3.js?' + Math.random()).success(
             $http.get(filmlaufnr + '?' + Math.random()).success(
                 function (data) {
@@ -700,6 +700,24 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     "sids": [[sid, garantie]]
                 };
             }
+        }
+
+        // speicher objekt unter name
+        // nicht verwendet wäre zum internen speichern
+
+        this.speicherLokal = function (name, objekt) {
+            $log.info("* FfkUtils.speicherLokal '" + name + "' was da ist" +JSON.stringify(objekt, 0, 0));
+            localStorage.setItem(name, JSON.stringify( objekt));
+
+
+        };
+
+        // lade ein Objekt
+        this.ladeLokal = function (name) {
+            $log.info("* FfkUtils.ladeLokal '" + name + "'");
+            var ret = JSON.parse(localStorage.getItem(name));
+            $log.info(JSON.stringify(ret, 0, 0))
+            return ret;
         }
 
     });
