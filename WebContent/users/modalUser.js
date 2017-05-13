@@ -29,7 +29,7 @@ angular.module('modalUser', [ 'ui.bootstrap', , 'ffkUtils' ]).constant('MODULE_V
 			// überprüfe, ob neu angelegt wird
 			if (uid == undefined) {
 				console.log("Lege neuen Benutzer an");
-				uid = "uid" + FfkUtils.getNewProvID("uid");
+				uid =  FfkUtils.getNewProvID("uid");
 				$rootScope.users[uid] = {};
 				console.log(uid + " " + JSON.stringify($rootScope.myProvID));
 				console.log(JSON.stringify($rootScope.users));

@@ -30,17 +30,22 @@ $scope.speicher = function(name){
         }
     }
 
-    // lade eine Datei im Array Format
-    $scope.lade = function(objekt, $fileContent){
-    console.log("lade Datei in das Objekt "+ objekt);
+    // lade eine Datei im Array Format in das objekt mit dem name objektname
+    $scope.lade = function(objektname, $fileContent){
+    console.log("lade Datei in das Objekt "+ objektname);
     //console.log($fileContent);
-        $rootScope[objekt] = JSON.parse($fileContent);
-        console.log($scope[objekt]);
+        $rootScope[objektname] = JSON.parse($fileContent);
+        console.log($scope[objektname]);
 
-        // wenn neue users geladen werden erstelle und sortiere usersSortiert
-        if (objekte == 'users'){
+        // wenn Objekt 'users' geladen wurde erstelle und sortiere usersSortiert
+        if (objektname == 'users'){
             FfkUtils.sortiereUsers();
         }
+        if (objektname == 'spielorte'){
+            FfkUtils.sortiereSpielorte();
+        }
+
+
 
 
 

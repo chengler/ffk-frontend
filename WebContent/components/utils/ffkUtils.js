@@ -746,5 +746,34 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             });
         }
 
+        this.sortiereSpielorte = function (){
+        // sortiere Spieorte nach Ort (Alphabetisch)
+        //
+        // packe key und Ort in Array
+        $rootScope.spielorteSortiert = [];
+        var keys = Object.keys($rootScope.spielorte);
+        keys.forEach(function(sid) {
+            $rootScope.spielorteSortiert.push([ sid, $rootScope.spielorte[sid]['ort'] ]);
+        });
+        // sortiere nach Ort in Array
+        // a[0] is sid (spielOrtID)
+        // a[1] ist der Ort (sortiert nach Ort)
+        $rootScope.spielorteSortiert = $rootScope.spielorteSortiert.sort(function(a, b) {
+            if (a[1] > b[1]) {
+                return 1;
+            }
+            if (a[1] < b[1]) {
+                return -1;
+            }
+            return 0;
+        });
+        // Spieorte ist nun vorbereitet
+        console
+            .log(Date.now() + " Spielorte sortiert: "
+                + Object.keys($rootScope.spielorteSortiert).length);
+        console.log(JSON.stringify($rootScope.spielorteSortiert, 0, 4));
+        }
+
+
     });
 

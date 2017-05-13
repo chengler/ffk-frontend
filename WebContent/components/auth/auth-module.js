@@ -37,7 +37,8 @@
 					console.log(Date.now() + " JSONspielorte: " + Object.keys($rootScope.spielorte).length
 							+ " Spielorte in $rootScope geladen");
 
-					// sortiere Spieorte nach Ort (Alphabetisch)
+                    FfkUtils.sortiereSpielorte();
+/*					// sortiere Spieorte nach Ort (Alphabetisch)
 					//
 					// packe key und Ort in Array
 					$rootScope.spielorteSortiert = [];
@@ -56,7 +57,7 @@
 							return -1;
 						}
 						return 0;
-					});
+					});*/
 					// Spieorte ist nun vorbereitet
 					console
 							.log(Date.now() + " Spielorte sortiert: "

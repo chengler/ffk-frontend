@@ -28,7 +28,7 @@ angular.module('modalVenue', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_VE
 			// überprüfe, ob neu angelegt wird
 			if (sid == undefined) {
 				console.log("Lege neuen Spielort an");
-				sid = "sid" + FfkUtils.getNewProvID("sid");
+				sid =  FfkUtils.getNewProvID("sid");
 				$rootScope.spielorte[sid] = {};
 				console.log(sid + " " + JSON.stringify($rootScope.myProvID));
 				console.log(JSON.stringify($rootScope.spielorte));
