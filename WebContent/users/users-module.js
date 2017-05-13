@@ -6,6 +6,8 @@
 	users.controller('userCtrl', function($log, $scope, $rootScope, OpenModalUserService, FfkUtils) {
 		console.log("init UserCtrl");
 
+
+
 		$scope.showUser = function(uid) {
 			$log.debug("OpenModalUserService.editUser(uid): " + uid);
 			OpenModalUserService.editUser(uid);
@@ -75,5 +77,6 @@
 		//	
 		// $scope.loadUsers();
 
-	});
+
+    });
 })();

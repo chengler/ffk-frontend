@@ -720,5 +720,31 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             return ret;
         }
 
+
+        this.sortiereUsers = function () {
+            // sortiere user nach Name (Alphabetisch)
+            //
+            // packe [ "uid", "logName", "role", "ref", "name" ]
+            $rootScope.usersSortiert = [];
+            var keys = Object.keys($rootScope.users);
+            keys.forEach(function (uid) {
+                $rootScope.usersSortiert.push([uid, $rootScope.users[uid]['logName'],
+                    $rootScope.users[uid]['role'], $rootScope.users[uid]['ref'],
+                    $rootScope.users[uid]['name']]);
+            });
+            // sortiere nach name in Array
+            // a[0] is uid (userID)
+            // a[4] ist der name (sortiert nach name)
+            $rootScope.usersSortiert = $rootScope.usersSortiert.sort(function (a, b) {
+                if (a[4] > b[4]) {
+                    return 1;
+                }
+                if (a[4] < b[4]) {
+                    return -1;
+                }
+                return 0;
+            });
+        }
+
     });
 

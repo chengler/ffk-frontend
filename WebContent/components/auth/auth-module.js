@@ -25,34 +25,9 @@
 					console.log(Date.now() + " JSONusers: " + Object.keys($rootScope.users).length
 							+ " user in $rootScope geladen");
 
-					// sortiere user nach Name (Alphabetisch)
-					//
-					// packe [ "uid", "logName", "role", "ref", "name" ]
-					$rootScope.usersSortiert = [];
-					var keys = Object.keys($rootScope.users);
-					keys.forEach(function(uid) {
-						$rootScope.usersSortiert.push([ uid, $rootScope.users[uid]['logName'],
-								$rootScope.users[uid]['role'], $rootScope.users[uid]['ref'],
-								$rootScope.users[uid]['name'] ]);
-					});
-					// sortiere nach name in Array
-					// a[0] is uid (userID)
-					// a[4] ist der name (sortiert nach name)
-					$rootScope.usersSortiert = $rootScope.usersSortiert.sort(function(a, b) {
-						if (a[4] > b[4]) {
-							return 1;
-						}
-						if (a[4] < b[4]) {
-							return -1;
-						}
-						return 0;
-					});
-					// users ist nun vorbereitet
-					console.log(Date.now() + " usersSortiert: nach Name "
-							+ Object.keys($rootScope.usersSortiert).length);
-					console.log(JSON.stringify($rootScope.usersSortiert, 0, 4));
+					FfkUtils.sortiereUsers();
 
-				});
+			});
 
 		// lade Spieorte in den rootscopee - asyncron
 		// [ [{sid : Ort}],[ ...]]

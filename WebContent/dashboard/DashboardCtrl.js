@@ -8,7 +8,8 @@
         '$scope',
         '$rootScope',
         '$log',
-        function ( $scope, $rootScope,  $log) {
+        'FfkUtils',
+        function ( $scope, $rootScope,  $log, FfkUtils) {
             $log.info("init DashboardCtrl");
 
 
@@ -29,11 +30,19 @@ $scope.speicher = function(name){
         }
     }
 
+    // lade eine Datei im Array Format
     $scope.lade = function(objekt, $fileContent){
     console.log("lade Datei in das Objekt "+ objekt);
     //console.log($fileContent);
         $rootScope[objekt] = JSON.parse($fileContent);
         console.log($scope[objekt]);
+
+        // wenn neue users geladen werden erstelle und sortiere usersSortiert
+        if (objekte == 'users'){
+            FfkUtils.sortiereUsers();
+        }
+
+
 
 
 
