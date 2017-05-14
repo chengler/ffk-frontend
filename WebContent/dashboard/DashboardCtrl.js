@@ -17,7 +17,7 @@
             //http://stackoverflow.com/questions/2897619/using-html5-javascript-to-generate-and-save-a-file#4551467
 $scope.speicher = function(name){
         var pom = document.createElement('a');
-        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify ($scope[name])));
+        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify ($scope[name],4,1)));
         pom.setAttribute('download', name +".txt");
 
         if (document.createEvent) {
@@ -38,18 +38,25 @@ $scope.speicher = function(name){
         console.log($scope[objektname]);
 
         // wenn Objekt 'users' geladen wurde erstelle und sortiere usersSortiert
-        if (objektname == 'users'){
-            FfkUtils.sortiereUsers();
+
+        switch(objektname) {
+            case 'users':
+                FfkUtils.sortiereUsers();
+                break;
+            case 'spielorte':
+                FfkUtils.sortiereSpielorte();
+                break;
+            case 'verleiher':
+                FfkUtils.sortiereVerleiher();
+                break;
+            case 'filme':
+                // unklar was zu ändern ist.wird durch PCtrl geändert
+                //$rootScope.status.buchungenGeladen = false;
+                break;
+            case 'buchungen':
+                $rootScope.status.buchungenGeladen = false;
+                break;
         }
-        if (objektname == 'spielorte'){
-            FfkUtils.sortiereSpielorte();
-        }
-
-
-
-
-
-
 
     };
 

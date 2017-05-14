@@ -76,17 +76,50 @@
 						<div ng-repeat="  (key , val) in verleiher">{{key}} : {{val}},</div>
 						}]
 					</div>
+					<form class="form-inline">
+						<div class="form-group">
+							<button class="btn btn-success" data-ng-click="speicher('verleiher')">speicher 'verleiher'</button>
+						</div>
+						<div class="form-group">
+							<span> Oder ersetze durch Datei: </span>
+						</div>
+						<div class="form-group">
+							<input class="btn btn-warning" type="file" on-read-file="lade('verleiher', $fileContent)" >
+						</div>
+					</form>
 
 					<div>
 						<strong>filme</strong> [{
 						<div ng-repeat="  (key , val) in filme">{{key}} : {{val}},</div>
 						}]
+						<form class="form-inline">
+							<div class="form-group">
+								<button class="btn btn-success" data-ng-click="speicher('filme')">speicher 'filme'</button>
+							</div>
+							<div class="form-group">
+								<span> Oder ersetze durch Datei: </span>
+							</div>
+							<div class="form-group">
+								<input class="btn btn-warning" type="file" on-read-file="lade('filme', $fileContent)" >
+							</div>
+						</form>
 					</div>
 					<div>
 						<strong>buchungen</strong> [{
 						<div ng-repeat="  (key , val) in buchungen">{{key}} : {{val}},</div>
 						}]
 					</div>
+					<form class="form-inline">
+						<div class="form-group">
+							<button class="btn btn-success" data-ng-click="speicher('buchungen')">speicher 'buchungen'</button>
+						</div>
+						<div class="form-group">
+							<span> Oder ersetze durch Datei: </span>
+						</div>
+						<div class="form-group">
+							<input class="btn btn-warning" type="file" on-read-file="lade('buchungen', $fileContent)" >
+						</div>
+					</form>
 					
 					<h4>Arrays</h4>
 					<div>

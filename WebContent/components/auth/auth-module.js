@@ -38,27 +38,7 @@
 							+ " Spielorte in $rootScope geladen");
 
                     FfkUtils.sortiereSpielorte();
-/*					// sortiere Spieorte nach Ort (Alphabetisch)
-					//
-					// packe key und Ort in Array
-					$rootScope.spielorteSortiert = [];
-					var keys = Object.keys($rootScope.spielorte);
-					keys.forEach(function(sid) {
-						$rootScope.spielorteSortiert.push([ sid, $rootScope.spielorte[sid]['ort'] ]);
-					});
-					// sortiere nach Ort in Array
-					// a[0] is sid (spielOrtID)
-					// a[1] ist der Ort (sortiert nach Ort)
-					$rootScope.spielorteSortiert = $rootScope.spielorteSortiert.sort(function(a, b) {
-						if (a[1] > b[1]) {
-							return 1;
-						}
-						if (a[1] < b[1]) {
-							return -1;
-						}
-						return 0;
-					});*/
-					// Spieorte ist nun vorbereitet
+
 					console
 							.log(Date.now() + " Spielorte sortiert: "
 									+ Object.keys($rootScope.spielorteSortiert).length);
@@ -74,26 +54,9 @@
 					console.log(Date.now() + " JSONverleiher: " + Object.keys($rootScope.verleiher).length
 							+ " verleiher in $rootScope geladen");
 
-					// sortiere verleiher nach kurzbezeichnung (Alphabetisch)
-					//
-					// packe key und Ort in Array
-					$rootScope.verleiherSortiert = [];
-					var keys = Object.keys($rootScope.verleiher);
-					keys.forEach(function(vid) {
-						$rootScope.verleiherSortiert.push([ vid, $rootScope.verleiher[vid]['kurz'] ]);
-					});
-					// sortiere nach Ort in Array
-					// a[0] is sid (spielOrtID)
-					// a[1] ist der Ort (sortiert nach Ort)
-					$rootScope.verleiherSortiert = $rootScope.verleiherSortiert.sort(function(a, b) {
-						if (a[1] > b[1]) {
-							return 1;
-						}
-						if (a[1] < b[1]) {
-							return -1;
-						}
-						return 0;
-					});
+                    FfkUtils.sortiereVerleiher();
+
+
 					// Spieorte ist nun vorbereitet
 					console
 							.log(Date.now() + " verleiher sortiert: "

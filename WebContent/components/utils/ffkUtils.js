@@ -706,7 +706,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         // nicht verwendet wäre zum internen speichern
 
         this.speicherLokal = function (name, objekt) {
-            $log.info("* FfkUtils.speicherLokal '" + name + "' was da ist" +JSON.stringify(objekt, 0, 0));
+            console.log("* FfkUtils.speicherLokal '" + name + "' was da ist" +JSON.stringify(objekt));
             localStorage.setItem(name, JSON.stringify( objekt));
 
 
@@ -714,7 +714,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         // lade ein Objekt
         this.ladeLokal = function (name) {
-            $log.info("* FfkUtils.ladeLokal '" + name + "'");
+            console.log("* FfkUtils.ladeLokal '" + name + "'");
             var ret = JSON.parse(localStorage.getItem(name));
             $log.info(JSON.stringify(ret, 0, 0))
             return ret;
@@ -774,6 +774,28 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         console.log(JSON.stringify($rootScope.spielorteSortiert, 0, 4));
         }
 
+        this.sortiereVerleiher = function() {
+            // sortiere verleiher nach kurzbezeichnung (Alphabetisch)
+            //
+            // packe key und Ort in Array
+            $rootScope.verleiherSortiert = [];
+            var keys = Object.keys($rootScope.verleiher);
+            keys.forEach(function (vid) {
+                $rootScope.verleiherSortiert.push([vid, $rootScope.verleiher[vid]['kurz']]);
+            });
+            // sortiere nach Ort in Array
+            // a[0] is sid (spielOrtID)
+            // a[1] ist der Ort (sortiert nach Ort)
+            $rootScope.verleiherSortiert = $rootScope.verleiherSortiert.sort(function (a, b) {
+                if (a[1] > b[1]) {
+                    return 1;
+                }
+                if (a[1] < b[1]) {
+                    return -1;
+                }
+                return 0;
+            });
+        };
 
     });
 
