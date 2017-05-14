@@ -233,58 +233,13 @@
 
                 }
                 console.log("grundTabelleGeladen " + $rootScope.status.grundTabelleGeladen);
-                ladeBuchungen();
-                ladeFilmlauf();
+            FfkUtils.loadFilmlauf();
+            FfkUtils.loadBuchungen();
+
 
         };
 
 
-
-
-
-        // starte die ladeorgie
-		var ladeFilmlauf = function () {
-            $log.info("***** lade Filmlauf");
-
-        if ($rootScope.status.filmlaufGeladen == false) {
-            // setze watcher
-            var filmlaufGeladen = $scope.$watch(function () {
-                return $rootScope.status.filmlaufGeladen;
-            }, function () {
-                if ($rootScope.status.filmlaufGeladen) {
-                    filmlaufGeladen(); // clear watcher
-                    // initFilmlauf("filmlaufGeladen");
-					console.log("watcher filmlaufGeladen beendet");
-                }
-            }, true);
-            // lade Filmlauf sobald bekannt ist, wer sich angemeldet hat
-            FfkUtils.loadFilmlauf();
-        }else{
-            $log.info("***** Filmlauf bereits geladen");
-		}
-
-        }
-
-        var ladeBuchungen = function(){
-            $log.info("***** lade Buchungen");
-
-            if ($rootScope.status.buchungenGeladen == false) {
-            var buchungenGeladen = $scope.$watch(function () {
-                return $rootScope.status.buchungenGeladen;
-            }, function () {
-                if ($rootScope.status.buchungenGeladen) {
-                    buchungenGeladen();
-                    //         initFilmlauf("buchungenGeladen");
-                    console.log("watcher buchungenGeladen beendet");
-
-                }
-            }, true);
-            FfkUtils.loadBuchungen();
-        } else {
-                $log.info("***** Buchungen bereits geladen");
-
-            }
-        }
         // was erledigt werden kann während das Programm auf das login wartet.
 
     });
