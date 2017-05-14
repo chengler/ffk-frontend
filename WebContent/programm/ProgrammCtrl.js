@@ -75,7 +75,7 @@
             // START Lade Tabelle asyncron
             // lade Filmlauf in scope und erstelle Tabelle?
             // watch geladen
-
+/*
             if ($rootScope.status.filmlaufGeladen == false) {
                 // sete watcher
                 var filmlaufGeladen = $scope.$watch(function () {
@@ -83,7 +83,7 @@
                 }, function () {
                     if ($rootScope.status.filmlaufGeladen) {
                         filmlaufGeladen(); // clear watcher
-                        initFilmlauf("filmlaufGeladen");
+                     //   initFilmlauf("filmlaufGeladen");
                     }
                 }, true);
                 // lade Filmlauf sobald bekannt ist, wer sich angemeldet hat
@@ -91,11 +91,22 @@
                 // starte asyncron
                 // erst wenn user angemeldet
                 FfkUtils.loadFilmlauf();
-            }
+            }*/
+
+            // setz watcher ob alles geladen grundtabelle kann dann weg!
+            var allesGeladen = $scope.$watch(function () {
+                return ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen);
+            }, function () {
+                if ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen) {
+                    allesGeladen(); // clear watcher
+                    initFilmlauf("allesGeladen");
+                }
+            }, true);
+
 
             // lade Buchungen vBID Auflösungen in scope -
             // asyncron mit watcher
-            if ($rootScope.status.buchungenGeladen == false) {
+            /*if ($rootScope.status.buchungenGeladen == false) {
                 var buchungenGeladen = $scope.$watch(function () {
                     return $rootScope.status.buchungenGeladen;
                 }, function () {
@@ -105,7 +116,7 @@
                     }
                 }, true);
                 FfkUtils.loadBuchungen();
-            }
+            }*/
 
             // lade Filme fID -
             // asyncron
@@ -117,8 +128,7 @@
             // $rootScope.status.$rootScope.status.filmlaufGeladen
             function initFilmlauf(wo) {
                 console.log("initTabelle aufgerufen von " + wo);
-                if ($rootScope.status.filmlaufGeladen & $rootScope.status.buchungenGeladen
-                    & $rootScope.status.grundTabelleGeladen) {
+                if ($rootScope.status.filmlaufGeladen & $rootScope.status.buchungenGeladen) {
                     var tstart = Date.now();
                     $scope.maxCol = FfkUtils.getFilmlaufMaxCol($scope.maxCol);
                     // definiere Spalten
@@ -160,7 +170,7 @@
 
             // END Lade TAbelle
 
-            if ($rootScope.status.grundTabelleGeladen == false) {
+           /* if ($rootScope.status.grundTabelleGeladen == false) {
                 $log.info("erstelle  grundTabelle");
                 // erstelle row data
                 // 60 Wochen KW-1 minus 4, KW 52 plus 4
@@ -197,7 +207,8 @@
                 console.log("grundTabelleGeladen " + $rootScope.status.grundTabelleGeladen);
                 initFilmlauf("grundTabelle");
 
-            }
+            }*/
+
 
             // SCOPE Methoden
             // neue Spalten
@@ -370,7 +381,10 @@
 
             }
 
+
+
             // TESTFELD
+
 
             // FARBEN
 
@@ -379,6 +393,8 @@
             // odetocode.com/blogs/scott/archive/2014/09/10/a-journey-with-trusted-html-in-angularjs.aspx
             // http://www.w3schools.com/html/html_colornames.asp
             // https://en.wikipedia.org/wiki/Web_colors
+
+
 
         }]);
 })();

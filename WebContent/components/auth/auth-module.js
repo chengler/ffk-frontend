@@ -8,6 +8,15 @@
 		// $rootScope.username = "";
 		// $rootScope.loggedIn = false;
 
+
+
+
+
+
+
+
+
+
 		// fülle Loginfenster
 		$scope.auth = {
 			"username" : "jh",
@@ -84,6 +93,7 @@
 			console.log("passwort ist hier egal");
 
 			FfkUtils.loginIfTrue($scope.auth.username);
+			console.log()
 //			// suche passenden benutzer
 //			$rootScope.usersSortiert.some(function(ar) {
 //				// wenn gefunden, [ "uid", "logName", "role", "vid" | "sid",
@@ -129,6 +139,9 @@
 			// anmeldung erfolgreich | gescheitert
 			if ($rootScope.loggedIn) {
 				console.log("angemeldet ist nun " + JSON.stringify($rootScope.logedInUser));
+                ladeGrundtabelle();
+
+
 
 			} else {
 				console.log("anmeldung gescheitert");
@@ -181,6 +194,98 @@
 					console.log("Keine Referenz definiert");
 				}
 			};
-		
-	});
+
+
+
+		//Fehler, Grundtabelle, dann Filmlauf
+
+		var ladeGrundtabelle = function () {
+                $log.info("***** erstelle  grundTabelle");
+                // erstelle row data
+                // 60 Wochen KW-1 minus 4, KW 52 plus 4
+                // buggy iso30 !important
+                var ersterDo = moment().isoWeek(30).isoWeekYear(new Date().getFullYear()).isoWeek(1).isoWeekday(4)
+                    .hour(12);
+                // 4 Wochen zurück
+                ersterDo = moment(ersterDo).subtract(4, 'weeks');
+                console.log("ersterDo " + ersterDo._d);
+                // erstelle 60 Wochen a 8 einträge
+
+                for (var w = 0; w < 60; w++) {
+                    var datum = moment(ersterDo).format('YYYY');
+                    datum = datum + 'W';
+                    datum = datum + moment(ersterDo).format('ww');
+                    $rootScope.filmlauf.push({
+                        "datum": datum,
+                        "bc": "bc-g0",
+                        "lines": 1,
+                        "col": 0
+                    });
+                    for (var t = 0; t < 7; t++) {
+                        $rootScope.filmlauf.push({
+                            "datum": moment(ersterDo).format('YYYYMMDD'),
+                            "bc": "bc-g2",
+                            "lines": 1,
+                            "col": 0
+                        });
+                        ersterDo = moment(ersterDo).add(1, 'day');
+                    }
+
+                }
+                console.log("grundTabelleGeladen " + $rootScope.status.grundTabelleGeladen);
+                ladeBuchungen();
+                ladeFilmlauf();
+
+        };
+
+
+
+
+
+        // starte die ladeorgie
+		var ladeFilmlauf = function () {
+            $log.info("***** lade Filmlauf");
+
+        if ($rootScope.status.filmlaufGeladen == false) {
+            // setze watcher
+            var filmlaufGeladen = $scope.$watch(function () {
+                return $rootScope.status.filmlaufGeladen;
+            }, function () {
+                if ($rootScope.status.filmlaufGeladen) {
+                    filmlaufGeladen(); // clear watcher
+                    // initFilmlauf("filmlaufGeladen");
+					console.log("watcher filmlaufGeladen beendet");
+                }
+            }, true);
+            // lade Filmlauf sobald bekannt ist, wer sich angemeldet hat
+            FfkUtils.loadFilmlauf();
+        }else{
+            $log.info("***** Filmlauf bereits geladen");
+		}
+
+        }
+
+        var ladeBuchungen = function(){
+            $log.info("***** lade Buchungen");
+
+            if ($rootScope.status.buchungenGeladen == false) {
+            var buchungenGeladen = $scope.$watch(function () {
+                return $rootScope.status.buchungenGeladen;
+            }, function () {
+                if ($rootScope.status.buchungenGeladen) {
+                    buchungenGeladen();
+                    //         initFilmlauf("buchungenGeladen");
+                    console.log("watcher buchungenGeladen beendet");
+
+                }
+            }, true);
+            FfkUtils.loadBuchungen();
+        } else {
+                $log.info("***** Buchungen bereits geladen");
+
+            }
+        }
+        // was erledigt werden kann während das Programm auf das login wartet.
+
+    });
 })();

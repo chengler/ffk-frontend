@@ -81,7 +81,7 @@ app.run(function(version, author, $rootScope, $http) {
 	$rootScope.status = {};
 	$rootScope.status.filmlaufGeladen = false;
 	$rootScope.status.buchungenGeladen = false;
-	$rootScope.status.grundTabelleGeladen = false;
+	//$rootScope.status.grundTabelleGeladen = false;
 	$rootScope.status.aggrid = false;
 	
 //	$rootScope.gridOptions = {};
