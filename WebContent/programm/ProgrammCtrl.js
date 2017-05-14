@@ -109,7 +109,8 @@
 
             // lade Filme fID -
             // asyncron
-     //       FfkUtils.loadFilme();
+        //   console.log(" FfkUtils.loadFilme")
+          // FfkUtils.loadFilme();
 
             // Init TAbelle
             // wenn spielorteGeladen und

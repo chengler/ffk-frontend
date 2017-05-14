@@ -72,7 +72,7 @@ app.run(function(version, author, $rootScope, $http) {
 
 	$rootScope.filmlauf = []; // die Tabellendaten
 
-    $rootScope.filme = []; // Die Filme
+    $rootScope.filme = {}; // Die Filme
     $rootScope.ringbuchung = []; // Film Buchungen beim Ring fBID
     $rootScope.buchungen = []; // Die Buchungen beim Verleih vBID
 

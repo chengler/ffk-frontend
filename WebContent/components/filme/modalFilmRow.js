@@ -186,7 +186,7 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
         if ($rootScope.logedInUser.sid){
             $scope.sid = $rootScope.logedInUser.sid // spielort aktuell
         }
-        console.log("JJJJJJJJJJJ "+$scope.sid);
+        console.log("die sid "+$scope.sid);
 
         $scope.bisherigerVerleih = false;
         $scope.filmChanges = {};
@@ -321,6 +321,8 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
                 $scope.modus.buchbar = true;
             }
             $scope.fID = $scope.kwinfos.fID;
+            //versuche Film zu laden falls noch nicht vorhanden
+            FfkUtils.ladeFilm($scope.fID);
             $scope.modus.text = "Infos zum Film";
             $scope.modus.status = "buchbar";
         };

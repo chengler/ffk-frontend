@@ -465,7 +465,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 return false;
             });
         };
-
+// lade alle Filme
         this.loadFilme = function () {
             $http.get('../example_data//JSONfilme.js?' + Math.random()).success(function (data) {
                 $rootScope.filme = data[0];
@@ -473,6 +473,27 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             });
 
         };
+// checkt ob film vorhanden. wenn nein wird einzelner Film geladen
+        this.ladeFilm = function (fID){
+            // lade nur wenn film noch nicht vorhanden
+        if ( !(fID in $rootScope.filme)){
+            $http.get('../example_data//JSONfilme.js?' + Math.random()).success(function (data) {
+        // schaue ob es den Film nun gibt
+            if ( fID in data[0]) {
+                var value = data[0][fID];
+                $rootScope.filme[fID] =  value; // und lade nur diesen Film
+                console.log(JSON.stringify($rootScope.filme));
+                console.log(" JSONfilme: fID " + fID + " geladen");
+                console.log(JSON.stringify($rootScope.filme[fID]));
+                }else {
+                console.log("Film mit fid "+fID+" ist nicht ladbar in ../example_data//JSONfilme.js");
+            }
+            });
+            } else {
+            console.log("Film mit fid "+fID+" war schon geladen");
+        }
+        };
+
 
         this.loadBuchungen = function () {
             $log.info("lade buchungen");

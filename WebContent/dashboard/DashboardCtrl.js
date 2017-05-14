@@ -51,7 +51,7 @@ $scope.speicher = function(name){
                 break;
             case 'filme':
                 // unklar was zu ändern ist.wird durch PCtrl geändert
-                //$rootScope.status.buchungenGeladen = false;
+                FfkUtils.loadFilme();
                 break;
             case 'buchungen':
                 $rootScope.status.buchungenGeladen = false;
