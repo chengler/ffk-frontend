@@ -107,7 +107,7 @@
 					<div>
 						<strong>buchungen</strong> [{
 						<div ng-repeat="  (key , val) in buchungen">{{key}} : {{val}},</div>
-						}]
+						}] Es handelt sich um Buchungen des Abspielringes beim Verleih mit eindeutiger v- BuchungsID
 					</div>
 					<form class="form-inline">
 						<div class="form-group">
@@ -143,6 +143,17 @@
 						<div ng-repeat=" (key , val) in filmlauf">idx {{key}} = [ {{val}} ],</div>
 						]
 					</div>
+					<form class="form-inline">
+						<div class="form-group">
+							<button class="btn btn-success" data-ng-click="speicher('filmlauf')">speicher 'filmlauf'</button>
+						</div>
+						<div class="form-group">
+							<span> Oder ersetze durch Datei: </span>
+						</div>
+						<div class="form-group">
+							<input class="btn btn-warning" type="file" on-read-file="lade('filmlauf', $fileContent)" >
+						</div>
+					</form>
 
 				</div>
 			</div>

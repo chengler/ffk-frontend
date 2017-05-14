@@ -818,5 +818,25 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             });
         };
 
+        this.aenderTitelInBuchung = function(fID ){
+            console.log("this.aenderTitelInBuchung von "+fID);
+            for (var key in $rootScope.buchungen) {
+                // skip loop if the property is from prototype
+                if (!$rootScope.buchungen.hasOwnProperty(key)) continue;
+                var obj = $rootScope.buchungen[key];
+                for (var prop in obj) {
+                    // skip loop if the property is from prototype
+                    if(!obj.hasOwnProperty(prop)) continue;
+                    if (prop == fID){
+                        obj['titel'] = $rootScope.filme[fID]['titel']
+                    }
+
+                }
+            }
+
+
+        }
+
+
     });
 

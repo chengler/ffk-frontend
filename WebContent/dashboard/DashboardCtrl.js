@@ -13,12 +13,14 @@
             $log.info("init DashboardCtrl");
 
 
-
             //http://stackoverflow.com/questions/2897619/using-html5-javascript-to-generate-and-save-a-file#4551467
+            // http://stackoverflow.com/questions/18826320/what-is-the-hashkey-added-to-my-json-stringify-result#23656919
 $scope.speicher = function(name){
         var pom = document.createElement('a');
-        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify ($scope[name],4,1)));
-        pom.setAttribute('download', name +".txt");
+//      pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify ($scope[name],4,1)));
+        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(angular.toJson($scope[name],4,1)));
+
+    pom.setAttribute('download', name +".txt");
 
         if (document.createEvent) {
             var event = document.createEvent('MouseEvents');
@@ -54,7 +56,8 @@ $scope.speicher = function(name){
                 FfkUtils.loadFilme();
                 break;
             case 'buchungen':
-                $rootScope.status.buchungenGeladen = false;
+                break;
+            case 'filmlauf':
                 break;
         }
 
