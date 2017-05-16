@@ -60,7 +60,7 @@
 					</div>
 					<div class="form-group">
 						<label for="Website" class="control-label col-sm-2">Website</label>
-						<div class="col-sm-5  alert-info"">
+						<div class="col-sm-5  alert-info">
 							<a ng-href="{{spielorte[sid]['url']}}" class="alert-link"
 								ng-bind="spielorte[sid]['url']"></a>
 						</div>
@@ -69,6 +69,19 @@
 								ng-model="thisVenue.url">
 						</div>
 					</div>
+
+
+					<div class="form-group ">
+						<label  class="control-label col-sm-2">abspielbare Medien</label>
+						<div class="col-sm-8">
+							<div class="btn-group  col-sm-2" ng-repeat="typ in medienTypen">
+							<button type="button" ng-class="medium[typ].btn" class="btn"
+									ng-click="toggleMedium(typ)" ng-bind="::typ"></button>
+							</div>
+						</div>
+					</div>
+
+
 					
 					<div class="form-group">
 						<label class="col-sm-12" for="Postanschrift">Postanschrift /
