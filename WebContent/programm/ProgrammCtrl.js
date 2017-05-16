@@ -22,7 +22,7 @@
             var zeigeWunschFilme = false;
             $rootScope.zeigeWunschFilme = zeigeWunschFilme;
             $scope.wunschFilmTextBtn = "zeige Wunschfilme";
-            $scope.maxCol = 0; // maximale Spaltenanzahl in Tabelle
+            var maxCol = 0; // maximale Spaltenanzahl in Tabelle
             // setze env für Zeitumrechnungen
             moment.locale('de');
             // fehlende Serverlogik, dafür provisorische ID
@@ -94,14 +94,16 @@
             }*/
 
             // setz watcher ob alles geladen grundtabelle kann dann weg!
-            var allesGeladen = $scope.$watch(function () {
-                return ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen);
-            }, function () {
-                if ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen) {
-                    allesGeladen(); // clear watcher
-                    initFilmlauf("allesGeladen");
-                }
-            }, true);
+            if ($rootScope.status.aggrid == false) {
+                var allesGeladen = $scope.$watch(function () {
+                    return ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen);
+                }, function () {
+                    if ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen) {
+                        allesGeladen(); // clear watcher
+                        initFilmlauf("allesGeladen");
+                    }
+                }, true);
+            }
 
 
             // lade Buchungen vBID Auflösungen in scope -
@@ -128,11 +130,11 @@
             // $rootScope.status.$rootScope.status.filmlaufGeladen
             function initFilmlauf(wo) {
                 console.log("initTabelle aufgerufen von " + wo);
-                if ($rootScope.status.filmlaufGeladen & $rootScope.status.buchungenGeladen) {
+            //    if ($rootScope.status.filmlaufGeladen & $rootScope.status.buchungenGeladen) {
                     var tstart = Date.now();
-                    $scope.maxCol = FfkUtils.getFilmlaufMaxCol($scope.maxCol);
+                    maxCol = FfkUtils.getFilmlaufMaxCol(maxCol);
                     // definiere Spalten
-                    for (var i = 1; i <= $scope.maxCol; i++) {
+                    for (var i = 1; i <= maxCol; i++) {
                         var header = {
                             headerName: "film" + i,
                             field: "film" + i,
@@ -161,11 +163,11 @@
                     var zeit = Date.now() - tstart;
                     console.log("gezeichnet in " + zeit + " ms");
                     $rootScope.status.aggrid = true;
-                } else {
+               /* } else {
                     console.log("initFilmlauf: filmlaufGeladen " + $rootScope.status.filmlaufGeladen
                         + " buchungenGeladen " + $rootScope.status.buchungenGeladen + " grundTabelleGeladen "
                         + $rootScope.status.grundTabelleGeladen + " noch nicht alles geladen -> ende");
-                }
+                }*/
             }
 
             // END Lade TAbelle
@@ -228,8 +230,8 @@
                 columnDefs.push(header);
                 // setze Spalten
                 $scope.gridOptions.api.setColumnDefs(columnDefs);
-                if (colnr > $scope.maxCol) {
-                    $scope.maxCol = colnr;
+                if (colnr > maxCol) {
+                    maxCol = colnr;
                 }
             };
 
@@ -356,10 +358,10 @@
                 console.log("$rootScope.status.aggrid = " + $rootScope.status.aggrid);
                 $scope.gridOptions.rowData = $rootScope.filmlauf;
 
-                $scope.maxCol = FfkUtils.getFilmlaufMaxCol($scope.maxCol);
+                maxCol = FfkUtils.getFilmlaufMaxCol(maxCol);
 
                 // definiere Spalten
-                for (var i = 1; i <= $scope.maxCol; i++) {
+                for (var i = 1; i <= maxCol; i++) {
                     var header = {
                         headerName: "film" + i,
                         field: "film" + i,
