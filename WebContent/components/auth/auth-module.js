@@ -27,8 +27,10 @@
 		// lade users
 		// usersSortiert
 		// [ "uid", "logName", "role", "id", "name" ] id is sid oder vid
-		$http.get('../example_data//JSONusers.js?' + Math.random()).success(
-				function(data) {
+		$http.get('../example_data/JSONusers.js?' + Math.random()).success(
+			//		$http.get('http://ffk.ver-netzen.de/ffk-frontend/example_data/JSONusers.js?' + Math.random()).success(
+
+            function(data) {
 
 					$rootScope.users = data[0];
 					console.log(Date.now() + " JSONusers: " + Object.keys($rootScope.users).length
@@ -40,7 +42,8 @@
 
 		// lade Spieorte in den rootscopee - asyncron
 		// [ [{sid : Ort}],[ ...]]
-		$http.get('../example_data//JSONspielorte.js?' + Math.random()).success(
+		// 		$http.get('http://ffk.ver-netzen.de/ffk-frontend/example_data/JSONspielorte.js?' + Math.random()).success(
+        $http.get('../example_data/JSONspielorte.js?' + Math.random()).success(
 				function(data) {
 					$rootScope.spielorte = data[0];
 					console.log(Date.now() + " JSONspielorte: " + Object.keys($rootScope.spielorte).length
@@ -57,7 +60,8 @@
 
 		// lade Verleiher in den rootscopee - asyncron
 		// [ [{sid : Ort}],[ ...]]
-		$http.get('../example_data//JSONverleiher.js?' + Math.random()).success(
+		// 		$http.get('http://ffk.ver-netzen.de/ffk-frontend/example_data//JSONverleiher.js?' + Math.random()).success(
+        $http.get('../example_data/JSONverleiher.js?' + Math.random()).success(
 				function(data) {
 					$rootScope.verleiher = data[0];
 					console.log(Date.now() + " JSONverleiher: " + Object.keys($rootScope.verleiher).length
