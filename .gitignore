@@ -6,7 +6,12 @@ node_modules/*
 WebContent/bower_components/
 WebContent/bower_components/*
 
-#exampleData, 
+#exampleData,
 #example_data
 #example_data/*
 
+# test install laptop
+
+# infos der entwicklungsumgebung
+.idea
+.idea/*

@@ -3,16 +3,11 @@
 (function() {
 	var dashboard = angular.module('app.dashboard', []);
 
-	dashboard.controller('dashboardCtrl', function($scope, $log) {
-		$log.debug("\ninit dashboardCtrl");
-		
-
-		$scope.dashboard;
-	
-
-	
-
-	
-	});
-
+    dashboard.config([ '$compileProvider', '$logProvider', function($compileProvider, $logProvider) {
+        $compileProvider.debugInfoEnabled(true);
+        $logProvider.debugEnabled(true);
+    } ]);
 })();
+
+
+

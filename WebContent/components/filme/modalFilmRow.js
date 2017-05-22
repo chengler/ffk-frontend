@@ -186,7 +186,7 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
         if ($rootScope.logedInUser.sid){
             $scope.sid = $rootScope.logedInUser.sid // spielort aktuell
         }
-        console.log("JJJJJJJJJJJ "+$scope.sid);
+        console.log("die sid "+$scope.sid);
 
         $scope.bisherigerVerleih = false;
         $scope.filmChanges = {};
@@ -321,6 +321,8 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
                 $scope.modus.buchbar = true;
             }
             $scope.fID = $scope.kwinfos.fID;
+            //versuche Film zu laden falls noch nicht vorhanden
+            FfkUtils.ladeFilm($scope.fID);
             $scope.modus.text = "Infos zum Film";
             $scope.modus.status = "buchbar";
         };
@@ -329,6 +331,7 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
         $scope.loadGewunschen = function (wunsch) {
             machMenus();
             console.log("loadGewunschen: " + JSON.stringify(wunsch, 0, 0));
+            FfkUtils.ladeFilm(wunsch.fID);
             $scope.kwinfos = wunsch.titel;
             $scope.buchung = wunsch;
             $scope.fID = wunsch.fID;
@@ -369,7 +372,14 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
             delete $scope.filmChanges.verleih;
             Object.keys($scope.filmChanges).forEach(function (key) {
                 $rootScope.filme[$scope.fID][key] = $scope.filmChanges[key];
-                console.log("Ander " + key + ": " + $rootScope.filme[$scope.fID][key]);
+                console.log("Änder " + key + " in : " + $rootScope.filme[$scope.fID][key]);
+                // wenn der Titel geändert wurde,änder auch Titel in buchung
+                if (key == 'titel'){
+                  FfkUtils.aenderTitelInBuchung($scope.fID )
+
+                };
+
+
             })
             // $scope.modus['status'] = "unbekannt";
 

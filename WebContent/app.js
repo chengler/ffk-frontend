@@ -71,16 +71,17 @@ app.run(function(version, author, $rootScope, $http) {
 	$rootScope.usersSortiert = []; 
 
 	$rootScope.filmlauf = []; // die Tabellendaten
-	
-	$rootScope.buchungen = []; // Die Buchungen
-	$rootScope.filme = []; // Die Filme
-	
+
+    $rootScope.filme = {}; // Die Filme
+    $rootScope.ringbuchung = []; // Film Buchungen beim Ring fBID
+    $rootScope.buchungen = []; // Die Buchungen beim Verleih vBID
+
 	$rootScope.logedInUser = {}; // der angemeldete user
 	
 	$rootScope.status = {};
 	$rootScope.status.filmlaufGeladen = false;
 	$rootScope.status.buchungenGeladen = false;
-	$rootScope.status.grundTabelleGeladen = false;
+	//$rootScope.status.grundTabelleGeladen = false;
 	$rootScope.status.aggrid = false;
 	
 //	$rootScope.gridOptions = {};
@@ -91,7 +92,8 @@ app.run(function(version, author, $rootScope, $http) {
 //	$rootScope.role = false; // admin spieler
 	$rootScope.spielort = {}; // der aktuelle Spielort 
 	$rootScope.username = ""; // der angemeldete Benutzer // ersetzen
-	
+
+
 
 
 	

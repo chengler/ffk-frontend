@@ -7,7 +7,7 @@ angular.module('modalVenue', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_VE
 .service('OpenModalVenueService', function($rootScope, $uibModal, $log, FfkUtils) {
 	this.editVenue = function(sid) {
 		var modalInstance = $uibModal.open({
-			templateUrl : './resources/scripts/venues/modalVenue.html?' + Math.random(),
+			templateUrl : './venues/modalVenue.html?' + Math.random(),
 			controller : 'ModalVenueInstanceCtrl',
 			size : "lg",
 			resolve : {
@@ -22,13 +22,14 @@ angular.module('modalVenue', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_VE
 		// TODO stack für asyncrone Serverantworten
 
 		// Die Antwort des ModalVenueInstanceCtrl
+		// speicher Änderungen
 		modalInstance.result.then(function(res) {
 			$log.debug("todo OpenModalVenueService: " + JSON.stringify(res, 1, 4));
 			
 			// überprüfe, ob neu angelegt wird
 			if (sid == undefined) {
 				console.log("Lege neuen Spielort an");
-				sid = "sid" + FfkUtils.getNewProvID("sid");
+				sid =  FfkUtils.getNewProvID("sid");
 				$rootScope.spielorte[sid] = {};
 				console.log(sid + " " + JSON.stringify($rootScope.myProvID));
 				console.log(JSON.stringify($rootScope.spielorte));
@@ -105,6 +106,52 @@ angular.module('modalVenue').controller('ModalVenueInstanceCtrl',
 			} else {
 				console.log("Spielort neu anlegen");
 			}
+
+            // setze Medienvariblen zur Verfügbarkeit
+			// alle Medientypen
+            $scope.medienTypen = ["BD","35mm","DCP","analog"];
+			// die abspielbaren Medientypen des Spielortes
+			var sidMedien = $rootScope.spielorte[sid].medien;
+			// alle Medien und ob sie vor Ort abspielbar sind
+			$scope.medium = {};
+
+            $scope.medienTypen.forEach(function(typ) {
+                console.log(typ);
+				$scope.medium[typ] = {};
+                $scope.medium[typ].typ = typ;
+                $scope.medium[typ].btn = "btn-danger";
+                $scope.medium[typ].set = false;
+                if(sidMedien.indexOf(typ) > -1){
+                    $scope.medium[typ].set = true;
+                    $scope.medium[typ].btn = "btn-success";
+                }
+                console.log($scope.medium[typ]);
+            });
+
+            $scope.toggleMedium = function(typ) {
+            	if ($scope.bearbeiten){
+
+                console.log("toogle "+typ);
+                if ($scope['medium'][typ].set) {
+                    $scope['medium'][typ].set = false;
+                    $scope['medium'][typ].btn = "btn-danger";
+                    // lösche String aus array
+                    var index = $scope.thisVenue.medien.indexOf(typ);    // <-- Not supported in <IE9
+                    if (index !== -1) {
+                        $scope.thisVenue.medien.splice(index, 1);
+                    }
+                } else {
+                    $scope['medium'][typ].set = true;
+                    $scope['medium'][typ].btn = "btn-success";
+                    $scope.thisVenue.medien.push(typ);
+;
+                }
+                }else {
+                    console.log("nicht im bearbeitungsmodus für toogle "+typ);
+				}
+            };
+
+
 
 			// Venue speichern
 			$scope.speichern = function() {

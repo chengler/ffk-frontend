@@ -1168,10 +1168,10 @@ angular.module('ffkFilmModul').controller('ModalKWInstanceCtrl',
 				result['menge'] = $scope.menge;
 				// 
 				// neue Medienverfügbarkeit
-				// result['medien'] erhält änderungen
+				// result['medien'] erhält änderungentoogle
 				// entweder neues datum oder false bei löschung
 				// console.log("buchung.medien
-				// "+JSON.stringify(buchung.medien));
+				// "+JSON.stringify(buchung.medien));toogle
 				for (var typ in $scope.medium){
 					var geaendert = false;
 					// console.log("eintrag "+typ);

@@ -7,7 +7,7 @@ angular.module('modalDistributor', [ 'ui.bootstrap', 'ffkUtils'  ]).constant('MO
 .service('OpenModalDistributorService', function($rootScope, $uibModal, $log, FfkUtils) {
 	this.editDistributor = function(vid) {
 		var modalInstance = $uibModal.open({
-			templateUrl : './resources/scripts/distributors/modalDistributor.html?' + Math.random(),
+			templateUrl : './distributors/modalDistributor.html?' + Math.random(),
 			controller : 'ModalDistributorInstanceCtrl',
 			size : "lg",
 			resolve : {
@@ -29,7 +29,7 @@ angular.module('modalDistributor', [ 'ui.bootstrap', 'ffkUtils'  ]).constant('MO
 			// überprüfe, ob neu angelegt wird
 			if (vid == undefined) {
 				console.log("Lege neuen Verleih an");
-				vid = "vid" + FfkUtils.getNewProvID("vid");
+				vid =  FfkUtils.getNewProvID("vid");
 				$rootScope.verleiher[vid] = {};
 				console.log(vid + " " + JSON.stringify($rootScope.myProvID));
 				console.log(JSON.stringify($rootScope.verleiher));

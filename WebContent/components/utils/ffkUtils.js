@@ -465,7 +465,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 return false;
             });
         };
-
+// lade alle Filme
         this.loadFilme = function () {
             $http.get('../example_data//JSONfilme.js?' + Math.random()).success(function (data) {
                 $rootScope.filme = data[0];
@@ -473,6 +473,27 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             });
 
         };
+// checkt ob film vorhanden. wenn nein wird einzelner Film geladen
+        this.ladeFilm = function (fID){
+            // lade nur wenn film noch nicht vorhanden
+        if ( !(fID in $rootScope.filme)){
+            $http.get('../example_data//JSONfilme.js?' + Math.random()).success(function (data) {
+        // schaue ob es den Film nun gibt
+            if ( fID in data[0]) {
+                var value = data[0][fID];
+                $rootScope.filme[fID] =  value; // und lade nur diesen Film
+                console.log(JSON.stringify($rootScope.filme));
+                console.log(" JSONfilme: fID " + fID + " geladen");
+                console.log(JSON.stringify($rootScope.filme[fID]));
+                }else {
+                console.log("Film mit fid "+fID+" ist nicht ladbar in ../example_data//JSONfilme.js");
+            }
+            });
+            } else {
+            console.log("Film mit fid "+fID+" war schon geladen");
+        }
+        };
+
 
         this.loadBuchungen = function () {
             $log.info("lade buchungen");
@@ -490,8 +511,21 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         };
 
         this.loadFilmlauf = function () {
-            $log.info("lade Filmlauf");
-            $http.get('../example_data//JSONfilmlauf2.js?' + Math.random()).success(
+            $log.info("ffkUtils.loadFilmlauf: lade Filmlauf");
+            // welcher filmlauf wird geladen
+            // standard ist 2
+            // wenn verleiher vid 1 wird 3 geladen
+            var filmlaufnr = "../example_data/JSONfilmlauf2.js";
+            if ($rootScope.logedInUser.role == "verleih") {
+                switch ($rootScope.logedInUser.vid) {
+                    case "vid1":
+                        filmlaufnr = "../example_data/JSONfilmlauf3.js";
+                        break;
+                }
+            }
+            $log.info("ffkUtils.loadFilmlauf: " + filmlaufnr + '?');
+            // $http.get('../example_data//JSONfilmlauf3.js?' + Math.random()).success(
+            $http.get(filmlaufnr + '?' + Math.random()).success(
                 function (data) {
                     // $rootScope.filmlauf = data;
                     for (var obj in data) {
@@ -688,6 +722,121 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 };
             }
         }
+
+        // speicher objekt unter name
+        // nicht verwendet wäre zum internen speichern
+
+        this.speicherLokal = function (name, objekt) {
+            console.log("* FfkUtils.speicherLokal '" + name + "' was da ist" +JSON.stringify(objekt));
+            localStorage.setItem(name, JSON.stringify( objekt));
+
+
+        };
+
+        // lade ein Objekt
+        this.ladeLokal = function (name) {
+            console.log("* FfkUtils.ladeLokal '" + name + "'");
+            var ret = JSON.parse(localStorage.getItem(name));
+            $log.info(JSON.stringify(ret, 0, 0))
+            return ret;
+        }
+
+
+        this.sortiereUsers = function () {
+            // sortiere user nach Name (Alphabetisch)
+            //
+            // packe [ "uid", "logName", "role", "ref", "name" ]
+            $rootScope.usersSortiert = [];
+            var keys = Object.keys($rootScope.users);
+            keys.forEach(function (uid) {
+                $rootScope.usersSortiert.push([uid, $rootScope.users[uid]['logName'],
+                    $rootScope.users[uid]['role'], $rootScope.users[uid]['ref'],
+                    $rootScope.users[uid]['name']]);
+            });
+            // sortiere nach name in Array
+            // a[0] is uid (userID)
+            // a[4] ist der name (sortiert nach name)
+            $rootScope.usersSortiert = $rootScope.usersSortiert.sort(function (a, b) {
+                if (a[4] > b[4]) {
+                    return 1;
+                }
+                if (a[4] < b[4]) {
+                    return -1;
+                }
+                return 0;
+            });
+        }
+
+        this.sortiereSpielorte = function (){
+        // sortiere Spieorte nach Ort (Alphabetisch)
+        //
+        // packe key und Ort in Array
+        $rootScope.spielorteSortiert = [];
+        var keys = Object.keys($rootScope.spielorte);
+        keys.forEach(function(sid) {
+            $rootScope.spielorteSortiert.push([ sid, $rootScope.spielorte[sid]['ort'] ]);
+        });
+        // sortiere nach Ort in Array
+        // a[0] is sid (spielOrtID)
+        // a[1] ist der Ort (sortiert nach Ort)
+        $rootScope.spielorteSortiert = $rootScope.spielorteSortiert.sort(function(a, b) {
+            if (a[1] > b[1]) {
+                return 1;
+            }
+            if (a[1] < b[1]) {
+                return -1;
+            }
+            return 0;
+        });
+        // Spieorte ist nun vorbereitet
+        console
+            .log(Date.now() + " Spielorte sortiert: "
+                + Object.keys($rootScope.spielorteSortiert).length);
+        console.log(JSON.stringify($rootScope.spielorteSortiert, 0, 4));
+        }
+
+        this.sortiereVerleiher = function() {
+            // sortiere verleiher nach kurzbezeichnung (Alphabetisch)
+            //
+            // packe key und Ort in Array
+            $rootScope.verleiherSortiert = [];
+            var keys = Object.keys($rootScope.verleiher);
+            keys.forEach(function (vid) {
+                $rootScope.verleiherSortiert.push([vid, $rootScope.verleiher[vid]['kurz']]);
+            });
+            // sortiere nach Ort in Array
+            // a[0] is sid (spielOrtID)
+            // a[1] ist der Ort (sortiert nach Ort)
+            $rootScope.verleiherSortiert = $rootScope.verleiherSortiert.sort(function (a, b) {
+                if (a[1] > b[1]) {
+                    return 1;
+                }
+                if (a[1] < b[1]) {
+                    return -1;
+                }
+                return 0;
+            });
+        };
+
+        this.aenderTitelInBuchung = function(fID ){
+            console.log("this.aenderTitelInBuchung von "+fID);
+            for (var key in $rootScope.buchungen) {
+                // skip loop if the property is from prototype
+                if (!$rootScope.buchungen.hasOwnProperty(key)) continue;
+                var obj = $rootScope.buchungen[key];
+                for (var prop in obj) {
+                    // skip loop if the property is from prototype
+                    if(!obj.hasOwnProperty(prop)) continue;
+                    if (prop == fID){
+                        obj['titel'] = $rootScope.filme[fID]['titel']
+                    }
+
+                }
+            }
+
+
+        }
+
 
     });
 

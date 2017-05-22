@@ -32,15 +32,15 @@
 			</div>
 			<div class="col-md-2">
 				<select class="form-control" data-ng-model="buchungsChanges.medium"
-					ng-change='getMedienIDs()'>
-					<option value="{{buchung.medium}}" selected="true">{{buchung.medium}}</option>
+					ng-change='getNeueMedienIDs()'>
+					<option value="{{medium}}" selected="true">{{medium}}</option>
 					<option data-ng-repeat="m in medien" value="{{m}}">{{m}}</option>
 				</select>
 			</div>
 
 			<div class="col-md-2">
 				<select class="form-control" data-ng-model="buchungsChanges.medienID">
-					<option value="{{buchungsChanges.medienID}}" selected="true">{{buchungsChanges.medienID}}</option>
+					<option value="{{medienID}}" selected="true">{{medienID}}</option>
 					<option data-ng-repeat="id in medienIDs" value="{{id}}">{{id}}</option>
 				</select>
 			</div>
@@ -59,10 +59,29 @@
 				</select>
 			</div>
 		</div>
+		<hr>
+		<div class="row" ng-class="bc=kwInfos.bc">
+			<h3 class="col-md-12" modal-title">{{gesamtBesucher}} zahlende Besucher {{(gesamtEintritt/100.00).toFixed(2)}}€</h3>
+		</div>
+		<hr>
+		<form  data-ng-repeat="anzahl in besucher">
+			<div class="row form-group" >
+			<div class=" col-md-3"></div>
+			<div class=" col-md-2">
+				<label>Besucher</label>
+				<input  type="number" data-ng-model="besucher[$index][0]" ng-change='changeEintritt($index, 0 )'  class="form-control"  >
+			</div>
+			<div class="col-md-2">
+				<label> Eintritt in cent</label>
+				<input type="number" class="form-control" ng-model="besucher[$index][1]"  ng-change='changeEintritt($index, 1 )'  step="10" >
+			</div>
+			</div>
+		</form>
 
 
 	</div>
 	<div class="modal-footer">
+		<span class="pull-left">components => filme => modal BuchungsBearbeitung</span>
 		<button class="btn btn-success" type="button" ng-click="ok('speichern')">speicher
 			Änderungen</button>
 		<button class="btn btn-warning" type="button" ng-click="cancel()">einfach nur

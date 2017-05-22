@@ -10,5 +10,10 @@
 		"role" : "spieler",
 		"ref" : "sid8",
 		"name" : "Christian Engler"
-	}
+	},
+    "uid2" : {
+		"logName":"em",
+		"name":"Erika Doe-Gabler",
+		"role":"verleih",
+		"ref":"vid1"}
 }]

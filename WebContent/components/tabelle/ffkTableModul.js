@@ -17,25 +17,39 @@ angular
 						var titel; // der link Title mouseover
 						var sign; // clickbares zeichen
 						var directive; // bei click
-						// kw Wochenübersicht
-						if (d.charAt(4) == "W") {
-							d = d.substr(5, 2) + " KW " + d.substr(2, 2);
-							titel = " title='Filmlauf oder Wunschfilm hinzufügen.'";
-							sign = '<strong>&plus;</strong>';
-							directive = " ng-click='openModalFilm(" + rowIdx + ")' ";
-							// Spieltage mit Datum
-						} else {
-							d = moment(d).format('DD.MM. dd');
-							titel = " title='Filminfos anzeigen, Film buchen oder Wunschfilm hinzufügen.' ";
-							sign = "<strong>&oplus; </strong>";
-							directive = " ng-click='openModalFilm(" + rowIdx + ")' ";
-						}
-						var myReturn = "<span " + titel + datumsClass + directive + ">" + sign + "</span>" + d;
+                        var myReturn = "";
+						// Li
+                        if ( $rootScope.logedInUser.role != "verleih") {
+                            // kw Wochenübersicht
+                            if (d.charAt(4) == "W") {
+                                d = d.substr(5, 2) + " KW " + d.substr(2, 2);
+                                titel = " title='Filmlauf oder Wunschfilm hinzufügen.'";
+                                sign = '<strong>&plus;</strong>';
+                                directive = " ng-click='openModalFilm(" + rowIdx + ")' ";
+                                myReturn = "<span " + titel + datumsClass + directive + ">" + sign + "</span>" + d;
+                                // Spieltage mit Datum
+
+                            } else  {
+                                d = moment(d).format('DD.MM. dd');
+                                titel = " title='Filminfos anzeigen, Film buchen oder Wunschfilm hinzufügen.' ";
+                                sign = "<strong>&oplus; </strong>";
+                                directive = " ng-click='openModalFilm(" + rowIdx + ")' ";
+                                myReturn = "<span " + titel + datumsClass + directive + ">" + sign + "</span>" + d;
+
+                            }
+                            // if != verleih
+                        } else if (d.charAt(4) == "W") { // Rückgabe wenn verleih
+                            d = d.substr(5, 2) + " KW " + d.substr(2, 2);
+                            myReturn = "<span " + datumsClass + "></span>" + d;
+                        } else {
+                            d = moment(d).format('DD.MM. dd');
+                            myReturn = "<span " + datumsClass + "></span>" + d;
+                        }
 						// $log.debug("return datumsRenderer " + myReturn);
 						return myReturn;
 					}; // end render Datum
-					//
-					//
+
+
 					// render die Buchungsausgabe (Film1 ...)
 					this.buchungsRenderer = function buchungsRenderer(params, zeigeWunschFilme) {
 						// $log.debug("ffkTableModul <- RenderTableServices <-
@@ -54,12 +68,13 @@ angular
 						var colIdx = params.colDef.headerName.substr(4);
 						var col = "col" + colIdx; // basis für rowData col1
 						var rowIdx = params.rowIndex;
-						var buchung = params.data[col]; // {einzelBuchungObject}
+						var buchung = params.data[col]; // {einzelBuchungObject aus filmlauf}
 						var buchungW = params.data[col + 'w']; // wunschfilme
 						var link = ""; // wenn links gelegt werden
 						// in col
 
 						// gebe wochenBuchung zurück KW
+						// dies ist die normale anzeige
 						function wochenBuchung() {
 							// z.B. nur Wunschfilm
 							if (buchung["vBID"] == false) {
@@ -96,7 +111,21 @@ angular
 
 								}
 							}
-							;
+                            var wochenBesucher 	= "";
+                            // Besucherzahlen in der Filmwoche
+                            if ( "fw" in buchung) { // Filmwoche angegeben als fw: int
+								// in buchung Key:value fw: 1
+								var myfw = "fw"+buchung.fw;
+                                // in wochenBuchung Key:value fw1: [besucher,cent]
+                                if (myfw in wochenBuchung) {
+                                    var besucher = " <span class='glyphicon glyphicon-user'>"
+                                        + wochenBuchung[myfw][0] + " </span>"
+                                    var eintritt = "<span class='glyphicon glyphicon-euro'>"
+                                        + (wochenBuchung[myfw][1] / 100).toFixed(2) + "</span>"
+                                    wochenBesucher = " (Filmwoche"+buchung.fw+ ": " + besucher + eintritt+")";
+                                }
+                            }
+
 							// wochenBuchung.medien.forEach(function(medium) {
 							// medien = medien + medium + " ";
 							// });
@@ -106,7 +135,7 @@ angular
 									+ "class='glyphicon glyphicon-edit pointer' ng-click='openModalKW(" + rowIdx + ","
 									+ colIdx + ")' >" + "</span> ";
 							}
-							return  link + wochenBuchung.titel + " ( " + medien + ")";
+							return  link + wochenBuchung.titel + " ( " + medien + ")" + wochenBesucher;
 						}
 						// gebe wochenBuchung kurz (wunschfilme true)
 						function wochenBuchungKurz() {
@@ -155,6 +184,7 @@ angular
 						} // end wochenBuchung wunsch
 
 						// gebe tagesBuchungLang zurück datum
+						// dies ist die übliche Anzeige in der Programmtabelle
 						function tagesBuchungLang() {
 							var fmax = 1;
 							var filmnr = 'f' + fmax;
@@ -229,16 +259,36 @@ angular
 								if ( $rootScope.logedInUser.sid == aktuelleBuchung.ortID || $rootScope.logedInUser.role == "admin" ){
 									myReturn = myReturn + "<span class=' pointer' ng-click='openModalBuchung(" + rowIdx + ","
 										+ colIdx + ","+ fmax + ")' >" + "<small>" + filmBID + "</small> " + filmOrt + "</span>"
-										+ check[1] + check[2] + von + medium + nach + "<br />";
+										+ check[1] + check[2] + von + medium + nach ;
 								} else {
-									myReturn = myReturn + "<small>" + filmBID + "</small> " + filmOrt + check[1] + check[2] + von + medium + nach + "<br />";
+									myReturn = myReturn + "<small>" + filmBID + "</small> " + filmOrt + check[1] + check[2] + von + medium + nach ;
 								}
+								// Bei false zeige fehlende Besucherzahlen, ansonsten zeige Besucherzahlen
+                                if ( "besucher" in aktuelleBuchung ) {
+									if ( aktuelleBuchung.besucher == false || aktuelleBuchung.besucher == undefined){
+                                        myReturn = myReturn + " Besucherzahlen fehlen!";
+									} else {
+                                        var arrayLength = aktuelleBuchung.besucher.length;
+                                        for (var i = 0; i < arrayLength; i++) {
+                                            var besucher  = aktuelleBuchung.besucher[i][0];
+                                            // formatiere cent zu euro
+											var eur = (aktuelleBuchung.besucher[i][1] / 100).toFixed(2);
+                                            myReturn = myReturn + " //" + besucher +"a"+ eur +"€";
+                                        }
+									}
+
+
+								}
+
+
+                                myReturn = myReturn + "<br />";
 
 								fmax = fmax + 1; // schaue, ob weiterer Film
 								// in col
 								filmnr = 'f' + fmax;
 							}
 							; // end while
+
 							return myReturn;
 						} // end tagesBuchunglang
 
@@ -259,8 +309,48 @@ angular
 							}
 							// end while
 
+                           // myReturn = myReturn + "tagesBuchungenKurz";
 							return myReturn;
 						} // end tagesBuchungenKurz
+
+                        function tagesBuchungVerleih() {
+                            var fmax = 1;
+                            var filmnr = 'f' + fmax;
+                            var aktuelleBuchung;
+                            var myReturn = ""; // alle Einzelbuchungen
+                            // ein film mit "f1" "f2" ...
+                            while (filmnr in buchung) {
+                                aktuelleBuchung = buchung[filmnr];
+                                fmax = fmax + 1;
+                                filmnr = 'f' + fmax;
+                                var filmOrt = $rootScope.spielorte[aktuelleBuchung.ortID]["ort"]; // sid
+                                myReturn = myReturn + filmOrt
+								// Ort gesetzt und nun zu den Zahlen
+								// ZAhlen
+                                if ( "besucher" in aktuelleBuchung ) {
+                                    if ( aktuelleBuchung.besucher == false || aktuelleBuchung.besucher == undefined){
+                                        myReturn = myReturn + "<small> Besucherzahlen fehlen!</small>";
+                                    } else {
+                                        var arrayLength = aktuelleBuchung.besucher.length;
+                                        for (var i = 0; i < arrayLength; i++) {
+                                            var besucher  = aktuelleBuchung.besucher[i][0];
+                                            // formatiere cent zu euro
+                                            var eur = (aktuelleBuchung.besucher[i][1] / 100).toFixed(2);
+                                            myReturn = myReturn + " //" + besucher +"a"+ eur +"€";
+                                        }
+                                    }
+                                }
+								// beende diesen Ort
+                                myReturn = myReturn + "<br />";
+                            }
+                            // end while
+
+
+
+
+                            return myReturn;
+
+						}
 
 						// gebe wunschfilme zurück
 						function wunschFilme() {
@@ -284,6 +374,8 @@ angular
 								// wrapper für Wunschfilme
 								wunsch = "<span style = ' opacity:1; z-index: 2; float: right;'>" + wunsch + "</span>";
 							}
+
+
 							return wunsch;
 						} // end wunschfilme
 
@@ -292,7 +384,7 @@ angular
 						// gibt es einen Eintrag für diese Spalte in Reihe
 						if (typeof buchung != 'undefined') {
 							//
-							// WOCHENbuchung
+							// WOCHENbuchung (KW Zeilen)
 							if ('vBID' in buchung) {
 								if (zeigeWunschFilme) {
 									return "<span style = 'position:absolute; z-index: 1; opacity:0.3;'> "
@@ -305,8 +397,8 @@ angular
 								}
 								;
 								//
-								// Tagesbuchung
-							} else {
+								// Tagesbuchung (die Zeilen mit Datum)
+							} else if ( $rootScope.logedInUser.role != "verleih") {
 								// mit Wunschfilmen
 								if (zeigeWunschFilme) {
 									return "<span style = 'position:absolute; z-index: 1; opacity:0.3;'> "
@@ -317,6 +409,10 @@ angular
 									// ohne Wunschfilme
 									return tagesBuchungLang();
 								}
+								// Tagesbuchungsanzeige für Verleih, Buchung und Geld
+							} else {
+                                return tagesBuchungVerleih();
+
 							}
 						} else { // kein eintrag in Spalte dieser Reihe
 							// $log.debug("Kein Eintrag für Reihe - Spalte " +

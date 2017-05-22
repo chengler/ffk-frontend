@@ -7,7 +7,7 @@ angular.module('modalUser', [ 'ui.bootstrap', , 'ffkUtils' ]).constant('MODULE_V
 .service('OpenModalUserService', function($rootScope, $uibModal, $log, FfkUtils) {
 	this.editUser = function(uid) {
 		var modalInstance = $uibModal.open({
-			templateUrl : './resources/scripts/users/modalUser.html?' + Math.random(),
+			templateUrl : './users/modalUser.html?' + Math.random(),
 			controller : 'ModalUserInstanceCtrl',
 			size : "lg",
 			resolve : {
@@ -29,7 +29,7 @@ angular.module('modalUser', [ 'ui.bootstrap', , 'ffkUtils' ]).constant('MODULE_V
 			// überprüfe, ob neu angelegt wird
 			if (uid == undefined) {
 				console.log("Lege neuen Benutzer an");
-				uid = "uid" + FfkUtils.getNewProvID("uid");
+				uid =  FfkUtils.getNewProvID("uid");
 				$rootScope.users[uid] = {};
 				console.log(uid + " " + JSON.stringify($rootScope.myProvID));
 				console.log(JSON.stringify($rootScope.users));

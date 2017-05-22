@@ -4,22 +4,28 @@
 		"col1" : {
 			"bc" : "bc-10",
 			"vBID" : "v123",
-			"fID" : "f30"
+			"fID" : "f30",
+			"fw":1
+
 		},
 		"col1w" : {
 			"bc" : "bc-00",
 			"vBID" : "v777",
-			"fID" : "f88"
+			"fID" : "f88",
+            "fw":1
+
 		},
 		"col2" : {
 			"bc" : "bc-20",
 			"vBID" : "v124",
-			"fID" : "f31"
+			"fID" : "f31",
+            "fw":1
 		},
 		"col3" : {
 			"bc" : "bc-30",
 			"vBID" : "v133",
-			"fID" : "f32"
+			"fID" : "f32",
+            "fw":1
 		},
 		"col5" : {
 			"bc" : "bc-40",
@@ -29,7 +35,8 @@
 		"col6" : {
 			"bc" : "bc-50",
 			"vBID" : "v633",
-			"fID" : "f35"
+			"fID" : "f35",
+            "fw":1
 		}
 	}
 }, {
@@ -46,7 +53,9 @@
 				"medium" : "BD",
 				"medienID" : "#3",
 				"vonID" : "sid2",
-				"nachID" : false
+				"nachID" : false,
+                "besucher" : [[20, 400],[11, 350]],
+                "gesamt" : [30, 11850]
 			}
 		},
 		"col1w" : { "bc" : "bc-40" , "sids" : [[ "sid2" ]] },
@@ -189,7 +198,8 @@
 				"medium" : "BD",
 			
 				"vonID" : false,
-				"nachID" : false
+				"nachID" : false,
+                "besucher" : false
 			}
 		},
 		"col2" : {
@@ -523,7 +533,8 @@
 		"col1" : {
 			"bc" : "bc-20",
 			"vBID" : "v324",
-			"fID" : "f77"
+			"fID" : "f77",
+            "fw":1
 		}
 	}
 }, {
