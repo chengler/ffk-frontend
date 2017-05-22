@@ -103,10 +103,11 @@
             }
 
 
-           $scope.showContent = function($fileContent){
-                    $scope.content = $fileContent;
-                };
+         //  $scope.showContent = function($fileContent){
+           //         $scope.content = $fileContent;
+             //   };
 
+            $scope.datum = new Date();
 
 
 
