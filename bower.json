@@ -15,6 +15,7 @@
     "angular-bootstrap": "~0.14.x",
     "ag-grid": "~4.0.x",
     "bootstrap": "~3.3.6",
-    "angular-translate": "~2"	
+    "angular-i18n": "~1"
+
   }
 }
