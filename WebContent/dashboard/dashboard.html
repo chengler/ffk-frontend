@@ -13,15 +13,33 @@
 
 				<div data-ng-if="loggedIn">
 					<h2>Übersicht!</h2>
-
-
 					Kontextbezogen:<br> der Verleih sieht seine aktuell laufenden Filme und die
 					Einspielergebnisse. Alle filme sieht er im Programm<br> der Spielort sieht
 					fehlende Rückmeldungen, den status der nächsten Filme, neue Filmwünsche <br> Der
 					Admin sieht fehlende Rückmeldungen, anstehende Buchungen, neue Filmwünsche<br>
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                              <button type="button" ng-class="details.btn" class="btn"
+                              ng-click="toggleDetails()" ng-bind="details.txt"></button>
+                        </div>
+                    </div>
 
+
+					<div ng-if="details.status">
+					<h2>Kompletter Datensatz Im- und Export.</h2>
+                        <div>
+                            Speicher die Datensätze 'users', 'spielorte', 'verleiher', 'buchungen' (Ring beim Verleih), 'filmlauf' (Mit BuchungsID Spielort bei Ring).
+                            <button class="btn btn-success" data-ng-click="speicher('datensatzFfK')">speicher 'Datensatz'</button>
+
+                        </div>
+						<div>
+                            <label for="lade">Oder lade beliebigen Datensatz (komplett, nur users oder in jeder anderen Kombination) aus Datei:: </label>
+                            <input id="lade" class="btn btn-warning" type="file" on-read-file="lade('datensatzFfK', $fileContent)" >
+                        </div>
+
+					</form>
 					<h2>Datenformate!</h2>
-
 					<h4>Boolean</h4>
 					<div>
 						<strong>loggedIn</strong>: {{loggedIn}}
@@ -43,12 +61,7 @@
 						<div class="form-group">
 						<button class="btn btn-success" data-ng-click="speicher('users')">speicher 'users'</button>
 						</div>
-						<div class="form-group">
-							<span> Oder ersetze durch Datei: </span>
-						</div>
-						<div class="form-group">
-							<input class="btn btn-warning" type="file" on-read-file="lade('users', $fileContent)" >
-						</div>
+
 					</form>
 
 
@@ -61,12 +74,7 @@
 						<div class="form-group">
 							<button class="btn btn-success" data-ng-click="speicher('spielorte')">speicher 'spielorte'</button>
 						</div>
-						<div class="form-group">
-							<span> Oder ersetze durch Datei: </span>
-						</div>
-						<div class="form-group">
-							<input class="btn btn-warning" type="file" on-read-file="lade('spielorte', $fileContent)" >
-						</div>
+
 					</form>
 
 
@@ -80,13 +88,7 @@
 						<div class="form-group">
 							<button class="btn btn-success" data-ng-click="speicher('verleiher')">speicher 'verleiher'</button>
 						</div>
-						<div class="form-group">
-							<span> Oder ersetze durch Datei: </span>
-						</div>
-						<div class="form-group">
-							<input class="btn btn-warning" type="file" on-read-file="lade('verleiher', $fileContent)" >
-						</div>
-					</form>
+											</form>
 
 					<div>
 						<strong>filme</strong> [{
@@ -96,12 +98,7 @@
 							<div class="form-group">
 								<button class="btn btn-success" data-ng-click="speicher('filme')">speicher 'filme'</button>
 							</div>
-							<div class="form-group">
-								<span> Oder ersetze durch Datei: </span>
-							</div>
-							<div class="form-group">
-								<input class="btn btn-warning" type="file" on-read-file="lade('filme', $fileContent)" >
-							</div>
+
 						</form>
 					</div>
 					<div>
@@ -113,12 +110,7 @@
 						<div class="form-group">
 							<button class="btn btn-success" data-ng-click="speicher('buchungen')">speicher 'buchungen'</button>
 						</div>
-						<div class="form-group">
-							<span> Oder ersetze durch Datei: </span>
-						</div>
-						<div class="form-group">
-							<input class="btn btn-warning" type="file" on-read-file="lade('buchungen', $fileContent)" >
-						</div>
+
 					</form>
 					
 					<h4>Arrays</h4>
@@ -147,14 +139,11 @@
 						<div class="form-group">
 							<button class="btn btn-success" data-ng-click="speicher('filmlauf')">speicher 'filmlauf'</button>
 						</div>
-						<div class="form-group">
-							<span> Oder ersetze durch Datei: </span>
-						</div>
-						<div class="form-group">
-							<input class="btn btn-warning" type="file" on-read-file="lade('filmlauf', $fileContent)" >
-						</div>
+
 					</form>
 
+				</div>
+                </div>
 				</div>
 			</div>
 		</div>
