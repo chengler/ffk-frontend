@@ -87,8 +87,8 @@ angular
 							// JSON.stringify($rootScope.buchungen[buchung['vBID']])
 							// );
 							var wochenBuchung = $rootScope.buchungen[buchung['vBID']];
-							// console.log("buchungen"+
-							// JSON.stringify($rootScope.buchungen,1,1));
+							/* console.log("buchungen"+
+							 JSON.stringify($rootScope.buchungen,1,0));*/
 
 							var medien = "";
 							// wann startet diese KinoW in ms
@@ -96,6 +96,7 @@ angular
 							for ( var key in wochenBuchung.medien) {
 								if (wochenBuchung.medien.hasOwnProperty(key)) {
 									// ab wann ist dieses medium verfügbar
+									console.log("moment : " +wochenBuchung.medien[key])
 									var medienStart = moment(wochenBuchung.medien[key]);
 									// console.log("datumInMs "+ datumInMs);
 									// console.log("ab "+

@@ -33,7 +33,7 @@
                     };
         }
         console.log(name + "zum download bereit");
-        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(angular.toJson(data,4,1)));
+        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(angular.toJson(data,1)));
         pom.setAttribute('download', name +".txt");
 
 

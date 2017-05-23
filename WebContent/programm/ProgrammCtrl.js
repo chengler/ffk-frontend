@@ -41,36 +41,37 @@
             $scope.rd4 = "rd4";
 
 
-            //
-            // Tabelle (field für auto Spaltenbreite)
-            // setze 1. Spalte
-            var columnDefs = [{
-                headerName: "Datum",
-                field: "datum",
-                pinned: 'left',
-                minWidth: 75,
-                maxWidth: 100,
-                cellRenderer: function (params) {
-                    return RenderProgrammTableServices.datumsRenderer(params);
-                },
-                cellClass: function (params) {
-                    return params.data.bc;
-                }
-            }];
+                //
+                // Tabelle (field für auto Spaltenbreite)
+                // setze 1. Spalte
+                var columnDefs = [{
+                    headerName: "Datum",
+                    field: "datum",
+                    pinned: 'left',
+                    minWidth: 75,
+                    maxWidth: 100,
+                    cellRenderer: function (params) {
+                        return RenderProgrammTableServices.datumsRenderer(params);
+                    },
+                    cellClass: function (params) {
+                        return params.data.bc;
+                    }
+                }];
 
-            // Tabelle, noch keine rowData
-            // funktion, da unterschiedliche linienhöhe
-            console.log("!!! $scope.gridOptions");
-            $scope.gridOptions = {
-                columnDefs: columnDefs,
-                rowData: null,
-                enableColResize: true,
-                getRowHeight: function (params) {
-                    return 25 * params.data.lines;
-                },
-                // enableColResize : true,
-                angularCompileRows: true
-            };
+                // Tabelle, noch keine rowData
+                // funktion, da unterschiedliche linienhöhe
+                console.log("! $scope.gridOptions werden wieder geladen");
+                // wäre es nicht besser sie in den rootscope zu legen?
+                $scope.gridOptions = {
+                    columnDefs: columnDefs,
+                    rowData: null,
+                    enableColResize: true,
+                    getRowHeight: function (params) {
+                        return 25 * params.data.lines;
+                    },
+                    // enableColResize : true,
+                    angularCompileRows: true
+                };
 
             // START Lade Tabelle asyncron
             // lade Filmlauf in scope und erstelle Tabelle?
@@ -358,7 +359,7 @@
                 return RenderProgrammTableServices.buchungsRenderer(params, zeigeWunschFilme);
             };
 
-            // wenn bereits einmal ionitialisiert
+            // wenn bereits einmal initialisiert
             if ($rootScope.status.aggrid) {
                 console.log("$rootScope.status.aggrid = " + $rootScope.status.aggrid);
                 $scope.gridOptions.rowData = $rootScope.filmlauf;
@@ -385,6 +386,9 @@
                 }
                 $scope.gridOptions.columnDefs = columnDefs;
 //					$scope.gridOptions.api.sizeColumnsToFit();
+
+
+
 
             }
 
