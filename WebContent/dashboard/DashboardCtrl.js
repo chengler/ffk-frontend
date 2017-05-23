@@ -8,8 +8,9 @@
         '$scope',
         '$rootScope',
         '$log',
+        '$locale',
         'FfkUtils',
-        function ( $scope, $rootScope,  $log, FfkUtils) {
+        function ( $scope, $rootScope,  $log, $locale, FfkUtils) {
             $log.info("init DashboardCtrl");
 
 
@@ -106,8 +107,13 @@
          //  $scope.showContent = function($fileContent){
            //         $scope.content = $fileContent;
              //   };
+            console.log("******************* Datumsteil");
+
 
             $scope.datum = new Date();
+            $scope.kwDonnerstag = FfkUtils.getKinoWocheFromDate( $scope.datum);
+            $scope.kw =  "KW "+ moment($scope.kwDonnerstag).isoWeek()+" "+moment($scope.kwDonnerstag).format("YYYY");
+
 
 
 

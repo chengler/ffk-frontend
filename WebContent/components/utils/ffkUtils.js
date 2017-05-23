@@ -22,6 +22,33 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             // $log.debug(' return rowIdx: ' + rowIdx);
             return rowIdx;
         };
+
+        //nehme Datum, gebe den Donnerstag zurück, in dessen Kinowoche der Tag liegt
+        // art ist die formatierung, kein wert =>  gebe den Donnerstag zurück, an dem die Kinowoche beginnt
+        this.getKinoWocheFromDate = function (datum) {
+            datum = moment(datum).hour(12); // Timzone? geh auf Mittag 12h
+            $log.debug('\ngetKinoWocheFromDate: '+ moment(datum).format("DD.MM.YYYY"));
+            // bekommt Datum -> gibt KW Info Zeile
+            // erwartet Datum im Format 20160114
+            // return:  row Index der KW Info Zeile
+            var isoIdx = moment(datum).format('E');
+     /*       $log.debug('starte mit Tag: '+ moment(datum).format("DD-MM-YYYY"));
+            $log.debug('Wert des Tages Mo 1-So 7: '+ moment(datum).format('E'));*/
+
+            var idxDif = parseInt(isoIdx) - 4  ; // (Do-So) So 7-4 = 3 Tage zu Do
+            if (isoIdx < 4) { // (Mo-Mi) (Mo  1+3=4 Tage zu Do
+                idxDif = parseInt(isoIdx) + 3;
+            }
+
+            var donnerstag = moment(datum).subtract(idxDif, 'days');
+            $log.debug(' return ist Donnerstag, der ' + moment(donnerstag).format("DD-MM-YYYY")+ " KW "+ moment(donnerstag).isoWeek());
+
+                          return donnerstag; // gebe den Donnerstag zurück, an dem die Kinowoche beginnt
+
+
+        };
+
+
         // gibt este freie Wunschcol zurück
         // legt neue col an, wenn es keine freie gibt
         // typ bestimmt welche col gesucht wird

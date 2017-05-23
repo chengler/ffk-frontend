@@ -54,10 +54,13 @@ app.config([ '$routeProvider', function($routeProvider) {
 // };
 // }]);
 
-app.run(function(version, author, $rootScope, $http) {
+app.run(function(version, author, $rootScope, $http, $locale) {
 	console.log("app.run");
 	console.info("Version:", version);
 	console.info("Author:", author);
+    $locale.id="de-de";
+    $locale.localeID="de-DE";
+    console.info($locale);
 	
 	
 	$rootScope.spielorte = []; // Infos zu den Spielorten
