@@ -109,10 +109,13 @@
              //   };
             console.log("******************* Datumsteil");
 
-
+            // erstelle Kinowoche
             $scope.datum = new Date();
-            $scope.kwDonnerstag = FfkUtils.getKinoWocheFromDate( $scope.datum);
-            $scope.kw =  "KW "+ moment($scope.kwDonnerstag).isoWeek()+" "+moment($scope.kwDonnerstag).format("YYYY");
+            $scope.kwDonnerstag = FfkUtils.getKinoWocheFromDate( "2017-01-01");
+            $scope.kw =  "Kinowoche "+ moment($scope.kwDonnerstag).isoWeek();
+
+
+            $scope.filmlaufKW = moment($scope.kwDonnerstag).format("YYYY")+"W"+moment($scope.kwDonnerstag).isoWeek(); // Bsp: 2017W48
 
 
 

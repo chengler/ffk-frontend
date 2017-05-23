@@ -158,11 +158,16 @@
                     $scope.gridOptions.api.setRowData($rootScope.filmlauf);
                     $scope.gridOptions.api.setColumnDefs(columnDefs);
                     // $scope.gridOptions.api.refreshView();
+
                     // // alle spalten in rahmen
                     $scope.gridOptions.api.sizeColumnsToFit();
                     var zeit = Date.now() - tstart;
                     console.log("gezeichnet in " + zeit + " ms");
                     $rootScope.status.aggrid = true;
+                var heute = new Date();
+                var thisKW = moment(FfkUtils.getKinoWocheFromDate(heute)).isoWeek();
+                console.log("Springe in der Tabelle zur KW "+thisKW); // ofset 5 // 8 pro Woche
+                $scope.gridOptions.api.ensureIndexVisible( (5+thisKW)*8 );
                /* } else {
                     console.log("initFilmlauf: filmlaufGeladen " + $rootScope.status.filmlaufGeladen
                         + " buchungenGeladen " + $rootScope.status.buchungenGeladen + " grundTabelleGeladen "
@@ -382,6 +387,7 @@
 //					$scope.gridOptions.api.sizeColumnsToFit();
 
             }
+
 
 
 
