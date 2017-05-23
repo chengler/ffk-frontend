@@ -537,12 +537,13 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 });
         };
 
+        // lade filmlauf mit idx Nummern
         this.loadFilmlauf = function () {
             $log.info("ffkUtils.loadFilmlauf: lade Filmlauf");
             // welcher filmlauf wird geladen
             // standard ist 2
             // wenn verleiher vid 1 wird 3 geladen
-            var filmlaufnr = "../example_data/JSONfilmlauf2.js";
+            var filmlaufnr = "../example_data/JSONfilmlauf1.js";
             if ($rootScope.logedInUser.role == "verleih") {
                 switch ($rootScope.logedInUser.vid) {
                     case "vid1":
@@ -554,22 +555,31 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             // $http.get('../example_data//JSONfilmlauf3.js?' + Math.random()).success(
             $http.get(filmlaufnr + '?' + Math.random()).success(
                 function (data) {
-                    // $rootScope.filmlauf = data;
-                    for (var obj in data) {
-                        Object.keys(data[obj]).forEach(function (key) {
+                    // tabelle mit idx
+//checke ob filmlauf mit idx, also einzelne Einträge
+// oder ohne, kompletter Filmlauf wie beim export
+                   var typ = (Object.keys(data[0])[0]).substring(0,3);
+                    console.log("filmlaufdatei von typ "+typ);
+                    if (typ == "idx"){
+                        for (var obj in data) {
+                            Object.keys(data[obj]).forEach(function (key) {
                             // console.log("obj " + obj);
                             // console.log("key " + key);
-                            var idx = key.substr(3);
+                                var idx = key.substr(3);
                             // console.log("idx " + idx);
                             // console.log(data[obj][key]);
                             // console.log($rootScope.filmlauf[idx]);
                             // ES6/ES2015
-                            Object.assign($rootScope.filmlauf[idx], data[obj][key]);
+                                Object.assign($rootScope.filmlauf[idx], data[obj][key]);
                             // console.log($rootScope.filmlauf[idx]);
                             // $rootScope.filmlauf[idx] =
                             // data[obj][key];
                         });
+                                         }
+                    }else {
+                        $rootScope.filmlauf = data;
                     }
+
 
                     // Filmlauf ist nun vorbereitet
                     $rootScope.status.filmlaufGeladen = true;

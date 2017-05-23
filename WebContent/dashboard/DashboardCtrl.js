@@ -23,7 +23,7 @@
 
         if (name != "datensatzFfK"){
             var myobjektname;
-            data[name] =  $rootScope[name];
+            data[name] =  [$rootScope[name]];
         } else {  // konstruiere Datensatz
             data = {'users': $rootScope.users,
                     'spielorte': $rootScope.spielorte,
@@ -33,7 +33,7 @@
                     };
         }
         console.log(name + "zum download bereit");
-        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(angular.toJson(data,1)));
+        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(angular.toJson(data)));
         pom.setAttribute('download', name +".txt");
 
 
@@ -78,7 +78,6 @@
                 break;
             case 'filmlauf':
                 break;
-
         }
     }
     };
@@ -100,28 +99,19 @@
                     $scope.details.status = true;
                     console.log("zeige erweiterte Einstellungen");
                 }
-
             }
-
 
          //  $scope.showContent = function($fileContent){
            //         $scope.content = $fileContent;
              //   };
-            console.log("******************* Datumsteil");
-
             // erstelle Kinowoche
-            $scope.datum = new Date();
-            $scope.kwDonnerstag = FfkUtils.getKinoWocheFromDate( "2017-01-01");
+            console.log("finde Kinowoche");
+            $scope.datum = new Date(); //heute
+            $scope.kwDonnerstag = FfkUtils.getKinoWocheFromDate( $scope.datum);
             $scope.kw =  "Kinowoche "+ moment($scope.kwDonnerstag).isoWeek();
 
 
             $scope.filmlaufKW = moment($scope.kwDonnerstag).format("YYYY")+"W"+moment($scope.kwDonnerstag).isoWeek(); // Bsp: 2017W48
-
-
-
-
-
-
 
 }]);
 })();
