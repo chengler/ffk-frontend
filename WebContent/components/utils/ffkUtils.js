@@ -542,7 +542,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             // welcher filmlauf wird geladen
             // standard ist 2
             // wenn verleiher vid 1 wird 3 geladen
-            var filmlaufnr = "../example_data/JSONfilmlauf1.js";
+            var filmlaufnr = "../example_data/JSONfilmlauf2.js";
             if ($rootScope.logedInUser.role == "verleih") {
                 switch ($rootScope.logedInUser.vid) {
                     case "vid1":
