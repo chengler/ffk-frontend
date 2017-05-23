@@ -33,8 +33,8 @@
                     };
         }
         console.log(name + "zum download bereit");
-        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(angular.toJson(data)));
-        pom.setAttribute('download', name +".txt");
+        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(angular.toJson(data,true)));
+        pom.setAttribute('download', name +".js");
 
 
         if (document.createEvent) {
@@ -49,37 +49,9 @@
 
     // lade eine Datei im Array Format in das objekt mit dem name objektname
     $scope.lade = function(objektname, fileContent){
-    console.log("lade Datei für "+ objektname);
+        console.log("lade Datei für "+ objektname);
+        FfkUtils.loadAllesAusserFilme(fileContent)
     //console.log($fileContent);
-
-    fileContent =  JSON.parse(fileContent);
-    for ( var key in fileContent ){
-         console.log("lade "+ key);
-        //$rootScope[objektname] = JSON.parse(fileContent);
-        $rootScope[key] = fileContent[key];
-
-       // console.log($scope[objektname]);
-        switch(objektname) {
-            case 'users':
-                // wenn Objekt 'users' geladen wurde erstelle und sortiere usersSortiert
-                FfkUtils.sortiereUsers();
-                break;
-            case 'spielorte':
-                FfkUtils.sortiereSpielorte();
-                break;
-            case 'verleiher':
-                FfkUtils.sortiereVerleiher();
-                break;
-            case 'filme':
-                // unklar was zu ändern ist.wird durch PCtrl geändert
-                FfkUtils.loadFilme();
-                break;
-            case 'buchungen':
-                break;
-            case 'filmlauf':
-                break;
-        }
-    }
     };
 
 // zeige details ... Variablen im- und exportfunktion

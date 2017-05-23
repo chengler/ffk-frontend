@@ -522,6 +522,59 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         };
 
 
+
+        // zum laden von Datensatz wie gespeichert unter "Übersicht"
+        // dient zur initialladung der Grundinformationen
+        this.loadAllesAusserFilme = function(fileContent){
+         console.log("lade alles ausser Filme. ");
+         console.log(fileContent);
+
+                fileContent =  JSON.parse(fileContent);
+                for ( var key in fileContent ){
+                    console.log("lade "+ key);
+                    $rootScope[key] = fileContent[key];
+                    // console.log($scope[objektname]);
+                    switch(key) {
+                        case 'users':
+                            // wenn Objekt 'users' geladen wurde erstelle und sortiere usersSortiert
+                            this.sortiereUsers();
+                            break;
+                        case 'spielorte':
+                            this.sortiereSpielorte();
+                            break;
+                        case 'verleiher':
+                            this.sortiereVerleiher();
+                            break;
+                        case 'filme':
+                            // unklar was zu ändern ist.wird durch PCtrl geändert
+                            this.loadFilme();
+                            break;
+                        case 'buchungen':
+                            break;
+                        case 'filmlauf':
+                            $rootScope.status.filmlaufGeladen = true;
+                            break;
+                    }
+                }
+
+        };
+
+        this.loadDatei = function(dateiname){
+            console.log("$http.get("+dateiname+"?");
+            var fileContent = {}
+            $http.get(dateiname + '?' + Math.random()).then(
+                function (data) {
+                    console.log("*************************");
+                    console.log(data);
+                    fileContent=data.data;
+                    console.log(fileContent);
+                    $rootScope.status.loadDatei=true;
+                    return fileContent;
+                });
+        }
+
+
+
         this.loadBuchungen = function () {
             $log.info("lade buchungen");
             $http.get('../example_data//JSONbuchungen.js?' + Math.random()).success(
@@ -538,12 +591,14 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         };
 
         // lade filmlauf mit idx Nummern
+        // also zuim einzelnen nachladen
+        //akteptiert auch komplette s Array ohne idx
         this.loadFilmlauf = function () {
             $log.info("ffkUtils.loadFilmlauf: lade Filmlauf");
             // welcher filmlauf wird geladen
             // standard ist 2
             // wenn verleiher vid 1 wird 3 geladen
-            var filmlaufnr = "../example_data/JSONfilmlauf1.js";
+            var filmlaufnr = "../example_data/JSONfilmlauf2.js";
             if ($rootScope.logedInUser.role == "verleih") {
                 switch ($rootScope.logedInUser.vid) {
                     case "vid1":
@@ -829,7 +884,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         console
             .log(Date.now() + " Spielorte sortiert: "
                 + Object.keys($rootScope.spielorteSortiert).length);
-        console.log(JSON.stringify($rootScope.spielorteSortiert, 0, 4));
+       // console.log(JSON.stringify($rootScope.spielorteSortiert, 0, 4));
         }
 
         this.sortiereVerleiher = function() {

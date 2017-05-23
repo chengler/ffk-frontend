@@ -40,7 +40,7 @@
 
 		// lade Spieorte in den rootscopee - asyncron
 		// [ [{sid : Ort}],[ ...]]
-		$http.get('../example_data//JSONspielorte.js?' + Math.random()).success(
+		/*$http.get('../example_data//JSONspielorte.js?' + Math.random()).success(
 				function(data) {
 					$rootScope.spielorte = data[0];
 					console.log(Date.now() + " JSONspielorte: " + Object.keys($rootScope.spielorte).length
@@ -72,7 +72,7 @@
 									+ Object.keys($rootScope.verleiherSortiert).length);
 					console.log(JSON.stringify($rootScope.verleiherSortiert, 0, 4));
 
-				});
+				});*/
 
 		$scope.login = function() {
 			console.log("demo/login mit:", $scope.auth);
@@ -233,8 +233,32 @@
 
                 }
                 console.log("grundTabelleGeladen " + $rootScope.status.grundTabelleGeladen);
-            FfkUtils.loadFilmlauf();
-            FfkUtils.loadBuchungen();
+
+            var ladeMich = "../example_data/datensatzFfK-1.js";
+            if ($rootScope.logedInUser.role == "verleih") {
+                switch ($rootScope.logedInUser.vid) {
+                    case "vid1":
+                        ladeMich = "../example_data/datensatzFfK-1.js";
+                        break;
+                }
+            }
+
+           // FfkUtils.loadFilmlauf();
+           // FfkUtils.loadBuchungen();
+            console.log("lade Datei  "+ ladeMich);
+            var  fileContent = FfkUtils.loadDatei(ladeMich)
+
+            // setz watcher ob alles geladen grundtabelle kann dann weg!
+
+             var dateiGeladen = $scope.$watch(function () {
+                   return ($rootScope.status.loadDatei);
+                }, function () {
+                    if ($rootScope.status.loadDatei) {
+                        dateiGeladen(); // clear watcher
+                        FfkUtils.loadAllesAusserFilme(fileContent);
+                    }
+                }, true);
+
 
 
         };
