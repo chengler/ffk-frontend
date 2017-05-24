@@ -246,7 +246,7 @@
             if ($rootScope.logedInUser.role == "verleih") {
                 switch ($rootScope.logedInUser.vid) {
                     case "vid1":
-                        ladeMich = "../example_data/datensatzFfK-1.js";
+                        ladeMich = "../example_data/datensatzVid1.js";
                         break;
                 }
             }
