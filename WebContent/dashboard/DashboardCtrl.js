@@ -21,15 +21,16 @@
         var pom = document.createElement('a');
         var data ={};
 
-        if (name != "datensatzFfK"){
+        if (name != "datensatzFfK"){ // einzelner Satz
             var myobjektname;
             data[name] =  [$rootScope[name]];
-        } else {  // konstruiere Datensatz
+        } else {  // konstruiere kompletten Datensatz
             data = {'users': $rootScope.users,
                     'spielorte': $rootScope.spielorte,
                     'verleiher': $rootScope.verleiher,
                     'buchungen': $rootScope.buchungen,
-                    'filmlauf': $rootScope.filmlauf
+                    'filmlauf': $rootScope.filmlauf,
+                    'filme': $rootScope.filme // nur zur entwicklung
                     };
         }
         console.log(name + "zum download bereit");
@@ -50,7 +51,7 @@
     // lade eine Datei im Array Format in das objekt mit dem name objektname
     $scope.lade = function(objektname, fileContent){
         console.log("lade Datei für "+ objektname);
-        FfkUtils.loadAllesAusserFilme(fileContent)
+        FfkUtils.ladeDatensatz(fileContent)
     //console.log($fileContent);
     };
 

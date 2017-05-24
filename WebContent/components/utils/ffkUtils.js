@@ -498,8 +498,10 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 $rootScope.filme = data[0];
                 console.log(Date.now() + " JSONfilme: " + Object.keys($rootScope.filme).length + " Filme geladen");
             });
-
         };
+
+
+
 // checkt ob film vorhanden. wenn nein wird einzelner Film geladen
         this.ladeFilm = function (fID){
             // lade nur wenn film noch nicht vorhanden
@@ -525,7 +527,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         // zum laden von Datensatz wie gespeichert unter "Übersicht"
         // dient zur initialladung der Grundinformationen
-        this.loadAllesAusserFilme = function(fileContent){
+        this.ladeDatensatz = function(fileContent){
          console.log("lade alles ausser Filme... ");
          console.log(fileContent);
             //console.log(JSON.stringify(fileContent));
@@ -548,7 +550,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                             break;
                         case 'filme':
                             // unklar was zu ändern ist.wird durch PCtrl geändert
-                            this.loadFilme();
+                            console.log(Object.keys($rootScope.filme).length + " Filme geladen");
                             break;
                         case 'buchungen':
                             $rootScope.status.buchungenGeladen = true;

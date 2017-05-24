@@ -17,7 +17,7 @@
                     console.log( data);
                     fileContent=data.data;
                    // console.log("+ async loadDatei: "+JSON.stringify(fileContent));
-                    FfkUtils.loadAllesAusserFilme(fileContent);
+                    FfkUtils.ladeDatensatz(fileContent);
                    // $rootScope.status.loadDatei=true;
                     // return fileContent;
 
@@ -270,7 +270,7 @@
                     	console.log("+ async clear watcher dateiGeladen");
                         dateiGeladen(); // clear watcher
 						console.log(fileContent);
-                        //FfkUtils.loadAllesAusserFilme(fileContent);
+                        //FfkUtils.ladeDatensatz(fileContent);
                     }
                 }, true);*/
 
