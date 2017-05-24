@@ -80,11 +80,24 @@
             // erstelle Kinowoche
             console.log("finde Kinowoche");
             $scope.datum = new Date(); //heute
-            $scope.kwDonnerstag = FfkUtils.getKinoWocheFromDate( $scope.datum);
-            $scope.kw =  "Kinowoche "+ moment($scope.kwDonnerstag).isoWeek();
+            var kwDonnerstag = FfkUtils.getKinoWocheFromDate( $scope.datum);
+            var kwEnde = moment(kwDonnerstag).add(6, 'days');
+            var filmlaufKW = moment(kwDonnerstag).format("YYYY")+"W"+moment(kwDonnerstag).isoWeek(); // Bsp: 2017W48
+            console.log("in Filmlauf KW "+filmlaufKW);
+            $scope.kw =  "Kinowoche "+ moment(kwDonnerstag).isoWeek();
+            $scope.kwDonnerstag =  moment(kwDonnerstag).format('DD.MM.')
+            $scope.kwEnde =  moment(kwEnde).format('DD.MM.')
 
 
-            $scope.filmlaufKW = moment($scope.kwDonnerstag).format("YYYY")+"W"+moment($scope.kwDonnerstag).isoWeek(); // Bsp: 2017W48
+            console.log("*************");
+                var kw40 = $rootScope.filmlauf[40].datum.substr(5);
+                var mykw = filmlaufKW.substr(5);
+                var diff = mykw-kw40;
+                var myIdx = 40+(diff*8);
+                //console.log($rootScope.filmlauf[40])
+                //console.log("kw40 "+kw40+" mykw "+mykw+" diff "+diff+" myIdx "+myIdx)
+                //console.log($rootScope.filmlauf[myIdx])
+
 
 }]);
 })();
