@@ -526,10 +526,11 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         // zum laden von Datensatz wie gespeichert unter "Übersicht"
         // dient zur initialladung der Grundinformationen
         this.loadAllesAusserFilme = function(fileContent){
-         console.log("lade alles ausser Filme. ");
+         console.log("lade alles ausser Filme... ");
          console.log(fileContent);
+            //console.log(JSON.stringify(fileContent));
 
-                fileContent =  JSON.parse(fileContent);
+               // fileContent =  JSON.parse(fileContent);
                 for ( var key in fileContent ){
                     console.log("lade "+ key);
                     $rootScope[key] = fileContent[key];
@@ -550,6 +551,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                             this.loadFilme();
                             break;
                         case 'buchungen':
+                            $rootScope.status.buchungenGeladen = true;
                             break;
                         case 'filmlauf':
                             $rootScope.status.filmlaufGeladen = true;
@@ -559,19 +561,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         };
 
-        this.loadDatei = function(dateiname){
-            console.log("$http.get("+dateiname+"?");
-            var fileContent = {}
-            $http.get(dateiname + '?' + Math.random()).then(
-                function (data) {
-                    console.log("*************************");
-                    console.log(data);
-                    fileContent=data.data;
-                    console.log(fileContent);
-                    $rootScope.status.loadDatei=true;
-                    return fileContent;
-                });
-        }
+
 
 
 
@@ -881,8 +871,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             return 0;
         });
         // Spieorte ist nun vorbereitet
-        console
-            .log(Date.now() + " Spielorte sortiert: "
+        console.log( " Spielorte sortiert: "
                 + Object.keys($rootScope.spielorteSortiert).length);
        // console.log(JSON.stringify($rootScope.spielorteSortiert, 0, 4));
         }

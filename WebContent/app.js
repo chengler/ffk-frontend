@@ -96,7 +96,6 @@ app.run(function(version, author, $rootScope, $http, $locale) {
 	$rootScope.spielort = {}; // der aktuelle Spielort 
 	$rootScope.username = ""; // der angemeldete Benutzer // ersetzen
 
-    $rootScope.status.loadDatei=false; // der initiale http request
 
 
 

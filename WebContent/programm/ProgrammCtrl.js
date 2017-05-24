@@ -72,7 +72,7 @@
             if ($rootScope.status.aggrid == false) {
                 // Tabelle, noch keine rowData
                 // funktion, da unterschiedliche linienhöhe
-                console.log("! $rootScope.gridOptions werden wieder geladen");
+                console.log("! $rootScope.gridOptions werden geladen");
                 // wäre es nicht besser sie in den rootscope zu legen?
                 $rootScope.gridOptions = {
                     columnDefs: columnDefs,

@@ -8,13 +8,21 @@
 		// $rootScope.username = "";
 		// $rootScope.loggedIn = false;
 
+        var loadDatei = function(dateiname){
+            console.log("+ async loadDatei $http.get("+dateiname+"?");
+            var fileContent = {}
+            $http.get(dateiname + '?' + Math.random()).then(
+                function (data) {
+                    console.log("+ async loadDatei loaded");
+                    console.log( data);
+                    fileContent=data.data;
+                   // console.log("+ async loadDatei: "+JSON.stringify(fileContent));
+                    FfkUtils.loadAllesAusserFilme(fileContent);
+                   // $rootScope.status.loadDatei=true;
+                    // return fileContent;
 
-
-
-
-
-
-
+                });
+        }
 
 
 		// fülle Loginfenster
@@ -242,22 +250,29 @@
                         break;
                 }
             }
-
+            console.log("lade Datei  "+ ladeMich);
+            loadDatei(ladeMich)
            // FfkUtils.loadFilmlauf();
            // FfkUtils.loadBuchungen();
-            console.log("lade Datei  "+ ladeMich);
-            var  fileContent = FfkUtils.loadDatei(ladeMich)
 
-            // setz watcher ob alles geladen grundtabelle kann dann weg!
+
+
+
+
+
+
+     /*       // setz watcher ob alles geladen grundtabelle kann dann weg!
 
              var dateiGeladen = $scope.$watch(function () {
                    return ($rootScope.status.loadDatei);
                 }, function () {
                     if ($rootScope.status.loadDatei) {
+                    	console.log("+ async clear watcher dateiGeladen");
                         dateiGeladen(); // clear watcher
-                        FfkUtils.loadAllesAusserFilme(fileContent);
+						console.log(fileContent);
+                        //FfkUtils.loadAllesAusserFilme(fileContent);
                     }
-                }, true);
+                }, true);*/
 
 
 
