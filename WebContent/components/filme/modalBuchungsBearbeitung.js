@@ -59,7 +59,7 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
                             delete buchungsChanges.msg;
                             Object.keys(buchungsChanges).forEach(function (key) {
                                 console.log("Änderung " + key + " :" + buchungsChanges[key]);
-
+            // Besuchereintritt
                                 // lösche [null] Werte, 0 ist OK, 0 Besucher 500cen, bzw 4 Besucher 0 cent
                                 if (key == "besucher"){
                                     var arrayLength = buchungsChanges.besucher.length;
@@ -71,6 +71,10 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
                                             arrayLength = arrayLength -1;
                                         }
                                     }
+                                } else if (key == "gesamt"){
+                                    var kwZeile = FfkUtils.getKinoWochenRowIdx(rowIdx);
+                                    var we = FfkUtils.summiereWochenergebniss(kwZeile,colIdx);
+                                    console.log("ändere Gesamteinnahmender Woche auf "+we);
                                 }
                                 // ändere Filmlauf
                                 $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr][key] = buchungsChanges[key];
@@ -232,7 +236,6 @@ angular.module('modalBuchungsBearbeitung').controller(
         $scope.gesamtEintritt = 0;
         if ( "gesamt" in ringBuchung){
             $scope.gesamtBesucher= ringBuchung.gesamt[0];
-            $scope.gesamtEintritt= ringBuchung.gesamt[1];
             $scope.gesamtEintritt= ringBuchung.gesamt[1];
 
                     };

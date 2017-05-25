@@ -70,6 +70,13 @@ angular
                                         $rootScope.buchungen[res.wfID]['laufzeit'] = $rootScope.buchungen['wuensche'][res.wfID]['laufzeit'];
                                         $rootScope.buchungen[res.wfID]['bc'] = $rootScope.buchungen['wuensche'][res.wfID]['bc'];
                                         $rootScope.buchungen[res.wfID]['col'] = "col" + colnr;
+                                        $rootScope.buchungen[res.wfID]['menge'] = {};
+                                        // "laufzeit":1,"fw1":[30,11850]},
+                                        // Film beginnt immer mit einer Woche
+                                        $rootScope.buchungen[res.wfID]['laufzeit'] = 1;
+                                        // und hatt noch keine einnahmen in filmwoche  1
+                                        $rootScope.buchungen[res.wfID]['fw1'] = [];
+
                // leere und lösche den Wunsch
                                         $rootScope.buchungen["wuensche"][res.wfID] = null;
                                         console

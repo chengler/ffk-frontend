@@ -49,6 +49,12 @@ angular.module('modalFilmKW', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_V
 				} else {
 					$scope.buchungen[res.vBID]['menge'] = res.menge;
 				}
+// laufzeitänderung
+                   
+				if (res.hasOwnProperty("laufzeitNeu")){
+				     $scope.buchungen[res.vBID]["laufzeit"] = res.laufzeitNeu;
+				     console.log("neue Laufzeit gesetzt. Nun "+ $scope.buchungen[res.vBID].laufzeit);
+                    }
 
 					// res.startIdx;
 					// res.laufzeit;

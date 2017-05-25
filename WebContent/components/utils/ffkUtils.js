@@ -23,6 +23,26 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             return rowIdx;
         };
 
+        //erwarte Zeile der Kalenderwoche und der Splate
+        //gebe das Wocheneinspielergebniss dieser Woche zurück
+        this.summiereWochenergebniss =  function(kwZeile,colIdx) {
+            $log.debug('summiereWochenergebniss für Zeile/Spalte '+ kwZeile+"/"+colIdx);
+            // loope durch die Woche
+            var summe = 0;
+
+            // gesamt in Buchung
+            // dafür nötig Laufzeit und filmwoche
+            if ($rootScope.filmlauf[rowIdx]['col'+colIdx]['gesamt'] == undefined){
+                $rootScope.filmlauf[rowIdx]['col'+colIdx]['gesamt'] = {};
+            }
+            for (var i = 1; i<= 8; i ++){
+                $rootScope.filmlauf[rowIdx]['col'+colIdx]['gesamt']                    ;
+
+
+            }
+
+        };
+
         //nehme Datum, gebe den Donnerstag zurück, in dessen Kinowoche der Tag liegt
         // art ist die formatierung, kein wert =>  gebe den Donnerstag zurück, an dem die Kinowoche beginnt
         this.getKinoWocheFromDate = function (datum) {
@@ -370,7 +390,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
                     var idx = woche + t;
               //      console.log("idx " + idx + " col " + col);
-              //      console.log("filmlauf[idx][col] " + JSON.stringify(filmlauf[idx][col]));
+              //       console.log("filmlauf[idx][col] " + JSON.stringify(filmlauf[idx][col]));
                     if (filmlauf[idx][col] != undefined) {
                         if (t % 2 == 0) { // Do, Sa ..
                             filmlauf[idx][col]['bc'] = farbwert + 2;
