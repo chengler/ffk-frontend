@@ -50,11 +50,28 @@ angular.module('modalFilmKW', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_V
 					$scope.buchungen[res.vBID]['menge'] = res.menge;
 				}
 // laufzeitänderung
-                   
-				if (res.hasOwnProperty("laufzeitNeu")){
-				     $scope.buchungen[res.vBID]["laufzeit"] = res.laufzeitNeu;
-				     console.log("neue Laufzeit gesetzt. Nun "+ $scope.buchungen[res.vBID].laufzeit);
+
+				if (res.hasOwnProperty("laufzeitNeu")) {
+                    // neue laufzeit
+                    $scope.buchungen[res.vBID]["laufzeit"] = res.laufzeitNeu;
+                    console.log("neue Laufzeit gesetzt. Nun " + $scope.buchungen[res.vBID].laufzeit);
+                    // fw (filmwoche) für einspielergebnisse fw1:[0,0]
+                    var dif = res.laufzeitNeu - res.laufzeit;
+                    // neue fw
+                    if (dif >= 0) {
+                        for (var i = (res.laufzeit + 1); i <= res.laufzeitNeu; i++) {
+                            $scope.buchungen[res.vBID]['fw' + i] = [0, 0];
+                        }
+// lösche fw's
+
+                    } else {
+                        for (var i = (res.laufzeit); i > res.laufzeitNeu; i--) {
+                            $scope.buchungen[res.vBID]['fw' + i] = null;
+                            delete $scope.buchungen[res.vBID]['fw' + i];
+                        }
                     }
+                }
+
 
 					// res.startIdx;
 					// res.laufzeit;

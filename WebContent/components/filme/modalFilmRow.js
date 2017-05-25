@@ -75,7 +75,7 @@ angular
                                         // Film beginnt immer mit einer Woche
                                         $rootScope.buchungen[res.wfID]['laufzeit'] = 1;
                                         // und hatt noch keine einnahmen in filmwoche  1
-                                        $rootScope.buchungen[res.wfID]['fw1'] = [];
+                                        $rootScope.buchungen[res.wfID]['fw1'] = [0,0];
 
                // leere und lösche den Wunsch
                                         $rootScope.buchungen["wuensche"][res.wfID] = null;
@@ -101,7 +101,7 @@ angular
                                             buchungsWoche.col = colnr;
                                         }
 
-                                        console.log("******** col"+buchungsWoche.col+" colnr "+colnr);
+                                //        console.log("******** col"+buchungsWoche.col+" colnr "+colnr);
 
            // Wunsch
            // mitspielwünsche zur Buchung
