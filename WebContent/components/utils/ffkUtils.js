@@ -369,8 +369,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 for (var t = 1; t < 8; t++) {
 
                     var idx = woche + t;
-                    console.log("idx " + idx + " col " + col);
-                    console.log("filmlauf[idx][col] " + JSON.stringify(filmlauf[idx][col]));
+              //      console.log("idx " + idx + " col " + col);
+              //      console.log("filmlauf[idx][col] " + JSON.stringify(filmlauf[idx][col]));
                     if (filmlauf[idx][col] != undefined) {
                         if (t % 2 == 0) { // Do, Sa ..
                             filmlauf[idx][col]['bc'] = farbwert + 2;

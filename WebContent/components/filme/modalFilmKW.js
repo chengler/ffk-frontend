@@ -117,8 +117,9 @@ angular.module('modalFilmKW', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_V
 														// altes ende
 								}
 								console.log("lösche ehemalig vorige von " + res.startIdx + " bis " + delend);
-								for (var index = res.startIdx; index < neustart; index++) {
+								for (var index = res.startIdx; index <= delend; index++) {
 									delete $scope.filmlauf[index][col];
+						//			console.log("index "+index);
 								}
 							}
 						}

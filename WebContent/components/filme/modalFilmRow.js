@@ -88,7 +88,7 @@ angular
                                             "fID": res.fID
                                         };
                                         delete buchungsWoche[res.col + 'w']; // lösche
-
+// erhöhe Anzahl der Filme in dieser Woche auf richtige anzahl
             // falls colnr des Films > als col der Buchungswoche=> gleiche an
                                         if ( colnr > buchungsWoche.col){
                                             buchungsWoche.col = colnr;
