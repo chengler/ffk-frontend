@@ -43,19 +43,20 @@ angular
                                 var buchungsTag = $rootScope.filmlauf[res.row];
 
                                 switch (res.typ) {
-                                    // wandel  wunsch in Buchung
-
+                // wandel  wunsch in Buchung
                                     case ("machBuchbar"):
+                                        console.log("*** mach buchbar")
 
                                         var buchungsWoche = $rootScope.filmlauf[res.kwRow];
-                                        // hole erste freie col in filmlauf
+                // hole erste freie col in filmlauf
                                         var colnr = FfkUtils.getFirstFreeCol($scope, buchungsWoche, "film", 1,
                                             res.wfID);
-                                        // erstelle eintrag in Buchungen
+
+                // erstelle eintrag in Buchungen
 
                                         console.log("buchungen['wuensche'][res.wfID] mit [res.wfID] "
                                             + [res.wfID] + " -> " + JSON.stringify($rootScope.buchungen['wuensche'][res.wfID], 0,  0));
-                                        // lege an , kopiere , änder bc
+               // lege Film an, kopiere , änder bc
                                         $rootScope.buchungen[res.wfID] = {};
                                         $rootScope.buchungen[res.wfID]['fID'] = $rootScope.buchungen['wuensche'][res.wfID]['fID'];
                                         $rootScope.buchungen[res.wfID]['titel'] = $rootScope.buchungen['wuensche'][res.wfID]['titel'];
@@ -69,7 +70,7 @@ angular
                                         $rootScope.buchungen[res.wfID]['laufzeit'] = $rootScope.buchungen['wuensche'][res.wfID]['laufzeit'];
                                         $rootScope.buchungen[res.wfID]['bc'] = $rootScope.buchungen['wuensche'][res.wfID]['bc'];
                                         $rootScope.buchungen[res.wfID]['col'] = "col" + colnr;
-                                        // leere und lösche
+               // leere und lösche den Wunsch
                                         $rootScope.buchungen["wuensche"][res.wfID] = null;
                                         console
                                             .log("buchungen[res.wfID] für [res.wfID] " + [res.wfID]
@@ -80,15 +81,23 @@ angular
                                         // JSON.stringify($rootScope.buchungen,1,1));
 
                                         // TODO BC !!!!!!!!!
-                                        // erstelle eintrag in filmlauf
+              // erstelle eintrag in filmlauf
                                         buchungsWoche['col' + colnr] = {
                                             "bc": $rootScope.buchungen[res.wfID]['bc'],
                                             "vBID": res.wfID,
                                             "fID": res.fID
                                         };
                                         delete buchungsWoche[res.col + 'w']; // lösche
-                                        // Wunsch
-                                        // mitspielwünsche zur Buchung
+
+            // falls colnr des Films > als col der Buchungswoche=> gleiche an
+                                        if ( colnr > buchungsWoche.col){
+                                            buchungsWoche.col = colnr;
+                                        }
+
+                                        console.log("******** col"+buchungsWoche.col+" colnr "+colnr);
+
+           // Wunsch
+           // mitspielwünsche zur Buchung
                                         var idx = parseInt(res.kwRow) + 1;
                                         var end = idx + 7;
                                         for (idx; idx <= end; idx++) {
@@ -118,12 +127,11 @@ angular
 
                                         // setze Farben
                                         FfkUtils.newBackgroundFilmlauf(res.kwRow, 1, 'col' + colnr, 'bc-10');
-
-                                        // console.log(JSON.stringify(buchungsWoche,
-                                        // 5, 4));
-
+//
+                                         console.log(JSON.stringify(buchungsWoche, 5, 4));
+                // filmbuchung
                                         break;
-                                    case ("buchen"): // filmbuchung
+                                    case ("buchen"):
                                         // TODO OBSOLET  wir nicht mehr aufgerufen
                                         console.log("AAAAAAAAAAAAAAAAAAAAAusgelagert in Ffk Utils!");
                                         break;
@@ -157,7 +165,7 @@ angular
                             $scope.gridOptions.api.setRowData($rootScope.filmlauf);
 
                         }, modalInstance.opened.then(function () {
-                            console.log('opened ModalFilmRowService');
+                            console.log('');
                         }),
                         // Modal wurde abgebrochen
                         function () {
@@ -402,7 +410,7 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
         // $uibModalInstance.close Varianten
         //
         $scope.machBuchbar = function () {
-            console.log("machBuchbar");
+            console.log("close mit 'machBuchbar'");
             var col = $scope.buchung.col;
             var result = {
                 "typ": "machBuchbar",

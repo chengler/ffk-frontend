@@ -242,13 +242,13 @@
                 }
                 console.log("grundTabelleGeladen " + $rootScope.status.grundTabelleGeladen);
 
-            var ladeMich = "../example_data/datensatzFfK-1.js";
-           // var ladeMich = "../example_data/datensatzVid1.js";
+          //  var ladeMich = "../example_data/datensatzFfK-1.js";
+           var ladeMich = "../example_data/datensatzVID-1.js";
 
             if ($rootScope.logedInUser.role == "verleih") {
                 switch ($rootScope.logedInUser.vid) {
                     case "vid1":
-                        ladeMich = "../example_data/datensatzVid1.js";
+                        ladeMich = "../example_data/datensatzVID-1.js";
                         break;
                 }
             }

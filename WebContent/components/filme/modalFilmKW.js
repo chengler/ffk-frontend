@@ -432,19 +432,27 @@ angular.module('modalFilmKW').controller('ModalKWInstanceCtrl',
 				}
 			};
 
+			/*var maximalDate = moment().set({'year': 2017, 'month': 11, 'date': 31, 'hour': 12});
+			maximalDate = moment(maximalDate).format('YYYY-MM-DD');
+			console.log("************** maximalDate"+maximalDate);
+            var minimalDate = moment().set({'year': 2017, 'month': 01, 'date': 01, 'hour': 12});
+            minimalDate = moment(minimalDate).format('YYYY-MM-DD');*/
+
 			// gesperte Datumsfelder
 			$scope.dateOptionsStart = {
-				dateDisabled : disabledStart,
+		//		dateDisabled : disabledStart,
 				formatYear : 'yy',
-				maxDate : new Date($scope.dt.getFullYear(), 11, 31),
-				minDate : new Date($scope.dt.getFullYear(), 0, 1),
+		//		maxDate : new Date($scope.dt.getFullYear(), 11, 31),
+		//		maxDate : maximalDate,
+		//		minDate : new Date($scope.dt.getFullYear(), 0, 1),
+        //        minDate : minimalDate,
 				startingDay : 1
 			};
 			$scope.dateOptionsEnd = {
-				dateDisabled : disabledEnd,
+		//		dateDisabled : disabledEnd,
 				formatYear : 'yy',
-				maxDate : new Date($scope.dt.getFullYear() + 1, 0, 31),
-				minDate : $scope.dtStart,
+		//		maxDate : new Date($scope.dt.getFullYear() + 1, 0, 31),
+		//		minDate : $scope.dtStart,
 				// minDate : new Date($scope.dt.getFullYear(), 0, 1),
 				startingDay : 1
 			};
@@ -453,8 +461,8 @@ angular.module('modalFilmKW').controller('ModalKWInstanceCtrl',
 				$scope.dateOptionsMedien = {
 					// dateDisabled : disabledEnd,
 					formatYear : 'yy',
-					maxDate : $scope.dtEnd,
-					minDate : $scope.dtStart,
+			//		maxDate : $scope.dtEnd,
+			//		minDate : $scope.dtStart,
 					startingDay : 1
 				};
 			};

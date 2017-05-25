@@ -96,7 +96,19 @@
                 var myIdx = 40+(diff*8);
                 //console.log($rootScope.filmlauf[40])
                 //console.log("kw40 "+kw40+" mykw "+mykw+" diff "+diff+" myIdx "+myIdx)
-                //console.log($rootScope.filmlauf[myIdx])
+
+
+
+                var allesGeladen = $scope.$watch(function () {
+                    return ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen);
+                }, function () {
+                    if ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen) {
+                        allesGeladen(); // clear watcher
+                        console.log("starte Dashboardübersicht");
+                        console.log($rootScope.filmlauf[myIdx])
+                    }
+                }, true);
+
 
 
 }]);
