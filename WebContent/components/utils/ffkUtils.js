@@ -40,12 +40,24 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 console.log(filmtag);
                 if (filmtag != undefined) { // an diesem Tag keine Buchung
                     console.log("++defined, also Buchung  idx=" + (kwZeile + i) + " tagessumme: " + filmtag);
-                    if (filmtag.gesamt != undefined) { // es gibt eine Buchung mit einem gesamteintrag
-                        console.log("da gesamt, summiere "+ JSON.stringify( filmtag.gesamt) + " zu " +   JSON.stringify(summe) );
-                        summe[0] += filmtag.gesamt[0]; // addiere besucher
-                        summe[1] += filmtag.gesamt[1]; // addiere cent
-                        console.log("********** summe " + JSON.stringify(summe));
-                    }
+                    // Film f1 existiert, aber vielleicht auch mehr => iteriere
+                    //
+                    var f =1;
+                    while (true){
+
+                         if (filmtag.gesamt != undefined) { // es gibt eine Buchung mit einem gesamteintrag
+                            console.log("da gesamt, summiere "+ JSON.stringify( filmtag.gesamt) + " zu " +   JSON.stringify(summe) );
+                            summe[0] += filmtag.gesamt[0]; // addiere besucher
+                            summe[1] += filmtag.gesamt[1]; // addiere cent
+                            console.log("********** summe " + JSON.stringify(summe));
+                         }
+                     //endlosschleife bis film (f2) nicht mehr existiert
+                         f += 1; //eins mehr
+                        filmtag = $rootScope.filmlauf[(kwZeile+i)]['col'+colIdx]['f'+f]; //f2,f3 usw
+                        if (filmtag == undefined) {
+                            break;
+                        }
+                                            }
                 } else {
                     console.log("++undefined, also keine Buchung an idx=" + (kwZeile + i) + " tagessumme: " + filmtag);
                 }

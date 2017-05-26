@@ -234,8 +234,8 @@
             "bc": "bc-20",
             "col": "col1",
             "fw1": [
-            0,
-            0
+            80,
+            22300
         ]
     },
     "vp6": {
@@ -2018,7 +2018,21 @@
                 "medienID": false,
                 "vonID": false,
                 "nachID": false,
-                "garantie": false
+                "garantie": false,
+                "besucher": [
+                    [
+                        10,
+                        10
+                    ],
+                    [
+                        10,
+                        20
+                    ]
+                ],
+                "gesamt": [
+                    20,
+                    300
+                ]
             }
         },
         "col2": {
@@ -2053,7 +2067,21 @@
                 "medienID": false,
                 "vonID": false,
                 "nachID": false,
-                "garantie": false
+                "garantie": false,
+                "besucher": [
+                    [
+                        20,
+                        300
+                    ],
+                    [
+                        40,
+                        400
+                    ]
+                ],
+                "gesamt": [
+                    60,
+                    22000
+                ]
             }
         },
         "col2": {
