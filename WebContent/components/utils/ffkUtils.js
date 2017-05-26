@@ -23,6 +23,11 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             return rowIdx;
         };
 
+        // werden Filme gelöscht, könnte es zuviele linien geben.
+        this.wenigerLinien = function(rowIdx){
+
+        }
+
         //erwarte Zeile der Kalenderwoche und der Splate
         //gebe das Wocheneinspielergebniss dieser Woche zurück
         this.summiereWochenergebniss =  function(kwZeile,colIdx) {

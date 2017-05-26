@@ -88,8 +88,7 @@
             $scope.kwDonnerstag =  moment(kwDonnerstag).format('DD.MM.')
             $scope.kwEnde =  moment(kwEnde).format('DD.MM.')
 
-
-            console.log("*************");
+// Datumsanzeige Kinowoche
                 var kw40 = $rootScope.filmlauf[40].datum.substr(5);
                 var mykw = filmlaufKW.substr(5);
                 var diff = mykw-kw40;
@@ -97,6 +96,39 @@
                 //console.log($rootScope.filmlauf[40])
                 //console.log("kw40 "+kw40+" mykw "+mykw+" diff "+diff+" myIdx "+myIdx)
 
+            // wird vom watcher aufgerufen nachdem alle Daten geladen sind
+            var ladeAnsichten = function(){
+                console.log("lade Ansichten");
+                if ($rootScope.logedInUser.role == "verleih"){
+                    console.log("*** präsentiere Verleihinfos");
+                    console.log(JSON.stringify($rootScope.filmlauf[myIdx]));
+                    // film in filme
+                    // ein Array mit Objecten
+                    $scope.filme=[];
+                    var film ={};
+                    // suche nach  Filmen wie in col angegeben
+                // suche in der KW ZEile
+                    for (var i=1; i<=   $rootScope.filmlauf[myIdx].col ; i++){
+                        console.log("suche nach Film in col "+i);
+                        if ( 'col'+i in $rootScope.filmlauf[myIdx] &&
+                            $rootScope.filmlauf[myIdx]['col'+i] != undefined ) { // film gibts
+                            var myfilm = $rootScope.filmlauf[myIdx]['col'+i];
+                            film['name'] = $rootScope.buchungen[myfilm.vBID].titel;
+                            film['Besucher'] = $rootScope.buchungen[myfilm.vBID]['fw'+myfilm.fw][0];
+                            film['Eintritt'] = $rootScope.buchungen[myfilm.vBID]['fw'+myfilm.fw][1];
+                            film['Filmwoche'] = myfilm.fw;
+
+                            $scope.filme.push(film);
+                            i += 1; // suche nach weiterem Film
+                            film={}; // leere Film für neuen Eintrag
+                        }
+
+                    }
+                    console.log(JSON.stringify($scope.filme));
+
+
+                } // end Verleih
+            }
 
 
                 var allesGeladen = $scope.$watch(function () {
@@ -104,8 +136,9 @@
                 }, function () {
                     if ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen) {
                         allesGeladen(); // clear watcher
-                        console.log("starte Dashboardübersicht");
+                        console.log("***** starte Dashboardübersicht");
                         console.log($rootScope.filmlauf[myIdx])
+                        ladeAnsichten();
                     }
                 }, true);
 
