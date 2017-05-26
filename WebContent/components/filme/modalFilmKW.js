@@ -294,13 +294,17 @@ angular.module('modalFilmKW', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_V
 			// farbwert ist z.B. bc-5 von bc-50
 			var farbwert = bc.substr(0, bc.length - 1);
 			var col =  'col' + colIdx;
+			var filmwoche = 0;
 			for (var woche = start; woche <  ende; woche = woche + 8) {
 				// WochenÜberschrift
+				console.log("******************* START "+start);
 				console.log("woche idx " + woche);
+                filmwoche += 1;
 				$scope.filmlauf[woche][col] = {};
 				$scope.filmlauf[woche][col]['bc'] = bc;
 				$scope.filmlauf[woche][col]['vBID'] = vBID;
 				$scope.filmlauf[woche][col]['fID'] = fID;
+                $scope.filmlauf[woche][col]['fw'] = filmwoche;
 				// überprüfe col in Wochenüberschrift
 				var maxCol = $scope.filmlauf[woche]['col'];
 				// setze col neu wenn nötig

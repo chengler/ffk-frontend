@@ -92,7 +92,8 @@ angular
                                         buchungsWoche['col' + colnr] = {
                                             "bc": $rootScope.buchungen[res.wfID]['bc'],
                                             "vBID": res.wfID,
-                                            "fID": res.fID
+                                            "fID": res.fID,
+                                            "fw" : 1
                                         };
                                         delete buchungsWoche[res.col + 'w']; // lösche
 // erhöhe Anzahl der Filme in dieser Woche auf richtige anzahl
@@ -243,7 +244,7 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
         } else {
             $scope.header = "Film auswählen für ";
         }
-
+// hole KW Woche
         // der row Indefilmex der KW Zeile
         // var wochenBuchungenIDX = rowIdx - moment(datum).format('E');
         var wochenBuchungenIDX = FfkUtils.getKinoWochenRowIdx(rowIdx, datum);
@@ -254,21 +255,28 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
         // lade infos zur vBID filmobject: key=col value = buchungsobj +bc
         // lade infos zur wfID wochenWunschFilme: key=wfID v
         var myObject;
-
+// sammel filme aus kw woche
         var machMenus = function () {
             console.log("machMenus: status = " + $scope.modus.status);
             $scope.filmObject = []; // Film der Woche aus Filmlauf
             $scope.wochenWunschFilme = {}; // Wünsche der Woche
             for (var i = 1; i <= wochenBuchungen.col; i++) {
                 // wenn col existiert Filme in dieser Woche
-                if (typeof wochenBuchungen['col' + i] != 'undefined') {
+                if ( (typeof wochenBuchungen['col' + i] != 'undefined'))   {
                     // ist false wenn nur Wunschfilme
                     var myVBID = wochenBuchungen['col' + i]["vBID"];
-                    if (!(myVBID == false)) {
+                    if (! ((myVBID == false) || (myVBID == undefined)  )) {
                         // buchungsinfos zum Film
                         myObject = $rootScope.buchungen[wochenBuchungen['col' + i]["vBID"]];
                         // hintergrundfarbe
-                        myObject.bc = wochenBuchungen['col' + i]['bc'];
+                        if ( ( typeof wochenBuchungen['col' + i]['bc']) == 'undefined') {
+                            myObject.bc = "bc-g0";
+                        } else {
+                            myObject.bc = wochenBuchungen['col' + i]['bc'];
+
+                        }
+
+
                         // Spalte
                         myObject.col = 'col' + i;
                         $scope.filmObject.push(myObject);

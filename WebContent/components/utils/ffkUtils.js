@@ -775,6 +775,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 mybuchung = $rootScope.buchungen.wuensche[params.vBID];
                 mybuchung['bc'] = params.bc;
                 mybuchung['col'] = 'col' + params.colIdx;
+                // bugsmashers
+                //mybuchung['col'] = params.colIdx;
+
                 mybuchung['wfID'] = params.vBID;
             } else {
                 if ($rootScope.buchungen[params.vBID] == undefined) {
@@ -798,7 +801,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             var wfID = this.getNewProvID('v');
             var colIdx = this.getFirstFreeCol(programmCtrlScope, $rootScope.filmlauf[wochenBuchungenIDX], "wunsch", 1, wfID);
             this.setWochenBuchungInFilmlauf(wochenBuchungenIDX, colIdx, {"fID": fID, "vBID": wfID, "colSuffix": "w"});
-            this.setBuchungInBuchungen({"wunsch": true, "vBID": wfID, "fID": fID, "titel": filmChanges.titel});
+            console.log("this.setWunsch got col idx "+colIdx);
+            this.setBuchungInBuchungen({"wunsch": true, "vBID": wfID, "fID": fID, "titel": filmChanges.titel, "colIdx":colIdx});
 
             programmCtrlScope.gridOptions.api.setRowData($rootScope.filmlauf);
         }
