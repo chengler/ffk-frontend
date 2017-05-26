@@ -28,18 +28,34 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         this.summiereWochenergebniss =  function(kwZeile,colIdx) {
             $log.debug('summiereWochenergebniss für Zeile/Spalte '+ kwZeile+"/"+colIdx);
             // loope durch die Woche
-            var summe = 0;
+            var summe = [0,0];
+
 
             // gesamt in Buchung
-            // dafür nötig Laufzeit und filmwoche
-            if ($rootScope.filmlauf[rowIdx]['col'+colIdx]['gesamt'] == undefined){
-                $rootScope.filmlauf[rowIdx]['col'+colIdx]['gesamt'] = {};
-            }
-            for (var i = 1; i<= 8; i ++){
-                $rootScope.filmlauf[rowIdx]['col'+colIdx]['gesamt']                    ;
 
-
+            var filmtag ;
+      // iteriere durch Filmwocher
+            for (var i = 1; i<= 7; i ++){
+                filmtag = $rootScope.filmlauf[(kwZeile+i)]['col'+colIdx]['f1'];
+                console.log(filmtag);
+                if (filmtag != undefined) { // an diesem Tag keine Buchung
+                    console.log("++defined, also Buchung  idx=" + (kwZeile + i) + " tagessumme: " + filmtag);
+                    if (filmtag.gesamt != undefined) { // es gibt eine Buchung mit einem gesamteintrag
+                        console.log("da gesamt, summiere "+ JSON.stringify( filmtag.gesamt) + " zu " +   JSON.stringify(summe) );
+                        summe[0] += filmtag.gesamt[0]; // addiere besucher
+                        summe[1] += filmtag.gesamt[1]; // addiere cent
+                        console.log("********** summe " + JSON.stringify(summe));
+                    }
+                } else {
+                    console.log("++undefined, also keine Buchung an idx=" + (kwZeile + i) + " tagessumme: " + filmtag);
+                }
             }
+            //setze summe in buchnungszeile Format fw(int):[besucher,cent]
+            var myFilm = $rootScope.filmlauf[kwZeile]['col'+colIdx];
+            $rootScope.buchungen[myFilm.vBID]['fw'+myFilm.fw] = summe;
+            console.log("end summiere :" + JSON.stringify($rootScope.buchungen[myFilm.vBID]));
+            return summe;
+
 
         };
 

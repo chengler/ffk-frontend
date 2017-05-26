@@ -52,15 +52,17 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
                             console.log('RESTfull Set(„fBID'+fBID+'“ : false)');
                             // TODO überprüfe maximale Anzahl der Filme (lines) und reduziere wenn nötig
                         }
-
+// ändere einen filmeintrag
                         if (buchungsChanges.msg ==  'save'){
                             // lösche anweisung msg
                             buchungsChanges.msg = null;
                             delete buchungsChanges.msg;
                             Object.keys(buchungsChanges).forEach(function (key) {
                                 console.log("Änderung " + key + " :" + buchungsChanges[key]);
+
             // Besuchereintritt
-                                // lösche [null] Werte, 0 ist OK, 0 Besucher 500cen, bzw 4 Besucher 0 cent
+                  // lösche [null] Werte, 0 ist OK, 0 Besucher 500cen, bzw 4 Besucher 0 cent
+                                var berecheWochenergebnissNeu = false;
                                 if (key == "besucher"){
                                     var arrayLength = buchungsChanges.besucher.length;
                                     for (var i = 0; i < arrayLength; i++) {
@@ -72,12 +74,19 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
                                         }
                                     }
                                 } else if (key == "gesamt"){
+                                    berecheWochenergebnissNeu = true;
+                                }
+                                // ändere Filmlauf
+                                $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr][key] = buchungsChanges[key];
+                  // Ergebnisse erst speichern, da grundlage für berechnung!
+                                if (berecheWochenergebnissNeu) {
                                     var kwZeile = FfkUtils.getKinoWochenRowIdx(rowIdx);
                                     var we = FfkUtils.summiereWochenergebniss(kwZeile,colIdx);
                                     console.log("ändere Gesamteinnahmender Woche auf "+we);
                                 }
-                                // ändere Filmlauf
-                                $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr][key] = buchungsChanges[key];
+
+
+
                                 // zeige Änderungen
                             });
                         }
