@@ -47,6 +47,22 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
                             // lösche ein fBID im Filmlauf
                             $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr] = null;
                             delete $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr];
+                            //  renumeriere alle filme nach dem gelöschten
+                            var i = filmNr;
+                            while (true){
+                                 // gibt es einen Film mit einer höheren nummer
+                                if ( $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + (i+1)] ){
+                                    // f2 wird f1 wenn i =1
+                                    $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + i] = $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + (i+1)];
+                                    // nulle und lösche
+                                    $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + (i+1)] = null;
+                                    delete $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + (i+1)];
+                                } else {
+                                    break;
+                                }
+                                i += 1  ; // gibt es einen weiteren film?
+                            }
+
                             // lösche ein fBID via REST
                             // TODO REST
                             console.log('RESTfull Set(„fBID'+fBID+'“ : false)');

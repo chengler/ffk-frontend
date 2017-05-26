@@ -2018,7 +2018,7 @@
     {
         "datum": "20170527",
         "bc": "bc-g2",
-        "lines": 1,
+        "lines": 2,
         "col": 0,
         "col1": {
             "bc": "bc-21",
@@ -2046,6 +2046,17 @@
                     20,
                     300
                 ]
+            },
+            "f2": {
+                "fBID": "p1",
+                "check1": false,
+                "check2": false,
+                "ortID": "sid8",
+                "medium": "",
+                "medienID": false,
+                "vonID": false,
+                "nachID": false,
+                "garantie": false
             }
         },
         "col2": {
