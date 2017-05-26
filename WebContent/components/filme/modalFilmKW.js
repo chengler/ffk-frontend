@@ -134,7 +134,7 @@ angular.module('modalFilmKW', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_V
 							neuend = neustart + res.laufzeitNeu * 8 -1;
 							// lösche ehemalig vorige
 							if (res.startDiff > 0){
-								var delend = neustart; // lösche bis dahin
+								var delend = neustart -1; // lösche bis dahin
 								if (neustart > altend){
 									delend = altend; // lösche nie weiter als
 														// altes ende

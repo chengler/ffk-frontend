@@ -122,7 +122,9 @@
             "fw1": [
             30,
             11850
-        ]
+        ],
+            "bc": "bc-10",
+            "col": "col1"
     },
     "v124": {
         "fID": "f31",
@@ -139,7 +141,9 @@
         },
         "vid": "vid1",
             "start": "20170114",
-            "laufzeit": 1
+            "laufzeit": 1,
+            "bc": "bc-20",
+            "col": "col2"
     },
     "v133": {
         "fID": "f32",
@@ -150,9 +154,11 @@
         "menge": {
             "DCP": 1
         },
-        "vid": "vid2",
+        "vid": "vid1",
             "start": "20170114",
-            "laufzeit": 1
+            "laufzeit": 1,
+            "bc": "bc-30",
+            "col": "col3"
     },
     "v423": {
         "fID": "f33",
@@ -178,9 +184,11 @@
         "menge": {
             "DCP": 1
         },
-        "vid": "vid2",
+        "vid": "vid1",
             "start": "20170114",
-            "laufzeit": 1
+            "laufzeit": 1,
+            "bc": "bc-40",
+            "col": "col5"
     },
     "v324": {
         "fID": "f77",
@@ -200,14 +208,19 @@
         "menge": {
             "analog": 1
         },
-        "vid": "vid2",
+        "vid": "vid1",
             "start": "20170114",
-            "laufzeit": 1
+            "laufzeit": 1,
+            "bc": "bc-50",
+            "col": "col6"
     },
     "wuensche": {
         "v777": {
             "fID": "f88",
-                "titel": "The last Rasta"
+                "titel": "The last Rasta",
+                "bc": "bc-00",
+                "col": "col1",
+                "wfID": "v777"
         },
         "vp2": {
             "bc": "bc-00",
