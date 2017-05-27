@@ -13,6 +13,8 @@
         function ( $scope, $rootScope,  $log, $locale, FfkUtils) {
             $log.info("init DashboardCtrl");
 
+            // starte asyncrones laden
+            FfkUtils.getFehlendeRuekmeldungen();
 
             //http://stackoverflow.com/questions/2897619/using-html5-javascript-to-generate-and-save-a-file#4551467
             // http://stackoverflow.com/questions/18826320/what-is-the-hashkey-added-to-my-json-stringify-result#23656919
@@ -107,11 +109,11 @@
 
                     case "spieler":
                     console.log("*** präsentiere Spielerinfos");
+
                     break;
 
                     case "admin":
                         console.log("*** präsentiere Admininfos");
-                        FfkUtils.getFehlendeRuekmeldungen();
                         break;
 
                     case "verleih":      //Verleihansicht
@@ -154,15 +156,18 @@
 
 
                 var allesGeladen = $scope.$watch(function () {
-                    return ($rootScope.status.filmlaufGeladen && $rootScope.status.verleihBuchungenGeladen);
+                    return ($rootScope.status.filmlaufGeladen &&
+                    $rootScope.status.verleihBuchungenGeladen && $rootScope.status.fehlendeRueckmeldungenGeladen);
                 }, function () {
-                    if ($rootScope.status.filmlaufGeladen && $rootScope.status.verleihBuchungenGeladen) {
+                    if ($rootScope.status.filmlaufGeladen &&
+                        $rootScope.status.verleihBuchungenGeladen && $rootScope.status.fehlendeRueckmeldungenGeladen) {
                         allesGeladen(); // clear watcher
                         console.log("***** starte Dashboardübersicht");
                         console.log($rootScope.filmlauf[myIdx])
                         ladeAnsichten();
                     }
                 }, true);
+
 
 
 }]);
