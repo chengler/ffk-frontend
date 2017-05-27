@@ -1,6 +1,24 @@
 angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
     'FfkUtils',
     function ($log, $rootScope, $http) {
+
+        // fehlende Rückmeldungen für logdinuser
+        this.getFehlendeRuekmeldungen = function(){
+            switch ($rootScope.logedInUser) {
+                // hole fehölende fBIDs alle
+                case "admin":
+
+                    break;
+                case "spieler":
+                    break;
+                case "verleih":
+                    break;
+            }
+
+
+
+
+        }
         // bekommt Datum -> gibt KW Info Zeile
         // erwartet Datum im Format 20160114
         // return:  row Index der KW Info Zeile

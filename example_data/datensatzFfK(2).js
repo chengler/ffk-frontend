@@ -148,8 +148,8 @@
             "bc": "bc-20",
             "col": "col1",
             "fw1": [
-            80,
-            22300
+            10,
+            5000
         ],
             "fw2": [
             0,
@@ -184,7 +184,7 @@
     },
     "vp2": {
         "fID": "fp1",
-            "titel": "fdsa",
+            "titel": "Sad Film",
             "medien": {
             "BD": "20170525"
         },
@@ -201,6 +201,63 @@
             "fw1": [
             0,
             0
+        ],
+            "vid": "vid2"
+    }
+},
+    "ringBuchungen": {
+    "fBIDp1": {
+        "fBID": "p1",
+            "check1": false,
+            "check2": false,
+            "ortID": "sid8",
+            "medium": "",
+            "medienID": false,
+            "vonID": false,
+            "nachID": false,
+            "garantie": false
+    },
+    "fBIDp2": {
+        "fBID": "p2",
+            "check1": false,
+            "check2": false,
+            "ortID": "sid8",
+            "medium": "",
+            "medienID": false,
+            "vonID": false,
+            "nachID": false,
+            "garantie": false
+    },
+    "fBIDp3": {
+        "fBID": "p3",
+            "check1": false,
+            "check2": false,
+            "ortID": "sid8",
+            "medium": "",
+            "medienID": false,
+            "vonID": false,
+            "nachID": false,
+            "garantie": false
+    },
+    "fBIDp4": {
+        "fBID": "p4",
+            "check1": false,
+            "check2": false,
+            "ortID": "sid4",
+            "medium": "",
+            "medienID": false,
+            "vonID": false,
+            "nachID": false,
+            "garantie": false,
+            "besucher": [
+            [
+                10,
+                500
+            ]
+        ],
+            "gesamt": [
+            10,
+            5000
         ]
     }
 },
@@ -1400,13 +1457,35 @@
     {
         "datum": "20170525",
         "bc": "bc-g2",
-        "lines": 1,
+        "lines": 2,
         "col": 0,
         "col1": {
-            "bc": "bc-21"
+            "bc": "bc-21",
+            "f1": {
+                "fBID": "p1",
+                "check1": false,
+                "check2": false,
+                "ortID": "sid8",
+                "medium": "",
+                "medienID": false,
+                "vonID": false,
+                "nachID": false,
+                "garantie": false
+            }
         },
         "col2": {
-            "bc": "bc-51"
+            "bc": "bc-51",
+            "f1": {
+                "fBID": "p3",
+                "check1": false,
+                "check2": false,
+                "ortID": "sid8",
+                "medium": "",
+                "medienID": false,
+                "vonID": false,
+                "nachID": false,
+                "garantie": false
+            }
         }
     },
     {
@@ -1415,7 +1494,28 @@
         "lines": 1,
         "col": 0,
         "col1": {
-            "bc": "bc-22"
+            "bc": "bc-22",
+            "f1": {
+                "fBID": "p4",
+                "check1": false,
+                "check2": false,
+                "ortID": "sid4",
+                "medium": "",
+                "medienID": false,
+                "vonID": false,
+                "nachID": false,
+                "garantie": false,
+                "besucher": [
+                    [
+                        10,
+                        500
+                    ]
+                ],
+                "gesamt": [
+                    10,
+                    5000
+                ]
+            }
         },
         "col2": {
             "bc": "bc-52"
@@ -3281,7 +3381,7 @@
             "text": "dieser film steht einer Verlängerung im Weg."
     },
     "fp1": {
-        "titel": "fdsa"
+        "titel": "Sad Film"
     },
     "fp4": {
         "titel": "Die letzte Sau",

@@ -100,36 +100,56 @@
             // wird vom watcher aufgerufen nachdem alle Daten geladen sind
             var ladeAnsichten = function(){
                 console.log("lade Ansichten");
-      //Verleihansicht
-                if ($rootScope.logedInUser.role == "verleih"){
-                    console.log("*** präsentiere Verleihinfos");
-                    console.log(JSON.stringify($rootScope.filmlauf[myIdx]));
-                    // film in filme
-                    // ein Array mit Objecten
-                    $scope.filme=[];
-                    var film ={};
-                    // suche nach  Filmen wie in col angegeben
-                // suche in der KW ZEile
-                    for (var i=1; i<=   $rootScope.filmlauf[myIdx].col ; i++){
-                        console.log("suche nach Film in col "+i);
-                        if ( 'col'+i in $rootScope.filmlauf[myIdx] &&
-                            $rootScope.filmlauf[myIdx]['col'+i] != undefined ) { // film gibts
-                            var myfilm = $rootScope.filmlauf[myIdx]['col'+i];
-                            film['name'] = $rootScope.verleihBuchungen[myfilm.vBID].titel;
-                            film['besucher'] = $rootScope.verleihBuchungen[myfilm.vBID]['fw'+myfilm.fw][0];
-                            film['eintritt'] = $rootScope.verleihBuchungen[myfilm.vBID]['fw'+myfilm.fw][1];
-                            film['filmwoche'] = myfilm.fw;
-
-                            $scope.filme.push(film);
-                            i += 1; // suche nach weiterem Film
-                            film={}; // leere Film für neuen Eintrag
-                        }
-
-                    }
-                    console.log(JSON.stringify($scope.filme));
 
 
-                } // end Verleih
+                switch ($rootScope.logedInUser.role){
+
+
+                    case "spieler":
+                    console.log("*** präsentiere Spielerinfos");
+                    break;
+
+                    case "admin":
+                        console.log("*** präsentiere Admininfos");
+                        FfkUtils.getFehlendeRuekmeldungen();
+                        break;
+
+                    case "verleih":      //Verleihansicht
+                            console.log("*** präsentiere Verleihinfos");
+                            // sollte eigentlich vom Server kommen, Workaround
+                            console.log(JSON.stringify($rootScope.filmlauf[myIdx]));
+                            // film in filme
+                            // ein Array mit Objecten
+                            $scope.filme=[];
+                            var film ={};
+                            // suche nach  Filmen wie in col angegeben
+                            // suche in der KW ZEile
+                            for (var i=1; i<=   $rootScope.filmlauf[myIdx].col ; i++){
+                                console.log("suche nach Film in col "+i);
+                                if ( 'col'+i in $rootScope.filmlauf[myIdx] &&
+                                    $rootScope.filmlauf[myIdx]['col'+i] != undefined ) { // film gibts
+                                    var myfilm = $rootScope.filmlauf[myIdx]['col'+i];
+                                    film['name'] = $rootScope.verleihBuchungen[myfilm.vBID].titel;
+                                    film['besucher'] = $rootScope.verleihBuchungen[myfilm.vBID]['fw'+myfilm.fw][0];
+                                    film['eintritt'] = $rootScope.verleihBuchungen[myfilm.vBID]['fw'+myfilm.fw][1];
+                                    film['filmwoche'] = myfilm.fw;
+
+                                    $scope.filme.push(film);
+                                    i += 1; // suche nach weiterem Film
+                                    film={}; // leere Film für neuen Eintrag
+                                }
+
+                            }
+                            console.log(JSON.stringify($scope.filme));
+                        break;
+
+
+
+
+
+
+                }
+
             }
 
 
