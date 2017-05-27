@@ -28,7 +28,7 @@
             data = {'users': $rootScope.users,
                     'spielorte': $rootScope.spielorte,
                     'verleiher': $rootScope.verleiher,
-                    'buchungen': $rootScope.buchungen,
+                    'verleihBuchungen': $rootScope.verleihBuchungen,
                     'filmlauf': $rootScope.filmlauf,
                     'filme': $rootScope.filme // nur zur entwicklung
                     };
@@ -114,9 +114,9 @@
                         if ( 'col'+i in $rootScope.filmlauf[myIdx] &&
                             $rootScope.filmlauf[myIdx]['col'+i] != undefined ) { // film gibts
                             var myfilm = $rootScope.filmlauf[myIdx]['col'+i];
-                            film['name'] = $rootScope.buchungen[myfilm.vBID].titel;
-                            film['besucher'] = $rootScope.buchungen[myfilm.vBID]['fw'+myfilm.fw][0];
-                            film['eintritt'] = $rootScope.buchungen[myfilm.vBID]['fw'+myfilm.fw][1];
+                            film['name'] = $rootScope.verleihBuchungen[myfilm.vBID].titel;
+                            film['besucher'] = $rootScope.verleihBuchungen[myfilm.vBID]['fw'+myfilm.fw][0];
+                            film['eintritt'] = $rootScope.verleihBuchungen[myfilm.vBID]['fw'+myfilm.fw][1];
                             film['filmwoche'] = myfilm.fw;
 
                             $scope.filme.push(film);
@@ -133,9 +133,9 @@
 
 
                 var allesGeladen = $scope.$watch(function () {
-                    return ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen);
+                    return ($rootScope.status.filmlaufGeladen && $rootScope.status.verleihBuchungenGeladen);
                 }, function () {
-                    if ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen) {
+                    if ($rootScope.status.filmlaufGeladen && $rootScope.status.verleihBuchungenGeladen) {
                         allesGeladen(); // clear watcher
                         console.log("***** starte Dashboardübersicht");
                         console.log($rootScope.filmlauf[myIdx])

@@ -106,7 +106,7 @@
             "trailer": "https://www.youtube.com/user/alamode35/videos"
     }
 },
-    "buchungen": {
+    "verleihBuchungen": {
     "v123": {
         "fID": "f30",
             "titel": "die Taube auf dem Dach",
@@ -268,10 +268,14 @@
                 "analog": 0
         },
         "start": "20170525",
-            "laufzeit": 1,
+            "laufzeit": 2,
             "bc": "bc-10",
             "col": "col2",
             "fw1": [
+            0,
+            0
+        ],
+            "fw2": [
             0,
             0
         ]
@@ -2140,7 +2144,7 @@
             "bc": "bc-22"
         },
         "col2": {
-            "bc": "bc-12"
+            "bc": "bc-11"
         }
     },
     {
@@ -2152,7 +2156,7 @@
             "bc": "bc-21"
         },
         "col2": {
-            "bc": "bc-11"
+            "bc": "bc-12"
         }
     },
     {
@@ -2164,7 +2168,7 @@
             "bc": "bc-22"
         },
         "col2": {
-            "bc": "bc-12"
+            "bc": "bc-11"
         }
     },
     {
@@ -2176,7 +2180,7 @@
             "bc": "bc-21"
         },
         "col2": {
-            "bc": "bc-11"
+            "bc": "bc-12"
         }
     },
     {
@@ -2188,7 +2192,7 @@
             "bc": "bc-22"
         },
         "col2": {
-            "bc": "bc-12"
+            "bc": "bc-11"
         }
     },
     {
@@ -2200,7 +2204,7 @@
             "bc": "bc-21"
         },
         "col2": {
-            "bc": "bc-11"
+            "bc": "bc-12"
         }
     },
     {
@@ -2212,56 +2216,83 @@
             "bc": "bc-22"
         },
         "col2": {
-            "bc": "bc-12"
+            "bc": "bc-11"
         }
     },
     {
         "datum": "2017W23",
         "bc": "bc-g0",
         "lines": 1,
-        "col": 0
+        "col": 2,
+        "col2": {
+            "bc": "bc-10",
+            "vBID": "vp6",
+            "fID": "fp5",
+            "fw": 1
+        }
     },
     {
         "datum": "20170608",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 0
+        "col": 0,
+        "col2": {
+            "bc": "bc-12"
+        }
     },
     {
         "datum": "20170609",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 0
+        "col": 0,
+        "col2": {
+            "bc": "bc-11"
+        }
     },
     {
         "datum": "20170610",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 0
+        "col": 0,
+        "col2": {
+            "bc": "bc-12"
+        }
     },
     {
         "datum": "20170611",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 0
+        "col": 0,
+        "col2": {
+            "bc": "bc-11"
+        }
     },
     {
         "datum": "20170612",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 0
+        "col": 0,
+        "col2": {
+            "bc": "bc-12"
+        }
     },
     {
         "datum": "20170613",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 0
+        "col": 0,
+        "col2": {
+            "bc": "bc-11"
+        }
     },
     {
         "datum": "20170614",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 0
+        "col": 0,
+        "col2": {
+            "bc": "bc-12"
+        }
     },
     {
         "datum": "2017W24",

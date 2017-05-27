@@ -110,9 +110,9 @@
             // setz watcher ob alles geladen grundtabelle kann dann weg!
             if ($rootScope.status.aggrid == false) {
                 var allesGeladen = $scope.$watch(function () {
-                    return ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen);
+                    return ($rootScope.status.filmlaufGeladen && $rootScope.status.verleihBuchungenGeladen);
                 }, function () {
-                    if ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen) {
+                    if ($rootScope.status.filmlaufGeladen && $rootScope.status.verleihBuchungenGeladen) {
                         allesGeladen(); // clear watcher
                         initFilmlauf("allesGeladen");
                     }
@@ -122,13 +122,13 @@
 
             // lade Buchungen vBID Auflösungen in scope -
             // asyncron mit watcher
-            /*if ($rootScope.status.buchungenGeladen == false) {
-                var buchungenGeladen = $scope.$watch(function () {
-                    return $rootScope.status.buchungenGeladen;
+            /*if ($rootScope.status.verleihBuchungenGeladen == false) {
+                var verleihBuchungenGeladen = $scope.$watch(function () {
+                    return $rootScope.status.verleihBuchungenGeladen;
                 }, function () {
-                    if ($rootScope.status.buchungenGeladen) {
-                        buchungenGeladen();
-                        initFilmlauf("buchungenGeladen");
+                    if ($rootScope.status.verleihBuchungenGeladen) {
+                        verleihBuchungenGeladen();
+                        initFilmlauf("verleihBuchungenGeladen");
                     }
                 }, true);
                 FfkUtils.loadBuchungen();
@@ -144,7 +144,7 @@
             // $rootScope.status.$rootScope.status.filmlaufGeladen
             function initFilmlauf(wo) {
                 console.log("initTabelle aufgerufen von " + wo);
-            //    if ($rootScope.status.filmlaufGeladen & $rootScope.status.buchungenGeladen) {
+            //    if ($rootScope.status.filmlaufGeladen & $rootScope.status.verleihBuchungenGeladen) {
                     var tstart = Date.now();
                     maxCol = FfkUtils.getFilmlaufMaxCol(maxCol);
                     // definiere Spalten
@@ -183,7 +183,7 @@
 
                /* } else {
                     console.log("initFilmlauf: filmlaufGeladen " + $rootScope.status.filmlaufGeladen
-                        + " buchungenGeladen " + $rootScope.status.buchungenGeladen + " grundTabelleGeladen "
+                        + " verleihBuchungenGeladen " + $rootScope.status.verleihBuchungenGeladen + " grundTabelleGeladen "
                         + $rootScope.status.grundTabelleGeladen + " noch nicht alles geladen -> ende");
                 }*/
             }

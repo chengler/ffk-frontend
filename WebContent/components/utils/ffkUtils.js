@@ -69,8 +69,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             }
             //setze summe in buchnungszeile Format fw(int):[besucher,cent]
             var myFilm = $rootScope.filmlauf[kwZeile]['col'+colIdx];
-            $rootScope.buchungen[myFilm.vBID]['fw'+myFilm.fw] = summe;
-            console.log("end summiere :" + JSON.stringify($rootScope.buchungen[myFilm.vBID]));
+            $rootScope.verleihBuchungen[myFilm.vBID]['fw'+myFilm.fw] = summe;
+            console.log("end summiere :" + JSON.stringify($rootScope.verleihBuchungen[myFilm.vBID]));
             return summe;
 
 
@@ -605,8 +605,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                             // unklar was zu ändern ist.wird durch PCtrl geändert
                             console.log(Object.keys($rootScope.filme).length + " Filme geladen");
                             break;
-                        case 'buchungen':
-                            $rootScope.status.buchungenGeladen = true;
+                        case 'verleihBuchungen':
+                            $rootScope.status.verleihBuchungenGeladen = true;
                             break;
                         case 'filmlauf':
                             $rootScope.status.filmlaufGeladen = true;
@@ -621,16 +621,16 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
 
         this.loadBuchungen = function () {
-            $log.info("lade buchungen");
-            $http.get('../example_data//JSONbuchungen.js?' + Math.random()).success(
+            $log.info("lade verleihBuchungen");
+            $http.get('../example_data//JSONverleihBuchungen.js?' + Math.random()).success(
                 function (data) {
-                    $rootScope.buchungen = data[0];
-                    $rootScope.status.buchungenGeladen = true;
-                    console.log("buchungenGeladen " + $rootScope.status.buchungenGeladen);
-                    console.log(Date.now() + " JSONbuchungen: " + Object.keys($rootScope.buchungen).length
+                    $rootScope.verleihBuchungen = data[0];
+                    $rootScope.status.verleihBuchungenGeladen = true;
+                    console.log("verleihBuchungenGeladen " + $rootScope.status.verleihBuchungenGeladen);
+                    console.log(Date.now() + " JSONverleihBuchungen: " + Object.keys($rootScope.verleihBuchungen).length
                         + " Buchungen geladen");
                     // $log.debug(" buchung : " +
-                    // JSON.stringify($rootScope.buchungen, null,
+                    // JSON.stringify($rootScope.verleihBuchungen, null,
                     // 8));
                 });
         };
@@ -799,13 +799,13 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 if (params.colIdx == undefined) {
                     $log.warn(" zum anlegen eines Wunsches in einer Buchung mus param.colIdx definiert sein!");
                 }
-                if ($rootScope.buchungen.wuensche == undefined) {
-                    $rootScope.buchungen['wuensche'] = {};
+                if ($rootScope.verleihBuchungen.wuensche == undefined) {
+                    $rootScope.verleihBuchungen['wuensche'] = {};
                 }
-                if ($rootScope.buchungen.wuensche[params.vBID] == undefined) {
-                    $rootScope.buchungen.wuensche[params.vBID] = {};
+                if ($rootScope.verleihBuchungen.wuensche[params.vBID] == undefined) {
+                    $rootScope.verleihBuchungen.wuensche[params.vBID] = {};
                 }
-                mybuchung = $rootScope.buchungen.wuensche[params.vBID];
+                mybuchung = $rootScope.verleihBuchungen.wuensche[params.vBID];
                 mybuchung['bc'] = params.bc;
                 mybuchung['col'] = 'col' + params.colIdx;
                 // bugsmashers
@@ -813,10 +813,10 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
                 mybuchung['wfID'] = params.vBID;
             } else {
-                if ($rootScope.buchungen[params.vBID] == undefined) {
-                    $rootScope.buchungen[params.vBID] = {};
+                if ($rootScope.verleihBuchungen[params.vBID] == undefined) {
+                    $rootScope.verleihBuchungen[params.vBID] = {};
                 }
-                mybuchung = $rootScope.buchungen[params.vBID];
+                mybuchung = $rootScope.verleihBuchungen[params.vBID];
             }
             mybuchung['fID'] = params.fID;
             mybuchung['titel'] = params.titel;
@@ -960,10 +960,10 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         this.aenderTitelInBuchung = function(fID ){
             console.log("this.aenderTitelInBuchung von "+fID);
-            for (var key in $rootScope.buchungen) {
+            for (var key in $rootScope.verleihBuchungen) {
                 // skip loop if the property is from prototype
-                if (!$rootScope.buchungen.hasOwnProperty(key)) continue;
-                var obj = $rootScope.buchungen[key];
+                if (!$rootScope.verleihBuchungen.hasOwnProperty(key)) continue;
+                var obj = $rootScope.verleihBuchungen[key];
                 for (var prop in obj) {
                     // skip loop if the property is from prototype
                     if(!obj.hasOwnProperty(prop)) continue;

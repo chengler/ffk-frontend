@@ -38,23 +38,23 @@ angular.module('ffkFilmModul', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_
 						var colnr = FfkUtils.getFirstFreeCol( $scope, buchungsWoche , "film", 1, res.wfID);
 						// erstelle eintrag in Buchungen
 						
-						console.log("buchungen['wuensche'][res.wfID] mit [res.wfID] "+ [res.wfID] +" -> "+ JSON.stringify($rootScope.buchungen['wuensche'][res.wfID],0,0));
+						console.log("verleihBuchungen['wuensche'][res.wfID] mit [res.wfID] "+ [res.wfID] +" -> "+ JSON.stringify($rootScope.verleihBuchungen['wuensche'][res.wfID],0,0));
 						// lege an , kopiere , änder bc
-						$rootScope.buchungen[res.wfID] = {};
-						$rootScope.buchungen[res.wfID]['fID'] =$rootScope.buchungen['wuensche'][res.wfID]['fID'];
-						$rootScope.buchungen[res.wfID]['titel'] = $rootScope.buchungen['wuensche'][res.wfID]['titel'] ;
-						$rootScope.buchungen[res.wfID]['medien'] = $rootScope.buchungen['wuensche'][res.wfID]['medien'];
-						$rootScope.buchungen[res.wfID]['vid'] = $rootScope.buchungen['wuensche'][res.wfID]['vid'];
+						$rootScope.verleihBuchungen[res.wfID] = {};
+						$rootScope.verleihBuchungen[res.wfID]['fID'] =$rootScope.verleihBuchungen['wuensche'][res.wfID]['fID'];
+						$rootScope.verleihBuchungen[res.wfID]['titel'] = $rootScope.verleihBuchungen['wuensche'][res.wfID]['titel'] ;
+						$rootScope.verleihBuchungen[res.wfID]['medien'] = $rootScope.verleihBuchungen['wuensche'][res.wfID]['medien'];
+						$rootScope.verleihBuchungen[res.wfID]['vid'] = $rootScope.verleihBuchungen['wuensche'][res.wfID]['vid'];
 						// startdatum der gewählten kw
-						$rootScope.buchungen[res.wfID]['start'] = moment($rootScope.filmlauf[res.kwRow]['datum']).isoWeekday(4).format('YYYYMMDD');
-						$rootScope.buchungen[res.wfID]['laufzeit'] = $rootScope.buchungen['wuensche'][res.wfID]['laufzeit'];
-						$rootScope.buchungen[res.wfID]['bc'] = "bc-10";
-						$rootScope.buchungen[res.wfID]['col'] = "col"+colnr;
+						$rootScope.verleihBuchungen[res.wfID]['start'] = moment($rootScope.filmlauf[res.kwRow]['datum']).isoWeekday(4).format('YYYYMMDD');
+						$rootScope.verleihBuchungen[res.wfID]['laufzeit'] = $rootScope.verleihBuchungen['wuensche'][res.wfID]['laufzeit'];
+						$rootScope.verleihBuchungen[res.wfID]['bc'] = "bc-10";
+						$rootScope.verleihBuchungen[res.wfID]['col'] = "col"+colnr;
 						// leere und lösche
-						$rootScope.buchungen["wuensche"][res.wfID] = null;
-						console.log("buchungen[res.wfID] für [res.wfID] "+ [res.wfID] +" -> "+ JSON.stringify($rootScope.buchungen[res.wfID],0,0));
-						delete $rootScope.buchungen["wuensche"][res.wfID];
-// console.log("buchungen"+ JSON.stringify($rootScope.buchungen,1,1));
+						$rootScope.verleihBuchungen["wuensche"][res.wfID] = null;
+						console.log("verleihBuchungen[res.wfID] für [res.wfID] "+ [res.wfID] +" -> "+ JSON.stringify($rootScope.verleihBuchungen[res.wfID],0,0));
+						delete $rootScope.verleihBuchungen["wuensche"][res.wfID];
+// console.log("verleihBuchungen"+ JSON.stringify($rootScope.verleihBuchungen,1,1));
 
 						// TODO BC !!!!!!!!!
 						// erstelle eintrag in filmlauf
@@ -137,13 +137,13 @@ angular.module('ffkFilmModul', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_
 						};
 						// console.log(JSON.stringify($scope.filme, 0, 4));
 						// buchung anlegen
-						$scope.buchungen["wuensche"][res.wfID] = {
+						$scope.verleihBuchungen["wuensche"][res.wfID] = {
 							"fID" : res.fid,
 							"titel" : res.titel,
 							"medien" : res.medium,
 							"vid" : res.vid
 						};
-						// console.log(JSON.stringify($scope.buchungen["wuensche"],
+						// console.log(JSON.stringify($scope.verleihBuchungen["wuensche"],
 						// 0, 4));
 						// in filmlauf einfügen
 						// KW ZEile
@@ -219,9 +219,9 @@ angular.module('ffkFilmModul', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_
 				case ("speichern"):
 					$log.debug("case speichern");
 				if (res.colTyp == 1){ // wunschfilm
-					$scope.buchungen['wuensche'][res.vBID]['menge'] = res.menge;
+					$scope.verleihBuchungen['wuensche'][res.vBID]['menge'] = res.menge;
 				} else {
-					$scope.buchungen[res.vBID]['menge'] = res.menge;
+					$scope.verleihBuchungen[res.vBID]['menge'] = res.menge;
 				}
 
 					// res.startIdx;
@@ -258,11 +258,11 @@ angular.module('ffkFilmModul', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_
 					if ('medien' in res) {
 						var buchung;
 						if (res.colTyp == 1){ // wunschfilm
-							buchung = $scope.buchungen['wuensche'][res.vBID];
+							buchung = $scope.verleihBuchungen['wuensche'][res.vBID];
 						} else {
-							buchung = $scope.buchungen[res.vBID];
+							buchung = $scope.verleihBuchungen[res.vBID];
 						}
-// $log.debug("Medien alt: "+JSON.stringify($scope.buchungen[res.vBID].medien));
+// $log.debug("Medien alt: "+JSON.stringify($scope.verleihBuchungen[res.vBID].medien));
 						for (var med in res.medien){
 // $log.debug("änderungen "+ med +" : "+JSON.stringify(res.medien[med]));
 							if (res.medien[med] == false) {
@@ -394,7 +394,7 @@ angular.module('ffkFilmModul', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_
 				res.endDiff = 0 -res.laufzeit;
 			console.log("lösche alle: "+res.endDiff);
 				shortFilmlauf(res.startIdx, res.laufzeit, col, res.endDiff);
-				delete $scope.buchungen[res.vBID];
+				delete $scope.verleihBuchungen[res.vBID];
 				break;
 			}
 			// Meldung zum Server
@@ -479,7 +479,7 @@ angular.module('ffkFilmModul', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_
 // CONTROLLERS
 //
 // ModalFilmlRowInstanceCtrl REIHE
-// bezieht sich auf die Filmbuchungen in einer Woche (mit Datum)
+// bezieht sich auf die FilmverleihBuchungen in einer Woche (mit Datum)
 angular.module('ffkFilmModul').controller('ModalFilmlRowInstanceCtrl',
 		function($rootScope, $scope, $log, $uibModalInstance, rowIdx,  FfkUtils) {
 			console.log("ModalFilmlRowInstanceCtrl");
@@ -487,7 +487,7 @@ angular.module('ffkFilmModul').controller('ModalFilmlRowInstanceCtrl',
 // var filmlauf = $rootScope.filmlauf ;
 			$scope.filmobject = []; // die ausgewälten filme
 
-			var buchungen = $rootScope.buchungen;
+			var verleihBuchungen = $rootScope.verleihBuchungen;
 			// die einelnen Filme
 			var filme = $rootScope.filme;
 			
@@ -552,10 +552,10 @@ angular.module('ffkFilmModul').controller('ModalFilmlRowInstanceCtrl',
 			$scope.medienLeihbar = [];
 			var zeigeWunschFilme = $rootScope.zeigeWunschFilme; // false
 
-			$log.debug("ffkFilmModul <- ModalFilmlRowInstanceCtrl (Filmbuchungen Datum Tagesübersicht)");
+			$log.debug("ffkFilmModul <- ModalFilmlRowInstanceCtrl (FilmverleihBuchungen Datum Tagesübersicht)");
 			$log.debug("    rowIdx : " + rowIdx);
 			$log.debug("    filmlauf : " + Object.keys($rootScope.filmlauf).length + " Objecte (Reihen)");
-			$log.debug("    buchungen : " + Object.keys($rootScope.buchungen).length);
+			$log.debug("    verleihBuchungen : " + Object.keys($rootScope.verleihBuchungen).length);
 
 			// medienverfügbarkeit
 			$scope.wochenWunschFilme = {};
@@ -611,7 +611,7 @@ angular.module('ffkFilmModul').controller('ModalFilmlRowInstanceCtrl',
 					var myVBID = wochenBuchungen['col' + i]["vBID"];
 					if (!(myVBID == false)) {
 						// buchungsinfos zum Film
-						myObject = buchungen[wochenBuchungen['col' + i]["vBID"]];
+						myObject = verleihBuchungen[wochenBuchungen['col' + i]["vBID"]];
 						// hintergrundfarbe
 						myObject.bc = wochenBuchungen['col' + i]['bc'];
 						// Spalte
@@ -622,7 +622,7 @@ angular.module('ffkFilmModul').controller('ModalFilmlRowInstanceCtrl',
 					if (typeof wochenBuchungen['col' + i + 'w'] != 'undefined') {
 						var wb = wochenBuchungen['col' + i + 'w'];
 						console.log("WWWWW " + JSON.stringify(wb,0,0));
-						myObject = $rootScope.buchungen["wuensche"][wb["vBID"]];
+						myObject = $rootScope.verleihBuchungen["wuensche"][wb["vBID"]];
 						myObject.bc = wb['bc'];
 						myObject.col = 'col' + i;
 						myObject.wfID = wb["vBID"];
@@ -714,7 +714,7 @@ angular.module('ffkFilmModul').controller('ModalFilmlRowInstanceCtrl',
 				
 
 				$scope.kwinfos = wochenBuchungen[col];
-				$scope.buchung = $rootScope.buchungen[$scope.kwinfos["vBID"]];
+				$scope.buchung = $rootScope.verleihBuchungen[$scope.kwinfos["vBID"]];
 				if ($scope.wahl.modus == 'tag'){
 					$log.debug("suche Medienverfügbarkeit für 'tag'");
 					$scope.medienLeihbar = FfkUtils.getLeihbar(filmlaufTag["datum"], $scope.buchung.medien);
@@ -863,12 +863,12 @@ angular.module('ffkFilmModul').controller('ModalFilmlRowInstanceCtrl',
 angular.module('ffkFilmModul').controller('ModalKWInstanceCtrl',
 		function(FfkUtils, $rootScope, $scope, $log, $uibModalInstance, filmlaufIdx, colIdx, colTyp) {
 
-			$log.debug("ffkFilmModul <- ModalKWInstanceCtrl (Filmbuchungen KW Wochenübersicht)");
+			$log.debug("ffkFilmModul <- ModalKWInstanceCtrl (FilmverleihBuchungen KW Wochenübersicht)");
 			$log.debug("    filmlaufIdx : " + filmlaufIdx);
 			$log.debug("    colIdx : " + colIdx);
 			$log.debug("    colTyp : " + colTyp);
 			$log.debug("    filmlauf : " + Object.keys($rootScope.filmlauf).length + " Objecte");
-			$log.debug("    buchungen : " + Object.keys($rootScope.buchungen).length);
+			$log.debug("    verleihBuchungen : " + Object.keys($rootScope.verleihBuchungen).length);
 			var col = 'col' + colIdx;
 			$scope.colType = ""; // "" bei Film
 			// 1 bei Wunschfilm
@@ -888,12 +888,12 @@ angular.module('ffkFilmModul').controller('ModalKWInstanceCtrl',
 			var fID = $rootScope.filmlauf[filmlaufIdx][col]['fID'];
 
 			// die ausgewählte Buchung
-			var buchung = $rootScope.buchungen[vBID];
-			var wochenBuchung = $rootScope.buchungen[$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
+			var buchung = $rootScope.verleihBuchungen[vBID];
+			var wochenBuchung = $rootScope.verleihBuchungen[$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
 
 			if ( colTyp == 1){
-				buchung = $rootScope.buchungen["wuensche"][vBID];
-				wochenBuchung = $rootScope.buchungen["wuensche"][$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
+				buchung = $rootScope.verleihBuchungen["wuensche"][vBID];
+				wochenBuchung = $rootScope.verleihBuchungen["wuensche"][$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
 			}
 
 			// der Verleih
@@ -1131,7 +1131,7 @@ angular.module('ffkFilmModul').controller('ModalKWInstanceCtrl',
 				$scope.isNew = false;
 				$scope.isOld = true;
 				// wochenBuchung =
-				// $rootScope.buchungen[$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
+				// $rootScope.verleihBuchungen[$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
 				$scope.header = "Filmlauf bearbeiten";
 				$scope.filmtitel = wochenBuchung["titel"];
 			}

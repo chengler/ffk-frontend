@@ -42,7 +42,7 @@
 					<div ng-if="details.status">
 					<h2>Kompletter Datensatz Im- und Export.</h2>
                         <div>
-                            Speicher die Datensätze 'users', 'spielorte', 'verleiher', 'buchungen' (Ring beim Verleih), 'filmlauf' (Mit BuchungsID Spielort bei Ring).
+                            Speicher die Datensätze 'users', 'spielorte', 'verleiher', 'verleihBuchungen' (Ring beim Verleih), 'filmlauf' (Mit BuchungsID Spielort bei Ring).
                             <button class="btn btn-success" data-ng-click="speicher('datensatzFfK')">speicher 'Datensatz'</button>
 
                         </div>
@@ -115,13 +115,13 @@
 						</form>
 					</div>
 					<div>
-						<strong>buchungen</strong> [{
-						<div ng-repeat="  (key , val) in buchungen">{{key}} : {{val}},</div>
+						<strong>verleihBuchungen</strong> [{
+						<div ng-repeat="  (key , val) in verleihBuchungen">{{key}} : {{val}},</div>
 						}] Es handelt sich um Buchungen des Abspielringes beim Verleih mit eindeutiger v- BuchungsID
 					</div>
 					<form class="form-inline">
 						<div class="form-group">
-							<button class="btn btn-success" data-ng-click="speicher('buchungen')">speicher 'buchungen'</button>
+							<button class="btn btn-success" data-ng-click="speicher('verleihBuchungen')">speicher 'verleihBuchungen'</button>
 						</div>
 
 					</form>

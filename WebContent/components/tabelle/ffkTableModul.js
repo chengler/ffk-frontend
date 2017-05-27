@@ -59,8 +59,8 @@ angular
 						// Object.keys(spielorte).length + " spielorte");
 						// $log.debug(" filmlauf : " +
 						// Object.keys(filmlauf).length + " Objecte (Reihen)");
-						// $log.debug(" buchungen : " +
-						// Object.keys(buchungen).length + " Verleihbuchungen");
+						// $log.debug(" verleihBuchungen : " +
+						// Object.keys(verleihBuchungen).length + " VerleihverleihBuchungen");
 						// $log.debug(" zeigeWunschFilme : " +
 						// zeigeWunschFilme);
 
@@ -80,15 +80,15 @@ angular
 							if (buchung["vBID"] == false) {
 								return "";
 							}
-							// console.log(JSON.stringify(buchungen,0,4));
+							// console.log(JSON.stringify(verleihBuchungen,0,4));
 							// console.log("buchung "+JSON.stringify(buchung));
-							// console.log("$rootScope.buchungen[buchung['vBID']
+							// console.log("$rootScope.verleihBuchungen[buchung['vBID']
 							// für 'vBID' = "+ buchung['vBID']+ " -> "+
-							// JSON.stringify($rootScope.buchungen[buchung['vBID']])
+							// JSON.stringify($rootScope.verleihBuchungen[buchung['vBID']])
 							// );
-							var wochenBuchung = $rootScope.buchungen[buchung['vBID']];
-							/* console.log("buchungen"+
-							 JSON.stringify($rootScope.buchungen,1,0));*/
+							var wochenBuchung = $rootScope.verleihBuchungen[buchung['vBID']];
+							/* console.log("verleihBuchungen"+
+							 JSON.stringify($rootScope.verleihBuchungen,1,0));*/
 
 							var medien = "";
 							// wann startet diese KinoW in ms
@@ -144,7 +144,7 @@ angular
 							if (buchung["vBID"] == false) {
 								return "";
 							}
-							var wochenBuchung = $rootScope.buchungen[buchung["vBID"]];
+							var wochenBuchung = $rootScope.verleihBuchungen[buchung["vBID"]];
 							return wochenBuchung.titel;
 						}
 						// wochenBuchung wunsch
@@ -154,9 +154,9 @@ angular
 							if (buchungW) {
 								// änder Format filmlauf
 								// wunsch =
-								// $rootScope.buchungen["wuensche"][Object.keys(buchungW)]["titel"];
+								// $rootScope.verleihBuchungen["wuensche"][Object.keys(buchungW)]["titel"];
 								console.log("UUUUUUUUUUUUUUUUUUUUUUUUUUUU " + JSON.stringify(buchungW, 0, 0));
-								var wunschObjekt = $rootScope.buchungen["wuensche"][buchungW["vBID"]];
+								var wunschObjekt = $rootScope.verleihBuchungen["wuensche"][buchungW["vBID"]];
 								wunsch = wunschObjekt['titel'];
 								var bc = buchungW['bc'];
 								// wrapper für Wunschfilme
@@ -173,7 +173,7 @@ angular
 
 							// if (buchung["wunschF"]) {
 							// wunsch =
-							// buchungen["wuensche"][Object.keys(buchung["wunschF"])]["titel"];
+							// verleihBuchungen["wuensche"][Object.keys(buchung["wunschF"])]["titel"];
 							//
 							// // wrapper für Wunschfilme
 							// wunsch = "<span class='label label-warning' style
@@ -190,7 +190,7 @@ angular
 							var fmax = 1;
 							var filmnr = 'f' + fmax;
 							var aktuelleBuchung;
-							var myReturn = ""; // alle Einzelbuchungen
+							var myReturn = ""; // alle EinzelverleihBuchungen
 							// ein film mit "f1" "f2" ...
 							while (filmnr in buchung) {
 								aktuelleBuchung = buchung[filmnr];
@@ -298,7 +298,7 @@ angular
 							var fmax = 1;
 							var filmnr = 'f' + fmax;
 							var aktuelleBuchung;
-							var myReturn = ""; // alle Einzelbuchungen
+							var myReturn = ""; // alle EinzelverleihBuchungen
 							// ein film mit "f1" "f2" ...
 							while (filmnr in buchung) {
 								aktuelleBuchung = buchung[filmnr];
@@ -318,7 +318,7 @@ angular
                             var fmax = 1;
                             var filmnr = 'f' + fmax;
                             var aktuelleBuchung;
-                            var myReturn = ""; // alle Einzelbuchungen
+                            var myReturn = ""; // alle EinzelverleihBuchungen
                             // ein film mit "f1" "f2" ...
                             while (filmnr in buchung) {
                                 aktuelleBuchung = buchung[filmnr];

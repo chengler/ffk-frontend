@@ -154,7 +154,7 @@ angular.module('modalBuchungsBearbeitung').controller(
         $scope.kwInfos = $rootScope.filmlauf[kwRowIdx][col];
         console.log(" kwInfos " + JSON.stringify($scope.kwInfos, 0, 0));
 
-        var verleihBuchung = $rootScope.buchungen[$scope.kwInfos.vBID];
+        var verleihBuchung = $rootScope.verleihBuchungen[$scope.kwInfos.vBID];
         console.log(" verleihBuchung " + JSON.stringify(verleihBuchung, 0, 0));
 
         // die angeklickte zelle
