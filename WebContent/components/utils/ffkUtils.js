@@ -397,8 +397,18 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 "nachID": false,
                 "garantie": garantie
             };
-            console.log("mySet = " + mySet);
+            console.log("mySet = " + JSON.stringify(mySet));
             buchungsTag[col]['f' + fnext] = mySet;
+            // erstelle rootScope.ringBuchung
+            var rbKey= "fBID"+ mySet.fBID; //ringBuchungskey
+        // müsste sonst in rootscoop fest kopiert sein
+        //    mySet.fBID = null;
+        //    delete mySet.fBID;
+
+            $rootScope.ringBuchungen[rbKey] = mySet;
+          
+            console.log("setze in $rootScope.ringBuchungen "+ JSON.stringify($rootScope.ringBuchungen[rbKey]));
+            console.log("+++++++++ sende REST an SERVER");
         };
 
         this.newBackgroundFilmlauf = function (startIdx, laufzeit, col, bc, typ) {

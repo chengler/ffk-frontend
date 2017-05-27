@@ -29,6 +29,7 @@
                     'spielorte': $rootScope.spielorte,
                     'verleiher': $rootScope.verleiher,
                     'verleihBuchungen': $rootScope.verleihBuchungen,
+                    'ringBuchungen': $rootScope.ringBuchungen,
                     'filmlauf': $rootScope.filmlauf,
                     'filme': $rootScope.filme // nur zur entwicklung
                     };
@@ -142,7 +143,6 @@
                         ladeAnsichten();
                     }
                 }, true);
-
 
 
 }]);

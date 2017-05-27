@@ -107,7 +107,7 @@ angular
            // Wunsch
            // mitspielwünsche zur Buchung
                                         var idx = parseInt(res.kwRow) + 1;
-                                        var end = idx + 7;
+                                        var end = idx + 6; // bug15
                                         for (idx; idx <= end; idx++) {
                                             console.log(idx);
                                             // lege leeren eintrag an
@@ -141,7 +141,7 @@ angular
                                         break;
                                     case ("buchen"):
                                         // TODO OBSOLET  wir nicht mehr aufgerufen
-                                        console.log("AAAAAAAAAAAAAAAAAAAAAusgelagert in Ffk Utils!");
+                                        console.log("Ausgelagert in Ffk Utils!");
                                         break;
                                     case ("mitspielen"): // mitspielwunsch
 

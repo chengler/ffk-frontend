@@ -125,6 +125,20 @@
 						</div>
 
 					</form>
+
+						<div>
+							<strong>ringBuchungen</strong> [{
+							<div ng-repeat="  (key , val) in ringBuchungen">{{key}} : {{val}},</div>
+							}] Es handelt sich um die Filmbuchungen eines Spielortes beim Abspielringes mit eindeutiger fBID BuchungsID
+						</div>
+						<form class="form-inline">
+							<div class="form-group">
+								<button class="btn btn-success" data-ng-click="speicher('verleihBuchungen')">speicher 'verleihBuchungen'</button>
+							</div>
+
+						</form>
+
+
 					
 					<h4>Arrays</h4>
 					<div>
