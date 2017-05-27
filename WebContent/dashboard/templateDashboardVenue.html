@@ -14,8 +14,8 @@
         <!-- 							http://stackoverflow.com/questions/15974086/conditional-ng-include-in-angularjs -->
         <!-- 							eine push Lösung für ::bindings? -->
         <!-- 							http://stackoverflow.com/questions/14702981/angularjs-model-changes-after-websocket-data-push-from-server -->
-        <td class="col-sm-2" data-ng-bind="film.name"></td>
-        <td class="col-sm-1" data-ng-bind="film.filmwoche"></td>
+        <td class="col-sm-2" data-ng-bind="::film.name"></td>
+        <td class="col-sm-1" data-ng-bind="::film.filmwoche"></td>
         <td class="col-sm-1" data-ng-bind="film.besucher"></td>
         <td class="col-sm-1" data-ng-bind="film.eintritt"></td>
     </tr>
