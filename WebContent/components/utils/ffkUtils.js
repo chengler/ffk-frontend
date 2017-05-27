@@ -406,7 +406,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         //    delete mySet.fBID;
 
             $rootScope.ringBuchungen[rbKey] = mySet;
-          
+
             console.log("setze in $rootScope.ringBuchungen "+ JSON.stringify($rootScope.ringBuchungen[rbKey]));
             console.log("+++++++++ sende REST an SERVER");
         };
