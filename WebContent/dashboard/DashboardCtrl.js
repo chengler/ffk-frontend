@@ -58,17 +58,17 @@
 // zeige details ... Variablen im- und exportfunktion
             $scope.details = {};
             $scope.details.btn = "btn-success";
-            $scope.details.txt = "zeige erweiterte Einstellungen"
+            $scope.details.txt = "zeige Variableninhalte"
             $scope.details.status = false;
             $scope.toggleDetails = function (){
                 if ($scope.details.status) { //if true
                     $scope.details.btn = "btn-success";
-                    $scope.details.txt = "zeige erweiterte Einstellungen"
+                    $scope.details.txt = "zeige Variableninhalte"
                     $scope.details.status = false;
                     console.log("verberge erweiterte Einstellungen");
                 } else {
                     $scope.details.btn = "btn-danger";
-                    $scope.details.txt = "verberge erweiterte Einstellungen"
+                    $scope.details.txt = "verberge Variableninhalte"
                     $scope.details.status = true;
                     console.log("zeige erweiterte Einstellungen");
                 }
