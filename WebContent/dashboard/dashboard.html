@@ -10,18 +10,49 @@
 
 		<div data-ng-app="app.dashboard">
 			<div data-ng-controller="DashboardCtrl">
+				<hr />
+
+
+
+                <strong>{{datum | date:'dd.MM.yyyy' }} - {{kw}} -
+					vom {{kwDonnerstag | date:'dd.MM.yyyy' }}
+					bis {{kwEnde | date:'dd.MM.yyyy' }}
+				</strong>
+
+				<div data-ng-if="logedInUser.role == 'verleih'">
+					<div ng-include="'dashboard/templateDashboardVenue.html'"></div>
+				</div>
+
+
 
 				<div data-ng-if="loggedIn">
 					<h2>Übersicht!</h2>
-
-
 					Kontextbezogen:<br> der Verleih sieht seine aktuell laufenden Filme und die
-					Einspielergebnisse. Alle filme sieht er im Programm<br> der Spielort sieht
-					fehlende Rückmeldungen, den status der nächsten Filme, neue Filmwünsche <br> Der
-					Admin sieht fehlende Rückmeldungen, anstehende Buchungen, neue Filmwünsche<br>
+					Einspielergebnisse.<br> der Spielort sieht
+					fehlende Rückmeldungen<br> Der Admin sieht fehlende Rückmeldungen<br>
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                              <button type="button" ng-class="details.btn" class="btn"
+                              ng-click="toggleDetails()" ng-bind="details.txt"></button>
+                        </div>
+                    </div>
 
+
+					<div ng-if="details.status">
+					<h2>Kompletter Datensatz Im- und Export.</h2>
+                        <div>
+                            Speicher die Datensätze 'users', 'spielorte', 'verleiher', 'verleihBuchungen' (Ring beim Verleih), 'filmlauf' (Mit BuchungsID Spielort bei Ring).
+                            <button class="btn btn-success" data-ng-click="speicher('datensatzFfK')">speicher 'Datensatz'</button>
+
+                        </div>
+						<div>
+                            <label for="lade">Oder lade beliebigen Datensatz (komplett, nur users oder in jeder anderen Kombination) aus Datei:: </label>
+                            <input id="lade" class="btn btn-warning" type="file" on-read-file="lade('datensatzFfK', $fileContent)" >
+                        </div>
+
+					</form>
 					<h2>Datenformate!</h2>
-
 					<h4>Boolean</h4>
 					<div>
 						<strong>loggedIn</strong>: {{loggedIn}}
@@ -43,12 +74,7 @@
 						<div class="form-group">
 						<button class="btn btn-success" data-ng-click="speicher('users')">speicher 'users'</button>
 						</div>
-						<div class="form-group">
-							<span> Oder ersetze durch Datei: </span>
-						</div>
-						<div class="form-group">
-							<input class="btn btn-warning" type="file" on-read-file="lade('users', $fileContent)" >
-						</div>
+
 					</form>
 
 
@@ -61,12 +87,7 @@
 						<div class="form-group">
 							<button class="btn btn-success" data-ng-click="speicher('spielorte')">speicher 'spielorte'</button>
 						</div>
-						<div class="form-group">
-							<span> Oder ersetze durch Datei: </span>
-						</div>
-						<div class="form-group">
-							<input class="btn btn-warning" type="file" on-read-file="lade('spielorte', $fileContent)" >
-						</div>
+
 					</form>
 
 
@@ -80,13 +101,7 @@
 						<div class="form-group">
 							<button class="btn btn-success" data-ng-click="speicher('verleiher')">speicher 'verleiher'</button>
 						</div>
-						<div class="form-group">
-							<span> Oder ersetze durch Datei: </span>
-						</div>
-						<div class="form-group">
-							<input class="btn btn-warning" type="file" on-read-file="lade('verleiher', $fileContent)" >
-						</div>
-					</form>
+											</form>
 
 					<div>
 						<strong>filme</strong> [{
@@ -96,30 +111,34 @@
 							<div class="form-group">
 								<button class="btn btn-success" data-ng-click="speicher('filme')">speicher 'filme'</button>
 							</div>
-							<div class="form-group">
-								<span> Oder ersetze durch Datei: </span>
-							</div>
-							<div class="form-group">
-								<input class="btn btn-warning" type="file" on-read-file="lade('filme', $fileContent)" >
-							</div>
+
 						</form>
 					</div>
 					<div>
-						<strong>buchungen</strong> [{
-						<div ng-repeat="  (key , val) in buchungen">{{key}} : {{val}},</div>
+						<strong>verleihBuchungen</strong> [{
+						<div ng-repeat="  (key , val) in verleihBuchungen">{{key}} : {{val}},</div>
 						}] Es handelt sich um Buchungen des Abspielringes beim Verleih mit eindeutiger v- BuchungsID
 					</div>
 					<form class="form-inline">
 						<div class="form-group">
-							<button class="btn btn-success" data-ng-click="speicher('buchungen')">speicher 'buchungen'</button>
+							<button class="btn btn-success" data-ng-click="speicher('verleihBuchungen')">speicher 'verleihBuchungen'</button>
 						</div>
-						<div class="form-group">
-							<span> Oder ersetze durch Datei: </span>
-						</div>
-						<div class="form-group">
-							<input class="btn btn-warning" type="file" on-read-file="lade('buchungen', $fileContent)" >
-						</div>
+
 					</form>
+
+						<div>
+							<strong>ringBuchungen</strong> [{
+							<div ng-repeat="  (key , val) in ringBuchungen">{{key}} : {{val}},</div>
+							}] Es handelt sich um die Filmbuchungen eines Spielortes beim Abspielringes mit eindeutiger fBID BuchungsID
+						</div>
+						<form class="form-inline">
+							<div class="form-group">
+								<button class="btn btn-success" data-ng-click="speicher('verleihBuchungen')">speicher 'verleihBuchungen'</button>
+							</div>
+
+						</form>
+
+
 					
 					<h4>Arrays</h4>
 					<div>
@@ -147,14 +166,11 @@
 						<div class="form-group">
 							<button class="btn btn-success" data-ng-click="speicher('filmlauf')">speicher 'filmlauf'</button>
 						</div>
-						<div class="form-group">
-							<span> Oder ersetze durch Datei: </span>
-						</div>
-						<div class="form-group">
-							<input class="btn btn-warning" type="file" on-read-file="lade('filmlauf', $fileContent)" >
-						</div>
+
 					</form>
 
+				</div>
+                </div>
 				</div>
 			</div>
 		</div>

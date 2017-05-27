@@ -1,7 +1,8 @@
 "use strict";
 
 (function() {
-	var dashboard = angular.module('app.dashboard', []);
+    var dashboard;
+    dashboard = angular.module('app.dashboard', ["ngLocale"]);
 
     dashboard.config([ '$compileProvider', '$logProvider', function($compileProvider, $logProvider) {
         $compileProvider.debugInfoEnabled(true);

@@ -62,7 +62,7 @@
 		"fID" : "f34",
 		"titel" : "Amy",
 		"medien" : {
-			"DCP" : "1"
+			"DCP" : "20170114"
 		},
 		"menge" : {
 			"DCP" : 1
@@ -93,6 +93,41 @@
 		"start" : "20170114",
 		"laufzeit" : 1
 	},
+
+    "vp4": {
+        "fID": "fp3",
+        "titel": "Agnes",
+        "medien": {
+            "BD": "20170518"
+        },
+        "menge": {
+            "BD": 1,
+            "DCP": 0,
+            "DVD": 0,
+            "analog": 0
+        },
+        "start": "20170518",
+        "bc": "bc-10",
+        "col": "col1"
+    },
+    "vp2": {
+        "fID": "fp1",
+        "titel": "Happy Film",
+        "medien": {
+            "BD": "20170518"
+        },
+        "menge": {
+            "BD": 1,
+            "DCP": 0,
+            "DVD": 0,
+            "analog": 0
+        },
+        "start": "20170518",
+        "bc": "bc-50",
+        "col": "col2"
+    },
+
+
 	"wuensche" : {
 
 		"v777" : {

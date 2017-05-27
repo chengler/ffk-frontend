@@ -54,10 +54,13 @@ app.config([ '$routeProvider', function($routeProvider) {
 // };
 // }]);
 
-app.run(function(version, author, $rootScope, $http) {
+app.run(function(version, author, $rootScope, $http, $locale) {
 	console.log("app.run");
 	console.info("Version:", version);
 	console.info("Author:", author);
+    $locale.id="de-de";
+    $locale.localeID="de-DE";
+    console.info($locale);
 	
 	
 	$rootScope.spielorte = []; // Infos zu den Spielorten
@@ -73,8 +76,8 @@ app.run(function(version, author, $rootScope, $http) {
 	$rootScope.filmlauf = []; // die Tabellendaten
 
     $rootScope.filme = {}; // Die Filme
-    $rootScope.ringbuchung = []; // Film Buchungen beim Ring fBID
-    $rootScope.buchungen = []; // Die Buchungen beim Verleih vBID
+    $rootScope.ringBuchungen = {}; // Film Buchungen beim Ring fBID
+    $rootScope.verleihBuchungen = [{}]; // Die Buchungen beim Verleih vBID
 
 	$rootScope.logedInUser = {}; // der angemeldete user
 	
@@ -92,6 +95,7 @@ app.run(function(version, author, $rootScope, $http) {
 //	$rootScope.role = false; // admin spieler
 	$rootScope.spielort = {}; // der aktuelle Spielort 
 	$rootScope.username = ""; // der angemeldete Benutzer // ersetzen
+
 
 
 

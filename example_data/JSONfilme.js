@@ -7,5 +7,7 @@
  "f35": {  "titel" : "The first Rasta"            , "text" : "Back to the roots" },
  "f88": { "titel" : "The last Rasta"             , "text" : "Der Tag am Ende der Welt" },
  "f89": {  "titel" : "8 miles high"             , "text" : "In einer fernen, fernen Zukunft." },
- "f77": {  "titel" : "Im Weg"             , "text" : "dieser film steht einer Verlängerung im Weg." }
+ "f77": {  "titel" : "Im Weg"             , "text" : "dieser film steht einer Verlängerung im Weg." },
+ "fp1": {        "titel": "Happy Film",        "verleih": "vid1"    },
+ "fp3": {        "titel": "Agnes",        "verleih": "vid2"    }
 }]

@@ -47,12 +47,28 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
                             // lösche ein fBID im Filmlauf
                             $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr] = null;
                             delete $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr];
+                            //  renumeriere alle filme nach dem gelöschten
+                            var i = filmNr;
+                            while (true){
+                                 // gibt es einen Film mit einer höheren nummer
+                                if ( $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + (i+1)] ){
+                                    // f2 wird f1 wenn i =1
+                                    $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + i] = $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + (i+1)];
+                                    // nulle und lösche
+                                    $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + (i+1)] = null;
+                                    delete $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + (i+1)];
+                                } else {
+                                    break;
+                                }
+                                i += 1  ; // gibt es einen weiteren film?
+                            }
+
                             // lösche ein fBID via REST
                             // TODO REST
                             console.log('RESTfull Set(„fBID'+fBID+'“ : false)');
                             // TODO überprüfe maximale Anzahl der Filme (lines) und reduziere wenn nötig
                         }
-
+// ändere einen filmeintrag
                         if (buchungsChanges.msg ==  'save'){
                             // lösche anweisung msg
                             buchungsChanges.msg = null;
@@ -60,7 +76,9 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
                             Object.keys(buchungsChanges).forEach(function (key) {
                                 console.log("Änderung " + key + " :" + buchungsChanges[key]);
 
-                                // lösche [null] Werte, 0 ist OK, 0 Besucher 500cen, bzw 4 Besucher 0 cent
+            // Besuchereintritt
+                  // lösche [null] Werte, 0 ist OK, 0 Besucher 500cen, bzw 4 Besucher 0 cent
+                                var berecheWochenergebnissNeu = false;
                                 if (key == "besucher"){
                                     var arrayLength = buchungsChanges.besucher.length;
                                     for (var i = 0; i < arrayLength; i++) {
@@ -71,9 +89,20 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
                                             arrayLength = arrayLength -1;
                                         }
                                     }
+                                } else if (key == "gesamt"){
+                                    berecheWochenergebnissNeu = true;
                                 }
                                 // ändere Filmlauf
                                 $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr][key] = buchungsChanges[key];
+                  // Ergebnisse erst speichern, da grundlage für berechnung!
+                                if (berecheWochenergebnissNeu) {
+                                    var kwZeile = FfkUtils.getKinoWochenRowIdx(rowIdx);
+                                    var we = FfkUtils.summiereWochenergebniss(kwZeile,colIdx);
+                                    console.log("ändere Gesamteinnahmender Woche auf "+we);
+                                }
+
+
+
                                 // zeige Änderungen
                             });
                         }
@@ -125,7 +154,7 @@ angular.module('modalBuchungsBearbeitung').controller(
         $scope.kwInfos = $rootScope.filmlauf[kwRowIdx][col];
         console.log(" kwInfos " + JSON.stringify($scope.kwInfos, 0, 0));
 
-        var verleihBuchung = $rootScope.buchungen[$scope.kwInfos.vBID];
+        var verleihBuchung = $rootScope.verleihBuchungen[$scope.kwInfos.vBID];
         console.log(" verleihBuchung " + JSON.stringify(verleihBuchung, 0, 0));
 
         // die angeklickte zelle
@@ -232,7 +261,6 @@ angular.module('modalBuchungsBearbeitung').controller(
         $scope.gesamtEintritt = 0;
         if ( "gesamt" in ringBuchung){
             $scope.gesamtBesucher= ringBuchung.gesamt[0];
-            $scope.gesamtEintritt= ringBuchung.gesamt[1];
             $scope.gesamtEintritt= ringBuchung.gesamt[1];
 
                     };

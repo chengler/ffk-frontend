@@ -8,13 +8,21 @@
 		// $rootScope.username = "";
 		// $rootScope.loggedIn = false;
 
+        var loadDatei = function(dateiname){
+            console.log("+ async loadDatei $http.get("+dateiname+"?");
+            var fileContent = {}
+            $http.get(dateiname + '?' + Math.random()).then(
+                function (data) {
+                    console.log("+ async loadDatei loaded");
+                    console.log( data);
+                    fileContent=data.data;
+                   // console.log("+ async loadDatei: "+JSON.stringify(fileContent));
+                    FfkUtils.ladeDatensatz(fileContent);
+                   // $rootScope.status.loadDatei=true;
+                    // return fileContent;
 
-
-
-
-
-
-
+                });
+        }
 
 
 		// fülle Loginfenster
@@ -27,10 +35,8 @@
 		// lade users
 		// usersSortiert
 		// [ "uid", "logName", "role", "id", "name" ] id is sid oder vid
-		$http.get('../example_data/JSONusers.js?' + Math.random()).success(
-			//		$http.get('http://ffk.ver-netzen.de/ffk-frontend/example_data/JSONusers.js?' + Math.random()).success(
-
-            function(data) {
+		$http.get('../example_data//JSONusers.js?' + Math.random()).success(
+				function(data) {
 
 					$rootScope.users = data[0];
 					console.log(Date.now() + " JSONusers: " + Object.keys($rootScope.users).length
@@ -42,8 +48,7 @@
 
 		// lade Spieorte in den rootscopee - asyncron
 		// [ [{sid : Ort}],[ ...]]
-		// 		$http.get('http://ffk.ver-netzen.de/ffk-frontend/example_data/JSONspielorte.js?' + Math.random()).success(
-        $http.get('../example_data/JSONspielorte.js?' + Math.random()).success(
+		/*$http.get('../example_data//JSONspielorte.js?' + Math.random()).success(
 				function(data) {
 					$rootScope.spielorte = data[0];
 					console.log(Date.now() + " JSONspielorte: " + Object.keys($rootScope.spielorte).length
@@ -60,8 +65,7 @@
 
 		// lade Verleiher in den rootscopee - asyncron
 		// [ [{sid : Ort}],[ ...]]
-		// 		$http.get('http://ffk.ver-netzen.de/ffk-frontend/example_data//JSONverleiher.js?' + Math.random()).success(
-        $http.get('../example_data/JSONverleiher.js?' + Math.random()).success(
+		$http.get('../example_data//JSONverleiher.js?' + Math.random()).success(
 				function(data) {
 					$rootScope.verleiher = data[0];
 					console.log(Date.now() + " JSONverleiher: " + Object.keys($rootScope.verleiher).length
@@ -76,7 +80,7 @@
 									+ Object.keys($rootScope.verleiherSortiert).length);
 					console.log(JSON.stringify($rootScope.verleiherSortiert, 0, 4));
 
-				});
+				});*/
 
 		$scope.login = function() {
 			console.log("demo/login mit:", $scope.auth);
@@ -237,8 +241,42 @@
 
                 }
                 console.log("grundTabelleGeladen " + $rootScope.status.grundTabelleGeladen);
-            FfkUtils.loadFilmlauf();
-            FfkUtils.loadBuchungen();
+
+          //  var ladeMich = "../example_data/datensatzFfK-1.js";
+           var ladeMich = "../example_data/datensatzVID-1.js";
+            ladeMich = "../example_data/datensatzFfK(2).js";
+
+            if ($rootScope.logedInUser.role == "verleih") {
+                switch ($rootScope.logedInUser.vid) {
+                    case "vid1":
+                        ladeMich = "../example_data/datensatzVID-1.js";
+                        break;
+                }
+            }
+            console.log("lade Datei  "+ ladeMich);
+            loadDatei(ladeMich)
+           // FfkUtils.loadFilmlauf();
+           // FfkUtils.loadBuchungen();
+
+
+
+
+
+
+
+     /*       // setz watcher ob alles geladen grundtabelle kann dann weg!
+
+             var dateiGeladen = $scope.$watch(function () {
+                   return ($rootScope.status.loadDatei);
+                }, function () {
+                    if ($rootScope.status.loadDatei) {
+                    	console.log("+ async clear watcher dateiGeladen");
+                        dateiGeladen(); // clear watcher
+						console.log(fileContent);
+                        //FfkUtils.ladeDatensatz(fileContent);
+                    }
+                }, true);*/
+
 
 
         };

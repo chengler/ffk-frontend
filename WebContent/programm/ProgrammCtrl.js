@@ -30,48 +30,62 @@
             $scope.server;
 
             // jetzt in FfkUtils TODO replace
-            var provID = 0;
+           /* var provID = 0;
             $scope.getNewProvID = function () {
                 provID = provID + 1;
                 return "p" + provID;
-            };
+            };*/
 
             // testvariablen zur ausgabe im view
             $scope.rd3 = "rd3";
             $scope.rd4 = "rd4";
 
+            // zeichne jedesmal neu
+            // if ($rootScope.status.aggrid) sollte damit obsolet sein!
+            $rootScope.status.aggrid = false;
 
-            //
-            // Tabelle (field für auto Spaltenbreite)
-            // setze 1. Spalte
-            var columnDefs = [{
-                headerName: "Datum",
-                field: "datum",
-                pinned: 'left',
-                minWidth: 75,
-                maxWidth: 100,
-                cellRenderer: function (params) {
-                    return RenderProgrammTableServices.datumsRenderer(params);
-                },
-                cellClass: function (params) {
-                    return params.data.bc;
-                }
-            }];
+            // Damit die aktuelle Woche gleich angezeigt wird
+            var setTabellenIndexAufDatum = function() {
+                console.log("setTabellenIndexAufDatum");
+              var heute = new Date();
+                var thisKW = moment(FfkUtils.getKinoWocheFromDate(heute)).isoWeek();
+                console.log("Springe in der Tabelle zur KW "+thisKW); // ofset 5 // 8 pro Woche
+                $rootScope.gridOptions.api.ensureIndexVisible( (5+thisKW)*8 );
+            }
 
-            // Tabelle, noch keine rowData
-            // funktion, da unterschiedliche linienhöhe
-            console.log("!!! $scope.gridOptions");
-            $scope.gridOptions = {
-                columnDefs: columnDefs,
-                rowData: null,
-                enableColResize: true,
-                getRowHeight: function (params) {
-                    return 25 * params.data.lines;
-                },
-                // enableColResize : true,
-                angularCompileRows: true
-            };
+                //
+                // Tabelle (field für auto Spaltenbreite)
+                // setze 1. Spalte
+                var columnDefs = [{
+                    headerName: "Datum",
+                    field: "datum",
+                    pinned: 'left',
+                    minWidth: 75,
+                    maxWidth: 100,
+                    cellRenderer: function (params) {
+                        return RenderProgrammTableServices.datumsRenderer(params);
+                    },
+                    cellClass: function (params) {
+                        return params.data.bc;
+                    }
+                }];
+            if ($rootScope.status.aggrid == false) {
+                // Tabelle, noch keine rowData
+                // funktion, da unterschiedliche linienhöhe
+                console.log("! $rootScope.gridOptions werden geladen");
+                // wäre es nicht besser sie in den rootscope zu legen?
+                $rootScope.gridOptions = {
+                    columnDefs: columnDefs,
+                    rowData: null,
+                    enableColResize: true,
+                    getRowHeight: function (params) {
+                        return 25 * params.data.lines;
+                    },
+                    // enableColResize : true,
+                    angularCompileRows: true
+                };
 
+            }
             // START Lade Tabelle asyncron
             // lade Filmlauf in scope und erstelle Tabelle?
             // watch geladen
@@ -96,9 +110,9 @@
             // setz watcher ob alles geladen grundtabelle kann dann weg!
             if ($rootScope.status.aggrid == false) {
                 var allesGeladen = $scope.$watch(function () {
-                    return ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen);
+                    return ($rootScope.status.filmlaufGeladen && $rootScope.status.verleihBuchungenGeladen);
                 }, function () {
-                    if ($rootScope.status.filmlaufGeladen && $rootScope.status.buchungenGeladen) {
+                    if ($rootScope.status.filmlaufGeladen && $rootScope.status.verleihBuchungenGeladen) {
                         allesGeladen(); // clear watcher
                         initFilmlauf("allesGeladen");
                     }
@@ -108,13 +122,13 @@
 
             // lade Buchungen vBID Auflösungen in scope -
             // asyncron mit watcher
-            /*if ($rootScope.status.buchungenGeladen == false) {
-                var buchungenGeladen = $scope.$watch(function () {
-                    return $rootScope.status.buchungenGeladen;
+            /*if ($rootScope.status.verleihBuchungenGeladen == false) {
+                var verleihBuchungenGeladen = $scope.$watch(function () {
+                    return $rootScope.status.verleihBuchungenGeladen;
                 }, function () {
-                    if ($rootScope.status.buchungenGeladen) {
-                        buchungenGeladen();
-                        initFilmlauf("buchungenGeladen");
+                    if ($rootScope.status.verleihBuchungenGeladen) {
+                        verleihBuchungenGeladen();
+                        initFilmlauf("verleihBuchungenGeladen");
                     }
                 }, true);
                 FfkUtils.loadBuchungen();
@@ -130,7 +144,7 @@
             // $rootScope.status.$rootScope.status.filmlaufGeladen
             function initFilmlauf(wo) {
                 console.log("initTabelle aufgerufen von " + wo);
-            //    if ($rootScope.status.filmlaufGeladen & $rootScope.status.buchungenGeladen) {
+            //    if ($rootScope.status.filmlaufGeladen & $rootScope.status.verleihBuchungenGeladen) {
                     var tstart = Date.now();
                     maxCol = FfkUtils.getFilmlaufMaxCol(maxCol);
                     // definiere Spalten
@@ -149,23 +163,27 @@
                         console.log("HEADERS");
                         columnDefs.push(header);
                         // setze Spalten
-                        // $scope.gridOptions.api.setColumnDefs(columnDefs);
+                        // $rootScope.gridOptions.api.setColumnDefs(columnDefs);
                     }
 
                     // // baue neu
-                    // $scope.gridOptions.rowData = $rootScope.filmlauf;
-                    // $scope.gridOptions.columnDefs= columnDefs;
-                    $scope.gridOptions.api.setRowData($rootScope.filmlauf);
-                    $scope.gridOptions.api.setColumnDefs(columnDefs);
-                    // $scope.gridOptions.api.refreshView();
+                    // $rootScope.gridOptions.rowData = $rootScope.filmlauf;
+                    // $rootScope.gridOptions.columnDefs= columnDefs;
+                    $rootScope.gridOptions.api.setRowData($rootScope.filmlauf);
+                    $rootScope.gridOptions.api.setColumnDefs(columnDefs);
+                    // $rootScope.gridOptions.api.refreshView();
+
                     // // alle spalten in rahmen
-                    $scope.gridOptions.api.sizeColumnsToFit();
+                    $rootScope.gridOptions.api.sizeColumnsToFit();
                     var zeit = Date.now() - tstart;
                     console.log("gezeichnet in " + zeit + " ms");
                     $rootScope.status.aggrid = true;
+
+                    setTabellenIndexAufDatum();
+
                /* } else {
                     console.log("initFilmlauf: filmlaufGeladen " + $rootScope.status.filmlaufGeladen
-                        + " buchungenGeladen " + $rootScope.status.buchungenGeladen + " grundTabelleGeladen "
+                        + " verleihBuchungenGeladen " + $rootScope.status.verleihBuchungenGeladen + " grundTabelleGeladen "
                         + $rootScope.status.grundTabelleGeladen + " noch nicht alles geladen -> ende");
                 }*/
             }
@@ -229,7 +247,7 @@
                 };
                 columnDefs.push(header);
                 // setze Spalten
-                $scope.gridOptions.api.setColumnDefs(columnDefs);
+                $rootScope.gridOptions.api.setColumnDefs(columnDefs);
                 if (colnr > maxCol) {
                     maxCol = colnr;
                 }
@@ -241,12 +259,12 @@
                 columnDefs.forEach(function (columnDef) {
                     allColumnIds.push(columnDef.field);
                 });
-                $scope.gridOptions.columnApi.autoSizeColumns(allColumnIds);
+                $rootScope.gridOptions.columnApi.autoSizeColumns(allColumnIds);
             };
 
             // zeige alle Spalten
             $scope.alleSpalten = function () {
-                $scope.gridOptions.api.sizeColumnsToFit();
+                $rootScope.gridOptions.api.sizeColumnsToFit();
             };
 
             // flip true and false in tabelle
@@ -259,7 +277,7 @@
                 if (bol === true ? bol = false : bol = true)
                     ;
                 $rootScope.filmlauf[flipIdx][flipCol][flipFilm][flipKey] = bol;
-                $scope.gridOptions.api.refreshView();
+                $rootScope.gridOptions.api.refreshView();
                 var fBID = $rootScope.filmlauf[flipIdx][flipCol][flipFilm]["fBID"];
                 console.log("TODO RESTfull post ./checkChance { fBID: " + fBID + ", " + flipKey + " : " + bol
                     + " }");
@@ -282,7 +300,7 @@
                     + ", fBID: " + nach.fBID + " }");
                 $scope.server = "http.post('../FilmVonNach') data: { vBID: " + vBID + ", fBID: " + von.fBID
                     + ", fBID: " + nach.fBID + " }";
-                $scope.gridOptions.api.refreshView();
+                $rootScope.gridOptions.api.refreshView();
             };
 
             // zeige/verberge Wunschfilme
@@ -296,7 +314,7 @@
                     zeigeWunschFilme = true;
                 }
                 // render neu
-                $scope.gridOptions.api.refreshView();
+                $rootScope.gridOptions.api.refreshView();
             };
 
             // locale Methoden
@@ -329,7 +347,7 @@
 
             // ModalBuchungsBearbeitungService
             $scope.openModalBuchung = function (rowIdx, colIdx, filmNr ) {
-                ModalBuchungsBearbeitungService.editBuchung(rowIdx, colIdx, filmNr, $scope.gridOptions);
+                ModalBuchungsBearbeitungService.editBuchung(rowIdx, colIdx, filmNr, $rootScope.gridOptions);
                
 
 
@@ -353,12 +371,17 @@
                 return RenderProgrammTableServices.buchungsRenderer(params, zeigeWunschFilme);
             };
 
-            // wenn bereits einmal ionitialisiert
+            // wenn bereits einmal initialisiert
+            // setze neue Headers
             if ($rootScope.status.aggrid) {
                 console.log("$rootScope.status.aggrid = " + $rootScope.status.aggrid);
-                $scope.gridOptions.rowData = $rootScope.filmlauf;
+                setTabellenIndexAufDatum
 
-                maxCol = FfkUtils.getFilmlaufMaxCol(maxCol);
+                $rootScope.gridOptions.rowData = $rootScope.filmlauf;
+                setTabellenIndexAufDatum();
+
+
+         /*       maxCol = FfkUtils.getFilmlaufMaxCol(maxCol);
 
                 // definiere Spalten
                 for (var i = 1; i <= maxCol; i++) {
@@ -378,10 +401,11 @@
                     // setze Spalten
 
                 }
-                $scope.gridOptions.columnDefs = columnDefs;
-//					$scope.gridOptions.api.sizeColumnsToFit();
-
+                $rootScope.gridOptions.columnDefs = columnDefs;
+//					$rootScope.gridOptions.api.sizeColumnsToFit();
+*/
             }
+
 
 
 

@@ -1,0 +1,24 @@
+<table class="table table-hover table-striped">
+    <thead>
+    <tr>
+        <th class="col-sm-2">Filmname</th>
+        <th class="col-sm-1">Filmwoche</th>
+        <th class="col-sm-1">Besucher</th>
+        <th class="col-sm-1">Eintritt</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr data-ng-repeat="film in filme">
+        <!-- 							performance: http://ng-perf.com/ mit html per ng-bind-html="::fadsf"" als -->
+        <!-- 							conditional template -->
+        <!-- 							http://stackoverflow.com/questions/15974086/conditional-ng-include-in-angularjs -->
+        <!-- 							eine push Lösung für ::bindings? -->
+        <!-- 							http://stackoverflow.com/questions/14702981/angularjs-model-changes-after-websocket-data-push-from-server -->
+        <td class="col-sm-2" data-ng-bind="::film.name"></td>
+        <td class="col-sm-1" data-ng-bind="::film.filmwoche"></td>
+        <td class="col-sm-1" data-ng-bind="film.besucher"></td>
+        <td class="col-sm-1" data-ng-bind="film.eintritt"></td>
+    </tr>
+    </tbody>
+</table>
+<div><strong>Für eine genaue Auflistung klicken Sie bitte den blauen Button 'Programm'</strong></div>
