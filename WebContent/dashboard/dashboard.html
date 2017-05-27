@@ -11,12 +11,18 @@
 		<div data-ng-app="app.dashboard">
 			<div data-ng-controller="DashboardCtrl">
 				<hr />
+
+
+
                 <strong>{{datum | date:'dd.MM.yyyy' }} - {{kw}} -
 					vom {{kwDonnerstag | date:'dd.MM.yyyy' }}
 					bis {{kwEnde | date:'dd.MM.yyyy' }}
-
-
 				</strong>
+
+				<div data-ng-if="logedInUser.role == 'verleih'">
+					<div ng-include="'dashboard/templateDashboardVenue.html'"></div>
+				</div>
+
 
 
 				<div data-ng-if="loggedIn">

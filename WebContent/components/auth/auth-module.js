@@ -27,7 +27,7 @@
 
 		// fülle Loginfenster
 		$scope.auth = {
-			"username" : "jh",
+			"username" : "em",
 			// "username" : "username2",
 			"password" : "passwordForUser2"
 		};

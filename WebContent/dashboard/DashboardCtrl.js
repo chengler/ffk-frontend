@@ -99,6 +99,7 @@
             // wird vom watcher aufgerufen nachdem alle Daten geladen sind
             var ladeAnsichten = function(){
                 console.log("lade Ansichten");
+      //Verleihansicht
                 if ($rootScope.logedInUser.role == "verleih"){
                     console.log("*** präsentiere Verleihinfos");
                     console.log(JSON.stringify($rootScope.filmlauf[myIdx]));
@@ -114,9 +115,9 @@
                             $rootScope.filmlauf[myIdx]['col'+i] != undefined ) { // film gibts
                             var myfilm = $rootScope.filmlauf[myIdx]['col'+i];
                             film['name'] = $rootScope.buchungen[myfilm.vBID].titel;
-                            film['Besucher'] = $rootScope.buchungen[myfilm.vBID]['fw'+myfilm.fw][0];
-                            film['Eintritt'] = $rootScope.buchungen[myfilm.vBID]['fw'+myfilm.fw][1];
-                            film['Filmwoche'] = myfilm.fw;
+                            film['besucher'] = $rootScope.buchungen[myfilm.vBID]['fw'+myfilm.fw][0];
+                            film['eintritt'] = $rootScope.buchungen[myfilm.vBID]['fw'+myfilm.fw][1];
+                            film['filmwoche'] = myfilm.fw;
 
                             $scope.filme.push(film);
                             i += 1; // suche nach weiterem Film
