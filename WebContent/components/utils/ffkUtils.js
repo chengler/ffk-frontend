@@ -435,7 +435,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             $rootScope.ringBuchungen[rbKey]['datum'] = buchungsTag.datum;
             var bIdx = this.getKinoWochenRowIdx(rowIdx)
             console.log("bIdx "+bIdx+ " col "+col);
-            $rootScope.ringBuchungen[rbKey]['fID'] = $rootScope.filmlauf[bIdx][col].fID;
+            $rootScope.ringBuchungen[rbKey]['vBID'] = $rootScope.filmlauf[bIdx][col].vBID;
 
             console.log("setze in $rootScope.ringBuchungen "+ JSON.stringify($rootScope.ringBuchungen[rbKey]));
             console.log("+++++++++ sende REST an SERVER");

@@ -1,0 +1,22 @@
+<table class="table table-hover table-striped">
+    <thead>
+    <tr>
+        <th class="col-sm-2">Fehlende Rückmeldungen</th>
+        <th class="col-sm-1">Datum</th>
+        <th class="col-sm-1">Ringbuchungs ID</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr data-ng-repeat="bid in fehlendeRueckmeldungen">
+        <!-- 							performance: http://ng-perf.com/ mit html per ng-bind-html="::fadsf"" als -->
+        <!-- 							conditional template -->
+        <!-- 							http://stackoverflow.com/questions/15974086/conditional-ng-include-in-angularjs -->
+        <!-- 							eine push Lösung für ::bindings? -->
+        <!-- 							http://stackoverflow.com/questions/14702981/angularjs-model-changes-after-websocket-data-push-from-server -->
+        <td class="col-sm-2" data-ng-bind="ringBuchungen[bid]['name']"></td>
+        <td class="col-sm-1" data-ng-bind="ringBuchungen[bid]['datum']"></td>
+        <td class="col-sm-1" data-ng-bind="ringBuchungen[bid]['fBID']"></td>
+    </tr>
+    </tbody>
+</table>
+<div><strong>fehlende Besucherzahlen geben Sie bitte in der Tabbele ein. Klicken Sie den blauen Button 'Programm' und wählen den Film aus.</strong></div>
