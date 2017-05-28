@@ -106,60 +106,7 @@
             "trailer": "https://www.youtube.com/user/alamode35/videos"
     }
 },
-    "buchungen": {
-    "v123": {
-        "fID": "f30",
-            "titel": "die Taube auf dem Dach",
-            "medien": {
-            "BD": "20170112"
-        },
-        "menge": {
-            "BD": 3
-        },
-        "vid": "vid1",
-            "start": "20170114",
-            "laufzeit": 1,
-            "fw1": [
-            30,
-            11850
-        ],
-            "bc": "bc-10",
-            "col": "col1"
-    },
-    "v124": {
-        "fID": "f31",
-            "titel": "zwei Tauben auf dem Dach",
-            "medien": {
-            "BD": "20170114",
-                "DCP": "20170114",
-                "analog": "20170114"
-        },
-        "menge": {
-            "BD": 1,
-                "DCP": 1,
-                "analog": 1
-        },
-        "vid": "vid1",
-            "start": "20170114",
-            "laufzeit": 1,
-            "bc": "bc-20",
-            "col": "col2"
-    },
-    "v133": {
-        "fID": "f32",
-            "titel": "ein Spatz in der Hand",
-            "medien": {
-            "DCP": "20170114"
-        },
-        "menge": {
-            "DCP": 1
-        },
-        "vid": "vid1",
-            "start": "20170114",
-            "laufzeit": 1,
-            "bc": "bc-30",
-            "col": "col3"
-    },
+    "verleihBuchungen": {
     "v423": {
         "fID": "f33",
             "titel": "voll die Taube auf dem Dach",
@@ -175,45 +122,6 @@
             "start": "20170114",
             "laufzeit": 1
     },
-    "v524": {
-        "fID": "f34",
-            "titel": "Amy",
-            "medien": {
-            "DCP": "20170114"
-        },
-        "menge": {
-            "DCP": 1
-        },
-        "vid": "vid1",
-            "start": "20170114",
-            "laufzeit": 1,
-            "bc": "bc-40",
-            "col": "col5"
-    },
-    "v324": {
-        "fID": "f77",
-            "titel": "Im Weg",
-            "medien": {},
-        "menge": {},
-        "vid": "vid1",
-            "start": "20170121",
-            "laufzeit": 1
-    },
-    "v633": {
-        "fID": "f35",
-            "titel": "The first Rasta",
-            "medien": {
-            "analog": "20170114"
-        },
-        "menge": {
-            "analog": 1
-        },
-        "vid": "vid1",
-            "start": "20170114",
-            "laufzeit": 1,
-            "bc": "bc-50",
-            "col": "col6"
-    },
     "wuensche": {
         "v777": {
             "fID": "f88",
@@ -221,13 +129,6 @@
                 "bc": "bc-00",
                 "col": "col1",
                 "wfID": "v777"
-        },
-        "vp2": {
-            "bc": "bc-00",
-                "col": "col1",
-                "wfID": "vp2",
-                "fID": "fp1",
-                "titel": "fdsa"
         }
     },
     "vp4": {
@@ -247,33 +148,69 @@
             "bc": "bc-20",
             "col": "col1",
             "fw1": [
-            80,
-            22300
+            10,
+            5000
         ],
             "fw2": [
             0,
             0
-        ]
+        ],
+            "vid": "vid1"
+    }
+},
+    "ringBuchungen": {
+    "fBID1": {
+        "fBID": "p1",
+            "check1": false,
+            "check2": false,
+            "ortID": "sid8",
+            "medium": "",
+            "medienID": false,
+            "vonID": false,
+            "nachID": false,
+            "garantie": false
     },
-    "vp6": {
-        "fID": "fp5",
-            "titel": "Sad Film",
-            "medien": {
-            "DCP": "20170525"
-        },
-        "menge": {
-            "BD": 0,
-                "DCP": 1,
-                "DVD": 0,
-                "analog": 0
-        },
-        "start": "20170525",
-            "laufzeit": 1,
-            "bc": "bc-10",
-            "col": "col2",
-            "fw1": [
-            0,
-            0
+    "fBID2": {
+        "fBID": "p2",
+            "check1": false,
+            "check2": false,
+            "ortID": "sid8",
+            "medium": "",
+            "medienID": false,
+            "vonID": false,
+            "nachID": false,
+            "garantie": false
+    },
+    "fBID3": {
+        "fBID": "p3",
+            "check1": false,
+            "check2": false,
+            "ortID": "sid8",
+            "medium": "",
+            "medienID": false,
+            "vonID": false,
+            "nachID": false,
+            "garantie": false
+    },
+    "fBID4": {
+        "fBID": "p4",
+            "check1": false,
+            "check2": false,
+            "ortID": "sid4",
+            "medium": "",
+            "medienID": false,
+            "vonID": false,
+            "nachID": false,
+            "garantie": false,
+            "besucher": [
+            [
+                10,
+                500
+            ]
+        ],
+            "gesamt": [
+            10,
+            5000
         ]
     }
 },
@@ -523,39 +460,10 @@
         "bc": "bc-g0",
         "lines": 1,
         "col": 6,
-        "col1": {
-            "bc": "bc-10",
-            "vBID": "v123",
-            "fID": "f30",
-            "fw": 1
-        },
         "col1w": {
             "bc": "bc-00",
             "vBID": "v777",
             "fID": "f88",
-            "fw": 1
-        },
-        "col2": {
-            "bc": "bc-20",
-            "vBID": "v124",
-            "fID": "f31",
-            "fw": 1
-        },
-        "col3": {
-            "bc": "bc-30",
-            "vBID": "v133",
-            "fID": "f32",
-            "fw": 1
-        },
-        "col5": {
-            "bc": "bc-40",
-            "vBID": "v524",
-            "fID": "f34"
-        },
-        "col6": {
-            "bc": "bc-50",
-            "vBID": "v633",
-            "fID": "f35",
             "fw": 1
         }
     },
@@ -564,33 +472,6 @@
         "bc": "bc-g2",
         "lines": 2,
         "col": 6,
-        "col1": {
-            "bc": "bc-12",
-            "f1": {
-                "fBID": 61,
-                "check1": true,
-                "check2": false,
-                "ortID": "sid4",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid2",
-                "nachID": false,
-                "besucher": [
-                    [
-                        20,
-                        400
-                    ],
-                    [
-                        11,
-                        350
-                    ]
-                ],
-                "gesamt": [
-                    30,
-                    11850
-                ]
-            }
-        },
         "col1w": {
             "bc": "bc-40",
             "sids": [
@@ -598,288 +479,31 @@
                     "sid2"
                 ]
             ]
-        },
-        "col2": {
-            "bc": "bc-22",
-            "f1": {
-                "fBID": 618,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid3",
-                "medium": "BD",
-                "medienID": "#1",
-                "vonID": "sid7",
-                "nachID": false
-            },
-            "f2": {
-                "fBID": 698,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid2",
-                "medium": "BD",
-                "vonID": false,
-                "nachID": false
-            }
-        },
-        "col3": {
-            "bc": "bc-32",
-            "f1": {
-                "fBID": 69,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid4",
-                "nachID": "sid6"
-            }
-        },
-        "col5": {
-            "bc": "bc-42",
-            "f1": {
-                "fBID": 64,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#1",
-                "vonID": "sid7",
-                "nachID": false
-            }
-        },
-        "col6": {
-            "bc": "bc-52",
-            "f1": {
-                "fBID": 63,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid7",
-                "nachID": "sid6"
-            }
         }
     },
     {
         "datum": "20170113",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 6,
-        "col1": {
-            "bc": "bc-11"
-        },
-        "col2": {
-            "bc": "bc-21",
-            "f1": {
-                "fBID": 99,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid2",
-                "medium": "BD",
-                "vonID": false,
-                "nachID": false
-            }
-        },
-        "col3": {
-            "bc": "bc-31",
-            "extramedien": [
-                "BD"
-            ],
-            "f1": {
-                "fBID": 98,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid3",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid4",
-                "nachID": "sid6"
-            }
-        },
-        "col5": {
-            "bc": "bc-41",
-            "f1": {
-                "fBID": 96,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#1",
-                "vonID": "sid7",
-                "nachID": false
-            }
-        },
-        "col6": {
-            "bc": "bc-51",
-            "f1": {
-                "fBID": 90,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid7",
-                "nachID": "sid6"
-            }
-        }
+        "col": 6
     },
     {
         "datum": "20170114",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 6,
-        "col1": {
-            "bc": "bc-12",
-            "f1": {
-                "fBID": 144,
-                "check1": true,
-                "check2": false,
-                "ortID": "sid6",
-                "medium": "BD",
-                "vonID": false,
-                "nachID": false,
-                "besucher": false
-            }
-        },
-        "col2": {
-            "bc": "bc-22",
-            "f1": {
-                "fBID": 145,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid4",
-                "medium": "BD",
-                "vonID": false,
-                "nachID": false
-            }
-        },
-        "col3": {
-            "bc": "bc-32",
-            "f1": {
-                "fBID": 146,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid3",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid4",
-                "nachID": "sid6"
-            }
-        },
-        "col5": {
-            "bc": "bc-42",
-            "f1": {
-                "fBID": 131,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#1",
-                "vonID": "sid7",
-                "nachID": false
-            }
-        },
-        "col6": {
-            "bc": "bc-52",
-            "f1": {
-                "fBID": 132,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid7",
-                "nachID": "sid6"
-            }
-        }
+        "col": 6
     },
     {
         "datum": "20170115",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 6,
-        "col1": {
-            "bc": "bc-11",
-            "f1": {
-                "fBID": 246,
-                "check1": true,
-                "check2": false,
-                "ortID": "sid7",
-                "medium": "BD",
-                "vonID": false,
-                "nachID": false
-            }
-        },
-        "col2": {
-            "bc": "bc-21",
-            "f1": {
-                "fBID": 247,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid3",
-                "medium": "BD",
-                "vonID": false,
-                "nachID": false
-            }
-        },
-        "col3": {
-            "bc": "bc-31",
-            "f1": {
-                "fBID": 248,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid2",
-                "medium": "BD",
-                "vonID": false,
-                "nachID": false
-            }
-        },
-        "col5": {
-            "bc": "bc-41",
-            "f1": {
-                "fBID": 231,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#1",
-                "vonID": "sid7",
-                "nachID": false
-            }
-        },
-        "col6": {
-            "bc": "bc-51",
-            "f1": {
-                "fBID": 232,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid7",
-                "nachID": "sid6"
-            }
-        }
+        "col": 6
     },
     {
         "datum": "20170116",
         "bc": "bc-g2",
         "lines": 1,
         "col": 6,
-        "col1": {
-            "bc": "bc-12",
-            "f1": {
-                "fBID": 30,
-                "check1": true,
-                "check2": false,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid7",
-                "nachID": "sid2"
-            }
-        },
         "col1w": {
             "bc": "bc-40",
             "sids": [
@@ -887,274 +511,67 @@
                     "sid3"
                 ]
             ]
-        },
-        "col2": {
-            "bc": "bc-22",
-            "f1": {
-                "fBID": 31,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "vonID": false,
-                "nachID": false
-            }
-        },
-        "col3": {
-            "bc": "bc-32",
-            "f1": {
-                "fBID": 32,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid7",
-                "nachID": "sid6"
-            }
-        },
-        "col5": {
-            "bc": "bc-42",
-            "f1": {
-                "fBID": 34,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#1",
-                "vonID": "sid7",
-                "nachID": false
-            }
-        },
-        "col6": {
-            "bc": "bc-52",
-            "f1": {
-                "fBID": 36,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid7",
-                "nachID": "sid6"
-            }
         }
     },
     {
         "datum": "20170117",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 6,
-        "col1": {
-            "bc": "bc-11",
-            "f1": {
-                "fBID": 43,
-                "check1": true,
-                "check2": false,
-                "ortID": "sid2",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid1",
-                "nachID": "sid3"
-            }
-        },
-        "col2": {
-            "bc": "bc-21",
-            "f1": {
-                "fBID": 44,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "vonID": false,
-                "nachID": false
-            }
-        },
-        "col3": {
-            "bc": "bc-31",
-            "f1": {
-                "fBID": 46,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid4",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid1",
-                "nachID": "sid6"
-            }
-        },
-        "col5": {
-            "bc": "bc-41",
-            "f1": {
-                "fBID": 48,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#1",
-                "vonID": "sid7",
-                "nachID": false
-            }
-        },
-        "col6": {
-            "bc": "bc-51",
-            "f1": {
-                "fBID": 41,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid7",
-                "nachID": "sid6"
-            }
-        }
+        "col": 6
     },
     {
         "datum": "20170118",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 6,
-        "col1": {
-            "bc": "bc-12",
-            "f1": {
-                "fBID": 50,
-                "check1": true,
-                "check2": false,
-                "ortID": "sid3",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid2",
-                "nachID": false
-            }
-        },
-        "col2": {
-            "bc": "bc-22"
-        },
-        "col3": {
-            "bc": "bc-32",
-            "f1": {
-                "fBID": 51,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid1",
-                "nachID": "sid6"
-            }
-        },
-        "col5": {
-            "bc": "bc-42",
-            "f1": {
-                "fBID": 58,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#1",
-                "vonID": "sid7",
-                "nachID": false
-            }
-        },
-        "col6": {
-            "bc": "bc-52",
-            "f1": {
-                "fBID": 59,
-                "check1": true,
-                "check2": true,
-                "ortID": "sid1",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid7",
-                "nachID": "sid6"
-            }
-        }
+        "col": 6
     },
     {
         "datum": "2017W03",
         "bc": "bc-g0",
         "lines": 1,
-        "col": 1,
-        "col1": {
-            "bc": "bc-20",
-            "vBID": "v324",
-            "fID": "f77",
-            "fw": 1
-        }
+        "col": 1
     },
     {
         "datum": "20170119",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 1,
-        "col1": {
-            "bc": "bc-22",
-            "f1": {
-                "fBID": 99,
-                "check1": true,
-                "check2": false,
-                "ortID": "sid3",
-                "medium": "BD",
-                "medienID": "#3",
-                "vonID": "sid2",
-                "nachID": false
-            }
-        }
+        "col": 1
     },
     {
         "datum": "20170120",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 1,
-        "col1": {
-            "bc": "bc-21"
-        }
+        "col": 1
     },
     {
         "datum": "20170121",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 1,
-        "col1": {
-            "bc": "bc-22"
-        }
+        "col": 1
     },
     {
         "datum": "20170122",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 1,
-        "col1": {
-            "bc": "bc-21"
-        }
+        "col": 1
     },
     {
         "datum": "20170123",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 1,
-        "col1": {
-            "bc": "bc-22"
-        }
+        "col": 1
     },
     {
         "datum": "20170124",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 1,
-        "col1": {
-            "bc": "bc-21"
-        }
+        "col": 1
     },
     {
         "datum": "20170125",
         "bc": "bc-g2",
         "lines": 1,
-        "col": 1,
-        "col1": {
-            "bc": "bc-22"
-        }
+        "col": 1
     },
     {
         "datum": "2017W04",
@@ -1982,64 +1399,16 @@
             "vBID": "vp4",
             "fID": "fp3",
             "fw": 1
-        },
-        "col1w": {
-            "bc": "bc-00",
-            "vBID": "vp2",
-            "fID": "fp1"
         }
     },
     {
         "datum": "20170525",
-        "bc": "bc-g2",
-        "lines": 1,
-        "col": 0,
-        "col1": {
-            "bc": "bc-21"
-        }
-    },
-    {
-        "datum": "20170526",
-        "bc": "bc-g2",
-        "lines": 1,
-        "col": 0,
-        "col1": {
-            "bc": "bc-22"
-        }
-    },
-    {
-        "datum": "20170527",
         "bc": "bc-g2",
         "lines": 2,
         "col": 0,
         "col1": {
             "bc": "bc-21",
             "f1": {
-                "fBID": "p1",
-                "check1": false,
-                "check2": false,
-                "ortID": "sid5",
-                "medium": "",
-                "medienID": false,
-                "vonID": false,
-                "nachID": false,
-                "garantie": false,
-                "besucher": [
-                    [
-                        10,
-                        10
-                    ],
-                    [
-                        10,
-                        20
-                    ]
-                ],
-                "gesamt": [
-                    20,
-                    300
-                ]
-            },
-            "f2": {
                 "fBID": "p1",
                 "check1": false,
                 "check2": false,
@@ -2050,6 +1419,45 @@
                 "nachID": false,
                 "garantie": false
             }
+        }
+    },
+    {
+        "datum": "20170526",
+        "bc": "bc-g2",
+        "lines": 1,
+        "col": 0,
+        "col1": {
+            "bc": "bc-22",
+            "f1": {
+                "fBID": "p4",
+                "check1": false,
+                "check2": false,
+                "ortID": "sid4",
+                "medium": "",
+                "medienID": false,
+                "vonID": false,
+                "nachID": false,
+                "garantie": false,
+                "besucher": [
+                    [
+                        10,
+                        500
+                    ]
+                ],
+                "gesamt": [
+                    10,
+                    5000
+                ]
+            }
+        }
+    },
+    {
+        "datum": "20170527",
+        "bc": "bc-g2",
+        "lines": 2,
+        "col": 0,
+        "col1": {
+            "bc": "bc-21"
         }
     },
     {
@@ -2067,32 +1475,7 @@
         "lines": 1,
         "col": 0,
         "col1": {
-            "bc": "bc-21",
-            "f1": {
-                "fBID": "p2",
-                "check1": false,
-                "check2": false,
-                "ortID": "sid1",
-                "medium": "",
-                "medienID": false,
-                "vonID": false,
-                "nachID": false,
-                "garantie": false,
-                "besucher": [
-                    [
-                        20,
-                        300
-                    ],
-                    [
-                        40,
-                        400
-                    ]
-                ],
-                "gesamt": [
-                    60,
-                    22000
-                ]
-            }
+            "bc": "bc-21"
         }
     },
     {
@@ -2123,12 +1506,6 @@
             "vBID": "vp4",
             "fID": "fp3",
             "fw": 1
-        },
-        "col2": {
-            "bc": "bc-10",
-            "vBID": "vp6",
-            "fID": "fp5",
-            "fw": 1
         }
     },
     {
@@ -2138,9 +1515,6 @@
         "col": 0,
         "col1": {
             "bc": "bc-22"
-        },
-        "col2": {
-            "bc": "bc-12"
         }
     },
     {
@@ -2150,9 +1524,6 @@
         "col": 0,
         "col1": {
             "bc": "bc-21"
-        },
-        "col2": {
-            "bc": "bc-11"
         }
     },
     {
@@ -2162,9 +1533,6 @@
         "col": 0,
         "col1": {
             "bc": "bc-22"
-        },
-        "col2": {
-            "bc": "bc-12"
         }
     },
     {
@@ -2174,9 +1542,6 @@
         "col": 0,
         "col1": {
             "bc": "bc-21"
-        },
-        "col2": {
-            "bc": "bc-11"
         }
     },
     {
@@ -2186,9 +1551,6 @@
         "col": 0,
         "col1": {
             "bc": "bc-22"
-        },
-        "col2": {
-            "bc": "bc-12"
         }
     },
     {
@@ -2198,9 +1560,6 @@
         "col": 0,
         "col1": {
             "bc": "bc-21"
-        },
-        "col2": {
-            "bc": "bc-11"
         }
     },
     {
@@ -2210,16 +1569,13 @@
         "col": 0,
         "col1": {
             "bc": "bc-22"
-        },
-        "col2": {
-            "bc": "bc-12"
         }
     },
     {
         "datum": "2017W23",
         "bc": "bc-g0",
         "lines": 1,
-        "col": 0
+        "col": 2
     },
     {
         "datum": "20170608",
@@ -3886,7 +3242,7 @@
             "text": "dieser film steht einer Verlängerung im Weg."
     },
     "fp1": {
-        "titel": "fdsa"
+        "titel": "Sad Film"
     },
     "fp4": {
         "titel": "Die letzte Sau",
@@ -3898,7 +3254,8 @@
     },
     "fp3": {
         "titel": "Happy Film",
-            "verleih": "vid1"
+            "verleih": "vid1",
+            "text": "gfds"
     },
     "fp5": {
         "titel": "Sad Film",

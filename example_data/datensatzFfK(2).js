@@ -206,8 +206,8 @@
     }
 },
     "ringBuchungen": {
-    "fBIDp1": {
-        "fBID": "p1",
+    "fBID1": {
+        "fBID": "1",
             "check1": false,
             "check2": false,
             "ortID": "sid8",
@@ -215,10 +215,11 @@
             "medienID": false,
             "vonID": false,
             "nachID": false,
-            "garantie": false
+            "garantie": false,
+            "datum":"20170525"
     },
-    "fBIDp2": {
-        "fBID": "p2",
+    "fBID2": {
+        "fBID": "2",
             "check1": false,
             "check2": false,
             "ortID": "sid8",
@@ -226,21 +227,11 @@
             "medienID": false,
             "vonID": false,
             "nachID": false,
-            "garantie": false
+            "garantie": false,
+            "datum":"20170525"
     },
-    "fBIDp3": {
-        "fBID": "p3",
-            "check1": false,
-            "check2": false,
-            "ortID": "sid8",
-            "medium": "",
-            "medienID": false,
-            "vonID": false,
-            "nachID": false,
-            "garantie": false
-    },
-    "fBIDp4": {
-        "fBID": "p4",
+    "fBID4": {
+        "fBID": "4",
             "check1": false,
             "check2": false,
             "ortID": "sid4",
@@ -249,6 +240,7 @@
             "vonID": false,
             "nachID": false,
             "garantie": false,
+            "datum":"20170526",
             "besucher": [
             [
                 10,
@@ -259,6 +251,7 @@
             10,
             5000
         ]
+
     }
 },
     "filmlauf": [
@@ -1462,7 +1455,7 @@
         "col1": {
             "bc": "bc-21",
             "f1": {
-                "fBID": "p1",
+                "fBID": "1",
                 "check1": false,
                 "check2": false,
                 "ortID": "sid8",
@@ -1476,7 +1469,7 @@
         "col2": {
             "bc": "bc-51",
             "f1": {
-                "fBID": "p3",
+                "fBID": "3",
                 "check1": false,
                 "check2": false,
                 "ortID": "sid8",
@@ -1496,7 +1489,7 @@
         "col1": {
             "bc": "bc-22",
             "f1": {
-                "fBID": "p4",
+                "fBID": "4",
                 "check1": false,
                 "check2": false,
                 "ortID": "sid4",

@@ -4,19 +4,26 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         // fehlende Rückmeldungen für logdinuser
         this.getFehlendeRuekmeldungen = function(){
-            switch ($rootScope.logedInUser) {
+            console.log("**************************");
+            var fuerWen ="";
+            switch ($rootScope.logedInUser.role) {
                 // hole fehölende fBIDs alle
                 case "admin":
-
+                    fuerWen = "admin";
                     break;
                 case "spieler":
+                    fuerWen = $rootScope.logedInUser.sid; //spielortID
                     break;
                 case "verleih":
+                    fuerWen = $rootScope.logedInUser.vid; //verleihID
                     break;
             }
-
-
-
+            var fehlende; // Rückmeldungen Eintritt und Besucher
+            $http.get('../example_data/fehlendeRueckmeldungen.js?' + Math.random()).success(function (data) {
+                fehlende = data[fuerWen];
+                $rootScope.status.fehlendeRueckmeldungenGeladen = true;
+                console.log("Rückmeldung fehlt für fBID: " + JSON.stringify(fehlende));
+            });
 
         }
         // bekommt Datum -> gibt KW Info Zeile
@@ -424,6 +431,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         //    delete mySet.fBID;
 
             $rootScope.ringBuchungen[rbKey] = mySet;
+            $rootScope.ringBuchungen[rbKey]['datum'] = buchungsTag.datum;
 
             console.log("setze in $rootScope.ringBuchungen "+ JSON.stringify($rootScope.ringBuchungen[rbKey]));
             console.log("+++++++++ sende REST an SERVER");
