@@ -244,7 +244,7 @@
 
           //  var ladeMich = "../example_data/datensatzFfK-1.js";
            var ladeMich = "../example_data/datensatzVID-1.js";
-            ladeMich = "../example_data/datensatzFfK(2).js";
+            ladeMich = "../example_data/datensatzFfK-1.js";
 
             if ($rootScope.logedInUser.role == "verleih") {
                 switch ($rootScope.logedInUser.vid) {
