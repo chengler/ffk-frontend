@@ -13,8 +13,8 @@
         <!-- 							http://stackoverflow.com/questions/15974086/conditional-ng-include-in-angularjs -->
         <!-- 							eine push Lösung für ::bindings? -->
         <!-- 							http://stackoverflow.com/questions/14702981/angularjs-model-changes-after-websocket-data-push-from-server -->
-        <td class="col-sm-2" data-ng-bind="ringBuchungen[bid]['name']"></td>
-        <td class="col-sm-1" data-ng-bind="ringBuchungen[bid]['datum']"></td>
+        <td class="col-sm-2" data-ng-bind="verleihBuchungen[ringBuchungen[bid]['vBID']]['titel']"></td>
+        <td class="col-sm-1" data-ng-bind="ringBuchungen[bid]['datum'] " ></td>
         <td class="col-sm-1" data-ng-bind="ringBuchungen[bid]['fBID']"></td>
     </tr>
     </tbody>
