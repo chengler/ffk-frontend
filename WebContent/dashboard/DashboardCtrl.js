@@ -14,7 +14,8 @@
             $log.info("init DashboardCtrl");
 
             // starte asyncrones laden
-            FfkUtils.getFehlendeRuekmeldungen();
+            // ergebniss landet in $rootScope.fehlendeRueckmeldungen = [];
+        var  fehlendeRuekmeldungen =   FfkUtils.getFehlendeRuekmeldungen();
 
             //http://stackoverflow.com/questions/2897619/using-html5-javascript-to-generate-and-save-a-file#4551467
             // http://stackoverflow.com/questions/18826320/what-is-the-hashkey-added-to-my-json-stringify-result#23656919
@@ -102,10 +103,8 @@
             // wird vom watcher aufgerufen nachdem alle Daten geladen sind
             var ladeAnsichten = function(){
                 console.log("lade Ansichten");
-
-
+//wer ist eingeloged
                 switch ($rootScope.logedInUser.role){
-
 
                     case "spieler":
                     console.log("*** präsentiere Spielerinfos");
@@ -115,7 +114,6 @@
                     case "admin":
                         console.log("*** präsentiere Admininfos");
                         break;
-
                     case "verleih":      //Verleihansicht
                             console.log("*** präsentiere Verleihinfos");
                             // sollte eigentlich vom Server kommen, Workaround

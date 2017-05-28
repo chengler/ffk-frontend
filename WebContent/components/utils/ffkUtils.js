@@ -21,6 +21,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             var fehlende; // Rückmeldungen Eintritt und Besucher
             $http.get('../example_data/fehlendeRueckmeldungen.js?' + Math.random()).success(function (data) {
                 fehlende = data[fuerWen];
+                $rootScope.fehlendeRueckmeldungen = fehlende;
                 $rootScope.status.fehlendeRueckmeldungenGeladen = true;
                 console.log("Rückmeldung fehlt für fBID: " + JSON.stringify(fehlende));
             });
@@ -432,6 +433,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
             $rootScope.ringBuchungen[rbKey] = mySet;
             $rootScope.ringBuchungen[rbKey]['datum'] = buchungsTag.datum;
+            var bIdx = this.getKinoWochenRowIdx(rowIdx)
+            console.log("bIdx "+bIdx+ " col "+col);
+            $rootScope.ringBuchungen[rbKey]['fID'] = $rootScope.filmlauf[bIdx][col].fID;
 
             console.log("setze in $rootScope.ringBuchungen "+ JSON.stringify($rootScope.ringBuchungen[rbKey]));
             console.log("+++++++++ sende REST an SERVER");

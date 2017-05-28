@@ -132,7 +132,7 @@
         }
     },
     "vp4": {
-        "fID": "fp3",
+        "fID": "f3",
             "titel": "Happy Film",
             "medien": {
             "BD": "20170525"
@@ -158,7 +158,7 @@
             "vid": "vid1"
     },
     "vp6": {
-        "fID": "fp5",
+        "fID": "f5",
             "titel": "Sad Film",
             "medien": {
             "DCP": "20170525"
@@ -183,7 +183,7 @@
         ]
     },
     "vp2": {
-        "fID": "fp1",
+        "fID": "f1",
             "titel": "Sad Film",
             "medien": {
             "BD": "20170525"
@@ -216,7 +216,8 @@
             "vonID": false,
             "nachID": false,
             "garantie": false,
-            "datum":"20170525"
+            "datum":"20170525",
+            "fID":"3"
     },
     "fBID2": {
         "fBID": "2",
@@ -228,7 +229,8 @@
             "vonID": false,
             "nachID": false,
             "garantie": false,
-            "datum":"20170525"
+            "datum":"20170525",
+            "fID":"f1"
     },
     "fBID4": {
         "fBID": "4",
@@ -241,6 +243,7 @@
             "nachID": false,
             "garantie": false,
             "datum":"20170526",
+            "fID":"f3",
             "besucher": [
             [
                 10,
@@ -1437,13 +1440,13 @@
         "col1": {
             "bc": "bc-20",
             "vBID": "vp4",
-            "fID": "fp3",
+            "fID": "f3",
             "fw": 1
         },
         "col2": {
             "bc": "bc-50",
             "vBID": "vp2",
-            "fID": "fp1",
+            "fID": "f1",
             "fw": 1
         }
     },
@@ -1582,13 +1585,13 @@
         "col1": {
             "bc": "bc-20",
             "vBID": "vp4",
-            "fID": "fp3",
+            "fID": "f3",
             "fw": 1
         },
         "col2": {
             "bc": "bc-10",
             "vBID": "vp6",
-            "fID": "fp5",
+            "fID": "f5",
             "fw": 1
         }
     },
@@ -1684,7 +1687,7 @@
         "col2": {
             "bc": "bc-10",
             "vBID": "vp6",
-            "fID": "fp5",
+            "fID": "f5",
             "fw": 1
         }
     },
@@ -3373,23 +3376,23 @@
         "titel": "Im Weg",
             "text": "dieser film steht einer Verlängerung im Weg."
     },
-    "fp1": {
+    "f1": {
         "titel": "Sad Film"
     },
-    "fp4": {
+    "f4": {
         "titel": "Die letzte Sau",
             "verleih": "vid1"
     },
-    "fp6": {
+    "f6": {
         "titel": "Benda Bilili!",
             "verleih": "vid1"
     },
-    "fp3": {
+    "f3": {
         "titel": "Happy Film",
             "verleih": "vid1",
             "text": "gfds"
     },
-    "fp5": {
+    "f5": {
         "titel": "Sad Film",
             "verleih": "vid1"
     }

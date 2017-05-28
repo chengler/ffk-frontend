@@ -80,6 +80,7 @@ app.run(function(version, author, $rootScope, $http, $locale) {
     $rootScope.verleihBuchungen = [{}]; // Die Buchungen beim Verleih vBID
 
 	$rootScope.logedInUser = {}; // der angemeldete user
+    $rootScope.fehlendeRueckmeldungen = [];
 	
 	$rootScope.status = {};
 	$rootScope.status.filmlaufGeladen = false;
