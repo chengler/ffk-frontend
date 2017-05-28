@@ -65,7 +65,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             // gesamt in Buchung
 
             var filmtag ;
-      // iteriere durch Filmwocher
+            // iteriere durch Filmwocher
             for (var i = 1; i<= 7; i ++){
                 filmtag = $rootScope.filmlauf[(kwZeile+i)]['col'+colIdx]['f1'];
                 console.log(filmtag);
@@ -76,19 +76,19 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     var f =1;
                     while (true){
 
-                         if (filmtag.gesamt != undefined) { // es gibt eine Buchung mit einem gesamteintrag
+                        if (filmtag.gesamt != undefined) { // es gibt eine Buchung mit einem gesamteintrag
                             console.log("da gesamt, summiere "+ JSON.stringify( filmtag.gesamt) + " zu " +   JSON.stringify(summe) );
                             summe[0] += filmtag.gesamt[0]; // addiere besucher
                             summe[1] += filmtag.gesamt[1]; // addiere cent
                             console.log("********** summe " + JSON.stringify(summe));
-                         }
-                     //endlosschleife bis film (f2) nicht mehr existiert
-                         f += 1; //eins mehr
+                        }
+                        //endlosschleife bis film (f2) nicht mehr existiert
+                        f += 1; //eins mehr
                         filmtag = $rootScope.filmlauf[(kwZeile+i)]['col'+colIdx]['f'+f]; //f2,f3 usw
                         if (filmtag == undefined) {
                             break;
                         }
-                                            }
+                    }
                 } else {
                     console.log("++undefined, also keine Buchung an idx=" + (kwZeile + i) + " tagessumme: " + filmtag);
                 }
@@ -111,8 +111,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             // erwartet Datum im Format 20160114
             // return:  row Index der KW Info Zeile
             var isoIdx = moment(datum).format('E');
-     /*       $log.debug('starte mit Tag: '+ moment(datum).format("DD-MM-YYYY"));
-            $log.debug('Wert des Tages Mo 1-So 7: '+ moment(datum).format('E'));*/
+            /*       $log.debug('starte mit Tag: '+ moment(datum).format("DD-MM-YYYY"));
+             $log.debug('Wert des Tages Mo 1-So 7: '+ moment(datum).format('E'));*/
 
             var idxDif = parseInt(isoIdx) - 4  ; // (Do-So) So 7-4 = 3 Tage zu Do
             if (isoIdx < 4) { // (Mo-Mi) (Mo  1+3=4 Tage zu Do
@@ -122,7 +122,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             var donnerstag = moment(datum).subtract(idxDif, 'days');
             $log.debug(' return ist Donnerstag, der ' + moment(donnerstag).format("DD-MM-YYYY")+ " KW "+ moment(donnerstag).isoWeek());
 
-                          return donnerstag; // gebe den Donnerstag zurück, an dem die Kinowoche beginnt
+            return donnerstag; // gebe den Donnerstag zurück, an dem die Kinowoche beginnt
 
 
         };
@@ -427,9 +427,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             buchungsTag[col]['f' + fnext] = mySet;
             // erstelle rootScope.ringBuchung
             var rbKey= "fBID"+ mySet.fBID; //ringBuchungskey
-        // müsste sonst in rootscoop fest kopiert sein
-        //    mySet.fBID = null;
-        //    delete mySet.fBID;
+            // müsste sonst in rootscoop fest kopiert sein
+            //    mySet.fBID = null;
+            //    delete mySet.fBID;
 
             $rootScope.ringBuchungen[rbKey] = mySet;
             $rootScope.ringBuchungen[rbKey]['datum'] = buchungsTag.datum;
@@ -462,8 +462,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 for (var t = 1; t < 8; t++) {
 
                     var idx = woche + t;
-              //      console.log("idx " + idx + " col " + col);
-              //       console.log("filmlauf[idx][col] " + JSON.stringify(filmlauf[idx][col]));
+                    //      console.log("idx " + idx + " col " + col);
+                    //       console.log("filmlauf[idx][col] " + JSON.stringify(filmlauf[idx][col]));
                     if (filmlauf[idx][col] != undefined) {
                         if (t % 2 == 0) { // Do, Sa ..
                             filmlauf[idx][col]['bc'] = farbwert + 2;
@@ -598,22 +598,22 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 // checkt ob film vorhanden. wenn nein wird einzelner Film geladen
         this.ladeFilm = function (fID){
             // lade nur wenn film noch nicht vorhanden
-        if ( !(fID in $rootScope.filme)){
-            $http.get('../example_data//JSONfilme.js?' + Math.random()).success(function (data) {
-        // schaue ob es den Film nun gibt
-            if ( fID in data[0]) {
-                var value = data[0][fID];
-                $rootScope.filme[fID] =  value; // und lade nur diesen Film
-                console.log(JSON.stringify($rootScope.filme));
-                console.log(" JSONfilme: fID " + fID + " geladen");
-                console.log(JSON.stringify($rootScope.filme[fID]));
-                }else {
-                console.log("Film mit fid "+fID+" ist nicht ladbar in ../example_data//JSONfilme.js");
-            }
-            });
+            if ( !(fID in $rootScope.filme)){
+                $http.get('../example_data//JSONfilme.js?' + Math.random()).success(function (data) {
+                    // schaue ob es den Film nun gibt
+                    if ( fID in data[0]) {
+                        var value = data[0][fID];
+                        $rootScope.filme[fID] =  value; // und lade nur diesen Film
+                        console.log(JSON.stringify($rootScope.filme));
+                        console.log(" JSONfilme: fID " + fID + " geladen");
+                        console.log(JSON.stringify($rootScope.filme[fID]));
+                    }else {
+                        console.log("Film mit fid "+fID+" ist nicht ladbar in ../example_data//JSONfilme.js");
+                    }
+                });
             } else {
-            console.log("Film mit fid "+fID+" war schon geladen");
-        }
+                console.log("Film mit fid "+fID+" war schon geladen");
+            }
         };
 
 
@@ -621,38 +621,38 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         // zum laden von Datensatz wie gespeichert unter "Übersicht"
         // dient zur initialladung der Grundinformationen
         this.ladeDatensatz = function(fileContent){
-         console.log("lade alles ausser Filme... ");
-         console.log(fileContent);
+            console.log("lade alles ausser Filme... ");
+            console.log(fileContent);
             //console.log(JSON.stringify(fileContent));
 
-               // fileContent =  JSON.parse(fileContent);
-                for ( var key in fileContent ){
-                    console.log("lade "+ key);
-                    $rootScope[key] = fileContent[key];
-                    // console.log($scope[objektname]);
-                    switch(key) {
-                        case 'users':
-                            // wenn Objekt 'users' geladen wurde erstelle und sortiere usersSortiert
-                            this.sortiereUsers();
-                            break;
-                        case 'spielorte':
-                            this.sortiereSpielorte();
-                            break;
-                        case 'verleiher':
-                            this.sortiereVerleiher();
-                            break;
-                        case 'filme':
-                            // unklar was zu ändern ist.wird durch PCtrl geändert
-                            console.log(Object.keys($rootScope.filme).length + " Filme geladen");
-                            break;
-                        case 'verleihBuchungen':
-                            $rootScope.status.verleihBuchungenGeladen = true;
-                            break;
-                        case 'filmlauf':
-                            $rootScope.status.filmlaufGeladen = true;
-                            break;
-                    }
+            // fileContent =  JSON.parse(fileContent);
+            for ( var key in fileContent ){
+                console.log("lade "+ key);
+                $rootScope[key] = fileContent[key];
+                // console.log($scope[objektname]);
+                switch(key) {
+                    case 'users':
+                        // wenn Objekt 'users' geladen wurde erstelle und sortiere usersSortiert
+                        this.sortiereUsers();
+                        break;
+                    case 'spielorte':
+                        this.sortiereSpielorte();
+                        break;
+                    case 'verleiher':
+                        this.sortiereVerleiher();
+                        break;
+                    case 'filme':
+                        // unklar was zu ändern ist.wird durch PCtrl geändert
+                        console.log(Object.keys($rootScope.filme).length + " Filme geladen");
+                        break;
+                    case 'verleihBuchungen':
+                        $rootScope.status.verleihBuchungenGeladen = true;
+                        break;
+                    case 'filmlauf':
+                        $rootScope.status.filmlaufGeladen = true;
+                        break;
                 }
+            }
 
         };
 
@@ -698,24 +698,24 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     // tabelle mit idx
 //checke ob filmlauf mit idx, also einzelne Einträge
 // oder ohne, kompletter Filmlauf wie beim export
-                   var typ = (Object.keys(data[0])[0]).substring(0,3);
+                    var typ = (Object.keys(data[0])[0]).substring(0,3);
                     console.log("filmlaufdatei von typ "+typ);
                     if (typ == "idx"){
                         for (var obj in data) {
                             Object.keys(data[obj]).forEach(function (key) {
-                            // console.log("obj " + obj);
-                            // console.log("key " + key);
+                                // console.log("obj " + obj);
+                                // console.log("key " + key);
                                 var idx = key.substr(3);
-                            // console.log("idx " + idx);
-                            // console.log(data[obj][key]);
-                            // console.log($rootScope.filmlauf[idx]);
-                            // ES6/ES2015
+                                // console.log("idx " + idx);
+                                // console.log(data[obj][key]);
+                                // console.log($rootScope.filmlauf[idx]);
+                                // ES6/ES2015
                                 Object.assign($rootScope.filmlauf[idx], data[obj][key]);
-                            // console.log($rootScope.filmlauf[idx]);
-                            // $rootScope.filmlauf[idx] =
-                            // data[obj][key];
-                        });
-                                         }
+                                // console.log($rootScope.filmlauf[idx]);
+                                // $rootScope.filmlauf[idx] =
+                                // data[obj][key];
+                            });
+                        }
                     }else {
                         $rootScope.filmlauf = data;
                     }
@@ -949,30 +949,30 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         }
 
         this.sortiereSpielorte = function (){
-        // sortiere Spieorte nach Ort (Alphabetisch)
-        //
-        // packe key und Ort in Array
-        $rootScope.spielorteSortiert = [];
-        var keys = Object.keys($rootScope.spielorte);
-        keys.forEach(function(sid) {
-            $rootScope.spielorteSortiert.push([ sid, $rootScope.spielorte[sid]['ort'] ]);
-        });
-        // sortiere nach Ort in Array
-        // a[0] is sid (spielOrtID)
-        // a[1] ist der Ort (sortiert nach Ort)
-        $rootScope.spielorteSortiert = $rootScope.spielorteSortiert.sort(function(a, b) {
-            if (a[1] > b[1]) {
-                return 1;
-            }
-            if (a[1] < b[1]) {
-                return -1;
-            }
-            return 0;
-        });
-        // Spieorte ist nun vorbereitet
-        console.log( " Spielorte sortiert: "
+            // sortiere Spieorte nach Ort (Alphabetisch)
+            //
+            // packe key und Ort in Array
+            $rootScope.spielorteSortiert = [];
+            var keys = Object.keys($rootScope.spielorte);
+            keys.forEach(function(sid) {
+                $rootScope.spielorteSortiert.push([ sid, $rootScope.spielorte[sid]['ort'] ]);
+            });
+            // sortiere nach Ort in Array
+            // a[0] is sid (spielOrtID)
+            // a[1] ist der Ort (sortiert nach Ort)
+            $rootScope.spielorteSortiert = $rootScope.spielorteSortiert.sort(function(a, b) {
+                if (a[1] > b[1]) {
+                    return 1;
+                }
+                if (a[1] < b[1]) {
+                    return -1;
+                }
+                return 0;
+            });
+            // Spieorte ist nun vorbereitet
+            console.log( " Spielorte sortiert: "
                 + Object.keys($rootScope.spielorteSortiert).length);
-       // console.log(JSON.stringify($rootScope.spielorteSortiert, 0, 4));
+            // console.log(JSON.stringify($rootScope.spielorteSortiert, 0, 4));
         }
 
         this.sortiereVerleiher = function() {
