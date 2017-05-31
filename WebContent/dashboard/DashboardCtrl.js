@@ -16,6 +16,7 @@
             // starte asyncrones laden
             // ergebniss landet in $rootScope.fehlendeRueckmeldungen = [];
         var  fehlendeRuekmeldungen =   FfkUtils.getFehlendeRuekmeldungen();
+        $scope.fbids ={}
 
             //http://stackoverflow.com/questions/2897619/using-html5-javascript-to-generate-and-save-a-file#4551467
             // http://stackoverflow.com/questions/18826320/what-is-the-hashkey-added-to-my-json-stringify-result#23656919
@@ -104,6 +105,19 @@
             var ladeAnsichten = function(){
                 console.log("lade Ansichten");
 //wer ist eingeloged
+
+                // hole Infos zu fehlenden Rückmeldungen
+                console.log(JSON.stringify($rootScope.ringBuchungen));
+
+               $rootScope.fehlendeRueckmeldungen.forEach(function (fBID) {
+                   $scope.fbids[fBID] = {};
+                    $scope.fbids[fBID].titel = $rootScope.verleihBuchungen[$rootScope.ringBuchungen[fBID]['vBID']]['titel'];
+                    $scope.fbids[fBID].datum = moment($rootScope.ringBuchungen[fBID]['datum']).hour(12).format('DD.MM.YY');
+                    $scope.fbids[fBID].id = $rootScope.ringBuchungen[fBID]['fBID'];
+
+                });
+
+
                 switch ($rootScope.logedInUser.role){
 
                     case "spieler":
@@ -116,31 +130,7 @@
                         break;
                     case "verleih":      //Verleihansicht
                             console.log("*** präsentiere Verleihinfos");
-                            // sollte eigentlich vom Server kommen, Workaround
-                            console.log(JSON.stringify($rootScope.filmlauf[myIdx]));
-                            // film in filme
-                            // ein Array mit Objecten
-                            $scope.filme=[];
-                            var film ={};
-                            // suche nach  Filmen wie in col angegeben
-                            // suche in der KW ZEile
-                            for (var i=1; i<=   $rootScope.filmlauf[myIdx].col ; i++){
-                                console.log("suche nach Film in col "+i);
-                                if ( 'col'+i in $rootScope.filmlauf[myIdx] &&
-                                    $rootScope.filmlauf[myIdx]['col'+i] != undefined ) { // film gibts
-                                    var myfilm = $rootScope.filmlauf[myIdx]['col'+i];
-                                    film['name'] = $rootScope.verleihBuchungen[myfilm.vBID].titel;
-                                    film['besucher'] = $rootScope.verleihBuchungen[myfilm.vBID]['fw'+myfilm.fw][0];
-                                    film['eintritt'] = $rootScope.verleihBuchungen[myfilm.vBID]['fw'+myfilm.fw][1];
-                                    film['filmwoche'] = myfilm.fw;
 
-                                    $scope.filme.push(film);
-                                    i += 1; // suche nach weiterem Film
-                                    film={}; // leere Film für neuen Eintrag
-                                }
-
-                            }
-                            console.log(JSON.stringify($scope.filme));
                         break;
 
 

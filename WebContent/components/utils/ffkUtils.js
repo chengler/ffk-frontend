@@ -23,7 +23,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 fehlende = data[fuerWen];
                 $rootScope.fehlendeRueckmeldungen = fehlende;
                 $rootScope.status.fehlendeRueckmeldungenGeladen = true;
+
                 console.log("Rückmeldung fehlt für fBID: " + JSON.stringify(fehlende));
+                console.log("fuerWen: " + fuerWen);
             });
 
         }
