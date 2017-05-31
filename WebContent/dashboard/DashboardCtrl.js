@@ -111,8 +111,14 @@
 
                $rootScope.fehlendeRueckmeldungen.forEach(function (fBID) {
                    $scope.fbids[fBID] = {};
-                    $scope.fbids[fBID].titel = $rootScope.verleihBuchungen[$rootScope.ringBuchungen[fBID]['vBID']]['titel'];
-                    $scope.fbids[fBID].datum = moment($rootScope.ringBuchungen[fBID]['datum']).hour(12).format('DD.MM.YY');
+                   $scope.fbids[fBID].titel = $rootScope.verleihBuchungen[  $rootScope.ringBuchungen[fBID]['vBID']]['titel'];
+                   $scope.fbids[fBID].ort = FfkUtils.getNamezurId( $rootScope.spielorteSortiert , $rootScope.ringBuchungen[fBID]['ortID']);
+
+                  // TODO verleichID !!
+                  // $scope.fbids[fBID].verleih = FfkUtils.getNamezurId( $rootScope.verleiherSortiert , $rootScope.ringBuchungen[fBID]['ortID']);
+
+
+                   $scope.fbids[fBID].datum = moment($rootScope.ringBuchungen[fBID]['datum']).hour(12).format('DD.MM.YY');
                     $scope.fbids[fBID].id = $rootScope.ringBuchungen[fBID]['fBID'];
 
                 });

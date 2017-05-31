@@ -2,6 +2,30 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
     'FfkUtils',
     function ($log, $rootScope, $http) {
 
+        // hole name aus sortiertem array
+        // format : [ id , name ]
+        // für sid und vid für spielorteSortiert und verleiherSortiert
+        // gebe id zurück, fals nichts gefunden wird
+        this.getNamezurId= function(array , id){
+            console.log ("getNamezurId ");
+            var gefunden = false;
+            array.every( function( idname) {
+                if (idname[0] == id ) {
+                    id = idname[1];
+
+                    return false;
+                } else {
+                    return true;
+                }
+
+            });
+
+            // wird der name zur id nicht gefunden, wird die id zurückgegeben!
+            console.log (" id: "+id);
+            return id;
+
+        }
+
         // fehlende Rückmeldungen für logdinuser
         this.getFehlendeRuekmeldungen = function(){
             console.log("**************************");
@@ -438,6 +462,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             var bIdx = this.getKinoWochenRowIdx(rowIdx)
             console.log("bIdx "+bIdx+ " col "+col);
             $rootScope.ringBuchungen[rbKey]['vBID'] = $rootScope.filmlauf[bIdx][col].vBID;
+           // TODO
+           // $rootScope.ringBuchungen[rbKey]['vid'] = $rootScope.filmlauf[bIdx][col].vBID;
 
             console.log("setze in $rootScope.ringBuchungen "+ JSON.stringify($rootScope.ringBuchungen[rbKey]));
             console.log("+++++++++ sende REST an SERVER");
@@ -499,7 +525,6 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             });
             return refName;
         };
-
         // vergbe provisorische ID und erlaub einen ident zu speichern
         this.getNewProvID = function (identCounter) {
             if (identCounter == undefined) {
