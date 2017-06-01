@@ -1,0 +1,22 @@
+<div class="row" ng-class="bc=myVerleihB.bc">
+    <h3 class="col-md-12 modal-title">
+        {{myRingB.gesamt[0]}} zahlende Besucher {{(myRingB.gesamt[1]/100.00).toFixed(2)}}€
+    </h3>
+</div>
+<hr>
+
+ff
+
+<form  data-ng-repeat="anzahl in myRingB.besucher">
+    <div class="row form-group" >
+        <div class=" col-md-3"></div>
+        <div class=" col-md-2">
+            <label>Besucher</label>
+            <input  type="number" data-ng-model="besucher[$index][0]" ng-change='changeEintritt($index, 0 )'  class="form-control"  >
+        </div>
+        <div class="col-md-2">
+            <label> Eintritt in cent</label>
+            <input type="number" class="form-control" ng-model="besucher[$index][1]"  ng-change='changeEintritt($index, 1 )'  step="10" >
+        </div>
+    </div>
+</form>

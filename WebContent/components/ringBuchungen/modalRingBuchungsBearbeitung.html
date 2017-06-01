@@ -13,7 +13,11 @@
     </div>
 </div>
 <div class="modal-body">
-    <div class="row">
+
+
+    <div ng-if = 'schalter.besucher' class="row">
+        besucher
+        <div ng-include="'ringBuchungen/templateBesucherZahlen.html?1'"></div>
     </div>
 </div>
 <div class="modal-footer">
@@ -21,7 +25,7 @@
         Änderungen</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">einfach nur
         abbrechen</button>
-    <div ng-if != 'fBID' >
+    <div ng-if = 'schalter.delete' >
     <button class="btn btn-danger" type="button" ng-click="delete()">lösche Buchung</button>
     </div>
 </div>

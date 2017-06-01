@@ -60,15 +60,21 @@ angular.module('modalRingBuchungsBearbeitung').controller(
     function ($scope,$rootScope,  $log, $uibModalInstance, input) {
         console.log("ModalRingBuchungsBearbeitungInstanceCtrl mit input " + JSON.stringify(input)  );
 
-        $scope.fBID = false;
+        // schalter für ng-if ladet templates usw
+        $scope.schalter = {};
+        var fBID = false;
         // input =[ 'fBID' , fBID ]
+        // aufruf vom dashboard
         if (input[0] == 'fBID'){
-            $scope.fBID = input[1];
+            fBID = input[1];
+            $scope.schalter['delete'] = false;
+            $scope.schalter['besucher'] = true;
+
         }
 
 
         //fBID geklärt
-        $scope.myRingB = $rootScope.ringBuchungen[$scope.fBID];
+        $scope.myRingB = $rootScope.ringBuchungen[fBID];
         $scope.myVerleihB = $rootScope.verleihBuchungen[$scope.myRingB.vBID];
         console.log('myRingB '+JSON.stringify($scope.myRingB));
         console.log('myVerleihB '+JSON.stringify($scope.myVerleihB));
