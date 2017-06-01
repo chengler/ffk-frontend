@@ -116,7 +116,8 @@
                    $scope.fbids[fBID].ort = FfkUtils.getNamezurId( $rootScope.spielorteSortiert , $rootScope.ringBuchungen[fBID]['ortID']);
 
                   // TODO verleichID !!
-                  // $scope.fbids[fBID].verleih = FfkUtils.getNamezurId( $rootScope.verleiherSortiert , $rootScope.ringBuchungen[fBID]['ortID']);
+                   $scope.fbids[fBID].verleih = FfkUtils.getNamezurId( $rootScope.verleiherSortiert ,
+                       $rootScope.verleihBuchungen[$rootScope.ringBuchungen[fBID]['vBID']].verleih);
 
 
                    $scope.fbids[fBID].datum = moment($rootScope.ringBuchungen[fBID]['datum']).hour(12).format('DD.MM.YY');
