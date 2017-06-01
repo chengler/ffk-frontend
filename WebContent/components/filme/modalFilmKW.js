@@ -44,30 +44,37 @@ angular.module('modalFilmKW', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_V
 			switch (res.typ) {
 				case ("speichern"):
 					$log.debug("case speichern");
-				if (res.colTyp == 1){ // wunschfilm
+				/*if (res.colTyp == 1){ // wunschfilm
 					$scope.verleihBuchungen['wuensche'][res.vBID]['menge'] = res.menge;
 				} else {
 					$scope.verleihBuchungen[res.vBID]['menge'] = res.menge;
-				}
+				}*/
+				// wunschfilm oder bereits gebucht?
+					var zuSpeichern =   $scope.verleihBuchungen[res.vBID];
+                    if (res.colTyp == 1){ // wunschfilm
+                        zuSpeichern = $scope.verleihBuchungen['wuensche'][res.vBID];
+                    }
+
+                    zuSpeichern['menge'] = res.menge;
 // laufzeitänderung
 
 				if (res.hasOwnProperty("laufzeitNeu")) {
                     // neue laufzeit
-                    $scope.verleihBuchungen[res.vBID]["laufzeit"] = res.laufzeitNeu;
-                    console.log("neue Laufzeit gesetzt. Nun " + $scope.verleihBuchungen[res.vBID].laufzeit);
+                    zuSpeichern["laufzeit"] = res.laufzeitNeu;
+                    console.log("neue Laufzeit gesetzt. Nun " + zuSpeichern.laufzeit);
                     // fw (filmwoche) für einspielergebnisse fw1:[0,0]
                     var dif = res.laufzeitNeu - res.laufzeit;
                     // neue fw
                     if (dif >= 0) {
                         for (var i = (res.laufzeit + 1); i <= res.laufzeitNeu; i++) {
-                            $scope.verleihBuchungen[res.vBID]['fw' + i] = [0, 0];
+                            zuSpeichern['fw' + i] = [0, 0];
                         }
 // lösche fw's
 
                     } else {
                         for (var i = (res.laufzeit); i > res.laufzeitNeu; i--) {
-                            $scope.verleihBuchungen[res.vBID]['fw' + i] = null;
-                            delete $scope.verleihBuchungen[res.vBID]['fw' + i];
+                            zuSpeichern['fw' + i] = null;
+                            delete zuSpeichern['fw' + i];
                         }
                     }
                 }
@@ -105,12 +112,12 @@ angular.module('modalFilmKW', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_V
 					
 					
 					if ('medien' in res) {
-						var buchung;
-						if (res.colTyp == 1){ // wunschfilm
+						var buchung =zuSpeichern;
+						/*if (res.colTyp == 1){ // wunschfilm
 							buchung = $scope.verleihBuchungen['wuensche'][res.vBID];
 						} else {
 							buchung = $scope.verleihBuchungen[res.vBID];
-						}
+						}*/
 // $log.debug("Medien alt: "+JSON.stringify($scope.verleihBuchungen[res.vBID].medien));
 						for (var med in res.medien){
 // $log.debug("änderungen "+ med +" : "+JSON.stringify(res.medien[med]));
@@ -653,6 +660,10 @@ angular.module('modalFilmKW').controller('ModalKWInstanceCtrl',
 				// entweder neues datum oder false bei löschung
 				// console.log("buchung.medien
 				// "+JSON.stringify(buchung.medien));
+
+                if (  buchung.medien == undefined){
+                    buchung['medien'] = {};
+				}
 				for (var typ in $scope.medium){
 					var geaendert = false;
 					// console.log("eintrag "+typ);
