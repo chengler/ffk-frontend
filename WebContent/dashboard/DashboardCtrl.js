@@ -35,7 +35,8 @@
                     'verleihBuchungen': $rootScope.verleihBuchungen,
                     'ringBuchungen': $rootScope.ringBuchungen,
                     'filmlauf': $rootScope.filmlauf,
-                    'filme': $rootScope.filme // nur zur entwicklung
+                    'filme': $rootScope.filme, // nur zur entwicklung
+                    'myProvID' : {"counter " : $rootScope.myProvID.counter}
                     };
         }
         console.log(name + "zum download bereit");
