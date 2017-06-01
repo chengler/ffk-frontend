@@ -73,11 +73,22 @@ angular.module('modalRingBuchungsBearbeitung').controller(
         }
 
 
-        //fBID geklärt
+
+
+        //fBID geklärt, setze Variablen
         $scope.myRingB = $rootScope.ringBuchungen[fBID];
         $scope.myVerleihB = $rootScope.verleihBuchungen[$scope.myRingB.vBID];
-        console.log('myRingB '+JSON.stringify($scope.myRingB));
-        console.log('myVerleihB '+JSON.stringify($scope.myVerleihB));
+     /*   console.log('myRingB '+JSON.stringify($scope.myRingB));
+        console.log('myVerleihB '+JSON.stringify($scope.myVerleihB));*/
+
+     // Besucherzahlen
+        // dürfen nicht undefiniert sein
+        if ($scope.myRingB.gesamt == undefined){
+            $scope.myRingB.gesamt = [0,0];
+        }
+        if ($scope.myRingB.besucher == undefined){
+            $scope.myRingB.besucher = [[0,0] , [0,0] , [0,0] ];
+        }
 
         $scope.datum = moment($scope.myRingB.datum).hour(12).format('DD.MM.YYYY');
 

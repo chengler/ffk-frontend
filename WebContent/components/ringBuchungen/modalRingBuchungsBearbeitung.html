@@ -14,10 +14,8 @@
 </div>
 <div class="modal-body">
 
-
-    <div ng-if = 'schalter.besucher' class="row">
-        besucher
-        <div ng-include="'ringBuchungen/templateBesucherZahlen.html?1'"></div>
+    <div ng-show = 'schalter.besucher' >
+        <div ng-include="'components/ringBuchungen/templateBesucher.html?1ddd'"></div>
     </div>
 </div>
 <div class="modal-footer">
