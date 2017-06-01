@@ -2,7 +2,9 @@
 "use strict";
 
 (function () {
-    var dashboard = angular.module('app.dashboard');
+    var dashboard = angular.module('app.dashboard', [ 'modalRingBuchungsBearbeitung' ]);
+
+
 
     dashboard.controller('DashboardCtrl', [
         '$scope',
@@ -10,7 +12,8 @@
         '$log',
         '$locale',
         'FfkUtils',
-        function ( $scope, $rootScope,  $log, $locale, FfkUtils) {
+        'ModalRingBuchungsBearbeitungService',
+        function ( $scope, $rootScope,  $log, $locale, FfkUtils, ModalRingBuchungsBearbeitungService) {
             $log.info("init DashboardCtrl");
 
             // starte asyncrones laden
@@ -147,6 +150,15 @@
 
 
                 }
+
+            }
+
+
+
+            $scope.bearbeiteModal = function (fBID) {
+                console.log("bearbeite fBID " + fBID);
+                // [0] = verarbeitungsart [1] = input
+                ModalRingBuchungsBearbeitungService.editBuchung( ['fBID' , fBID ] );
 
             }
 

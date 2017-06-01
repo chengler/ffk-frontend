@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>RingBuchung</title>
+
+</head>
+<body>
+<div class="modal-header" ng-class="bc=myVerleihB.bc">
+    <div class="row">
+        <h3 class="col-md-10 modal-title">{{myVerleihB.titel}}</h3>
+        <h3 class="col-md-2 modal-title">{{datum}}</h3>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" type="button" ng-click="ok('speichern')">speicher
+        Änderungen</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">einfach nur
+        abbrechen</button>
+    <div ng-if != 'fBID' >
+    <button class="btn btn-danger" type="button" ng-click="delete()">lösche Buchung</button>
+    </div>
+</div>
+</body>
+</html>
