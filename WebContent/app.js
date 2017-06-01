@@ -93,7 +93,7 @@ app.run(function(version, author, $rootScope, $http, $locale) {
 	
 	$rootScope.loggedIn = false;
 	$rootScope.myProvID = {};
-	$rootScope.myProvID.counter = 0;
+	$rootScope.myProvID.counter = 10;
 //	$rootScope.role = false; // admin spieler
 	$rootScope.spielort = {}; // der aktuelle Spielort 
 	$rootScope.username = ""; // der angemeldete Benutzer // ersetzen

@@ -111,9 +111,11 @@
     "vp2": {
         "fID": "fp1",
             "titel": "Happy Film",
+            "verleih":"vid1",
             "medien": {
             "BD": "20170525"
         },
+
         "menge": {
             "BD": 1,
                 "DCP": 0,
@@ -140,6 +142,7 @@
     "vp4": {
         "fID": "fp3",
             "titel": "Sad Film",
+            "verleih":"vid2",
             "medien": {
             "BD": "20170525"
         },

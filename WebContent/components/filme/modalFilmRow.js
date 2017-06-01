@@ -57,9 +57,15 @@ angular
                                         console.log("verleihBuchungen['wuensche'][res.wfID] mit [res.wfID] "
                                             + [res.wfID] + " -> " + JSON.stringify($rootScope.verleihBuchungen['wuensche'][res.wfID], 0,  0));
                // lege Film an, kopiere , änder bc
+                                        console.log("lege verleihBuchungen an.");
                                         $rootScope.verleihBuchungen[res.wfID] = {};
                                         $rootScope.verleihBuchungen[res.wfID]['fID'] = $rootScope.verleihBuchungen['wuensche'][res.wfID]['fID'];
                                         $rootScope.verleihBuchungen[res.wfID]['titel'] = $rootScope.verleihBuchungen['wuensche'][res.wfID]['titel'];
+                                        console.log("speicher fID " + res.fID);
+                                        console.log("speicher Verleih von " + JSON.stringify($rootScope.filme[res.fID]));
+                                        console.log("der dsa istn " + $rootScope.filme[res.fID].verleih);
+
+                                        $rootScope.verleihBuchungen[res.wfID]['verleih'] = $rootScope.filme[res.fID].verleih;
                                         $rootScope.verleihBuchungen[res.wfID]['medien'] = {};
                                         $rootScope.verleihBuchungen[res.wfID]['menge'] = {};
                                         $rootScope.verleihBuchungen[res.wfID]['vid'] = $rootScope.verleihBuchungen['wuensche'][res.wfID]['vid'];
