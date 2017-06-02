@@ -295,7 +295,6 @@ angular.module('modalBuchungsBearbeitung').controller(
         // änderungen vom typ Besucher [0] oder Eintritt typ[1] (array)
         $scope.changeEintritt = function ( idx, typ ) {
             $scope.buchungsChanges.besucher = $scope.besucher;
-            console.log($scope.buchungsChanges.besucher +" idx " + idx + " typ " +typ)
             // wieviele Besucher nun
             $scope.gesamtBesucher = 0;
             $scope.gesamtEintritt = 0;
