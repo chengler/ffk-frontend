@@ -26,6 +26,8 @@
 							<th class="col-sm-1">ID</th>
 							<th class="col-sm-2">Ort</th>
 							<th class="col-sm-1">alle Infos</th>
+							<th class="col-sm-1" ng-if="logedInUser.role == 'admin'">übernehme Rolle
+							</th>
 							<th class="col-sm-1" ng-if="logedInUser.role == 'admin'">
 								<button class="btn btn-success" data-ng-click="showSpielort()">Spielort
 									anlegen</button>
@@ -42,9 +44,15 @@
 							<td class="col-sm-1" data-ng-bind="ort[0]"></td>
 							<td class="col-sm-2" data-ng-bind="ort[1]"></td>
 							<td class="col-sm-1"><button class="btn btn-info"
-									data-ng-click="showSpielort(ort[0])">Details anzeigen</button></td>
-							<td class="col-sm-1" ng-if="logedInUser.role == 'admin'"><button class="btn btn-warning"
-									data-ng-click="deleteSpielort(ort[0])">Spielort löschen</button></td>
+									data-ng-click="showSpielort(ort[0])">Details anzeigen</button>
+							</td>
+							<td class="col-sm-1" ng-if="logedInUser.role == 'admin'">
+								<button class="btn btn-warning" data-ng-click="werdeSpielort(user[0])">werde zum Spielort</button>
+							</td>
+
+							<td class="col-sm-1" ng-if="logedInUser.role == 'admin'">
+								<button class="btn btn-danger" data-ng-click="deleteSpielort(ort[0])">Spielort löschen</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>

@@ -25,7 +25,18 @@
 		    	$log.debug("delete abgebrochen");
 		    }
 		};
-		
+
+
+   /*     änderungen an role admin
+
+        // änder logedInUser, logge nie aus
+        // wenn dieser verändert wurde
+        if ($rootScope.logedInUser.uid == uid ){
+            console.log("änder lodedIn "+$rootScope.usersSortiert );
+            FfkUtils.loginIfTrue(res.logName);
+
+        }
+		*/
 	});
 
 })();

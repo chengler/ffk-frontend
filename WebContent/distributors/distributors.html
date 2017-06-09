@@ -22,7 +22,7 @@
 						<th class="col-sm-1">VID</th>
 						<th class="col-sm-2">Kurzbezeichnung</th>
 						<th class="col-sm-1">alle Infos</th>
-						
+						<th class="col-sm-1" ng-if="logedInUser.role == 'admin'">übernehme Rolle</th>
 						<th class="col-sm-1" ng-if="logedInUser.role == 'admin'">
 							<button class="btn btn-success" data-ng-click="showVerleih()">Verleiher
 								anlegen</button>
@@ -42,7 +42,10 @@
 						<td class="col-sm-2" data-ng-bind="verleih[1]"></td>
 						<td class="col-sm-1"><button class="btn btn-info"
 								data-ng-click="showVerleih(verleih[0])">Details anzeigen</button></td>
-						<td class="col-sm-1" ng-if="logedInUser.role == 'admin'"><button class="btn btn-warning"
+						<td class="col-sm-1" ng-if="logedInUser.role == 'admin'">
+							<button class="btn btn-warning" data-ng-click="werdeVerleiher(user[0])">werde zum Verleih</button>
+						</td>
+						<td class="col-sm-1" ng-if="logedInUser.role == 'admin'"><button class="btn btn-danger"
 								data-ng-click="deleteVerleih(verleih[0])">Verleiher löschen</button></td>
 					</tr>
 				</tbody>
