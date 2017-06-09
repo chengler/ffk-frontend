@@ -86,15 +86,21 @@
         <div class="container">
             <div class="col-sm-12 " data-ng-if="loggedIn">
                 <a href="#/Dashboard" title="zur Übersicht" class="btn btn-primary  "
-                   data-ng-click="">Übersicht </a> <a href="#/Programm" title="zum Programm"
-                                                      class="btn btn-primary  " data-ng-click="">Programm </a> <a
+                   data-ng-click="">Übersicht </a>
+                <a href="#/Programm" title="zum Programm"
+                                                      class="btn btn-primary  " data-ng-click="">Programm </a>
+                <a
                     href="#/Venues"
-                    title="zum Programm" class="btn btn-primary  " data-ng-click="">Spielorte </a> <a
+                    title="zum Programm" class="btn btn-primary  " data-ng-click="">Spielorte </a>
+                <a
                     href="#/Distributors" title="zu den Filmverleihern" class="btn btn-primary  "
-                    data-ng-click="">Filmverleiher</a> <a ng-if="logedInUser.role == 'admin'"
-                                                          href="#/users" title="zur Benutzerübersicht"
-                                                          class="btn btn-primary  "
-                                                          data-ng-click="">Benutzer</a>
+                    data-ng-click="">Filmverleiher</a>
+                <a ng-if="logedInUser.role == 'admin'"  href="#/users" title="zur Benutzerübersicht"
+                                                          class="btn btn-primary  "   data-ng-click="">Benutzer</a>
+                <span ng-if="logedInUser.masked">
+                    <button class="btn btn-warning"
+                            data-ng-click="reMasquerade()">demasquiere mich</button>
+                </span>
 
 
                 <div class="container">

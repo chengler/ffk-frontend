@@ -100,8 +100,6 @@ app.run(function(version, author, $rootScope, $http, $locale) {
 
 
 
-
-
 	
 		
 

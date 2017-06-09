@@ -586,9 +586,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             } else {
                 $rootScope.logedInUser["maskedIdName"] = ""; // default falls noch nicht vorhanden
             }
-
+// fole den namen
             var type = vidOdersidID.substr(0, 3);
-            var sortetList = "";
             if (type == "vid") {
                 $rootScope.logedInUser["vid"]=vidOdersidID;
                 $rootScope.logedInUser["idName"]=
@@ -600,17 +599,12 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     this.getRefName($rootScope.spielorteSortiert, vidOdersidID, 1);
 
             }
-        };
-
-
-        this.reMasqueradeLoggedIn = function () {
-            $rootScope.logedInUser["idName"] = $rootScope.logedInUser.maskedIdName;
-            $rootScope.logedInUser[$rootScope.logedInUser.maskedID.substr(0, 3)] =
-                $rootScope.logedInUser.maskedID; // z.B. {vid: vid1}
-            $rootScope.logedInUser.maskedIdName = false;
-            $rootScope.logedInUser.maskedID = false;
+            // setze masked flag
+            $rootScope.logedInUser["masked"] = true;
 
         };
+
+
 
         // set logedInUser
         // suche passenden benutzer

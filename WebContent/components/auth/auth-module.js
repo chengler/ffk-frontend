@@ -284,5 +284,27 @@
 
         // was erledigt werden kann während das Programm auf das login wartet.
 
+
+
+        $scope.reMasquerade = function(){
+            //hole alten namen
+        	$rootScope.logedInUser["idName"] = $rootScope.logedInUser.maskedIdName;
+            //lösche alte ids
+            $rootScope.logedInUser["vid"]= null;
+            $rootScope.logedInUser["sid"]= null;
+
+			// setze neue id, falls es früher eine gab
+            var id = $rootScope.logedInUser.maskedID;
+            console.log("reMasquerade zu id "+ id);
+            if (id) {  //false, falls keine vorhanden war
+                $rootScope.logedInUser[id.substr(0, 3)] =     $rootScope.logedInUser.maskedID; // z.B. {vid: vid1}
+			}
+
+            $rootScope.logedInUser.maskedIdName = false;
+            $rootScope.logedInUser.maskedID = false;
+            $rootScope.logedInUser["masked"] = false;
+        };
+
+
     });
 })();
