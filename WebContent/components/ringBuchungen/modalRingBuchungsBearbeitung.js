@@ -43,6 +43,8 @@ $scope.openModalBuchung = function (rowIdx, colIdx, filmNr ) {
                     var aufgabe = inhalt.aufgabe;
                         inhalt.aufgabe = null;
                         delete  inhalt.aufgabe;
+                    var fBID = "fBID"+ inhalt.fBID;
+
 
                     switch (aufgabe) {
 
@@ -50,35 +52,44 @@ $scope.openModalBuchung = function (rowIdx, colIdx, filmNr ) {
                             //gehe      durch      jeden    geänderten    Wert
 
                           Object.keys(inhalt).forEach(function (key) {
-                            console.log("Änderung " + key + " :" + inhalt[key]);
+
 
                             // Besuchereintritt
                             // lösche [null] Werte, 0 ist OK, 0 Besucher 500cen, bzw 4 Besucher 0 cent
                             var berecheWochenergebnissNeu = false;
                             if (key == "besucher") {
                                 var arrayLength = inhalt.besucher.length;
-                                console.log("arrayLength :" + arrayLength + " besucher" + JSON.stringify(inhalt.besucher));
+                                //console.log("arrayLength :" + arrayLength + " besucher" + JSON.stringify(inhalt.besucher));
                                 for (var i = 0; i < arrayLength; i++) {
                                     var check = inhalt.besucher[i]; // immer das erste Array
-                                    console.log( i + " diese Array :" + JSON.stringify(check));
+                                  //  console.log( i + " diese Array :" + JSON.stringify(check));
                                     if (check[0] == null || check[0] == 0 || check[1] == null) {
                                         inhalt.besucher.splice(i, 1);
                                         // splice verkürzt arry lenghth
-                                   i -= 1;
+                                        i -= 1;
                                         arrayLength -=1;
 
                                     }
-                                    console.log( i + "komplett nach durchlauf :" + JSON.stringify(inhalt.besucher));
+                                   console.log( i + "komplett nach durchlauf :" + JSON.stringify(inhalt.besucher));
                                 }
                             }
+
 
 
                             // TODO REST
                             // TODO VERleihbuchung
                             // TODO Filmlauf
                               // füge änderungen zur Ringbuchung
+                              //object.create
+                              console.log("Änderung " + key + " :" + inhalt[key]);
+                            //  $rootScope.ringBuchungen[fBID][key] = inhalt[key];
+
                     });
-                            $rootScope.ringBuchungen["fBID" + inhalt.fBID] = inhalt;
+                        // angular.copy
+
+/// try and catch !!!!!!
+
+                            $rootScope.ringBuchungen[fBID] = inhalt;
                             break;
 
                     }
@@ -125,7 +136,9 @@ angular.module('modalRingBuchungsBearbeitung').controller(
         //fBID geklärt, setze Variablen
         // getätigte Änderungen werden hier gespeichert um nach dem Speichern bearbeitet zu werden
         // 1x lokal und 1x RESTfull
-        $scope.myRingB = angular.copy($rootScope.ringBuchungen[fBID]);
+      $scope.myRingB = angular.copy($rootScope.ringBuchungen[fBID]);
+//        $scope.myRingB = Object.create($rootScope.ringBuchungen[fBID]);
+
         $scope.myRingB["fBID"] = $rootScope.ringBuchungen[fBID].fBID; // zur späteren identifizierung
 
         $scope.myVerleihB = $rootScope.verleihBuchungen[$scope.myRingB.vBID];
@@ -176,11 +189,10 @@ angular.module('modalRingBuchungsBearbeitung').controller(
         //1. speicher Datensatz
         $scope.ok = function ( aufgabe ) { //"speichern"
             $scope.myRingB['aufgabe'] = aufgabe;
-            var inhalt = $scope.myRingB;
-            $scope.myRingB = null;
-            console.log( "OK " + aufgabe + " inhalt: " +  JSON.stringify(inhalt));
+
+            console.log( "OK " + aufgabe + " inhalt: " +  JSON.stringify($scope.myRingB));
             // übergebe  an modalInstance.result.then(function (buchungsChanges) {
-            $uibModalInstance.close( inhalt);
+            $uibModalInstance.close( $scope.myRingB);
         };
         //2. lösche Datensatz
         // TODO wenn aus der Tabelle aufgerufen

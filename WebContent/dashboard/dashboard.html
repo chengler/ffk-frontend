@@ -19,10 +19,20 @@
 					bis {{kwEnde | date:'dd.MM.yyyy' }}
 				</strong>
 
-				<div data-ng-if="logedInUser.role == 'verleih'">
-					dummy
+				<div data-ng-switch="logedInUser.role">
+					<div ng-switch-when="verleih">
+						<div ng-include="'dashboard/templateFehlendeVerleih.html?'"></div>
+					</div>
+					<div ng-switch-when="spieler">
+						<div ng-include="'dashboard/templateFehlendeSpielort.html?'"></div>
+					</div>
+					<div ng-switch-when="admin">
+						<div ng-include="'dashboard/templateFehlendeAdmin.html?'"></div>
+					</div>
 				</div>
-				<div ng-include="'dashboard/templateDashboardFehlendeR.html?354djdf5'"></div>
+				
+
+
 
 				<div data-ng-if="loggedIn">
 
