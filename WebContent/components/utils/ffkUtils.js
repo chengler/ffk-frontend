@@ -1042,7 +1042,27 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             }
 
 
-        }
+        };
+
+        // änder  in usersSortiert
+        // suche uid
+        this.changeUsersSortiert = function(uid, logName, role, ref, name  ) {
+
+            $rootScope.usersSortiert.some(function (ar) {
+                $log.debug("änder usersSortiert");
+                // wenn gefunden, ändere
+                // [ "uid", "logName", "role", "id", "name" ]
+                if (ar[0] == uid) {
+                    ar[1] = logName;
+                    ar[2] = role;
+                    ar[3] = ref;
+                    ar[4] = name;
+                    return true;
+                }
+                return false;
+
+            });
+        };
 
 
     });

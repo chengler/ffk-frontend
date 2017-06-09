@@ -52,8 +52,11 @@ angular.module('modalUser', [ 'ui.bootstrap', , 'ffkUtils' ]).constant('MODULE_V
 				}
 			}
 			// änder immer auch in usersSortiert
-			// suche uid
-			$rootScope.usersSortiert.some(function(ar) {
+
+            FfkUtils.changeUsersSortiert(uid, res.logName, res.role, res.ref, res.name );
+
+/*
+                $rootScope.usersSortiert.some(function(ar) {
 				$log.debug("änder usersSortiert");
 				// wenn gefunden, ändere
 				// [ "uid", "logName", "role", "id", "name" ]
@@ -67,6 +70,9 @@ angular.module('modalUser', [ 'ui.bootstrap', , 'ffkUtils' ]).constant('MODULE_V
 				return false;
 				
 			});
+             */
+
+
 			// sortiere nach name
 			console.log("$rootScope.usersSortiert, 4");
 			FfkUtils.sortList($rootScope.usersSortiert, 4);
