@@ -442,7 +442,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 "fBID": this.getNewProvID(""),
                 "check1": false,
                 "check2": false,
-                "ortID": sid,
+                "sid": sid,
                 "medium": medium,
                 "medienID": false,
                 "vonID": false,

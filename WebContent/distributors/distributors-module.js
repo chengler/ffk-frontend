@@ -14,7 +14,6 @@
 			OpenModalDistributorService.editDistributor(vid);
 
 		};
-		
 		// TODO sehr ähnlich Distributor VEnue -> mach eins
 		$scope.deleteVerleih =  function(vid) {
 			$log.debug("delete Distributor(vid): " + vid);

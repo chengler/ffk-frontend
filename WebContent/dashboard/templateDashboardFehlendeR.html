@@ -17,11 +17,19 @@
         <!-- 							eine push Lösung für ::bindings? -->
         <!-- 							http://stackoverflow.com/questions/14702981/angularjs-model-changes-after-websocket-data-push-from-server -->
         <td class="col-sm-2" data-ng-bind="::fbid.titel"></td>
-        <td class="col-sm-1" data-ng-bind="::fbid.ort" ></td>
-        <td class="col-sm-1" data-ng-bind="::fbid.verleih" ></td>
+        <td class="col-sm-1"  >
+            <button class="btn btn-info"  data-ng-bind="::fbid.ort" data-ng-click="showSpielort(fbid.sid)"></button>
+
+        </td>
+        <td class="col-sm-1"  >
+            <button class="btn btn-info"  data-ng-bind="::fbid.verleih" data-ng-click="showVerleih(fbid.vid)"></button>
+        </td>
         <td class="col-sm-1" data-ng-bind="::fbid.datum" ></td>
         <td class="col-sm-1" data-ng-bind="::fbid.id"></td>
-        <td class="col-sm-1"> <button class="btn btn-success" data-ng-click="bearbeiteModal('fBID'+ fbid.id)">Besucher eintragen</button></td>
+        <td class="col-sm-1">
+            <button class="btn btn-success" data-ng-click="bearbeiteModal('fBID'+ fbid.id)">
+            Besucher eintragen</button>
+        </td>
 
     </tr>
     </tbody>

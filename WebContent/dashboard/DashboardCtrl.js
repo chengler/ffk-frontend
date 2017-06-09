@@ -2,7 +2,7 @@
 "use strict";
 
 (function () {
-    var dashboard = angular.module('app.dashboard', [ 'modalRingBuchungsBearbeitung' ]);
+    var dashboard = angular.module('app.dashboard', [ 'modalRingBuchungsBearbeitung' , 'modalVenue', 'modalDistributor' ]);
 
 
 
@@ -13,7 +13,10 @@
         '$locale',
         'FfkUtils',
         'ModalRingBuchungsBearbeitungService',
-        function ( $scope, $rootScope,  $log, $locale, FfkUtils, ModalRingBuchungsBearbeitungService) {
+        'OpenModalVenueService',
+        'OpenModalDistributorService',
+        function ( $scope, $rootScope,  $log, $locale, FfkUtils, ModalRingBuchungsBearbeitungService,
+                   OpenModalVenueService, OpenModalDistributorService) {
             $log.info("init DashboardCtrl");
 
             // starte asyncrones laden
@@ -115,10 +118,17 @@
 
                $rootScope.fehlendeRueckmeldungen.forEach(function (fBID) {
                    $scope.fbids[fBID] = {};
-                   $scope.fbids[fBID].titel = $rootScope.verleihBuchungen[  $rootScope.ringBuchungen[fBID]['vBID']]['titel'];
-                   $scope.fbids[fBID].ort = FfkUtils.getNamezurId( $rootScope.spielorteSortiert , $rootScope.ringBuchungen[fBID]['ortID']);
+                   $scope.fbids[fBID].titel =
+                       $rootScope.verleihBuchungen[  $rootScope.ringBuchungen[fBID]['vBID']]['titel'];
+                   $scope.fbids[fBID].ort =
+                       FfkUtils.getNamezurId( $rootScope.spielorteSortiert , $rootScope.ringBuchungen[fBID]['sid']);
 
-                  // TODO verleichID !!
+                   $scope.fbids[fBID].sid = $rootScope.ringBuchungen[fBID]['sid'];
+                   $scope.fbids[fBID].vid =
+                       $rootScope.verleihBuchungen[$rootScope.ringBuchungen[fBID]['vBID']].verleih;
+
+
+                   // TODO verleichID !!
                    $scope.fbids[fBID].verleih = FfkUtils.getNamezurId( $rootScope.verleiherSortiert ,
                        $rootScope.verleihBuchungen[$rootScope.ringBuchungen[fBID]['vBID']].verleih);
 
@@ -160,7 +170,19 @@
                 // [0] = verarbeitungsart [1] = input
                 ModalRingBuchungsBearbeitungService.editBuchung( ['fBID' , fBID ] );
 
-            }
+            };
+
+            $scope.showSpielort = function(sid) {
+                console.log("showSpielort mit sid "+ sid);
+                OpenModalVenueService.editVenue(sid);
+            };
+
+            $scope.showVerleih = function(vid) {
+                $log.debug("showVerleih mit vid: " + vid);
+                // $scope.vid = vid;
+                OpenModalDistributorService.editDistributor(vid);
+
+            };
 
 
                 var allesGeladen = $scope.$watch(function () {
