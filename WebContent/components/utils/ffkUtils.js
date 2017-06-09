@@ -235,6 +235,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             return colnr;
         };
 
+
+
         this.setLogedInUser = function () {
             if (ar[1] == $scope.auth.username) {
                 console.log("Anmeldename gefunden " + ar);
@@ -505,7 +507,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         // gebe bezeichung zu einer id zurück
         // hole namen von id = sid | vid | uid
         // id muss in sortetList[0] stehen
-        // der rückgabewert ist sortetList[retpos]
+        // der rückgabewert ist in sortetList[retpos]
+        // retpos ist die returnpossition bei sid oder Vid listen die [1] (2. Position)
         this.getRefName = function (sortetList, id, retpos) {
             // console.log("getRefName id = " + id);
             var refName = "";
@@ -566,6 +569,49 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             });
         };
 
+        // gebe dem looggedin user eine tempöräre rolle mit sid oder vid
+        this.masqueradeLoggedIn = function ( vidOdersidID) {
+            // gibt es eine feste Rolle
+            // lege default fest für remasquerade
+            if ($rootScope.logedInUser.vid != undefined ){
+                $rootScope.logedInUser["maskedID"] = $rootScope.logedInUser.vid;
+            } else {
+                $rootScope.logedInUser["maskedID"] = false; // default falls noch nicht vorhanden
+            }
+            if ($rootScope.logedInUser.sid != undefined ){
+                $rootScope.logedInUser["maskedID"] = $rootScope.logedInUser.sid;
+            }
+            if ($rootScope.logedInUser.idName != undefined ){
+                $rootScope.logedInUser["maskedIdName"] = $rootScope.logedInUser.idName;
+            } else {
+                $rootScope.logedInUser["maskedIdName"] = ""; // default falls noch nicht vorhanden
+            }
+
+            var type = vidOdersidID.substr(0, 3);
+            var sortetList = "";
+            if (type == "vid") {
+                $rootScope.logedInUser["vid"]=vidOdersidID;
+                $rootScope.logedInUser["idName"]=
+                    this.getRefName($rootScope.verleiherSortiert, vidOdersidID, 1);
+            }
+            if (type == "sid") {
+                $rootScope.logedInUser["sid"]=vidOdersidID;
+                $rootScope.logedInUser["idName"]=
+                    this.getRefName($rootScope.spielorteSortiert, vidOdersidID, 1);
+
+            }
+        };
+
+
+        this.reMasqueradeLoggedIn = function () {
+            $rootScope.logedInUser["idName"] = $rootScope.logedInUser.maskedIdName;
+            $rootScope.logedInUser[$rootScope.logedInUser.maskedID.substr(0, 3)] =
+                $rootScope.logedInUser.maskedID; // z.B. {vid: vid1}
+            $rootScope.logedInUser.maskedIdName = false;
+            $rootScope.logedInUser.maskedID = false;
+
+        };
+
         // set logedInUser
         // suche passenden benutzer
         this.loginIfTrue = function (username) {
@@ -581,11 +627,12 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     $rootScope.logedInUser.uid = ar[0];
                     $rootScope.logedInUser.logName = ar[1];
                     $rootScope.logedInUser.role = ar[2];
+                    // hole sid oder vid aus usersSotiert
                     var id = ar[3].substr(0, 3);
                     // set login user vid | sid name
                     // setze name von Spielort oder verleih
                     if (id == "vid") {
-                        $rootScope.logedInUser.vid = ar[3];
+                        $rootScope.logedInUser.vid = ar[3]; // setze 'vid'+int
                         $rootScope.verleiherSortiert.some(function (vid) {
                             if (vid[0] == ar[3]) {
                                 $rootScope.logedInUser.idName = vid[1];

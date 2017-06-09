@@ -42,6 +42,7 @@ angular.module('modalUser', [ 'ui.bootstrap', , 'ffkUtils' ]).constant('MODULE_V
 			// und änder den rootscope
 			for ( var key in res) {
 				if (res.hasOwnProperty(key)) {
+					console.log("++++++++++++++++++++++++");
 					console.log("key " + key);
 					console.log("val " + res[key]);
 					// muss nicht überprüft werden
@@ -51,39 +52,31 @@ angular.module('modalUser', [ 'ui.bootstrap', , 'ffkUtils' ]).constant('MODULE_V
 					// }
 				}
 			}
-			// änder immer auch in usersSortiert
 
+
+
+
+
+			// änder immer auch in usersSortiert
             FfkUtils.changeUsersSortiert(uid, res.logName, res.role, res.ref, res.name );
 
-/*
-                $rootScope.usersSortiert.some(function(ar) {
-				$log.debug("änder usersSortiert");
-				// wenn gefunden, ändere
-				// [ "uid", "logName", "role", "id", "name" ]
-				if (ar[0] == uid) {
-					ar[1] = res.logName;
-					ar[2] = res.role;
-					ar[3] = res.ref;
-					ar[4] = res.name;
-					return true;
-				}
-				return false;
-				
-			});
-             */
 
 
 			// sortiere nach name
 			console.log("$rootScope.usersSortiert, 4");
 			FfkUtils.sortList($rootScope.usersSortiert, 4);
+
+
 			
 			// änder logedInUser, logge nie aus
 			// wenn dieser verändert wurde
 			if ($rootScope.logedInUser.uid == uid ){
-				console.log("änder lodedIn "+$rootScope.usersSortiert );
+				console.log("änder loggedIn "+$rootScope.usersSortiert );
 				FfkUtils.loginIfTrue(res.logName);
 
 			}
+
+
 			
 			
 			// modal wird gestartet

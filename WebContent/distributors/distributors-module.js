@@ -30,6 +30,10 @@
 		    };
 		};
 
+        $scope.werdeVerleiher =  function( vid ){
+            FfkUtils.masqueradeLoggedIn(vid);
+        }
+
 	});
 
 })();

@@ -43,7 +43,7 @@
 						<td class="col-sm-1"><button class="btn btn-info"
 								data-ng-click="showVerleih(verleih[0])">Details anzeigen</button></td>
 						<td class="col-sm-1" ng-if="logedInUser.role == 'admin'">
-							<button class="btn btn-warning" data-ng-click="werdeVerleiher(user[0])">werde zum Verleih</button>
+							<button class="btn btn-warning" data-ng-click="werdeVerleiher(verleih[0])">werde zum Verleih</button>
 						</td>
 						<td class="col-sm-1" ng-if="logedInUser.role == 'admin'"><button class="btn btn-danger"
 								data-ng-click="deleteVerleih(verleih[0])">Verleiher löschen</button></td>
