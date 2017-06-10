@@ -695,29 +695,50 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
             // fileContent =  JSON.parse(fileContent);
             for ( var key in fileContent ){
-                console.log("lade "+ key);
-                $rootScope[key] = fileContent[key];
+                console.log("finde "+ key);
                 // console.log($scope[objektname]);
                 switch(key) {
                     case 'users':
+                        $rootScope[key] = fileContent[key];
                         // wenn Objekt 'users' geladen wurde erstelle und sortiere usersSortiert
                         this.sortiereUsers();
+                        console.log(key + " geladen");
                         break;
                     case 'spielorte':
+                        $rootScope[key] = fileContent[key];
                         this.sortiereSpielorte();
+                        console.log(key + " geladen");
                         break;
                     case 'verleiher':
+                        $rootScope[key] = fileContent[key];
                         this.sortiereVerleiher();
+                        console.log(key + " geladen");
                         break;
                     case 'filme':
+                        $rootScope[key] = fileContent[key];
                         // unklar was zu ändern ist.wird durch PCtrl geändert
                         console.log(Object.keys($rootScope.filme).length + " Filme geladen");
+                        console.log(key + " geladen");
                         break;
                     case 'verleihBuchungen':
+                        $rootScope[key] = fileContent[key];
                         $rootScope.status.verleihBuchungenGeladen = true;
+                        console.log(key + " geladen");
                         break;
                     case 'filmlauf':
+                        if ($rootScope.status.berechneFilmlauf == true){
+                            console.log("************** Filmlauf wird bereits aus den anderen Daten berechnet. Der Filmlauf des Datensatzes wird ignoriert");
+                        }else {
+                        console.log("************** Filmlauf sollte nicht geladen werden, da er aus den anderen Daten nun selbst berechnet wird. " +
+                            "Aber er war im Datensatz enthalten und so lade ich ihn. Das kann zu Fehlern führen");
+                        $rootScope[key] = fileContent[key];
                         $rootScope.status.filmlaufGeladen = true;
+                        console.log(key + " geladen");}
+                        break;
+                    case 'ringBuchungen':
+                        $rootScope[key] = fileContent[key];
+                        $rootScope.status.ringBuchungenGeladen = true;
+                        console.log(key + " geladen");
                         break;
                 }
             }

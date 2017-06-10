@@ -201,8 +201,8 @@ angular
 
 								var filmBID = aktuelleBuchung.fBID; // hole fBID
 								//console.log("aktuelleBuchung "+ JSON.stringify(aktuelleBuchung,0,0));
-
-								var filmOrt = $rootScope.spielorte[aktuelleBuchung.ortID]["ort"]; // sid
+console.log("aktuelleBuchung: "+ JSON.stringify(aktuelleBuchung));
+								var filmOrt = $rootScope.spielorte[aktuelleBuchung.sid]["ort"]; // sid
 
 								// der Array index der Wochenbuchung
 								// var bfIdx = rowIdx -
