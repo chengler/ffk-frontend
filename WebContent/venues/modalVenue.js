@@ -99,7 +99,6 @@ angular.module('modalVenue').controller('ModalVenueInstanceCtrl',
             $scope.bearbeitungsmodus =  function (){
                 $scope.bearbeiten = true;  // soll bearbeitet werden (nur wenn rechte vorhanden)
                 $scope.bearbeitbar = false;
-
             };
 
 			$scope.sid = sid;

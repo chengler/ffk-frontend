@@ -85,12 +85,17 @@ angular.module('modalDistributor').controller(
 			console.log($rootScope.verleiher[vid]);
 			$log.debug("$rootScope.logedInUser " + JSON.stringify($rootScope.logedInUser));
 
-			$scope.bearbeiten = false;
+            $scope.bearbeiten = false;  // soll bearbeitet werden (nur wenn rechte vorhanden)
+            $scope.bearbeitbar = false; // darf bearbeitet werden (rechte)
 			// der admin bearbeitet alles
 			// der user bearbeitet nur seinen Verleih (außer kurz)
 			if ($rootScope.logedInUser.role == "admin" | $rootScope.logedInUser.vid == vid) {
-				$scope.bearbeiten = true;
-			}
+                $scope.bearbeitbar = true;			}
+
+            $scope.bearbeitungsmodus =  function (){
+                $scope.bearbeiten = true;  // soll bearbeitet werden (nur wenn rechte vorhanden)
+                $scope.bearbeitbar = false;
+            };
 
 			$log.debug("bearbeiten " + $scope.bearbeiten + " für user mit vid " + $rootScope.logedInUser[3]
 					+ " für verleiher vid " + vid);

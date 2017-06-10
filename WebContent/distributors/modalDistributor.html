@@ -28,9 +28,10 @@
 						<label for="Ort" class="control-label col-sm-2">Kurzbezeichnung:</label>
 						<div class="col-sm-5  alert-info" ng-bind="verleiher[vid]['kurz']"></div>
 						<div class="col-sm-5" ng-if="logedInUser.role == 'admin'">
+							<div ng-if="bearbeiten">
 							<input type="text" class="form-control" id="Kurzbezeichnung" placeholder="Kurzbezeichnung"
 								ng-model="thisDistributor.kurz">
-						</div>
+							</div></div>
 					</div>
 
 
@@ -97,9 +98,11 @@
 					</div>
 				</form>
 
-				<button ng-if="bearbeiten" type="button" class="btn btn-success " ng-click="speichern()">Spielort
-					speichern</button>
-				<button type="button" class="btn btn-danger" ng-click="abbrechen()">Abbrechen</button>
+		<button ng-if="bearbeitbar" type="button" class="btn btn-warning " ng-click="bearbeitungsmodus()">Verleih
+			bearbeiten</button>
+		<button ng-if="bearbeiten" type="button" class="btn btn-danger " ng-click="speichern()">Verleih
+			speichern</button>
+		<button type="button" class="btn btn-success" ng-click="abbrechen()">Abbrechen</button>
 			</div>
 
 
