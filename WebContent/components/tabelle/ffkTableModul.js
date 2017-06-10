@@ -130,13 +130,17 @@ angular
 							// wochenBuchung.medien.forEach(function(medium) {
 							// medien = medien + medium + " ";
 							// });
-							var link = "";
+							var link = ""; // bearbeitungslink für filmwoche
 							if ( $rootScope.logedInUser.role == "admin"){
 								link = "<span title='Diesen Filmlauf bearbeiten' "
 									+ "class='glyphicon glyphicon-edit pointer' ng-click='openModalKW(" + rowIdx + ","
 									+ colIdx + ")' >" + "</span> ";
 							}
-							return  link + wochenBuchung.titel + " ( " + medien + ")" + wochenBesucher;
+							var filmLink = ""; // der link um den film anzuzeigen
+                            filmLink = "<span title='Filminfos anzeigen' "
+								+ "class='pointer' ng-click='openModalFilm(" + rowIdx + "," + colIdx + ")' >" + wochenBuchung.titel + "</span> ";
+
+							return  link + filmLink + " ( " + medien + ")" + wochenBesucher;
 						}
 						// gebe wochenBuchung kurz (wunschfilme true)
 						function wochenBuchungKurz() {

@@ -20,7 +20,7 @@ angular.module('ffkFilmModul', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_
 				});
 				// ModalFilmlRowInstanceCtrl wird auf rowIdx des Filmlaufs
 				// gestartet
-				$log.info("ffkFilmModul OpenModalFilmService rowIdx: " + rowIdx);
+				$log.info("ffkFilmModul OpenModalFilmService rowIdx: " + rowIdx + "u.U. auch mit colIdx " );
 
 				// TODO stack für asyncrone Serverantworten
 

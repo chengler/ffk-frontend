@@ -340,8 +340,8 @@
                
             };
             // Filmmodal
-            $scope.openModalFilm = function (rowIdx) {
-                ModalFilmRowService.editFilm($scope, rowIdx);
+            $scope.openModalFilm = function (rowIdx, colIdx) {
+                ModalFilmRowService.editFilm($scope, rowIdx, colIdx);
                
             };
 

@@ -9,14 +9,17 @@ angular
     .service(
         'ModalFilmRowService',
         function ($uibModal, $log, FfkUtils, $rootScope) {
-            this.editFilm = function ($scope, rowIdx) {
-                var modalInstance = $uibModal.open({
+            this.editFilm = function ($scope, rowIdx, colIdx) { //nur row bei ganzer zeile (+ in der KW anzeige)
+                var modalInstance = $uibModal.open({            // col zur direkten filminfo (filmlinks in der kw zeile)
                     templateUrl: './components/filme/modalFilmRow.html?' + Math.random(),
                     controller: 'ModalFilmlRowInstanceCtrl',
                     size: "lg",
                     resolve: {
                         rowIdx: function () {
                             return rowIdx
+                        },
+                        colIdx: function () {
+                            return colIdx
                         },
                         programmCtrlScope: function () {
                             return $scope;
@@ -195,8 +198,8 @@ angular
 // ModalFilmlRowInstanceCtrl REIHE
 // bezieht sich auf die FilmverleihBuchungen in einer Woche (mit Datum)
 angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
-    function ($rootScope, $scope, $log, $uibModalInstance, rowIdx, FfkUtils, programmCtrlScope) {
-        console.log("ModalFilmlRowInstanceCtrl für rowIdx " + rowIdx);
+    function ($rootScope, $scope, $log, $uibModalInstance, rowIdx, FfkUtils, programmCtrlScope, colIdx) {
+        console.log("ModalFilmlRowInstanceCtrl für rowIdx " + rowIdx +" und colIdx " + colIdx);
 
         $scope.filmObject = []; // Film der Woche aus Filmlauf
         $scope.wochenWunschFilme = {}; // Wünsche der Woche
@@ -355,6 +358,12 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
             $scope.modus.text = "Infos zum Film";
             $scope.modus.status = "buchbar";
         };
+
+if (colIdx != undefined){ // aufruf mit row und colIdx, zeige nicht alle filme, sondern gleich den der col
+    console.log("gehe direkt zum film, da col "+ colIdx + "im Aufruf mitgegeben wurde");
+    $scope.loadBuchbar("col"+colIdx);
+}
+
 
         // lade daten zum ausgewählten Filmwunsch
         $scope.loadGewunschen = function (wunsch) {
