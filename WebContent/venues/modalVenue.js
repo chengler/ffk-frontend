@@ -87,12 +87,20 @@ angular.module('modalVenue').controller('ModalVenueInstanceCtrl',
 			$log.debug("logedInUser " + JSON.stringify($rootScope.logedInUser,0,0));
 			$log.debug("öffnet Spielort " + JSON.stringify($rootScope.spielorte[sid],0,0));
 
-			$scope.bearbeiten = false;
+			$scope.bearbeiten = false;  // soll bearbeitet werden (nur wenn rechte vorhanden)
+            $scope.bearbeitbar = false; // darf bearbeitet werden (rechte)
 			// der admin bearbeitet alles
 			// der user bearbeitet nur seine spielstätte (außer ort)
 			if ($rootScope.logedInUser.role == "admin" | $rootScope.logedInUser.sid == sid) {
-				$scope.bearbeiten = true;
-			}
+			//	$scope.bearbeiten = true;
+                $scope.bearbeitbar = true;
+            }
+
+            $scope.bearbeitungsmodus =  function (){
+                $scope.bearbeiten = true;  // soll bearbeitet werden (nur wenn rechte vorhanden)
+                $scope.bearbeitbar = false;
+
+            };
 
 			$scope.sid = sid;
 			// enthält die gemachten Änderungen
@@ -150,6 +158,8 @@ angular.module('modalVenue').controller('ModalVenueInstanceCtrl',
                     console.log("nicht im bearbeitungsmodus für toogle "+typ);
 				}
             };
+
+			// gehe in bearbeitungsmodus
 
 
 
