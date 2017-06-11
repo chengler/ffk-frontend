@@ -120,7 +120,7 @@
                 "DVD": 0,
                 "analog": 0
         },
-        "start": "20170330",
+        "start": "20170608",
             "laufzeit": 3,
             "bc": "bc-10",
                       "fw1": [
@@ -149,7 +149,7 @@
                 "DVD": 0,
                 "analog": 0
         },
-        "start": "20170323",
+        "start": "20170615",
             "laufzeit": 3,
             "bc": "bc-50",
                        "fw1": [
@@ -165,74 +165,9 @@
             0
         ]
     }
-},
-    "ringBuchungen": {
-    "fBIDp5": {
-        "fBID": "p5",
-            "check1": false,
-            "check2": false,
-            "sid": "sid8",
-            "medium": "",
-            "medienID": false,
-            "vonID": false,
-            "nachID": false,
-            "garantie": false,
-            "datum": "20170525",
-            "vBID": "vp2"
-    },
-    "fBIDp6": {
-        "fBID": "p6",
-            "check1": false,
-            "check2": false,
-            "sid": "sid8",
-            "medium": "",
-            "medienID": false,
-            "vonID": false,
-            "nachID": false,
-            "garantie": false,
-            "datum": "20170525",
-            "vBID": "vp4"
-    },
-    "fBIDp7": {
-        "fBID": "p7",
-            "check1": false,
-            "check2": false,
-            "sid": "sid7",
-            "medium": "",
-            "medienID": false,
-            "vonID": false,
-            "nachID": false,
-            "garantie": false,
-            "datum": "20170526",
-            "vBID": "vp4"
-    },
-    "fBIDp8": {
-        "fBID": "p8",
-            "check1": false,
-            "check2": false,
-            "sid": "sid7",
-            "medium": "",
-            "medienID": false,
-            "vonID": false,
-            "nachID": false,
-            "garantie": false,
-            "datum": "20170527",
-            "vBID": "vp2",
-            "besucher": [
-            [
-                20,
-                400
-            ],
-            [
-                10,
-                300
-            ]
-        ],
-            "gesamt": [
-            30,
-            11000
-        ]
-    }
+}, "ringBuchungen":
+            {
+
 },
     "filme": {
     "fp1": {

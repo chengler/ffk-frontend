@@ -148,6 +148,8 @@
         var erstelleFilmlauf = function(){
             console.log("erstelle Filmlauf");
             var vBID; // die je aktuelle vBID
+            var fBID; // die je aktuelle fBID
+
             if ($rootScope.status.filmlaufGeladen == true) {
                 console.log("************** Filmlauf wurde bereits geladen, also wird er nun auch nicht mehr berechnet");
             } else {
@@ -159,11 +161,12 @@
                 for (  vBID in $rootScope.verleihBuchungen ){
                     verleihBuchungSortiert.push( [$rootScope.verleihBuchungen[vBID].start, vBID]);
                 }
+                verleihBuchungSortiert = FfkUtils.sortList(verleihBuchungSortiert , 0)
                 //console.log("sortierte Verleihbuchungen " + JSON.stringify(verleihBuchungSortiert));
                 // sortiere nach datum in Array
                 // a[0] is datum 20170525
                 // a[1] ist vbid (sortiere nach datum)
-                verleihBuchungSortiert = verleihBuchungSortiert.sort(function (a, b) {
+           /*     verleihBuchungSortiert = verleihBuchungSortiert.sort(function (a, b) {
                     if (a[0] > b[0]) {
                         return 1;
                     }
@@ -171,7 +174,7 @@
                         return -1;
                     }
                     return 0;
-                });
+                });*/
                 //console.log("sortierte Verleihbuchungen " + JSON.stringify(verleihBuchungSortiert));
 
 
@@ -209,15 +212,33 @@
                             $rootScope.filmlauf[idx+tage].col = colint; // setze richtige spaltenzahl für zeile
                             $rootScope.filmlauf[idx+tage]["col"+colint] = {"bc": basis+endung}; // tageseintrag
                         };
-
                         // mehr als eine Filmwoche
                         idx += 8; // erhöhe idx um 8
-
                     }
-
                 }
+            }
+            verleihBuchungSortiert = null;
+            //  erstelle array mit datum und fBID
+            var ringBuchungSortiert = [];
+            // erstelle array
+            for (  fBID in $rootScope.ringBuchungen ){
+                ringBuchungSortiert.push( [$rootScope.ringBuchungen[fBID].datum, fBID]);
+            }
+            ringBuchungSortiert = FfkUtils.sortList(ringBuchungSortiert , 0);
+            console.log("sortierte Ringbuchung " + JSON.stringify(ringBuchungSortiert));
+
+
+            var idx=0; // zielindex der Buchung
+            var colint = 0;
+            var filmnr = 1;
+            var eintrag = { "fBID":null,"check1":false,"check2":false,"sid":null,"medium":"","medienID":false,
+                "vonID":false,"nachID":false,"garantie":false,"datum":"","vBID": null};
+            for (var i = 0; i < ringBuchungSortiert.length; i++) { // alle Buchungen einzeln
+                idx = FfkUtils.getKwIdxVomDatum(ringBuchungSortiert[i][0]);
 
             }
+
+
             $rootScope.status.filmlaufGeladen = true;
         }
 

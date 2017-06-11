@@ -24,6 +24,28 @@
         var  fehlendeRuekmeldungen =   FfkUtils.getFehlendeRuekmeldungen();
         $scope.fbids ={}
 
+
+            $scope.zeigeVerleih= true;
+            switch ($rootScope.logedInUser.role){
+
+                case "spieler":
+                    console.log("*** präsentiere Spielerinfos");
+                    $scope.spieler= true;
+
+                    break;
+
+                case "admin":
+                    console.log("*** präsentiere Admininfos");
+                    $scope.zeigeVerleih= false;
+
+                    break;
+                case "verleih":      //Verleihansicht
+                    console.log("*** präsentiere Verleihinfos");
+
+                    break;
+            }
+
+
             //http://stackoverflow.com/questions/2897619/using-html5-javascript-to-generate-and-save-a-file#4551467
             // http://stackoverflow.com/questions/18826320/what-is-the-hashkey-added-to-my-json-stringify-result#23656919
     $scope.speicher = function(name){
@@ -139,27 +161,6 @@
                 });
 
 
-                switch ($rootScope.logedInUser.role){
-
-                    case "spieler":
-                    console.log("*** präsentiere Spielerinfos");
-
-                    break;
-
-                    case "admin":
-                        console.log("*** präsentiere Admininfos");
-                        break;
-                    case "verleih":      //Verleihansicht
-                            console.log("*** präsentiere Verleihinfos");
-
-                        break;
-
-
-
-
-
-
-                }
 
             }
 

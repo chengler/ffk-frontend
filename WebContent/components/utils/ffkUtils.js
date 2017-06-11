@@ -45,7 +45,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             var fehlende; // Rückmeldungen Eintritt und Besucher
             $http.get('../example_data/fehlendeRueckmeldungen.js?' + Math.random()).success(function (data) {
                 fehlende = data[fuerWen];
-                $rootScope.fehlendeRueckmeldungen = fehlende;
+                // $rootScope.fehlendeRueckmeldungen = fehlende;
                 $rootScope.status.fehlendeRueckmeldungenGeladen = true;
 
                 console.log("Rückmeldung fehlt für fBID: " + JSON.stringify(fehlende));
@@ -156,7 +156,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         this.getKwIdxVomDatum = function (datum){
             datum = moment(datum).hours(12);
             var tage = datum.diff($rootScope.ersterDo, 'days');
-            var idx = tage + Math.floor(tage / 7); // ausgleich da alle 7 Tage ein extraidx
+            var idx = tage + (tage / 7); // ausgleich da alle 7 Tage ein extraidx
             console.log("datum  "+moment(datum).format('YYYYMMDD HH:mm:ss'));
             console.log("der Do " + $rootScope.ersterDo.format('YYYYMMDD HH:mm:ss'));
             console.log(tage + " tage !!!!! ziel idx = "+idx);
@@ -578,6 +578,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 }
                 return 0;
             });
+            return listTosort;
         };
 
         // gebe dem looggedin user eine tempöräre rolle mit sid oder vid
