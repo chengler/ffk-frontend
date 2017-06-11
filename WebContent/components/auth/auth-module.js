@@ -28,7 +28,7 @@
 
 
         var loadDatei = function(){
-            var dateiname = "../example_data/datensatzFfK-1.js";
+            var dateiname = "../example_data/datensatzFfK-2.js";
             if ($rootScope.logedInUser.role == "verleih") {
                 switch ($rootScope.logedInUser.vid) {
                     case "vid1":
@@ -109,6 +109,9 @@
             // 4 Wochen zurück
             ersterDo = moment(ersterDo).subtract(4, 'weeks');
             console.log("ersterDo " + ersterDo._d);
+            // erstelle grundwert für die Programmtabelle
+            // dies ist der Zeit Grundwert für idx0(KW) und idx1(Tag)
+            $rootScope.ersterDo = moment(ersterDo).hours(12).minutes(0).seconds(0).millisecond(0);
             // erstelle 60 Wochen a 8 einträge
 
             for (var w = 0; w < 60; w++) {
@@ -132,8 +135,9 @@
                 }
 
             }
+
             $rootScope.status.grundTabelleGeladen = true;
-            $rootScope.status.filmlaufGeladen = true;
+           // $rootScope.status.filmlaufGeladen = true;
             console.log("grundTabelleGeladen " + $rootScope.status.grundTabelleGeladen);
 
         };
@@ -141,14 +145,80 @@
         ladeGrundtabelle();
 
 
-        var berechneFilmlauf = function(){
+        var erstelleFilmlauf = function(){
+            console.log("erstelle Filmlauf");
+            var vBID; // die je aktuelle vBID
             if ($rootScope.status.filmlaufGeladen == true) {
                 console.log("************** Filmlauf wurde bereits geladen, also wird er nun auch nicht mehr berechnet");
-            }else {
-                $rootScope.status.berechneFilmlauf = true; // verhinder, das jetzt noch ein Filmlauf aus einem Datensatz geladen wird.
+            } else {
+                $rootScope.status.erstelleFilmlauf = true; // verhinder, das jetzt noch ein Filmlauf aus einem Datensatz geladen wird.
+            //START
+               //  erstelle array mit datum und vbid
+                var verleihBuchungSortiert = [];
+                // erstelle array
+                for (  vBID in $rootScope.verleihBuchungen ){
+                    verleihBuchungSortiert.push( [$rootScope.verleihBuchungen[vBID].start, vBID]);
+                }
+                //console.log("sortierte Verleihbuchungen " + JSON.stringify(verleihBuchungSortiert));
+                // sortiere nach datum in Array
+                // a[0] is datum 20170525
+                // a[1] ist vbid (sortiere nach datum)
+                verleihBuchungSortiert = verleihBuchungSortiert.sort(function (a, b) {
+                    if (a[0] > b[0]) {
+                        return 1;
+                    }
+                    if (a[0] < b[0]) {
+                        return -1;
+                    }
+                    return 0;
+                });
+                //console.log("sortierte Verleihbuchungen " + JSON.stringify(verleihBuchungSortiert));
+
+
+                // iteriere durch alle sortierte Verleihbuchungen
+                var idx=0; // zielindex der Buchung
+                var colint = 0
+                var eintrag = {"bc":null, "vBID": null, "fID": null, "fw": null };
+                for (var i = 0; i < verleihBuchungSortiert.length; i++){ // alle Buchungen einzeln
+                    idx = FfkUtils.getKwIdxVomDatum(verleihBuchungSortiert[i][0]);
+                    vBID = verleihBuchungSortiert[i][1]
+                    eintrag = {"bc":$rootScope.verleihBuchungen[vBID].bc,
+                        "vBID": vBID,
+                        "fID": $rootScope.verleihBuchungen[vBID].fID,
+                        "fw" : null
+                         };
+                    colint = $rootScope.filmlauf[idx].col + 1;
+                    for (var fw = 1; fw <= $rootScope.verleihBuchungen[vBID].laufzeit; fw = fw+1 ){  //einzelbuchung
+                        $rootScope.filmlauf[idx].col = colint; // maxcol für diese zeile
+                        $rootScope.filmlauf[idx]["col"+colint] = eintrag; // erstelle wocheneintrag
+                        $rootScope.filmlauf[idx]["col"+colint]["fw"] =  fw;
+                        //deep copy
+                        $rootScope.filmlauf[idx]["col"+colint] = JSON.parse(JSON.stringify($rootScope.filmlauf[idx]["col"+colint]));
+
+                        console.log("datum "+verleihBuchungSortiert[i] + " auf idx "+ idx + " in col" + colint);
+//tageseintragungen
+
+                        var basis = eintrag.bc.substring( 0, eintrag.bc.length -1); // schneide letze zahl ab
+                        var endung ;
+                        for (var tage = 1 ; tage < 8; tage += 1){ //Farbschema für die Wochentage
+                            if ( tage % 2 == 0){ // gerade
+                                endung = "2";        //hänge 1 oder 2 ran
+                            } else { //ungerade
+                                endung = "1";
+                            }
+                            $rootScope.filmlauf[idx+tage].col = colint; // setze richtige spaltenzahl für zeile
+                            $rootScope.filmlauf[idx+tage]["col"+colint] = {"bc": basis+endung}; // tageseintrag
+                        };
+
+                        // mehr als eine Filmwoche
+                        idx += 8; // erhöhe idx um 8
+
+                    }
+
+                }
 
             }
-
+            $rootScope.status.filmlaufGeladen = true;
         }
 
         // setze watcher der mit dem berechnen des Filmlaufes beginnt, sobald alle daten da sind
@@ -156,22 +226,25 @@
 
 		// ringBuchunggeladen
 		// verleihBuchunggeladen
-		// spielorte geladen
-		// verleiher geladen
 
 		// filme nicht nötig, wird nachgeladen
 
 		 var allesGeladen = $scope.$watch(function () {
-		 return $rootScope.status.filmlaufGeladen;
+		 return ($rootScope.status.verleihBuchungenGeladen
+                    && $rootScope.status.ringBuchungenGeladen);
 		 }, function () {
-		 if ($rootScope.status.filmlaufGeladen) {
-		 filmlaufGeladen(); // clear watcher
-		 //   initFilmlauf("filmlaufGeladen");
+		 if ($rootScope.status.verleihBuchungenGeladen
+                    && $rootScope.status.ringBuchungenGeladen )
+		    {
+             allesGeladen(); // clear watcher
+                console.log("******************** starte mit erstelleFilmlauf");
+                erstelleFilmlauf();
 		 }
 		 }, true);
 		 // lade Filmlauf sobald bekannt ist, wer sich angemeldet hat
 
-
+        // spielorte geladen
+        // verleiher geladen
 
 
         $scope.reMasquerade = function(){

@@ -107,21 +107,12 @@
     }
 },
     "verleihBuchungen": {
-    "wuensche": {
-        "vp12": {
-            "bc": "bc-00",
-                "col": "col1",
-                "wfID": "vp12",
-                "fID": "fp11",
-                "titel": "noch einer"
-        }
-    },
-    "vp2": {
+       "vp2": {
         "fID": "fp1",
-            "titel": "Happy Film",
-            "verleih": "vid1",
-            "medien": {
-            "BD": "20170525"
+        "titel": "Happy Film",
+        "verleih": "vid1",
+        "medien": {
+         "BD": "20170526"
         },
         "menge": {
             "BD": 1,
@@ -129,11 +120,10 @@
                 "DVD": 0,
                 "analog": 0
         },
-        "start": "20170525",
+        "start": "20170330",
             "laufzeit": 3,
             "bc": "bc-10",
-            "col": "col1",
-            "fw1": [
+                      "fw1": [
             30,
             11000
         ],
@@ -151,7 +141,7 @@
             "titel": "Sad Film",
             "verleih": "vid2",
             "medien": {
-            "BD": "20170525"
+            "BD": "20170323"
         },
         "menge": {
             "BD": 1,
@@ -159,11 +149,10 @@
                 "DVD": 0,
                 "analog": 0
         },
-        "start": "20170525",
+        "start": "20170323",
             "laufzeit": 3,
             "bc": "bc-50",
-            "col": "col2",
-            "fw1": [
+                       "fw1": [
             0,
             0
         ],

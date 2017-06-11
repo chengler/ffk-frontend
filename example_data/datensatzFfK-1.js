@@ -107,15 +107,6 @@
     }
 },
     "verleihBuchungen": {
-    "wuensche": {
-        "vp12": {
-            "bc": "bc-00",
-                "col": "col1",
-                "wfID": "vp12",
-                "fID": "fp11",
-                "titel": "noch einer"
-        }
-    },
     "vp2": {
         "fID": "fp1",
             "titel": "Happy Film",

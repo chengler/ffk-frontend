@@ -7,7 +7,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         // für sid und vid für spielorteSortiert und verleiherSortiert
         // gebe id zurück, fals nichts gefunden wird
         this.getNamezurId= function(array , id){
-            console.log ("getNamezurId ");
+        //    console.log ("getNamezurId ");
             var gefunden = false;
             array.every( function( idname) {
                 if (idname[0] == id ) {
@@ -21,7 +21,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             });
 
             // wird der name zur id nicht gefunden, wird die id zurückgegeben!
-            console.log (" id: "+id);
+           // console.log (" id: "+id);
             return id;
 
         }
@@ -149,9 +149,20 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             $log.debug(' return ist Donnerstag, der ' + moment(donnerstag).format("DD-MM-YYYY")+ " KW "+ moment(donnerstag).isoWeek());
 
             return donnerstag; // gebe den Donnerstag zurück, an dem die Kinowoche beginnt
-
-
         };
+
+        // nehme datum und bereche den idx der kw woche
+        // Datum muss ein Donnerstag sein
+        this.getKwIdxVomDatum = function (datum){
+            datum = moment(datum).hours(12);
+            var tage = datum.diff($rootScope.ersterDo, 'days');
+            var idx = tage + Math.floor(tage / 7); // ausgleich da alle 7 Tage ein extraidx
+            console.log("datum  "+moment(datum).format('YYYYMMDD HH:mm:ss'));
+            console.log("der Do " + $rootScope.ersterDo.format('YYYYMMDD HH:mm:ss'));
+            console.log(tage + " tage !!!!! ziel idx = "+idx);
+            return idx;
+        }
+
 
 
         // gibt este freie Wunschcol zurück
@@ -726,7 +737,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                         console.log(key + " geladen");
                         break;
                     case 'filmlauf':
-                        if ($rootScope.status.berechneFilmlauf == true){
+                        if ($rootScope.status.erstelleFilmlauf == true){
                             console.log("************** Filmlauf wird bereits aus den anderen Daten berechnet. Der Filmlauf des Datensatzes wird ignoriert");
                         }else {
                         console.log("************** Filmlauf sollte nicht geladen werden, da er aus den anderen Daten nun selbst berechnet wird. " +
