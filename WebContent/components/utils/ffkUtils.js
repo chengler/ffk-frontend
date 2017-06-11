@@ -75,6 +75,19 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             return rowIdx;
         };
 
+// erwarte kw index und vBid
+// suche in programmlauf nach der passenden col
+        this.getColFromVbid = function (kwidx, vbid) {
+            var myZeile = $rootScope.filmlauf[kwidx];
+            var colidx;
+            for (var colidx = 1; colidx <= myZeile.col; colidx += 1){
+                if (myZeile["col"+colidx].vBID == vbid) {
+                    break; // breche ab, colidx in variable
+                }
+            }
+            return colidx
+        }
+
         // werden Filme gelöscht, könnte es zuviele linien geben.
         this.wenigerLinien = function(rowIdx){
 
@@ -156,7 +169,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         this.getKwIdxVomDatum = function (datum){
             datum = moment(datum).hours(12);
             var tage = datum.diff($rootScope.ersterDo, 'days');
-            var idx = tage + (tage / 7); // ausgleich da alle 7 Tage ein extraidx
+            var idx = tage + Math.floor(tage / 7); // ausgleich da alle 7 Tage ein extraidx
             console.log("datum  "+moment(datum).format('YYYYMMDD HH:mm:ss'));
             console.log("der Do " + $rootScope.ersterDo.format('YYYYMMDD HH:mm:ss'));
             console.log(tage + " tage !!!!! ziel idx = "+idx);
@@ -427,6 +440,24 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             $log.debug("Laufzeit ab Suchstart in Woche(n)" + lz);
             return lz;
         };
+
+        //// wievielte Buchung dieses Films an diesem TAg
+        // "f1" oder "f2" ...
+        // erwarte aus dem Filmlauf zum Tag und die col wie zB. col1
+        this.getBuchungenProTag = function ( buchungsTag, col){
+            var fnext = 1;
+            while ('f' + fnext in buchungsTag[col]) {
+                fnext = fnext + 1; // schaue, ob weiterer Film in col
+            }
+            // erhöhe Zähler der Buchungen pro Tag falls nötig
+
+            if (buchungsTag['lines'] < fnext) {
+                buchungsTag['lines'] = fnext;
+            }
+            return fnext;
+        }
+
+
         // this.setBuchung = function($scope, rowIdx, col, sid, medium, garantie) {
         this.setBuchung = function (rowIdx, col, sid, medium, garantie) {
             console.log("setBuchung für rowIdx " + rowIdx + " in Spalte " + col + " für sid " + sid
@@ -441,6 +472,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             }
 
             var buchungsTag = $rootScope.filmlauf[rowIdx];
+            var fnext = this.getBuchungenProTag(buchungsTag, col);
+/*
+
             // wievielte Buchung dieses Films an diesem TAg
             // "f1" oder "f2" ...
             var fnext = 1;
@@ -451,6 +485,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             if (buchungsTag['lines'] < fnext) {
                 buchungsTag['lines'] = fnext;
             }
+*/
+
+
             var mySet = {
                 "fBID": this.getNewProvID(""),
                 "check1": false,

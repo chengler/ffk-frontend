@@ -166,7 +166,47 @@
         ]
     }
 }, "ringBuchungen":
-            {
+    {
+        "fBIDp11": {
+        "fBID": "p11",
+            "check1": false,
+            "check2": false,
+            "sid": "sid5",
+            "medium": "",
+            "medienID": false,
+            "vonID": false,
+            "nachID": false,
+            "garantie": false,
+            "datum": "20170608",
+            "vBID": "vp2"
+    },
+        "fBIDp12": {
+        "fBID": "p12",
+            "check1": false,
+            "check2": false,
+            "sid": "sid1",
+            "medium": "",
+            "medienID": false,
+            "vonID": false,
+            "nachID": false,
+            "garantie": false,
+            "datum": "20170608",
+            "vBID": "vp2"
+    },
+        "fBIDp13": {
+        "fBID": "p13",
+            "check1": false,
+            "check2": false,
+            "sid": "sid5",
+            "medium": "",
+            "medienID": false,
+            "vonID": false,
+            "nachID": false,
+            "garantie": false,
+            "datum": "20170616",
+            "vBID": "vp4"
+    }
+
 
 },
     "filme": {

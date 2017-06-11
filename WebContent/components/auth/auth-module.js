@@ -163,20 +163,6 @@
                 }
                 verleihBuchungSortiert = FfkUtils.sortList(verleihBuchungSortiert , 0)
                 //console.log("sortierte Verleihbuchungen " + JSON.stringify(verleihBuchungSortiert));
-                // sortiere nach datum in Array
-                // a[0] is datum 20170525
-                // a[1] ist vbid (sortiere nach datum)
-           /*     verleihBuchungSortiert = verleihBuchungSortiert.sort(function (a, b) {
-                    if (a[0] > b[0]) {
-                        return 1;
-                    }
-                    if (a[0] < b[0]) {
-                        return -1;
-                    }
-                    return 0;
-                });*/
-                //console.log("sortierte Verleihbuchungen " + JSON.stringify(verleihBuchungSortiert));
-
 
                 // iteriere durch alle sortierte Verleihbuchungen
                 var idx=0; // zielindex der Buchung
@@ -228,14 +214,26 @@
             console.log("sortierte Ringbuchung " + JSON.stringify(ringBuchungSortiert));
 
 
-            var idx=0; // zielindex der Buchung
-            var colint = 0;
-            var filmnr = 1;
-            var eintrag = { "fBID":null,"check1":false,"check2":false,"sid":null,"medium":"","medienID":false,
+            idx=0; // zielindex der Buchung
+            var fnr; // die filmnummer
+            var kwidx = 0;
+            eintrag = { "fBID":null,"check1":false,"check2":false,"sid":null,"medium":"","medienID":false,
                 "vonID":false,"nachID":false,"garantie":false,"datum":"","vBID": null};
             for (var i = 0; i < ringBuchungSortiert.length; i++) { // alle Buchungen einzeln
-                idx = FfkUtils.getKwIdxVomDatum(ringBuchungSortiert[i][0]);
-
+                fBID = ringBuchungSortiert[i][1];
+                idx = FfkUtils.getKwIdxVomDatum(ringBuchungSortiert[i][0]) + 1;//+1 weil nicht kw zeile
+                kwidx = FfkUtils.getKinoWochenRowIdx(idx); // um die buchungen zu finden
+                colint = FfkUtils.getColFromVbid( kwidx,  $rootScope.ringBuchungen[fBID].vBID ); //welche Spalte
+                fnr = FfkUtils.getBuchungenProTag($rootScope.filmlauf[idx], "col"+colint); // der wievilete film f1 f2 ...
+                console.log("datum "+ringBuchungSortiert[i][0] + " idx: "+idx +"kw zeile "+kwidx+ "und col " + colint +" filmnr "+fnr);
+                // schreibe defaults
+                var meinZiel = $rootScope.filmlauf[idx]["col"+colint];
+                meinZiel["f"+fnr] = eintrag;
+                // schreibe details
+                var myRing = $rootScope.ringBuchungen[ringBuchungSortiert[0][1]];
+                for (var key in myRing){
+                    meinZiel["f"+fnr][key] = myRing[key];
+                }
             }
 
 
