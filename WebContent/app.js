@@ -77,9 +77,13 @@ app.run(function(version, author, $rootScope, $http, $locale) {
 
     $rootScope.filme = {}; // Die Filme
     $rootScope.ringBuchungen = {}; // Film Buchungen beim Ring fBID
-    $rootScope.verleihBuchungen = [{}]; // Die Buchungen beim Verleih vBID
+    $rootScope.ringWunsch = {}; // Wunsch der Buchungen eines Films beim Ring fBID
 
-	$rootScope.logedInUser = {}; // der angemeldete user
+    $rootScope.verleihBuchungen = [{}]; // Die Buchungen beim Verleih vBID
+    $rootScope.verleihWunsch = [{}]; // der Wunsch einer Buchungen beim Verleih vBID
+
+
+    $rootScope.logedInUser = {}; // der angemeldete user
     $rootScope.fehlendeRueckmeldungen = [];
 	
 	$rootScope.status = {};

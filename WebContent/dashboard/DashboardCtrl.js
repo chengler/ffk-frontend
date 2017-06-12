@@ -62,7 +62,8 @@
                     'verleiher': $rootScope.verleiher,
                     'verleihBuchungen': $rootScope.verleihBuchungen,
                     'ringBuchungen': $rootScope.ringBuchungen,
-                    'filmlauf': $rootScope.filmlauf,
+                    'verleihWunsch': $rootScope.verleihWunsch,
+                    'ringWunsch': $rootScope.ringWunsch,
                     'filme': $rootScope.filme, // nur zur entwicklung
                     'myProvID' : {"counter " : $rootScope.myProvID.counter}
                     };

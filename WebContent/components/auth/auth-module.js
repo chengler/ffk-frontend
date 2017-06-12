@@ -171,6 +171,7 @@
                 for (var i = 0; i < verleihBuchungSortiert.length; i++){ // alle Buchungen einzeln
                     idx = FfkUtils.getKwIdxVomDatum(verleihBuchungSortiert[i][0]);
                     vBID = verleihBuchungSortiert[i][1]
+
                     eintrag = {"bc":$rootScope.verleihBuchungen[vBID].bc,
                         "vBID": vBID,
                         "fID": $rootScope.verleihBuchungen[vBID].fID,

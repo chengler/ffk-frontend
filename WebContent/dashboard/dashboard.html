@@ -131,6 +131,17 @@
 						</div>
 
 					</form>
+						<div>
+							<strong>verleihWunsch</strong> [{
+							<div ng-repeat="  (key , val) in verleihWunsch">{{key}} : {{val}},</div>
+							}] Es handelt sich um den Wunsch einer Buchungen des Abspielringes beim Verleih mit eindeutiger v- BuchungsID
+						</div>
+						<form class="form-inline">
+							<div class="form-group">
+								<button class="btn btn-success" data-ng-click="speicher('verleihWunsch')">speicher 'verleihWunsch'</button>
+							</div>
+
+						</form>
 
 						<div>
 							<strong>ringBuchungen</strong> [{
@@ -140,6 +151,17 @@
 						<form class="form-inline">
 							<div class="form-group">
 								<button class="btn btn-success" data-ng-click="speicher('ringBuchungen')">speicher 'ringBuchungen'</button>
+							</div>
+
+						</form>
+						<div>
+							<strong>ringWunsch</strong> [{
+							<div ng-repeat="  (key , val) in ringWunsch">{{key}} : {{val}},</div>
+							}] Es handelt sich um den Wunsch einer  Filmbuchungen eines Spielortes beim Abspielringes mit eindeutiger fBID BuchungsID
+						</div>
+						<form class="form-inline">
+							<div class="form-group">
+								<button class="btn btn-success" data-ng-click="speicher('ringWunsch')">speicher 'ringWunsch'</button>
 							</div>
 
 						</form>

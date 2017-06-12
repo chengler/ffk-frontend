@@ -166,7 +166,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         // nehme datum und bereche den idx der kw woche
         // Datum muss ein Donnerstag sein
-        this.getKwIdxVomDatum = function (datum){
+        this.getKwIdxFromDate = function (datum){
             datum = moment(datum).hours(12);
             var tage = datum.diff($rootScope.ersterDo, 'days');
             var idx = tage + Math.floor(tage / 7); // ausgleich da alle 7 Tage ein extraidx
