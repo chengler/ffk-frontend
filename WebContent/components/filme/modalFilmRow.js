@@ -293,7 +293,10 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
                     // Filmwünsche in dieser Woche
                     if (typeof wochenBuchungen['col' + i + 'w'] != 'undefined') {
                         var wb = wochenBuchungen['col' + i + 'w'];
-                        myObject = $rootScope.verleihBuchungen["wuensche"][wb["vBID"]];
+                        console.log(JSON.stringify(wb));
+                        // TODO umstellung zur Variablen verleihWunsch aufräumen
+                      // myObject = $rootScope.verleihBuchungen["wuensche"][wb["vBID"]];
+                        myObject = $rootScope.verleihWunsch[wb["vBID"]];
                         myObject.bc = wb['bc'];
                         myObject.col = 'col' + i;
                         myObject.wfID = wb["vBID"];
@@ -464,7 +467,11 @@ if (colIdx != undefined){ // aufruf mit row und colIdx, zeige nicht alle filme, 
 
         // Mitspielinteresse bekunden
         $scope.mitspielen = function (medium) {
-            FfkUtils.mitspielen($scope.buchung.col, $scope.sid, rowIdx);
+            console.log("FfkUtils.mitspielen("+$scope.buchung.col +", "+ $scope.sid +", " +rowIdx+")");
+            console.log( $scope.buchung.wfID);
+            FfkUtils.mitspielen($scope.buchung.col, $scope.sid, rowIdx);// setze in Tabelle
+            // setze in Ringbuchung loste REST aus TODO REst
+            FfkUtils.setRingWunsch({"vBID": $scope.buchung.wfID  , "sid": $scope.sid, "datum": $scope.filmlauf[rowIdx].datum});
             $uibModalInstance.close({'msg': 'Mitspielwunsch abgegeben'});
         };
 

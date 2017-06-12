@@ -160,8 +160,9 @@ angular
 								// wunsch =
 								// $rootScope.verleihBuchungen["wuensche"][Object.keys(buchungW)]["titel"];
 								console.log("UUUUUUUUUUUUUUUUUUUUUUUUUUUU " + JSON.stringify(buchungW, 0, 0));
-								var wunschObjekt = $rootScope.verleihBuchungen["wuensche"][buchungW["vBID"]];
-								wunsch = wunschObjekt['titel'];
+							//	var wunschObjekt = $rootScope.verleihBuchungen["wuensche"][buchungW["vBID"]];
+                                var wunschObjekt = $rootScope.verleihWunsch[buchungW["vBID"]];
+                                wunsch = wunschObjekt['titel'];
 								var bc = buchungW['bc'];
 								// wrapper für Wunschfilme
 								if ( $rootScope.logedInUser.role == "admin"){
@@ -306,10 +307,12 @@ console.log("aktuelleBuchung: "+ JSON.stringify(aktuelleBuchung));
 							// ein film mit "f1" "f2" ...
 							while (filmnr in buchung) {
 								aktuelleBuchung = buchung[filmnr];
+							//console.log("tagesBuchungenKurz "+JSON.stringify(aktuelleBuchung));
 								fmax = fmax + 1;
 								filmnr = 'f' + fmax;
 								var filmBID = aktuelleBuchung.fBID; // hole fBID
-								var filmOrt = $rootScope.spielorte[aktuelleBuchung.ortID]["ort"]; // sid
+								var filmOrt =   $rootScope.spielorte[aktuelleBuchung.sid]["ort"];
+								 // sid
 								myReturn = myReturn + "<small>" + filmBID + "</small> " + filmOrt + "<br />";
 							}
 							// end while

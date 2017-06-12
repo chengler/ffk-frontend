@@ -166,7 +166,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         // nehme datum und bereche den idx der kw woche
         // Datum muss ein Donnerstag sein
-        this.getKwIdxFromDate = function (datum){
+        this.getKwIdxVomDatum = function (datum){
             datum = moment(datum).hours(12);
             var tage = datum.diff($rootScope.ersterDo, 'days');
             var idx = tage + Math.floor(tage / 7); // ausgleich da alle 7 Tage ein extraidx
@@ -974,6 +974,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 if (params.bc == undefined) {
                     params.bc = "bc-00";
                 }
+                // TODO schöner wäre wenn nicht, also komplett analog verleihbuchung
                 if (params.colIdx == undefined) {
                     $log.warn(" zum anlegen eines Wunsches in einer Buchung mus param.colIdx definiert sein!");
                 }
@@ -990,6 +991,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 //mybuchung['col'] = params.colIdx;
 
                 mybuchung['wfID'] = params.vBID;
+                // Neu; zukunft lösche wfid und col wenn möglich
+
             } else {
                 if ($rootScope.verleihBuchungen[params.vBID] == undefined) {
                     $rootScope.verleihBuchungen[params.vBID] = {};
@@ -999,6 +1002,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             mybuchung['fID'] = params.fID;
             mybuchung['titel'] = params.titel;
 
+
+
             return params;
 
         }
@@ -1007,16 +1012,28 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         // setze einen neuen Wunschfilm in den benötigten Objecten
         this.setWunsch = function (filmChanges, programmCtrlScope, wochenBuchungenIDX) {
             $log.info("* FfkUtils.setWunsch " + JSON.stringify(filmChanges, 0, 0));
-
             var fID = this.setFilminFilme(filmChanges);
             var wfID = this.getNewProvID('v');
+            // Speicher Wunsch in erster freien Spalte der Tabelle
             var colIdx = this.getFirstFreeCol(programmCtrlScope, $rootScope.filmlauf[wochenBuchungenIDX], "wunsch", 1, wfID);
             this.setWochenBuchungInFilmlauf(wochenBuchungenIDX, colIdx, {"fID": fID, "vBID": wfID, "colSuffix": "w"});
             console.log("this.setWunsch got col idx "+colIdx);
-            this.setBuchungInBuchungen({"wunsch": true, "vBID": wfID, "fID": fID, "titel": filmChanges.titel, "colIdx":colIdx});
-
+           // TODO lösche veraltete Lösung und BuchunginBuchung
+           // this.setBuchungInBuchungen({"wunsch": true, "vBID": wfID, "fID": fID, "titel": filmChanges.titel, "colIdx":colIdx});
+            $rootScope.verleihWunsch[wfID] = JSON.parse(JSON.stringify(
+                {"fID": fID, "titel": filmChanges.titel, "start": $rootScope.filmlauf[wochenBuchungenIDX +1].datum,
+                    "bc" : "bc-00" }));
             programmCtrlScope.gridOptions.api.setRowData($rootScope.filmlauf);
         }
+        // setze Wunsch in variable RingWunsch
+        // TODO Rest
+        this.setRingWunsch = function(vBID , sid, datum){
+            console.log("setRingWunsch");
+            var fBID = this.getNewProvID("");
+            $rootScope.ringWunsch["fBID"+fBID] ={"fBID": fBID, "sid": sid, "datum": datum, "vBID": vBID };
+        }
+
+
 
         // ein spielort will bei einem Filmwunsch mitspielen
         this.mitspielen = function (col, sid, rowIdx, garantie) {
