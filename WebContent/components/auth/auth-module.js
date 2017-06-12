@@ -154,7 +154,19 @@
                 console.log("************** Filmlauf wurde bereits geladen, also wird er nun auch nicht mehr berechnet");
             } else {
                 $rootScope.status.erstelleFilmlauf = true; // verhinder, das jetzt noch ein Filmlauf aus einem Datensatz geladen wird.
-            //START
+
+
+
+            FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihBuchungen);
+            FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihWunsch, true);
+
+
+
+
+                //START
+
+/*
+
                //  erstelle array mit datum und vbid
                 var verleihBuchungSortiert = [];
                 // erstelle array
@@ -164,7 +176,7 @@
                 verleihBuchungSortiert = FfkUtils.sortList(verleihBuchungSortiert , 0)
                 //console.log("sortierte Verleihbuchungen " + JSON.stringify(verleihBuchungSortiert));
 
-                // iteriere durch alle sortierte Verleihbuchungen
+   // iteriere durch alle sortierte Verleihbuchungen
                 var idx=0; // zielindex der Buchung
                 var colint = 0
                 var eintrag = {"bc":null, "vBID": null, "fID": null, "fw": null };
@@ -184,7 +196,6 @@
                         $rootScope.filmlauf[idx]["col"+colint]["fw"] =  fw;
                         //deep copy
                         $rootScope.filmlauf[idx]["col"+colint] = JSON.parse(JSON.stringify($rootScope.filmlauf[idx]["col"+colint]));
-
                         console.log("datum "+verleihBuchungSortiert[i] + " auf idx "+ idx + " in col" + colint);
 //tageseintragungen
 
@@ -203,8 +214,13 @@
                         idx += 8; // erhöhe idx um 8
                     }
                 }
-            }
+
             verleihBuchungSortiert = null;
+
+*/
+
+
+
             //  erstelle array mit datum und fBID
             var ringBuchungSortiert = [];
             // erstelle array
@@ -215,10 +231,11 @@
             console.log("sortierte Ringbuchung " + JSON.stringify(ringBuchungSortiert));
 
 
-            idx=0; // zielindex der Buchung
+            var idx=0; // zielindex der Buchung
+                var colint = 0;
             var fnr; // die filmnummer
             var kwidx = 0;
-            eintrag = { "fBID":null,"check1":false,"check2":false,"sid":null,"medium":"","medienID":false,
+            var eintrag = { "fBID":null,"check1":false,"check2":false,"sid":null,"medium":"","medienID":false,
                 "vonID":false,"nachID":false,"garantie":false,"datum":"","vBID": null};
             for (var i = 0; i < ringBuchungSortiert.length; i++) { // alle Buchungen einzeln
                 fBID = ringBuchungSortiert[i][1];
@@ -237,8 +254,25 @@
                 }
             }
 
+     // Verleihwünsche
+/*
+            //  erstelle array mit datum und vbid
+            var verleihWünscheSortiert = [];
+            // erstelle array
+            for (  vBID in $rootScope.verleihWünsche ){
+                verleihWünscheSortiert.push( [$rootScope.verleihBuchungen[vBID].start, vBID]);
+            }
+            verleihBuchungSortiert = FfkUtils.sortList(verleihBuchungSortiert , 0)
+            //console.log("sortierte Verleihbuchungen " + JSON.stringify(verleihBuchungSortiert));
+
+            var colIdx = this.getFirstFreeCol(programmCtrlScope, $rootScope.filmlauf[wochenBuchungenIDX], "wunsch", 1, wfID);
+
+            FfkUtils.setWochenBuchungInFilmlauf(wochenBuchungenIDX, colIdx, {"fID": fID, "vBID": wfID, "colSuffix": "w"});
+       */
+
 
             $rootScope.status.filmlaufGeladen = true;
+        }
         }
 
         // setze watcher der mit dem berechnen des Filmlaufes beginnt, sobald alle daten da sind

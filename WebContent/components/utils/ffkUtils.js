@@ -929,7 +929,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         // this.setWochenBuchungInFilmlauf(rowIdx, colIdx [, params]);   params = { "bc": , "vBID": , "fID": , "colSuffix": });
         this.setWochenBuchungInFilmlauf = function (rowIdx, colIdx, params) {
-            $log.info("* FfkUtils.setInFilmlauf rowIdx: " + rowIdx + "colIdx: " + colIdx + " params: " + JSON.stringify(params, 0, 0));
+            $log.info("* FfkUtils.setInFilmlauf rowIdx: " + rowIdx + " colIdx: " + colIdx + " params: " + JSON.stringify(params, 0, 0));
             if (params == undefined) {
                 params = {};
             }
@@ -1025,6 +1025,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             var wfID = this.getNewProvID('v');
             // Speicher Wunsch in erster freien Spalte der Tabelle
             var colIdx = this.getFirstFreeCol(programmCtrlScope, $rootScope.filmlauf[wochenBuchungenIDX], "wunsch", 1, wfID);
+            //
             this.setWochenBuchungInFilmlauf(wochenBuchungenIDX, colIdx, {"fID": fID, "vBID": wfID, "colSuffix": "w"});
             console.log("this.setWunsch got col idx "+colIdx);
            // TODO lösche veraltete Lösung und BuchunginBuchung
@@ -1201,6 +1202,99 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             });
         };
 
+        // für buchungen und Wünsche
+        // checke in Filmlauf wieviele cols für col oder col?w existieren
+        // apendix "" für VerleihBuchung oder w VerleihWunsch
+        this.getNextColInFilmRowBuchung = function( row ){
+            var colint = 1;
+            while (true) {
+                if (row["col" + colint  ] ){
+                    colint +=1;
+                } else {
+                    break;
+                }
+            }
+        return colint;
+        };
+        this.getNextColInFilmRowWunsch = function( row ){
+            var colint = 1;
+            while (true) {
+                if (row["col" + colint +'w' ] ){
+                    colint +=1;
+                } else {
+                    break;
+                }
+            }
+            return colint;
+        };
 
+        // setzt Verleihbucungen in den Filmlauf
+        // erwartet sortiertes array mit [datum,vBID]
+      // wunsch true für wunsch
+        this.setInFilmlaufVerleihAngelegenheiten = function (buchungen, wunsch){
+            //  erstelle array mit datum und vbid
+            var buchungSortiert = [];
+            // erstelle array
+            for (  vBID in buchungen ){
+                buchungSortiert.push( [buchungen[vBID].start, vBID]);
+            }
+            buchungSortiert = this.sortList(buchungSortiert , 0); // sortiere
+            //console.log("sortierte Verleihbuchungen " + JSON.stringify(verleihBuchungSortiert));
+            // iteriere durch alle sortierte Verleihbuchungen
+            var idx=0; // zielindex der Buchung
+            var colint = 0
+            var eintrag = {}; // default für alle
+            for (var i = 0; i < buchungSortiert.length; i++){ // alle Buchungen einzeln
+                idx = this.getKwIdxVomDatum(buchungSortiert[i][0]);
+                vBID = buchungSortiert[i][1];
+                eintrag = {"bc":buchungen[vBID].bc,
+                    "vBID": vBID,
+                    "fID": buchungen[vBID].fID
+                };
+
+                var col;
+                // in welche col soll geschrieben werden
+                if (wunsch){
+                    colint = this.getNextColInFilmRowWunsch($rootScope.filmlauf[idx]);
+                    col = "col"+colint+'w'; // wenn verleiWunsch
+                } else {
+                    colint = this.getNextColInFilmRowBuchung($rootScope.filmlauf[idx]);
+                    col = "col"+colint; //verleihBuchung
+                }
+                var maxCol = $rootScope.filmlauf[idx].col; //die alte maxcol
+                if (maxCol < colint){
+                    $rootScope.filmlauf[idx].col = colint; // maxcol für diese zeile
+                    maxCol = colint; // damit wird die alte Maxcol zur neuen
+                }
+
+                if (wunsch){
+                    $rootScope.filmlauf[idx][col] = eintrag;
+                } else { //kein Wunsch
+                // verleihBuchung oder VerleihWunsch <= appendix w steht für wunsch
+                for (var fw = 1; fw <= buchungen[vBID].laufzeit; fw = fw+1 ){  //einzelbuchung
+                    $rootScope.filmlauf[idx][col] = eintrag; // erstelle wocheneintrag
+                    // fw Filmwoche nur wen kein verleihWunsch sondern Verleihbuchung
+                        $rootScope.filmlauf[idx][col]["fw"] =  fw;
+                    //deep copy zur Fixierung
+                    $rootScope.filmlauf[idx][col] = JSON.parse(JSON.stringify($rootScope.filmlauf[idx][col]));
+                    console.log("datum "+buchungSortiert[i] + " auf idx "+ idx + " in " + col);
+//tageseintragungen
+                    var basis = eintrag.bc.substring( 0, eintrag.bc.length -1); // schneide letze zahl ab
+                    var endung ;
+                    for (var tage = 1 ; tage < 8; tage += 1){ //Farbschema für die Wochentage
+                        if ( tage % 2 == 0){ // gerade
+                            endung = "2";        //hänge 1 oder 2 ran
+                        } else { //ungerade
+                            endung = "1";
+                        }
+                        $rootScope.filmlauf[idx+tage].col = maxCol; // setze richtige spaltenzahl für zeile
+                        $rootScope.filmlauf[idx+tage][col] = {"bc": basis+endung}; // tageseintrag
+                    };
+                    // mehr als eine Filmwoche
+                    idx += 8; // erhöhe idx um 8
+                }
+                }
+            }
+        }
     });
 
