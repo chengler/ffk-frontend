@@ -57,13 +57,13 @@ angular
 
                 // erstelle eintrag in Buchungen
 
-                                        console.log("verleihBuchungen['wuensche'][res.wfID] mit [res.wfID] "
-                                            + [res.wfID] + " -> " + JSON.stringify($rootScope.verleihBuchungen['wuensche'][res.wfID], 0,  0));
+                                        console.log("verleihWunsch][res.wfID] mit [res.wfID] "
+                                            + [res.wfID] + " -> " + JSON.stringify($rootScope.verleihWunsch[res.wfID], 0,  0));
                // lege Film an, kopiere , änder bc
                                         console.log("lege verleihBuchungen an.");
                                         $rootScope.verleihBuchungen[res.wfID] = {};
-                                        $rootScope.verleihBuchungen[res.wfID]['fID'] = $rootScope.verleihBuchungen['wuensche'][res.wfID]['fID'];
-                                        $rootScope.verleihBuchungen[res.wfID]['titel'] = $rootScope.verleihBuchungen['wuensche'][res.wfID]['titel'];
+                                        $rootScope.verleihBuchungen[res.wfID]['fID'] = $rootScope.verleihWunsch[res.wfID]['fID'];
+                                        $rootScope.verleihBuchungen[res.wfID]['titel'] = $rootScope.verleihWunsch[res.wfID]['titel'];
                                         console.log("speicher fID " + res.fID);
                                         console.log("speicher Verleih von " + JSON.stringify($rootScope.filme[res.fID]));
                                         console.log("der dsa istn " + $rootScope.filme[res.fID].verleih);
@@ -71,13 +71,13 @@ angular
                                         $rootScope.verleihBuchungen[res.wfID]['verleih'] = $rootScope.filme[res.fID].verleih;
                                         $rootScope.verleihBuchungen[res.wfID]['medien'] = {};
                                         $rootScope.verleihBuchungen[res.wfID]['menge'] = {};
-                                        $rootScope.verleihBuchungen[res.wfID]['vid'] = $rootScope.verleihBuchungen['wuensche'][res.wfID]['vid'];
+                                        $rootScope.verleihBuchungen[res.wfID]['vid'] = $rootScope.verleihWunsch[res.wfID]['vid'];
                                         // startdatum der gewählten kw
                                         $rootScope.verleihBuchungen[res.wfID]['start'] = moment(
                                             $rootScope.filmlauf[res.kwRow]['datum']).isoWeekday(4).format(
                                             'YYYYMMDD');
-                                        $rootScope.verleihBuchungen[res.wfID]['laufzeit'] = $rootScope.verleihBuchungen['wuensche'][res.wfID]['laufzeit'];
-                                        $rootScope.verleihBuchungen[res.wfID]['bc'] = $rootScope.verleihBuchungen['wuensche'][res.wfID]['bc'];
+                                        $rootScope.verleihBuchungen[res.wfID]['laufzeit'] = $rootScope.verleihWunsch[res.wfID]['laufzeit'];
+                                        $rootScope.verleihBuchungen[res.wfID]['bc'] = $rootScope.verleihWunsch[res.wfID]['bc'];
                                         $rootScope.verleihBuchungen[res.wfID]['col'] = "col" + colnr;
                                         $rootScope.verleihBuchungen[res.wfID]['menge'] = {};
                                         // "laufzeit":1,"fw1":[30,11850]},
@@ -87,12 +87,12 @@ angular
                                         $rootScope.verleihBuchungen[res.wfID]['fw1'] = [0,0];
 
                // leere und lösche den Wunsch
-                                        $rootScope.verleihBuchungen["wuensche"][res.wfID] = null;
+                                        $rootScope.verleihWunsch[res.wfID] = null;
                                         console
                                             .log("verleihBuchungen[res.wfID] für [res.wfID] " + [res.wfID]
                                                 + " -> "
                                                 + JSON.stringify($rootScope.verleihBuchungen[res.wfID], 0, 0));
-                                        delete $rootScope.verleihBuchungen["wuensche"][res.wfID];
+                                        delete $rootScope.verleihWunsch[res.wfID];
                                         // console.log("verleihBuchungen"+
                                         // JSON.stringify($rootScope.verleihBuchungen,1,1));
 
@@ -433,6 +433,8 @@ if (colIdx != undefined){ // aufruf mit row und colIdx, zeige nicht alle filme, 
         };
 
         $scope.speicherWunsch = function () {
+            console.log("speicherWunsch");
+
             $scope.modus.status = "unbekannt";
             FfkUtils.setWunsch($scope.filmChanges, programmCtrlScope, wochenBuchungenIDX);
             machMenus();
@@ -443,7 +445,7 @@ if (colIdx != undefined){ // aufruf mit row und colIdx, zeige nicht alle filme, 
         // $uibModalInstance.close Varianten
         //
         $scope.machBuchbar = function () {
-            console.log("close mit 'machBuchbar'");
+
             var col = $scope.buchung.col;
             var result = {
                 "typ": "machBuchbar",

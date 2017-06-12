@@ -789,7 +789,16 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                         $rootScope.status.ringBuchungenGeladen = true;
                         console.log(key + " geladen");
                         break;
+                    case 'ringWunsch':
+                        $rootScope[key] = fileContent[key];
+                        console.log(key + " geladen");
+                        break;
+                    case 'verleihWunsch':
+                        $rootScope[key] = fileContent[key];
+                        console.log(key + " geladen");
+                        break;
                 }
+                $rootScope.status.datensatzGeladen = true;
             }
 
         };

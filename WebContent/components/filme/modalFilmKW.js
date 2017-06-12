@@ -371,9 +371,11 @@ angular.module('modalFilmKW').controller('ModalKWInstanceCtrl',
 			var buchung = $rootScope.verleihBuchungen[vBID];
 			var wochenBuchung = $rootScope.verleihBuchungen[$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
 
-			if ( colTyp == 1){
-				buchung = $rootScope.verleihBuchungen["wuensche"][vBID];
-				wochenBuchung = $rootScope.verleihBuchungen["wuensche"][$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
+			if ( colTyp == 1){ // wunsch
+				//buchung = $rootScope.verleihBuchungen["wuensche"][vBID];
+                buchung = $rootScope.verleihWunsch[vBID];
+                //wochenBuchung = $rootScope.verleihBuchungen["wuensche"][$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
+                wochenBuchung = $rootScope.verleihWunsch[$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
 			}
 
 			// der Verleih
