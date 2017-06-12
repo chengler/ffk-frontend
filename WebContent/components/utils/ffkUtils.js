@@ -85,7 +85,17 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     break; // breche ab, colidx in variable
                 }
             }
-            return colidx
+            return "col"+colidx
+        }
+        this.getColWfromVbid = function (kwidx, vbid) {
+            var myZeile = $rootScope.filmlauf[kwidx];
+            var colidx;
+            for (var colidx = 1; colidx <= myZeile.col; colidx += 1){
+                if (myZeile["col"+colidx+"w"].vBID == vbid) {
+                    break; // breche ab, colidx in variable
+                }
+            }
+            return "col"+colidx+'w';
         }
 
         // werden Filme gelöscht, könnte es zuviele linien geben.
@@ -170,9 +180,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             datum = moment(datum).hours(12);
             var tage = datum.diff($rootScope.ersterDo, 'days');
             var idx = tage + Math.floor(tage / 7); // ausgleich da alle 7 Tage ein extraidx
-            console.log("datum  "+moment(datum).format('YYYYMMDD HH:mm:ss'));
-            console.log("der Do " + $rootScope.ersterDo.format('YYYYMMDD HH:mm:ss'));
-            console.log(tage + " tage !!!!! ziel idx = "+idx);
+        //    console.log("datum  "+moment(datum).format('YYYYMMDD HH:mm:ss'));
+        //    console.log("der Do " + $rootScope.ersterDo.format('YYYYMMDD HH:mm:ss'));
+        //    console.log(tage + " tage !!!!! ziel idx = "+idx);
             return idx;
         }
 
@@ -1295,6 +1305,83 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 }
                 }
             }
+        }
+
+        // wenn wunsch true , dann ringWunsch und nicht ringBuchung!
+        this.setInFilmlaufRingAngelegenheiten = function( buchungen , wunsch){
+            console.log("WWWWWWWWWWWWWWWWWWWWWWWWWW " +JSON.stringify(buchungen))
+            console.log(wunsch);
+
+            //START
+        /*
+
+            //  erstelle array mit datum und fBID
+            var ringBuchungSortiert = [];
+            // erstelle array
+            for (  fBID in $rootScope.ringBuchungen ){
+                ringBuchungSortiert.push( [buchungen[fBID].datum, fBID]);
+            }
+            // WARUM SORTIERT
+            // ringBuchungSortiert = FfkUtils.sortList(ringBuchungSortiert , 0);
+*/
+            var idx=0; // zielindex der Buchung
+            var col;; // spalte
+            var fnr; // die filmnummer
+            var kwidx = 0;
+            var meinZiel;
+            var eintrag = { "fBID":null,"check1":false,"check2":false,"sid":null,"medium":"","medienID":false,
+                "vonID":false,"nachID":false,"garantie":false,"datum":"","vBID": null};
+
+            for (var fBID in buchungen) {
+                if (buchungen.hasOwnProperty(fBID)) {
+                var buchung = buchungen[fBID];
+                idx = this.getKwIdxVomDatum(buchung.datum) + 1;//+1 weil nicht kw zeile
+                kwidx = this.getKinoWochenRowIdx(idx); // um die buchungen zu finden
+                if(wunsch){
+                    col = this.getColWfromVbid( kwidx,  buchung.vBID ); //welche Spalte
+                    meinZiel = $rootScope.filmlauf[idx][col]; //colw
+                    console.log("idx "+idx+" col "+col)
+                    console.log(meinZiel);
+                    if (meinZiel == undefined || meinZiel.sids) {
+                        $rootScope.filmlauf[idx][col] = { "bc":"bc-00","sids":[[ buchung.sid , false ]]};
+                        console.log(meinZiel);
+                    } else {
+                        $rootScope.filmlauf[idx][col].sids.push([buchung.sid ,false]);
+                        console.log(meinZiel);
+                    }
+                }else {
+                    col = this.getColFromVbid( kwidx,  buchung.vBID ); //welche Spalte
+                    fnr = this.getBuchungenProTag($rootScope.filmlauf[idx], col); // der wievielte film f1 f2 ...
+                    meinZiel = $rootScope.filmlauf[idx][col]; //col
+                    meinZiel["f"+fnr] = { "fBID":null,"check1":false,"check2":false,"sid":null,"medium":"","medienID":false,
+                        "vonID":false,"nachID":false,"garantie":false,"datum":"","vBID": null}; // schreibe defaults
+                    // schreibe details
+                    for (var key in buchung){
+                        meinZiel["f"+fnr][key] = buchung[key];
+                    }
+                }
+
+
+                }
+            };
+/*
+            for (var i = 0; i < ringBuchungSortiert.length; i++) { // alle Buchungen einzeln
+                fBID = ringBuchungSortiert[i][1];
+                idx = this.getKwIdxVomDatum(ringBuchungSortiert[i][0]) + 1;//+1 weil nicht kw zeile
+                kwidx = this.getKinoWochenRowIdx(idx); // um die buchungen zu finden
+                colint = this.getColFromVbid( kwidx,  $rootScope.ringBuchungen[fBID].vBID ); //welche Spalte
+                fnr = this.getBuchungenProTag($rootScope.filmlauf[idx], "col"+colint); // der wievilete film f1 f2 ...
+                console.log("datum "+ringBuchungSortiert[i][0] + " idx: "+idx +"kw zeile "+kwidx+ "und col " + colint +" filmnr "+fnr);
+                // schreibe defaults
+                var meinZiel = $rootScope.filmlauf[idx]["col"+colint];
+                meinZiel["f"+fnr] = eintrag;
+                // schreibe details
+                var myRing = $rootScope.ringBuchungen[ringBuchungSortiert[0][1]];
+                for (var key in myRing){
+                    meinZiel["f"+fnr][key] = myRing[key];
+                }
+            }
+            */
         }
     });
 

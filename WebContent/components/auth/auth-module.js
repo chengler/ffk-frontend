@@ -156,103 +156,19 @@
                 $rootScope.status.erstelleFilmlauf = true; // verhinder, das jetzt noch ein Filmlauf aus einem Datensatz geladen wird.
 
 
-
+                console.log("verleihBuchungen");
             FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihBuchungen);
-            FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihWunsch, true);
+                console.log("verleihWunsch");
+                FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihWunsch, true);
+                console.log("ringBuchungen");
+                FfkUtils.setInFilmlaufRingAngelegenheiten($rootScope.ringBuchungen);
+                console.log("ringWünsche");
+                FfkUtils.setInFilmlaufRingAngelegenheiten($rootScope.ringWunsch, true);
 
 
 
 
-                //START
 
-/*
-
-               //  erstelle array mit datum und vbid
-                var verleihBuchungSortiert = [];
-                // erstelle array
-                for (  vBID in $rootScope.verleihBuchungen ){
-                    verleihBuchungSortiert.push( [$rootScope.verleihBuchungen[vBID].start, vBID]);
-                }
-                verleihBuchungSortiert = FfkUtils.sortList(verleihBuchungSortiert , 0)
-                //console.log("sortierte Verleihbuchungen " + JSON.stringify(verleihBuchungSortiert));
-
-   // iteriere durch alle sortierte Verleihbuchungen
-                var idx=0; // zielindex der Buchung
-                var colint = 0
-                var eintrag = {"bc":null, "vBID": null, "fID": null, "fw": null };
-                for (var i = 0; i < verleihBuchungSortiert.length; i++){ // alle Buchungen einzeln
-                    idx = FfkUtils.getKwIdxVomDatum(verleihBuchungSortiert[i][0]);
-                    vBID = verleihBuchungSortiert[i][1]
-
-                    eintrag = {"bc":$rootScope.verleihBuchungen[vBID].bc,
-                        "vBID": vBID,
-                        "fID": $rootScope.verleihBuchungen[vBID].fID,
-                        "fw" : null
-                         };
-                    colint = $rootScope.filmlauf[idx].col + 1;
-                    for (var fw = 1; fw <= $rootScope.verleihBuchungen[vBID].laufzeit; fw = fw+1 ){  //einzelbuchung
-                        $rootScope.filmlauf[idx].col = colint; // maxcol für diese zeile
-                        $rootScope.filmlauf[idx]["col"+colint] = eintrag; // erstelle wocheneintrag
-                        $rootScope.filmlauf[idx]["col"+colint]["fw"] =  fw;
-                        //deep copy
-                        $rootScope.filmlauf[idx]["col"+colint] = JSON.parse(JSON.stringify($rootScope.filmlauf[idx]["col"+colint]));
-                        console.log("datum "+verleihBuchungSortiert[i] + " auf idx "+ idx + " in col" + colint);
-//tageseintragungen
-
-                        var basis = eintrag.bc.substring( 0, eintrag.bc.length -1); // schneide letze zahl ab
-                        var endung ;
-                        for (var tage = 1 ; tage < 8; tage += 1){ //Farbschema für die Wochentage
-                            if ( tage % 2 == 0){ // gerade
-                                endung = "2";        //hänge 1 oder 2 ran
-                            } else { //ungerade
-                                endung = "1";
-                            }
-                            $rootScope.filmlauf[idx+tage].col = colint; // setze richtige spaltenzahl für zeile
-                            $rootScope.filmlauf[idx+tage]["col"+colint] = {"bc": basis+endung}; // tageseintrag
-                        };
-                        // mehr als eine Filmwoche
-                        idx += 8; // erhöhe idx um 8
-                    }
-                }
-
-            verleihBuchungSortiert = null;
-
-*/
-
-
-
-            //  erstelle array mit datum und fBID
-            var ringBuchungSortiert = [];
-            // erstelle array
-            for (  fBID in $rootScope.ringBuchungen ){
-                ringBuchungSortiert.push( [$rootScope.ringBuchungen[fBID].datum, fBID]);
-            }
-            ringBuchungSortiert = FfkUtils.sortList(ringBuchungSortiert , 0);
-            console.log("sortierte Ringbuchung " + JSON.stringify(ringBuchungSortiert));
-
-
-            var idx=0; // zielindex der Buchung
-                var colint = 0;
-            var fnr; // die filmnummer
-            var kwidx = 0;
-            var eintrag = { "fBID":null,"check1":false,"check2":false,"sid":null,"medium":"","medienID":false,
-                "vonID":false,"nachID":false,"garantie":false,"datum":"","vBID": null};
-            for (var i = 0; i < ringBuchungSortiert.length; i++) { // alle Buchungen einzeln
-                fBID = ringBuchungSortiert[i][1];
-                idx = FfkUtils.getKwIdxVomDatum(ringBuchungSortiert[i][0]) + 1;//+1 weil nicht kw zeile
-                kwidx = FfkUtils.getKinoWochenRowIdx(idx); // um die buchungen zu finden
-                colint = FfkUtils.getColFromVbid( kwidx,  $rootScope.ringBuchungen[fBID].vBID ); //welche Spalte
-                fnr = FfkUtils.getBuchungenProTag($rootScope.filmlauf[idx], "col"+colint); // der wievilete film f1 f2 ...
-                console.log("datum "+ringBuchungSortiert[i][0] + " idx: "+idx +"kw zeile "+kwidx+ "und col " + colint +" filmnr "+fnr);
-                // schreibe defaults
-                var meinZiel = $rootScope.filmlauf[idx]["col"+colint];
-                meinZiel["f"+fnr] = eintrag;
-                // schreibe details
-                var myRing = $rootScope.ringBuchungen[ringBuchungSortiert[0][1]];
-                for (var key in myRing){
-                    meinZiel["f"+fnr][key] = myRing[key];
-                }
-            }
 
      // Verleihwünsche
 /*

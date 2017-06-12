@@ -221,11 +221,10 @@
     "ringWunsch": {
     "fBIDp13": {
         "fBID": "p13",
-            "vBID": {
             "vBID": "vp12",
                 "sid": "sid5",
                 "datum": "20170610"
-        }
+
     }
 },
     "filme": {
