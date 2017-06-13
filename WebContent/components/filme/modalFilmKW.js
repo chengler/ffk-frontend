@@ -148,6 +148,9 @@ angular.module('modalFilmKW', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_V
 								}
 								console.log("lösche ehemalig vorige von " + res.startIdx + " bis " + delend);
 								for (var index = res.startIdx; index <= delend; index++) {
+                                    if ($scope.filmlauf[index][col].f1 ) {
+                                        FfkUtils.deleteRingBuchung(index, col);
+                                    }
 									delete $scope.filmlauf[index][col];
 						//			console.log("index "+index);
 								}
@@ -159,18 +162,17 @@ angular.module('modalFilmKW', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_V
 						// schaue ob ringBuchung gelöscht wird
 						// kopiere verleihbuchung zu Verleihwunsch
 						// verschiebe Ringbuchung Ringwunsch
-						var zwischenspeicher = {};
-
 						if ( altend > neuend) {
 							var startdel = neuend +1;
 							if(altstart > neuend){ // lösche nie vor altstart
 								startdel = altstart;
 							}
 							console.log("lösche ehemalig nachfolgende von " +  startdel  + " bis " + altend);
-                            zwischenspeicher["vBID"] = $scope.filmlauf[startdel][col].vBID
-							console.log(zwischenspeicher.vBID);
 							for (var index = startdel ; index <= altend; index++) {
-                                console.log($scope.filmlauf[index][col]);
+							    //true wenn film gefunden
+                                if ($scope.filmlauf[index][col].f1 ) {
+                                    FfkUtils.deleteRingBuchung(index, col);
+                                }
 								delete $scope.filmlauf[index][col];
 							}
 						}

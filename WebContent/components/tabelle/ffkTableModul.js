@@ -159,7 +159,7 @@ angular
 								// änder Format filmlauf
 								// wunsch =
 								// $rootScope.verleihBuchungen["wuensche"][Object.keys(buchungW)]["titel"];
-								console.log("UU " + JSON.stringify(buchungW, 0, 0));
+								console.log("wunsch buchungsboche " + JSON.stringify(buchungW, 0, 0));
 							//	var wunschObjekt = $rootScope.verleihBuchungen["wuensche"][buchungW["vBID"]];
                                 var wunschObjekt = $rootScope.verleihWunsch[buchungW["vBID"]];
                                 wunsch = wunschObjekt['titel'];

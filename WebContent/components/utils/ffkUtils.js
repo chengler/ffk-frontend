@@ -2,6 +2,31 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
     'FfkUtils',
     function ($log, $rootScope, $http) {
 
+        // passiert z.B. wenn das Verleihbuchungsfenster verkleinert wird und Ringbuchungen im Wal stünden
+        // TODO email an Spielort
+        // TODO REST
+        this.deleteRingBuchung = function(idx, col){
+            console.log("deleteRingBuchungen auf " +idx+ " col " + col);
+            i = 1;
+            while(true){
+                if ($rootScope.filmlauf[idx][col]['f'+ i] ){
+                    var fBID = "fBID" + $rootScope.filmlauf[idx][col]['f'+ i].fBID;
+                    console.log("lösche " + fBID);
+                    $rootScope.ringBuchungen[fBID] = null;
+                    delete $rootScope.ringBuchungen[fBID];
+                    //Sende Rest delete
+                } else {
+                    break; //kein weiterer Film mehr
+                }
+
+                i += 1;// suche f2 ...
+            };
+
+
+        };
+
+
+
         // hole name aus sortiertem array
         // format : [ id , name ]
         // für sid und vid für spielorteSortiert und verleiherSortiert
@@ -1048,6 +1073,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             var fBID = this.getNewProvID("");
             $rootScope.ringWunsch["fBID"+fBID] ={"fBID": fBID, "sid": sid, "datum": datum, "vBID": vBID };
         }
+        this.setVerleihWunsch = function()
 
         // die neue und chicke :-) diese nehmen!
         // ändert ringBuchungen nach {}
@@ -1268,17 +1294,16 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 buchungSortiert.push( [buchungen[vBID].start, vBID]);
             }
             buchungSortiert = this.sortList(buchungSortiert , 0); // sortiere
-            console.log("sortierte buchungen " + JSON.stringify(buchungSortiert));
+//            console.log("sortierte buchungen " + JSON.stringify(buchungSortiert));
             // iteriere durch alle sortierte Verleihbuchungen
             var idx=0; // zielindex der Buchung
             var colint = 0
             var eintrag = {}; // default für alle
   // START schleife durch Buchungen
             for (var i = 0; i < buchungSortiert.length; i++){ // alle Buchungen einzeln
-          // colint immer maxcol 
+          // colint immer maxcol
                 //      var maxCol = 0; //starte jede Reihe mit 0
                 idx = this.getKwIdxVomDatum(buchungSortiert[i][0]);
-                console.log("IIIIIIIIIIIIIIII " + idx);
 
                 vBID = buchungSortiert[i][1];
                 eintrag = {"bc":buchungen[vBID].bc,
@@ -1333,8 +1358,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         // wenn wunsch true , dann ringWunsch und nicht ringBuchung!
         this.setInFilmlaufRingAngelegenheiten = function( buchungen , wunsch){
-            console.log("WWWWWWWWWWWWWWWWWWWWWWWWWW " +JSON.stringify(buchungen))
-            console.log(wunsch);
+            console.log("setInFilmlaufRingAngelegenheiten 'wunsch' ist "+wunsch + "true/undefined");
+            //console.log("*********** " +JSON.stringify(buchungen))
+
 
             //START
         /*

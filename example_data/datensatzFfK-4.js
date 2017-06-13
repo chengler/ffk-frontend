@@ -164,7 +164,8 @@
             "fw3": [
             0,
             0
-        ]
+        ],
+            "col": "col2"
     }
 },
     "ringBuchungen": {
@@ -174,11 +175,11 @@
             "check2": false,
             "sid": "sid5",
             "medium": "BD",
-            "medienID": "#1",
-            "vonID": "sid5",
+            "medienID": false,
+            "vonID": false,
             "nachID": false,
             "garantie": false,
-            "datum": "20170608",
+            "datum": "20170624",
             "vBID": "vp2"
     },
     "fBIDp12": {
@@ -240,6 +241,6 @@
     }
 },
     "myProvID": {
-    "counter ": 10
+    "counter ": 15
 }
 }
