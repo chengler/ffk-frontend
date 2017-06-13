@@ -35,7 +35,10 @@
                             <td class="{{wunsch.bc}} pointer" ng-bind="wunsch.titel"
                                 ng-click="loadGewunschen(wunsch)"></td>
                         </tr>
-                        <td class="pointer bc-000" ng-click="neuerWunsch()">neuer Wunschfilm</td>
+
+                        <td ng-show=" logedInUser.role == 'admin' ||  logedInUser.role == 'spieler'  "
+                                class="pointer bc-000" ng-click="neuerWunsch()">neuer Wunschfilm</td>
+
                     </table>
                 </div>
             </div>
