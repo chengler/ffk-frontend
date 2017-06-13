@@ -154,13 +154,23 @@ angular.module('modalFilmKW', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_V
 							}
 						}
 						// lösche ehemalig nachfolgende
+						// wenn Buchungen in nachfolgenden, => mache sie zu wünschen daher:
+						// speicher vBID
+						// schaue ob ringBuchung gelöscht wird
+						// kopiere verleihbuchung zu Verleihwunsch
+						// verschiebe Ringbuchung Ringwunsch
+						var zwischenspeicher = {};
+
 						if ( altend > neuend) {
 							var startdel = neuend +1;
 							if(altstart > neuend){ // lösche nie vor altstart
 								startdel = altstart;
 							}
 							console.log("lösche ehemalig nachfolgende von " +  startdel  + " bis " + altend);
+                            zwischenspeicher["vBID"] = $scope.filmlauf[startdel][col].vBID
+							console.log(zwischenspeicher.vBID);
 							for (var index = startdel ; index <= altend; index++) {
+                                console.log($scope.filmlauf[index][col]);
 								delete $scope.filmlauf[index][col];
 							}
 						}

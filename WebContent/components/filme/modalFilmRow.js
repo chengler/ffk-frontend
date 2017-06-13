@@ -269,10 +269,11 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
             console.log("machMenus: status = " + $scope.modus.status);
             $scope.filmObject = []; // Film der Woche aus Filmlauf
             $scope.wochenWunschFilme = {}; // Wünsche der Woche
+            console.log(" wochenBuchungen  " + JSON.stringify( wochenBuchungen ));
             for (var i = 1; i <= wochenBuchungen.col; i++) {
                 // wenn col existiert Filme in dieser Woche
                 if ( (typeof wochenBuchungen['col' + i] != 'undefined'))   {
-                    // ist false wenn nur Wunschfilme
+                    // ist false wenn nur Wunschfilm in Spalte
                     var myVBID = wochenBuchungen['col' + i]["vBID"];
                     if (! ((myVBID == false) || (myVBID == undefined)  )) {
                         // buchungsinfos zum Film
@@ -289,6 +290,11 @@ angular.module('modalFilmRow').controller('ModalFilmlRowInstanceCtrl',
                         // Spalte
                         myObject.col = 'col' + i;
                         $scope.filmObject.push(myObject);
+
+
+                        console.log(" myObject  " + JSON.stringify( myObject ));
+                        console.log(" $scope.filmObject  " + JSON.stringify( $scope.filmObject ));
+
                     }
                     // Filmwünsche in dieser Woche
                     if (typeof wochenBuchungen['col' + i + 'w'] != 'undefined') {
