@@ -1268,13 +1268,18 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 buchungSortiert.push( [buchungen[vBID].start, vBID]);
             }
             buchungSortiert = this.sortList(buchungSortiert , 0); // sortiere
-            //console.log("sortierte Verleihbuchungen " + JSON.stringify(verleihBuchungSortiert));
+            console.log("sortierte buchungen " + JSON.stringify(buchungSortiert));
             // iteriere durch alle sortierte Verleihbuchungen
             var idx=0; // zielindex der Buchung
             var colint = 0
             var eintrag = {}; // default für alle
+  // START schleife durch Buchungen
             for (var i = 0; i < buchungSortiert.length; i++){ // alle Buchungen einzeln
+          // colint immer maxcol 
+                //      var maxCol = 0; //starte jede Reihe mit 0
                 idx = this.getKwIdxVomDatum(buchungSortiert[i][0]);
+                console.log("IIIIIIIIIIIIIIII " + idx);
+
                 vBID = buchungSortiert[i][1];
                 eintrag = {"bc":buchungen[vBID].bc,
                     "vBID": vBID,
@@ -1283,6 +1288,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
                 var col;
                 // in welche col soll geschrieben werden
+                // wird nur einmalig überprüft, da sortiert und nach "hinten" alles frei ist
                 if (wunsch){
                     colint = this.getNextColInFilmRowWunsch($rootScope.filmlauf[idx]);
                     col = "col"+colint+'w'; // wenn verleiWunsch
@@ -1290,23 +1296,20 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     colint = this.getNextColInFilmRowBuchung($rootScope.filmlauf[idx]);
                     col = "col"+colint; //verleihBuchung
                 }
-                var maxCol = $rootScope.filmlauf[idx].col; //die alte maxcol
-                if (maxCol < colint){
-                    $rootScope.filmlauf[idx].col = colint; // maxcol für diese zeile
-                    maxCol = colint; // damit wird die alte Maxcol zur neuen
-                }
-
+                $rootScope.filmlauf[idx].col = colint;
                 if (wunsch){
                     $rootScope.filmlauf[idx][col] = eintrag;
                 } else { //kein Wunsch
-                // verleihBuchung oder VerleihWunsch <= appendix w steht für wunsch
+    // start mehr als 1 Filmwoche
                 for (var fw = 1; fw <= buchungen[vBID].laufzeit; fw = fw+1 ){  //einzelbuchung
+                    $rootScope.filmlauf[idx].col = colint;
                     $rootScope.filmlauf[idx][col] = eintrag; // erstelle wocheneintrag
                     // fw Filmwoche nur wen kein verleihWunsch sondern Verleihbuchung
                         $rootScope.filmlauf[idx][col]["fw"] =  fw;
                     //deep copy zur Fixierung
                     $rootScope.filmlauf[idx][col] = JSON.parse(JSON.stringify($rootScope.filmlauf[idx][col]));
-                    console.log("datum "+buchungSortiert[i] + " auf idx "+ idx + " in " + col);
+                  //  console.log("datum "+buchungSortiert[i] + " auf idx "+ idx + " in " + col);
+
 //tageseintragungen
                     var basis = eintrag.bc.substring( 0, eintrag.bc.length -1); // schneide letze zahl ab
                     var endung ;
@@ -1316,7 +1319,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                         } else { //ungerade
                             endung = "1";
                         }
-                        $rootScope.filmlauf[idx+tage].col = maxCol; // setze richtige spaltenzahl für zeile
+                      //  $rootScope.filmlauf[idx+tage].col = maxCol; // setze richtige spaltenzahl für zeile
+                        $rootScope.filmlauf[idx+tage].col = colint; // setze richtige spaltenzahl für zeile
+
                         $rootScope.filmlauf[idx+tage][col] = {"bc": basis+endung}; // tageseintrag
                     };
                     // mehr als eine Filmwoche

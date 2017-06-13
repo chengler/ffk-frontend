@@ -157,7 +157,7 @@
 
 
                 console.log("verleihBuchungen");
-            FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihBuchungen);
+                FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihBuchungen);
                 console.log("verleihWunsch");
                 FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihWunsch, true);
                 console.log("ringBuchungen");
