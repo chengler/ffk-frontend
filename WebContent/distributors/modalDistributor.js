@@ -112,6 +112,7 @@ angular.module('modalDistributor').controller(
 				$scope.header = $scope.thisDistributor.name + " - kurz: " + $scope.thisDistributor.kurz;
 			} else {
 				console.log("Verleih neu anlegen");
+                $scope.bearbeitungsmodus(); // gehe gleich in bearbeitungsmodus
 			}
 
 			// Venue speichern
