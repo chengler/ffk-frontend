@@ -294,12 +294,22 @@
                 nach.medienID = von.medienID;
                 nach.vonID = von.ortID;
                 von.nachID = nach.ortID;
-                var vBID = getBuchungswoche(dragIdx, dragCol);
-                vBID = vBID["vBID"];
-                console.log("TODO RESTfull post ./FilmVonNach: { vBID: " + vBID + ", fBID: " + von.fBID
-                    + ", fBID: " + nach.fBID + " }");
-                $scope.server = "http.post('../FilmVonNach') data: { vBID: " + vBID + ", fBID: " + von.fBID
-                    + ", fBID: " + nach.fBID + " }";
+                console.log("von " + JSON.stringify( von ));
+                console.log("nach " + JSON.stringify( nach ));
+                // erstelle Änderungen
+                var wechselInVon = { "nachID": nach.sid }
+                var wechselInNach = { "vonID": von.sid, "medium": von.medium, "medienID":von.medienID };
+                // speicher Änderungen in rootScope.ringBuchung; später auch via REST
+                console.log("TODO beende RESTfull post ./FilmVonNach: in ffkutils.changeRingBuchung");
+                FfkUtils.changeRingBuchung(von.fBID , wechselInVon );
+                FfkUtils.changeRingBuchung(nach.fBID , wechselInNach);
+                // speicher in Filmlauf
+                Object.keys(wechselInVon).forEach(function (key) {
+                    von[key] = wechselInVon[key];
+                });
+                Object.keys(wechselInNach).forEach(function (key) {
+                    nach[key] = wechselInNach[key];
+                });
                 $rootScope.gridOptions.api.refreshView();
             };
 
@@ -318,6 +328,8 @@
             };
 
             // locale Methoden
+            // OBSOLET, wenn noch da vergessen zu löschen nach testläufen
+/*
 
             // lade Object der KW (vBID-Verleih Buchungs ID,
             // Filmname etc) erwarte index und col des Filmtages
@@ -327,9 +339,10 @@
                 // ISO day of week 1-7
                 // var idx = index - moment(datum).format('E');
 //					var idx = FfkUtils.getKinoWochenRowIdx(rowIdx, datum);
-                console.log("UNNÖTIGER AUFRUFE, wandel direkt! in rootScope");
+                console.log("UNNÖTIGER AUFRUF, wandel direkt! in rootScope");
                 return $rootScope.filmlauf[index][col];
             }
+*/
 
             // modal
             // http://angular-ui.github.io/bootstrap/#/modal

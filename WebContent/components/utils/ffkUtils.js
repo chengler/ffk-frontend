@@ -1048,6 +1048,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             $rootScope.ringWunsch["fBID"+fBID] ={"fBID": fBID, "sid": sid, "datum": datum, "vBID": vBID };
         }
 
+        // ändert ringBuchungen nach array
+        // TODO REST anbindung
         this.changeRingBuchung = function( fBID, buchungsChanges ) {
             console.log("changeRingBuchung " + fBID );
             fBID = "fBID"+fBID;

@@ -28,7 +28,7 @@
 
 
         var loadDatei = function(){
-            var dateiname = "../example_data/datensatzFfK-3.js";
+            var dateiname = "../example_data/datensatzFfK-4.js";
             if ($rootScope.logedInUser.role == "verleih") {
                 switch ($rootScope.logedInUser.vid) {
                     case "vid1":
