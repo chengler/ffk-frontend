@@ -17,7 +17,7 @@ angular.module('modalVenue', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_VE
 			}
 		});
 		// ModalVenueInstanceCtrl wird mit sid gestartet
-		$log.info("\nmodalVenue OpenModalVenueService editVenue mit arg '" + sid+ "' aufgerufen");
+		$log.info("\nmodalVenue OpenModalVenueService editVenue mit arg " + sid+ " aufgerufen");
 
 		// TODO stack für asyncrone Serverantworten
 
@@ -83,9 +83,10 @@ angular.module('modalVenue', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_VE
 // ModalVenueInstanceCtrl
 angular.module('modalVenue').controller('ModalVenueInstanceCtrl',
 		function($rootScope, $scope, $log, $uibModalInstance, sid) {
+    // sid == undefined => neu anlegen
 			$log.info("starte ModalVenueInstanceCtrl mit arg " + sid);
-			$log.debug("logedInUser " + JSON.stringify($rootScope.logedInUser,0,0));
-			$log.debug("öffnet Spielort " + JSON.stringify($rootScope.spielorte[sid],0,0));
+			$log.info("logedInUser " + JSON.stringify($rootScope.logedInUser,0,0));
+			$log.info("öffnet Spielort " + JSON.stringify($rootScope.spielorte[sid],0,0));
 
 			$scope.bearbeiten = false;  // soll bearbeitet werden (nur wenn rechte vorhanden)
             $scope.bearbeitbar = false; // darf bearbeitet werden (rechte)
@@ -111,14 +112,22 @@ angular.module('modalVenue').controller('ModalVenueInstanceCtrl',
 				$scope.thisVenue = Object.create($rootScope.spielorte[sid]);
 				$scope.header = $scope.thisVenue.name + " - Spielort: " + $scope.thisVenue.ort;
 			} else {
-				console.log("Spielort neu anlegen");
+                $scope.thisVenue = {};
+                $scope.thisVenue['medien'] = [];
+                    console.log("Spielort neu anlegen");
 			}
 
             // setze Medienvariblen zur Verfügbarkeit
 			// alle Medientypen
             $scope.medienTypen = ["BD","35mm","DCP","analog"];
 			// die abspielbaren Medientypen des Spielortes
-			var sidMedien = $rootScope.spielorte[sid].medien;
+            var sidMedien;
+            if (sid == undefined){
+                sidMedien = ["BD"]; //neuer Spielort
+                $scope.bearbeitungsmodus();
+            }else {
+                sidMedien = $rootScope.spielorte[sid].medien;
+            }
 			// alle Medien und ob sie vor Ort abspielbar sind
 			$scope.medium = {};
 
@@ -139,7 +148,7 @@ angular.module('modalVenue').controller('ModalVenueInstanceCtrl',
             	if ($scope.bearbeiten){
 
                 console.log("toogle "+typ);
-                if ($scope['medium'][typ].set) {
+                if ($scope['medium'][typ].set) { // if true set false
                     $scope['medium'][typ].set = false;
                     $scope['medium'][typ].btn = "btn-danger";
                     // lösche String aus array
@@ -147,11 +156,10 @@ angular.module('modalVenue').controller('ModalVenueInstanceCtrl',
                     if (index !== -1) {
                         $scope.thisVenue.medien.splice(index, 1);
                     }
-                } else {
+                } else { // if false set true
                     $scope['medium'][typ].set = true;
                     $scope['medium'][typ].btn = "btn-success";
                     $scope.thisVenue.medien.push(typ);
-;
                 }
                 }else {
                     console.log("nicht im bearbeitungsmodus für toogle "+typ);
