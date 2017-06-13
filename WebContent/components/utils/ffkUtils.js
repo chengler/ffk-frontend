@@ -1020,13 +1020,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             }
             mybuchung['fID'] = params.fID;
             mybuchung['titel'] = params.titel;
-
-
-
             return params;
-
         }
-
 
         // setze einen neuen Wunschfilm in den benötigten Objecten
         this.setWunsch = function (filmChanges, programmCtrlScope, wochenBuchungenIDX) {
@@ -1051,6 +1046,14 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             console.log("setRingWunsch");
             var fBID = this.getNewProvID("");
             $rootScope.ringWunsch["fBID"+fBID] ={"fBID": fBID, "sid": sid, "datum": datum, "vBID": vBID };
+        }
+
+        this.changeRingBuchung = function( fBID, buchungsChanges ) {
+            console.log("changeRingBuchung " + fBID );
+            fBID = "fBID"+fBID;
+            Object.keys(buchungsChanges).forEach(function (key) {
+                $rootScope.ringBuchungen[fBID][key] = buchungsChanges[key];
+            });
         }
 
 

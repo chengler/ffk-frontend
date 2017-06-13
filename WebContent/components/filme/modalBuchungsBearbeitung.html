@@ -39,7 +39,8 @@
 			</div>
 
 			<div class="col-md-2">
-				<select class="form-control" data-ng-model="buchungsChanges.medienID">
+				<select class="form-control" data-ng-model="buchungsChanges.medienID"
+						ng-change='setNeueMedienID()'>
 					<option value="{{medienID}}" selected="true">{{medienID}}</option>
 					<option data-ng-repeat="id in medienIDs" value="{{id}}">{{id}}</option>
 				</select>

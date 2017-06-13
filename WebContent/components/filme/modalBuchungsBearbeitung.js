@@ -77,7 +77,7 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
                                 console.log("Änderung " + key + " :" + buchungsChanges[key]);
 
             // Besuchereintritt
-                  // lösche [null] Werte, 0 ist OK, 0 Besucher 500cen, bzw 4 Besucher 0 cent
+                  // lösche [null] Werte, 0 ist OK, 0 Besucher 500cent, bzw 4 Besucher 0 cent
                                 var berecheWochenergebnissNeu = false;
                                 if (key == "besucher"){
                                     var arrayLength = buchungsChanges.besucher.length;
@@ -105,14 +105,17 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
 
                                 // zeige Änderungen
                             });
+                            // speicher in RingBuchung und RESt
+
                         }
                         $log.debug("nach folgenden Änderungen: "
                             + JSON.stringify(buchungsChanges, 2, 4));
                         $log.debug("ist nun am Ende von ModalReturn: "
                             + JSON.stringify($rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr], 2, 4));
                         // ändere ein fBID via REST
-                        // TODO REST
+                        // TODO REST VIA utils
                         $log.debug('RESTfull Set(„fBID'+fBID+'“ : '     + JSON.stringify(buchungsChanges, 0, 0));
+                        FfkUtils.changeRingBuchung(fBID, buchungsChanges);
                    //     console.log('RESTfull Set(„fBID'+fBID+'“ : ' + buchungsChanges + ' )');
 
 
@@ -172,8 +175,8 @@ angular.module('modalBuchungsBearbeitung').controller(
          $scope.refOrt = [ringBuchung.ortID,
          FfkUtils.getRefName($rootScope.spielorteSortiert, ringBuchung.ortID, 1)];
 
-        $scope.medium= ringBuchung.medium;
-        console.log(" medium " + JSON.stringify($scope.medium, 0, 0));
+        $scope.medium = ringBuchung.medium;
+        console.log("aktuelles medium " + JSON.stringify($scope.medium, 0, 0));
         // fülle Medien {BD: anzahl, dvd:anzahl..}
         $scope.medien = [];
         //console.log(datum);
@@ -181,29 +184,34 @@ angular.module('modalBuchungsBearbeitung').controller(
         $scope.medien.push(""); // nix für abwahl
         Object.keys(verleihBuchung.medien).forEach(function (medium) {
             // Medium steht zur verfügung
-            if (verleihBuchung.medien[medium] >= datum) {
+        console.log(" Medium steht zur verfügung "+verleihBuchung.medien[medium] +" <= " + datum);
+            if (verleihBuchung.medien[medium] <= datum) {
                 $scope.medien.push(medium);
+              //  console.log(JSON.stringify($scope.medien));
             }
         });
 
-        console.log(" medien " + JSON.stringify($scope.medien, 0, 0));
-        $scope.medienID = ringBuchung.medienID;
+            console.log(" medien " + JSON.stringify($scope.medien, 0, 0));
+        if (ringBuchung.medienID != false){
+            $scope.medienID = ringBuchung.medienID;
+        } else {
+            $scope.medienID = "";
+        }
 
         // hole möglich IDs, wenn medium geändert
-        $scope.medienIDs = [];
+        $scope.medienIDs = null;
         // erzeuge mögliche #1, #2 ...
         $scope.getMedienIDs = function () {
             console.log("getMedienIDs");
-            $scope.medienIDs.push(""); // nix für abwahl
-            var menge = parseInt(verleihBuchung.menge[ringBuchung.medium]);
+            $scope.medienIDs = [""];    // nix für abwahl
+
+            console.log( "verleihBuchung.menge " + JSON.stringify(verleihBuchung.menge));
+            console.log( "$scope.buchungsChanges.medium " + JSON.stringify($scope.buchungsChanges.medium));
+            var menge = parseInt(verleihBuchung.menge[$scope.buchungsChanges.medium]);
             if (menge > 0) {
                 for (var i = 1; i <= menge; i++) {
                     var id = "#" + i;
-                    // füge nur hinzu, wenn nicht false
-                   //if (ringBuchung.medienID != id & id != false) {
-                        if (ringBuchung.medienID  != false) {
-                            $scope.medienIDs.push(id);
-                        }
+                        $scope.medienIDs.push(id);
 
                 }
             }
@@ -215,15 +223,15 @@ angular.module('modalBuchungsBearbeitung').controller(
         // falls medium geändert wird
         $scope.getNeueMedienIDs = function () {
             console.log("getNeueMedienIDs");
+            console.log( "verleihBuchung.menge " + JSON.stringify(verleihBuchung.menge));
+            console.log( "$scope.buchungsChanges.medium " + JSON.stringify($scope.buchungsChanges.medium));
             $scope.medienIDs = [];
             var menge = parseInt(verleihBuchung.menge[$scope.buchungsChanges.medium]);
+            console.log("menge "+menge);
             if (menge > 0) {
                 for (var i = 1; i <= menge; i++) {
                     var id = "#" + i;
-                    // füge nur hinzu, wenn nicht false
-                    if (ringBuchung.medienID != false) {
                         $scope.medienIDs.push(id);
-                    }
                 }
             }
             $scope.medienID=""; // neues Medium, leere MedienID
@@ -239,6 +247,11 @@ angular.module('modalBuchungsBearbeitung').controller(
             console.log(" medienIDs für " + $scope.buchungsChanges.medium + " = "
                 + JSON.stringify($scope.medienIDs, 0, 0));
         };
+
+        // änderung der medienID
+        $scope.setNeueMedienID = function(){
+            console.log("setNeueMedienID " + JSON.stringify($scope.buchungsChanges.medienID) );
+        }
 
         // lese Besucherzahlen in die Variable scope.besucher
         // ist in jedem Fall ein Array
@@ -309,22 +322,26 @@ angular.module('modalBuchungsBearbeitung').controller(
         };
 
 
+
         // nach schließen des Modalfensters ergeben sich drei Möglichkeiten
         //speichr Datensatz
         $scope.ok = function (was) {
             console.log( "*** info aus html: " + was );
             console.log("buchungsChanges.medienID: " + $scope.buchungsChanges.medienID);
             // medienID ja?
-            if ( angular.isString($scope.buchungsChanges.medienID)) {
+            if ( angular.isString($scope.buchungsChanges.medienID) && $scope.buchungsChanges.medienID != "" ) {
                 console.log("buchungsChanges.vonID: " + $scope.buchungsChanges.vonID);
                 if ( !( angular.isString($scope.buchungsChanges.vonID))) { // dann muss ortID, oder
-                    if (consoleconfirm("Es gibt zwar eine medienID, aber kein Ort woher das Medium kommt!\n\n" +
-                            "abbrechen => zurück zum Eingabefenster.\n"+
-                            "OK => medienID wird gelöscht und es geht weiter\n" ) == true) {
+                    console.log("confirm box, da medium mit medienID aber keine VON");
+                    if (confirm("Es gibt zwar eine medienID, aber kein Ort woher das Medium kommt!\n\n" +
+                        "abbrechen => zurück zum Eingabefenster.\n"+
+                        "OK => medienID wird gelöscht und es geht weiter\n") == true) {
                         $scope.buchungsChanges.medienID = undefined;
                         $scope.buchungsChanges.vonID=false;
                         $scope.buchungsChanges.nachID=false;
+                        console.log("akzeptiert");
                     } else {
+                        console.log("abgebrochen");
                         return;
                         }
 
