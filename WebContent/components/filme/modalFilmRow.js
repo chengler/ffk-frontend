@@ -479,6 +479,7 @@ if (colIdx != undefined){ // aufruf mit row und colIdx, zeige nicht alle filme, 
 
         // Film buchen
         $scope.buchen = function (medium) {
+            console.log("buchen "+ medium);
             if ($scope.sid != false) { // nur wenn Spieort angegeben
                 FfkUtils.setBuchung(rowIdx, $scope.buchung.col, $scope.sid, medium);
                 $uibModalInstance.close({'msg': 'Film gebucht'});

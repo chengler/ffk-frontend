@@ -467,7 +467,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             return fnext;
         }
 
-
+// bitte nicht mehr verwenden
+        // besser changeRingBuchung nehmen
+        // änderungen im filmlauf entweder auch in fu
         // this.setBuchung = function($scope, rowIdx, col, sid, medium, garantie) {
         this.setBuchung = function (rowIdx, col, sid, medium, garantie) {
             console.log("setBuchung für rowIdx " + rowIdx + " in Spalte " + col + " für sid " + sid
@@ -496,7 +498,6 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 buchungsTag['lines'] = fnext;
             }
 */
-
 
             var mySet = {
                 "fBID": this.getNewProvID(""),
@@ -1048,7 +1049,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             $rootScope.ringWunsch["fBID"+fBID] ={"fBID": fBID, "sid": sid, "datum": datum, "vBID": vBID };
         }
 
-        // ändert ringBuchungen nach array
+        // die neue und chicke :-) diese nehmen!
+        // ändert ringBuchungen nach {}
+        // fbid als appendix wie 1 {buchungsChanges} die änderungen
         // TODO REST anbindung
         this.changeRingBuchung = function( fBID, buchungsChanges ) {
             console.log("changeRingBuchung " + fBID );
@@ -1057,6 +1060,17 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 $rootScope.ringBuchungen[fBID][key] = buchungsChanges[key];
             });
         }
+
+        // die neue und chicke :-) diese nehmen!
+        //    row(int) col wie col1 film wie f1; {filmlaufChanges}, die Änderungen
+        this.changeFilmlauf = function( rowIdx, col, film, filmlaufChanges ) {
+            console.log("changeFilmlauf in row " + rowIdx + " " + col +" auf Film "+ film );
+            var ziel = $rootScope.filmlauf[rowIdx][col][film];
+            Object.keys(filmlaufChanges).forEach(function (key) {
+                ziel[key] = filmlaufChanges[key];
+            });
+        }
+
 
 
 

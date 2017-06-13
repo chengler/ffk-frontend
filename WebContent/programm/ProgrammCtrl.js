@@ -304,12 +304,9 @@
                 FfkUtils.changeRingBuchung(von.fBID , wechselInVon );
                 FfkUtils.changeRingBuchung(nach.fBID , wechselInNach);
                 // speicher in Filmlauf
-                Object.keys(wechselInVon).forEach(function (key) {
-                    von[key] = wechselInVon[key];
-                });
-                Object.keys(wechselInNach).forEach(function (key) {
-                    nach[key] = wechselInNach[key];
-                });
+                FfkUtils.changeFilmlauf(dragIdx,dragCol,dragFilm, wechselInVon  );
+                FfkUtils.changeFilmlauf(binIdx,binCol,binFilm, wechselInNach  );
+
                 $rootScope.gridOptions.api.refreshView();
             };
 
@@ -328,21 +325,8 @@
             };
 
             // locale Methoden
-            // OBSOLET, wenn noch da vergessen zu löschen nach testläufen
-/*
 
-            // lade Object der KW (vBID-Verleih Buchungs ID,
-            // Filmname etc) erwarte index und col des Filmtages
-            function getBuchungswoche(index, col) {
-                $scope.rd3 = "index: " + index + " col: " + col;
-                var datum = $rootScope.filmlauf[index]["datum"];
-                // ISO day of week 1-7
-                // var idx = index - moment(datum).format('E');
-//					var idx = FfkUtils.getKinoWochenRowIdx(rowIdx, datum);
-                console.log("UNNÖTIGER AUFRUF, wandel direkt! in rootScope");
-                return $rootScope.filmlauf[index][col];
-            }
-*/
+
 
             // modal
             // http://angular-ui.github.io/bootstrap/#/modal
