@@ -199,12 +199,14 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             return donnerstag; // gebe den Donnerstag zurück, an dem die Kinowoche beginnt
         };
 
-        // nehme datum und bereche den idx der kw woche
+        // DOKU
+        // nehme datum und bereche den idx der FilmlaufKWwoche
+        // für inx der Verleihbuchung oder Verleiwunsch
         // Datum muss ein Donnerstag sein
-        this.getKwIdxVomDatum = function (datum){
-            datum = moment(datum).hours(12);
+        this.getFilmlaufKWIdxVonDatum = function (datum){
+            datum = moment(datum).hours(12); // kein Datumssprung wegen zeitverschiebung
             var tage = datum.diff($rootScope.ersterDo, 'days');
-            var idx = tage + Math.floor(tage / 7); // ausgleich da alle 7 Tage ein extraidx
+            var idx = tage + Math.floor(tage / 7); // ausgleich da alle 7 Tage ein extra idx
         //    console.log("datum  "+moment(datum).format('YYYYMMDD HH:mm:ss'));
         //    console.log("der Do " + $rootScope.ersterDo.format('YYYYMMDD HH:mm:ss'));
         //    console.log(tage + " tage !!!!! ziel idx = "+idx);
@@ -637,6 +639,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             }
         };
 
+        // DOKU
         // ad to List and sort
         this.sortList = function (listTosort, sortAtIdx) {
             // sortiere nach key in Array
@@ -1271,6 +1274,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             }
         return colint;
         };
+
+        // wird vermutlich nicht mehr benötigt da col nun idx.length
         this.getNextColInFilmRowWunsch = function( row ){
             var colint = 1;
             while (true) {
@@ -1282,61 +1287,57 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             }
             return colint;
         };
-
-        // setzt Verleihbucungen in den Filmlauf
-        // erwartet sortiertes array mit [datum,vBID]
-      // wunsch true für wunsch
-        this.setInFilmlaufVerleihAngelegenheiten = function (buchungen, wunsch){
+      // DOKU
+      // setze Verleihbuchungen in den Filmlauf
+      // buchungsart: für buchung 1; für wunsch 2,
+      // [  0  ,       [1],       [2] ]
+      // [Spalte 1],[Buchungen][Wünsche]
+        this.setInFilmlaufVerleihAngelegenheiten = function (buchungen, buchungsart){
             //  erstelle array mit datum und vbid
             var buchungSortiert = [];
+            var vBID;
+            var spalten; // wieviel Filmspalten sind besetzt
+            var idx; // zielindex der Buchung im Filmlauf
             // erstelle array
             for (  vBID in buchungen ){
                 buchungSortiert.push( [buchungen[vBID].start, vBID]);
             }
-            buchungSortiert = this.sortList(buchungSortiert , 0); // sortiere
-//            console.log("sortierte buchungen " + JSON.stringify(buchungSortiert));
-            // iteriere durch alle sortierte Verleihbuchungen
-            var idx=0; // zielindex der Buchung
-            var colint = 0
-            var eintrag = {}; // default für alle
-  // START schleife durch Buchungen
+            // sortiere
+            buchungSortiert = this.sortList(buchungSortiert , 0);
+            // console.log("sortierte buchungen " + JSON.stringify(buchungSortiert));
+// START schleife durch Buchungen
             for (var i = 0; i < buchungSortiert.length; i++){ // alle Buchungen einzeln
-          // colint immer maxcol
-                //      var maxCol = 0; //starte jede Reihe mit 0
-                idx = this.getKwIdxVomDatum(buchungSortiert[i][0]);
-
+                idx = this.getFilmlaufKWIdxVonDatum(buchungSortiert[i][0]); // Datum der Buchung
                 vBID = buchungSortiert[i][1];
-                eintrag = {"bc":buchungen[vBID].bc,
-                    "vBID": vBID,
-                    "fID": buchungen[vBID].fID
-                };
-
-                var col;
-                // in welche col soll geschrieben werden
-                // wird nur einmalig überprüft, da sortiert und nach "hinten" alles frei ist
-                if (wunsch){
-                    colint = this.getNextColInFilmRowWunsch($rootScope.filmlauf[idx]);
-                    col = "col"+colint+'w'; // wenn verleiWunsch
-                } else {
-                    colint = this.getNextColInFilmRowBuchung($rootScope.filmlauf[idx]);
-                    col = "col"+colint; //verleihBuchung
+                // in welche spalte soll geschrieben werden
+                // wird nur einmalig gesetzt, da nach datum sortiert und nach "hinten" alles frei
+                // 1 eintrag im array => array[0] exists => length=1; spalten = 1
+                spalten = $rootScope.filmlauf[idx][buchungsart].length ;
+                // maximale Spaltenzahl
+                if ( $rootScope.filmlaufSpalten < spalten ){
+                    $rootScope.filmlaufSpalten = spalten;
                 }
-                $rootScope.filmlauf[idx].col = colint;
-                if (wunsch){
-                    $rootScope.filmlauf[idx][col] = eintrag;
-                } else { //kein Wunsch
-    // start mehr als 1 Filmwoche
-                for (var fw = 1; fw <= buchungen[vBID].laufzeit; fw = fw+1 ){  //einzelbuchung
-                    $rootScope.filmlauf[idx].col = colint;
-                    $rootScope.filmlauf[idx][col] = eintrag; // erstelle wocheneintrag
-                    // fw Filmwoche nur wen kein verleihWunsch sondern Verleihbuchung
-                        $rootScope.filmlauf[idx][col]["fw"] =  fw;
-                    //deep copy zur Fixierung
-                    $rootScope.filmlauf[idx][col] = JSON.parse(JSON.stringify($rootScope.filmlauf[idx][col]));
-                  //  console.log("datum "+buchungSortiert[i] + " auf idx "+ idx + " in " + col);
+                //einzelne verleihBuchungen oder Wünsche
+                // Filmwochen
+                for (var fw = 1; fw <= buchungen[vBID].laufzeit; fw = fw+1 ){
+                    var spaltenHier = $rootScope.filmlauf[idx][buchungsart].length;
+                    // fehlende Spalten ([false] arrays) vor dem eintrag
+                    // [ [0] .. ]
+                    for (var i = spaltenHier; i < spalten; i++){
+                           // fülle mit  [false], falls noch kein array vorhanden
+                        $rootScope.filmlauf[idx][buchungsart].push([false]);
+                    }
+                    // TODO fw stringfy immer noch nötig? setze var fw eins höher
+                    // erstelle wocheneintrag
+                    // [background, vBID, filmwoche]  =   [ bc-10, vInt, int ]
+                    $rootScope.filmlauf[idx][buchungsart].push(
+                        [ buchungen[vBID].bc, vBID, fw]);
+
+
+                  //  console.log("datum "+buchungSortiert[i] + " auf idx "+ idx + " in spalte " + spalten);
 
 //tageseintragungen
-                    var basis = eintrag.bc.substring( 0, eintrag.bc.length -1); // schneide letze zahl ab
+                    var basis = buchungen[vBID].bc.substring( 0, buchungen[vBID].bc.length -1); // schneide letze zahl ab
                     var endung ;
                     for (var tage = 1 ; tage < 8; tage += 1){ //Farbschema für die Wochentage
                         if ( tage % 2 == 0){ // gerade
@@ -1344,17 +1345,21 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                         } else { //ungerade
                             endung = "1";
                         }
-                      //  $rootScope.filmlauf[idx+tage].col = maxCol; // setze richtige spaltenzahl für zeile
-                        $rootScope.filmlauf[idx+tage].col = colint; // setze richtige spaltenzahl für zeile
-
-                        $rootScope.filmlauf[idx+tage][col] = {"bc": basis+endung}; // tageseintrag
-                    };
+                        // fehlende Spalten ([false] arrays) vor dem eintrag
+                        for (var i = spaltenHier; i < spalten; i++){
+                            // fülle mit  [false], falls noch kein array vorhanden
+                            $rootScope.filmlauf[idx+tage][buchungsart].push([false]);
+                        }
+                        //[background, [fBID,fBID]]
+                        //["bc-11"]
+                        $rootScope.filmlauf[idx+tage][buchungsart].push([basis+endung]);
+                   }
                     // mehr als eine Filmwoche
                     idx += 8; // erhöhe idx um 8
                 }
-                }
             }
-        }
+        };
+
 
         // wenn wunsch true , dann ringWunsch und nicht ringBuchung!
         this.setInFilmlaufRingAngelegenheiten = function( buchungen , wunsch){
@@ -1385,7 +1390,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             for (var fBID in buchungen) {
                 if (buchungen.hasOwnProperty(fBID)) {
                 var buchung = buchungen[fBID];
-                idx = this.getKwIdxVomDatum(buchung.datum) + 1;//+1 weil nicht kw zeile
+                idx = this.getFilmlaufKWIdxVonDatum(buchung.datum) + 1;//+1 weil nicht kw zeile
                 kwidx = this.getKinoWochenRowIdx(idx); // um die buchungen zu finden
                 if(wunsch){
                     col = this.getColWfromVbid( kwidx,  buchung.vBID ); //welche Spalte
@@ -1417,7 +1422,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 /*
             for (var i = 0; i < ringBuchungSortiert.length; i++) { // alle Buchungen einzeln
                 fBID = ringBuchungSortiert[i][1];
-                idx = this.getKwIdxVomDatum(ringBuchungSortiert[i][0]) + 1;//+1 weil nicht kw zeile
+                idx = this.getFilmlaufKWIdxVonDatum(ringBuchungSortiert[i][0]) + 1;//+1 weil nicht kw zeile
                 kwidx = this.getKinoWochenRowIdx(idx); // um die buchungen zu finden
                 colint = this.getColFromVbid( kwidx,  $rootScope.ringBuchungen[fBID].vBID ); //welche Spalte
                 fnr = this.getBuchungenProTag($rootScope.filmlauf[idx], "col"+colint); // der wievilete film f1 f2 ...

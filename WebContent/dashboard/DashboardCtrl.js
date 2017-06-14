@@ -117,14 +117,15 @@
             $scope.datum = new Date(); //heute
             var kwDonnerstag = FfkUtils.getKinoWocheFromDate( $scope.datum);
             var kwEnde = moment(kwDonnerstag).add(6, 'days');
-            var filmlaufKW = moment(kwDonnerstag).format("YYYY")+"W"+moment(kwDonnerstag).isoWeek(); // Bsp: 2017W48
+            var filmlaufKW = moment(kwDonnerstag).format("YYYY")+"-W"+moment(kwDonnerstag).isoWeek(); // Bsp: 2017W48
             console.log("in Filmlauf KW "+filmlaufKW);
             $scope.kw =  "Kinowoche "+ moment(kwDonnerstag).isoWeek();
             $scope.kwDonnerstag =  moment(kwDonnerstag).format('DD.MM.')
             $scope.kwEnde =  moment(kwEnde).format('DD.MM.')
 
 // Datumsanzeige Kinowoche
-                var kw40 = $rootScope.filmlauf[40].datum.substr(5);
+              // 0  [ "bc-g0", false,  "2016-W49",  1          ]
+                var kw40 = $rootScope.filmlauf[40][0][2].substr(6);
                 var mykw = filmlaufKW.substr(5);
                 var diff = mykw-kw40;
                 var myIdx = 40+(diff*8);

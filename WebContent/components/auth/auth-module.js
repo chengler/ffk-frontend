@@ -101,90 +101,79 @@
 
         var ladeGrundtabelle = function () {
             $log.info("***** erstelle  grundTabelle");
-            // erstelle row data
             // 60 Wochen KW 1 minus 4 Wochen, KW 52 plus 4 Wochen
-            // buggy iso30 !important
+            // buggy daher 1.Do im Jahr wie folgt rechnen!important
             var ersterDo = moment().isoWeek(30).isoWeekYear(new Date().getFullYear()).isoWeek(1).isoWeekday(4)
                 .hour(12);
             // 4 Wochen zurück
             ersterDo = moment(ersterDo).subtract(4, 'weeks');
-            console.log("ersterDo " + ersterDo._d);
+            console.log("ersterDo in Tabelle" + ersterDo._d);
             // erstelle grundwert für die Programmtabelle
             // dies ist der Zeit Grundwert für idx0(KW) und idx1(Tag)
             $rootScope.ersterDo = moment(ersterDo).hours(12).minutes(0).seconds(0).millisecond(0);
             // erstelle 60 Wochen a 8 einträge
-
             for (var w = 0; w < 60; w++) {
                 var datum = moment(ersterDo).format('YYYY');
-                datum = datum + 'W';
-                datum = datum + moment(ersterDo).format('ww');
-                $rootScope.filmlauf.push({
-                    "datum": datum,
-                    "bc": "bc-g0",
-                    "lines": 1,
-                    "col": 0
-                });
-                for (var t = 0; t < 7; t++) {
-                    $rootScope.filmlauf.push({
-                        "datum": moment(ersterDo).format('YYYYMMDD'),
-                        "bc": "bc-g2",
-                        "lines": 1,
-                        "col": 0
-                    });
-                    ersterDo = moment(ersterDo).add(1, 'day');
+                datum = datum + '-W'+ moment(ersterDo).format('ww');
+                // [background, kw  , datum, lines in row]
+                $rootScope.filmlauf.push([ [ "bc-g0", true, datum,  1], [] , []  ]);
+                var tag = ersterDo;
+                for (var t = 1; t < 8; t++) {
+                  //  [background, kw  , datum, lines in row]
+                  // [ "bc-g2", false,  "2016-12-18", 1
+                    $rootScope.filmlauf.push([[ "bc-g2", t,  moment(tag).format('YYYY-MM-DD'), 1], [], []  ] );
+                    tag = moment(tag).add(1, 'day');
                 }
-
             }
 
             $rootScope.status.grundTabelleGeladen = true;
            // $rootScope.status.filmlaufGeladen = true;
             console.log("grundTabelleGeladen " + $rootScope.status.grundTabelleGeladen);
 
+            console.log(JSON.stringify( $rootScope.filmlauf));
+
         };
         // was erledigt werden kann während das Programm auf das login wartet.
         ladeGrundtabelle();
 
+/*
+
+idx 0 = [ {"datum":"2016W49","bc":"bc-g0","lines":1,"col":0} ],
+idx 208 = [ {"datum":"2017W23","bc":"bc-g0","lines":1,"col":1,"col1":{"bc":"bc-10","vBID":"vp2","fID":"fp1","fw":1},"col1w":{"bc":"bc-00","vBID":"vp12","fID":"fp11"}} ],
+idx 211 = [ {"datum":"20170610","bc":"bc-g2","lines":1,"col":1,"col1":{"bc":"bc-11"},"col1w":{"bc":"bc-00","sids":[["sid5",false]]}} ],
+
+struktur= [                  [0],                                    [1],                              [2] ]
+                           Spalte 1                              Buchungen                           Wünsche
+idx 0 =   [ [ "bc-g0", false,  "2016-W49",  1          ], [           false                    ], [      false           ] ],  minimum Verleih
+idx 1 =   [ [ "bc-g2", 1-7,  "2016-12-18", 1        ], [           false                    ], [      false           ] ],  minimum Ring
+idx 208 = [ [ "bc-g0", false,  "2017-W23", "bc-g0", 1  ], [["bc-10", "vp2", 1], ["bc-20"..        ], [[ "bc-10","vp12" ],[bc-20 ..   ] ], standard Verleih
+idx 211 = [ [ "bc-g2", 1-7, "2017-06-10", "bc-g2", 1], [["bc-11", fBID]    , ["bc-22",fBID] .. ], [[ ["bc-11", fBID],["bc-22",fBID] .. ], standard Ring
+
+                [0] =  [ 0, 1, 2, 3 ] =[background, spieltag  , datum, lines in row] = [ int,  true|false , JJJJ-Www | JJJJ-MM-TT , int ]
+                [1]    [ [0] .. ]   =  [background, vBID, filmwoche]  =   [ bc-10, vInt, int ]    ; kw true  =>   verleihBuchungen
+                [2]    [ [0] .. ]   =  [background, vBID, filmwoche]  =   [ bc-20, vInt, int ]    ; kw true  =>   verleihWunsch
+                [1]    [ [0] .. ]   =  [background, [fBID,fBID]] =   [ bc-11, [fBID,fBID..]]      ; kw false =>  ringBuchungen
+
+                [2]    [ [0] .. ]   =  [background, [fBID,fBID]] =   [ bc-20, [fBID,fBID..]]      ; kw false =>  ringWunsch
+
+       */
 
         var erstelleFilmlauf = function(){
             console.log("erstelle Filmlauf");
-            var vBID; // die je aktuelle vBID
-            var fBID; // die je aktuelle fBID
-
             if ($rootScope.status.filmlaufGeladen == true) {
                 console.log("************** Filmlauf wurde bereits geladen, also wird er nun auch nicht mehr berechnet");
             } else {
                 $rootScope.status.erstelleFilmlauf = true; // verhinder, das jetzt noch ein Filmlauf aus einem Datensatz geladen wird.
 
-
                 console.log("verleihBuchungen");
-                FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihBuchungen);
+                FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihBuchungen, 1);
                 console.log("verleihWunsch");
-                FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihWunsch, true);
+                FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihWunsch, 2);
                 console.log("ringBuchungen");
                 FfkUtils.setInFilmlaufRingAngelegenheiten($rootScope.ringBuchungen);
                 console.log("ringWünsche");
                 FfkUtils.setInFilmlaufRingAngelegenheiten($rootScope.ringWunsch, true);
 
-
-
-
-
-
-     // Verleihwünsche
-/*
-            //  erstelle array mit datum und vbid
-            var verleihWünscheSortiert = [];
-            // erstelle array
-            for (  vBID in $rootScope.verleihWünsche ){
-                verleihWünscheSortiert.push( [$rootScope.verleihBuchungen[vBID].start, vBID]);
-            }
-            verleihBuchungSortiert = FfkUtils.sortList(verleihBuchungSortiert , 0)
-            //console.log("sortierte Verleihbuchungen " + JSON.stringify(verleihBuchungSortiert));
-
-            var colIdx = this.getFirstFreeCol(programmCtrlScope, $rootScope.filmlauf[wochenBuchungenIDX], "wunsch", 1, wfID);
-
-            FfkUtils.setWochenBuchungInFilmlauf(wochenBuchungenIDX, colIdx, {"fID": fID, "vBID": wfID, "colSuffix": "w"});
-       */
 
 
             $rootScope.status.filmlaufGeladen = true;

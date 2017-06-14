@@ -216,7 +216,8 @@
             "start": "20170608",
             "bc": "bc-00",
             "col": "col1",
-            "wfID": "vp12"
+            "wfID": "vp12",
+            "laufzeit": 1
     }
 },
     "ringWunsch": {
