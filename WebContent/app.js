@@ -2,7 +2,7 @@
 
 var app = angular
 		.module('app', [ 'app.filme', 'app.auth', 'ngRoute', 'app.version', 'app.dashboard',
-				'app.users',  'app.distributors', 'app.venue',    'app.programm', 'agGrid', 'ui.bootstrap',  'ffkTableModul',
+				'app.users',  'app.distributors', 'app.venue',    'app.programm', 'agGrid', 'ui.bootstrap',  'programmTabellenRenderer',
 				'ffkUtils']);
 
 app.config([ '$routeProvider', function($routeProvider) {

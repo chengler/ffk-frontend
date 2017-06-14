@@ -22,7 +22,7 @@
             var zeigeWunschFilme = false;
             $rootScope.zeigeWunschFilme = zeigeWunschFilme;
             $scope.wunschFilmTextBtn = "zeige Wunschfilme";
-            var maxCol = 0; // maximale Spaltenanzahl in Tabelle
+
             // setze env für Zeitumrechnungen
             moment.locale('de');
             // fehlende Serverlogik, dafür provisorische ID
@@ -49,14 +49,16 @@
                 console.log("setTabellenIndexAufDatum");
               var heute = new Date();
                 var thisKW = moment(FfkUtils.getKinoWocheFromDate(heute)).isoWeek();
-                console.log("Springe in der Tabelle zur KW "+thisKW); // ofset 5 // 8 pro Woche
+                console.log("Springe in der Tabelle zur KW "+ thisKW); // ofset 5 // 8 pro Woche
                 $rootScope.gridOptions.api.ensureIndexVisible( (5+thisKW)*8 );
             }
 
-                //
-                // Tabelle (field für auto Spaltenbreite)
-                // setze 1. Spalte
-                var columnDefs = [{
+
+
+            //
+            // Tabelle (field für auto Spaltenbreite)
+            // setze 1. Spalte
+            var columnDefs = [{
                     headerName: "Datum",
                     field: "datum",
                     pinned: 'left',
@@ -66,9 +68,12 @@
                         return RenderProgrammTableServices.datumsRenderer(params);
                     },
                     cellClass: function (params) {
-                        return params.data.bc;
+                        return "bc-00";
+                      //  return params.data.bc;
                     }
                 }];
+
+
             if ($rootScope.status.aggrid == false) {
                 // Tabelle, noch keine rowData
                 // funktion, da unterschiedliche linienhöhe
@@ -79,7 +84,9 @@
                     rowData: null,
                     enableColResize: true,
                     getRowHeight: function (params) {
-                        return 25 * params.data.lines;
+                      //  return 25 * params.data.lines;
+                        // [ 0, 1, 2, 3 ] =[background, spieltag  , datum, lines in row]
+                        return 25 * params.data[0][3];
                     },
                     // enableColResize : true,
                     angularCompileRows: true
@@ -146,9 +153,10 @@
                 console.log("initTabelle aufgerufen von " + wo);
             //    if ($rootScope.status.filmlaufGeladen & $rootScope.status.verleihBuchungenGeladen) {
                     var tstart = Date.now();
-                    maxCol = FfkUtils.getFilmlaufMaxCol(maxCol);
                     // definiere Spalten
-                    for (var i = 1; i <= maxCol; i++) {
+                console.log("definiere Spalten maxcol "+ $rootScope.filmlaufSpalten );
+
+                    for (var i = 1; i <= $rootScope.filmlaufSpalten;  i++) {
                         var header = {
                             headerName: "film" + i,
                             field: "film" + i,
@@ -162,14 +170,12 @@
                         };
                         console.log("HEADERS");
                         columnDefs.push(header);
-                        // setze Spalten
-                        // $rootScope.gridOptions.api.setColumnDefs(columnDefs);
                     }
 
                     // // baue neu
-                    // $rootScope.gridOptions.rowData = $rootScope.filmlauf;
-                    // $rootScope.gridOptions.columnDefs= columnDefs;
+                console.log("setRowData");
                     $rootScope.gridOptions.api.setRowData($rootScope.filmlauf);
+                console.log("setColumnDefs");
                     $rootScope.gridOptions.api.setColumnDefs(columnDefs);
                     // $rootScope.gridOptions.api.refreshView();
 
@@ -179,6 +185,7 @@
                     console.log("gezeichnet in " + zeit + " ms");
                     $rootScope.status.aggrid = true;
 
+                console.log("initTabelle done");
                     setTabellenIndexAufDatum();
 
                /* } else {
@@ -354,6 +361,9 @@
             var cellClassRenderer = function (params) {
                 // workaround - schneide index aus
                 // index aus
+                //gehört in tablerenderer
+                return "bc=10";
+             /*
                 var idx = params.colDef.headerName.substr(4);
                 // col existiert
                 if (typeof params.data["col" + idx] != 'undefined') {
@@ -361,9 +371,12 @@
                 } else {
                     return "";
                 }
+                */
+
             };
 
             // Service Buchungsrenderer
+            //noch nötig?
             var buchungsRenderer = function (params) {
                 return RenderProgrammTableServices.buchungsRenderer(params, zeigeWunschFilme);
             };

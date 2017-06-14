@@ -3,7 +3,7 @@ agGrid.initialiseAgGridWithAngular1(angular);
 
 (function() {
 
-	var programm = angular.module('app.programm', [  'agGrid', 'ui.bootstrap', 'modalFilmRow', 'modalFilmKW', 'ffkTableModul', 'modalBuchungsBearbeitung',	'ffkUtils' ]);
+	var programm = angular.module('app.programm', [  'agGrid', 'ui.bootstrap', 'modalFilmRow', 'modalFilmKW', 'programmTabellenRenderer', 'modalBuchungsBearbeitung',	'ffkUtils' ]);
 
 	
 	programm.config([ '$compileProvider', '$logProvider', function($compileProvider, $logProvider) {

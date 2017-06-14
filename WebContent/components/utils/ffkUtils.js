@@ -919,6 +919,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         };
 
+
+        // unnötig, da $rootScope.filmlaufSpalten
         this.getFilmlaufMaxCol = function (maxCol) {
             $log.info("getFilmlaufMaxCol");
 
@@ -1315,9 +1317,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 // wird nur einmalig gesetzt, da nach datum sortiert und nach "hinten" alles frei
                 // 1 eintrag im array => array[0] exists => length=1; spalten = 1
                 spalten = $rootScope.filmlauf[idx][buchungsart].length ;
-                // maximale Spaltenzahl
-                if ( $rootScope.filmlaufSpalten < spalten ){
-                    $rootScope.filmlaufSpalten = spalten;
+                // maximale Spaltenzahl +1 wegend datumsspalte
+                if ( $rootScope.filmlaufSpalten < spalten +1 ){
+                    $rootScope.filmlaufSpalten = spalten +1;
                 }
                 //einzelne verleihBuchungen oder Wünsche
                 // Filmwochen
@@ -1400,7 +1402,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                         $rootScope.filmlauf[idx][buchungsart].push([false]);
                     }
                     // speicher ring... im array der Spalte
-                    console.log(pos + " pos " + JSON.stringify( $rootScope.filmlauf[idx][buchungsart]))
+                    // console.log(pos + " pos " + JSON.stringify( $rootScope.filmlauf[idx][buchungsart]))
                     $rootScope.filmlauf[idx][buchungsart][pos].push(fBID);
                 }
             }
