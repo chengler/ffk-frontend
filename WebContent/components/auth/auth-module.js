@@ -129,9 +129,6 @@
             $rootScope.status.grundTabelleGeladen = true;
            // $rootScope.status.filmlaufGeladen = true;
             console.log("grundTabelleGeladen " + $rootScope.status.grundTabelleGeladen);
-
-            console.log(JSON.stringify( $rootScope.filmlauf));
-
         };
         // was erledigt werden kann während das Programm auf das login wartet.
         ladeGrundtabelle();
@@ -164,15 +161,15 @@ idx 211 = [ [ "bc-g2", 1-7, "2017-06-10", "bc-g2", 1], [["bc-11", fBID]    , ["b
                 console.log("************** Filmlauf wurde bereits geladen, also wird er nun auch nicht mehr berechnet");
             } else {
                 $rootScope.status.erstelleFilmlauf = true; // verhinder, das jetzt noch ein Filmlauf aus einem Datensatz geladen wird.
-
+                // array 1 buchung, 2 wünsche
                 console.log("verleihBuchungen");
                 FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihBuchungen, 1);
                 console.log("verleihWunsch");
                 FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihWunsch, 2);
                 console.log("ringBuchungen");
-                FfkUtils.setInFilmlaufRingAngelegenheiten($rootScope.ringBuchungen);
+                FfkUtils.setInFilmlaufRingAngelegenheiten($rootScope.ringBuchungen, 1);
                 console.log("ringWünsche");
-                FfkUtils.setInFilmlaufRingAngelegenheiten($rootScope.ringWunsch, true);
+                FfkUtils.setInFilmlaufRingAngelegenheiten($rootScope.ringWunsch, 2);
 
 
 
@@ -196,7 +193,7 @@ idx 211 = [ [ "bc-g2", 1-7, "2017-06-10", "bc-g2", 1], [["bc-11", fBID]    , ["b
                     && $rootScope.status.ringBuchungenGeladen )
 		    {
              allesGeladen(); // clear watcher
-                console.log("******************** starte mit erstelleFilmlauf");
+                console.log("********** starte mit erstelleFilmlauf");
                 erstelleFilmlauf();
 		 }
 		 }, true);
