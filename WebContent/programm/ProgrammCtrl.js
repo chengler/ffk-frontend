@@ -110,25 +110,6 @@
             }
 
 
-            // lade Buchungen vBID Auflösungen in scope -
-            // asyncron mit watcher
-            /*if ($rootScope.status.verleihBuchungenGeladen == false) {
-                var verleihBuchungenGeladen = $scope.$watch(function () {
-                    return $rootScope.status.verleihBuchungenGeladen;
-                }, function () {
-                    if ($rootScope.status.verleihBuchungenGeladen) {
-                        verleihBuchungenGeladen();
-                        initFilmlauf("verleihBuchungenGeladen");
-                    }
-                }, true);
-                FfkUtils.loadBuchungen();
-            }*/
-
-            // lade Filme fID -
-            // asyncron
-        //   console.log(" FfkUtils.loadFilme")
-          // FfkUtils.loadFilme();
-
             // Init TAbelle
             // wenn spielorteGeladen und
             // $rootScope.status.$rootScope.status.filmlaufGeladen
@@ -144,10 +125,11 @@
                             headerName: "film" + i,
                             field: "film" + i,
                             cellRenderer: function (params) {
-                                return buchungsRenderer(params);
+                                //return buchungsRenderer(params);
+                                return RenderProgrammTableServices.buchungsRenderer(params, zeigeWunschFilme);
                             },
                             cellClass: function (params) {
-                                return cellClassRenderer(params);
+                                return RenderProgrammTableServices.cellClassRenderer(params);
                             },
                             minWidth: 50,
                         };
@@ -189,10 +171,11 @@
                     headerName: "film" + colnr,
                     field: "film" + colnr,
                     cellRenderer: function (params) {
-                        return buchungsRenderer(params);
-                    },
+                        //return buchungsRenderer(params);
+                        return RenderProgrammTableServices.buchungsRenderer(params, zeigeWunschFilme);
+                     },
                     cellClass: function (params) {
-                        return cellClassRenderer(params);
+                        return RenderProgrammTableServices.cellClassRenderer(params);
                     },
                     minWidth: 50,
                 };
@@ -301,29 +284,7 @@
 
             };
 
-
-            var cellClassRenderer = function (params) {
-                // workaround - schneide index aus
-                // index aus
-                //gehört in tablerenderer
-                return "bc=10";
-             /*
-                var idx = params.colDef.headerName.substr(4);
-                // col existiert
-                if (typeof params.data["col" + idx] != 'undefined') {
-                    return params.data["col" + idx].bc;
-                } else {
-                    return "";
-                }
-                */
-
-            };
-
-            // Service Buchungsrenderer
-            //noch nötig?
-            var buchungsRenderer = function (params) {
-                return RenderProgrammTableServices.buchungsRenderer(params, zeigeWunschFilme);
-            };
+  
 
             // wenn bereits einmal initialisiert
             // setze neue Headers
@@ -335,29 +296,7 @@
                 setTabellenIndexAufDatum();
 
 
-         /*       maxCol = FfkUtils.getFilmlaufMaxCol(maxCol);
 
-                // definiere Spalten
-                for (var i = 1; i <= maxCol; i++) {
-                    var header = {
-                        headerName: "film" + i,
-                        field: "film" + i,
-                        cellRenderer: function (params) {
-                            return buchungsRenderer(params);
-                        },
-                        cellClass: function (params) {
-                            return cellClassRenderer(params);
-                        },
-                        minWidth: 50,
-                    };
-                    console.log("HEADERS");
-                    columnDefs.push(header);
-                    // setze Spalten
-
-                }
-                $rootScope.gridOptions.columnDefs = columnDefs;
-//					$rootScope.gridOptions.api.sizeColumnsToFit();
-*/
             }
 
 
