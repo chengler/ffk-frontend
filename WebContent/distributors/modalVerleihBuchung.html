@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+	<div class="modal-header">
+		<h3 class="modal-title">{{header}}</h3>
+	</div>
+	<div class="modal-body">
+
+		<div class="well ">
+
+
+
+
+			<form class="form-horizontal">
+				<div class="row" ng-if="isNew">
+					<div class="col-md-5">
+						<label for="Filmtitel" class="control-label">Filmtitel</label>
+						<p class=" ">
+							<input type="text" class="form-control" id="Filmtitel"
+								placeholder="der Titel des Films" ng-value='filmtitel'>
+						</p>
+					</div>
+				</div>
+
+				<div class="row" ng-if="isOld">
+					<h4 ng-class="bcColor" class="col-md-12" ng-bind="filmtitel"></h4>
+
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-9">
+						<div class=" col-md-5 ">
+							<div class="input-group col-md-push-4">
+								<div>
+									<strong>Start</strong>
+								</div>
+								<input type="text" class=" col-md-6 btn notallowed" readonly="true"
+									uib-datepicker-popup="{{format}}" ng-model="dtStart"
+									is-open="popupStartDatum.opened" datepicker-options="dateOptionsStart"
+									ng-required="true" current-text="heute" close-text="schließen" clear-text="" />
+
+								<button type="button" class="btn btn-default" ng-click="openStartDatum()">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</button>
+							</div>
+						</div>
+
+						<div class="col-md-3" ng-if="colType != 'w'">
+							<label for="Laufzeit" class="control-label">Spielwochen</label>
+							<div>
+								<span style="color: red" class="glyphicon glyphicon-minus-sign pointer"
+									ng-click="neueLaufzeit(-1)"> </span> <span ng-bind="laufzeit"></span> <span>Woche(n)</span>
+								<span style="color: green" class="glyphicon glyphicon-plus-sign pointer"
+									ng-click="neueLaufzeit(1)"> </span>
+							</div>
+						</div>
+
+						<div class=" col-md-4 " ng-if="colType != 'w'">
+							<div class="input-group ">
+								<div>
+									<strong>Ende</strong>
+								</div>
+								<input type="text" class=" col-md-6 btn notallowed" readonly="true"
+									uib-datepicker-popup="{{format}}" ng-model="dtEnd" is-open="popupEndDatum.opened"
+									datepicker-options="dateOptionsEnd" ng-required="true" current-text="heute"
+									close-text="schließen" clear-text="" />
+								<button type="button" class="btn btn-default" ng-click="openEndDatum()">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</button>
+							</div>
+						</div>
+
+
+						<div class="col-md-12">-</div>
+						<div class="col-md-5">
+							<label for="Medien" class="control-label">Medienverfügbarkeit</label>
+
+							<!-- 														<div class="input-group" ng-repeat="med in medium"> -->
+							<!-- 															<button type="button" ng-class="med.btn" class="btn col-md-4" -->
+							<!-- 																ng-click="toggleMedium(med.typ)" ng-bind="::med.typ"></button> -->
+							<!-- 															<input type="text" class="col-md-5 btn notallowed" readonly="true" -->
+							<!-- 																uib-datepicker-popup="{{format}}" ng-model="med.dt" is-open="med.popup.opened" -->
+							<!-- 																datepicker-options="dateOptionsMedien" current-text="Filmstart" -->
+							<!-- 																close-text="schließen" clear-text="" /> -->
+							<!-- 															<button type="button" class="col-md-2 btn btn-default " -->
+							<!-- 																ng-click="openMediumDatum(med.typ)"> -->
+							<!-- 																<i class="glyphicon glyphicon-calendar"></i> -->
+							<!-- 															</button> -->
+							<!-- 														</div> -->
+
+							<div class="input-group" ng-repeat="typ in medienTypen">
+								<button type="button" ng-class="medium[typ].btn" class="btn col-md-4"
+									ng-click="toggleMedium(typ)" ng-bind="::typ"></button>
+								<input type="text" class="col-md-5 btn notallowed" readonly="true"
+									uib-datepicker-popup="{{format}}" ng-model="medium[typ].dt"
+									is-open="medium[typ].popup.opened" datepicker-options="dateOptionsMedien"
+									current-text="Filmstart" close-text="schließen" clear-text="" />
+								<button type="button" class="col-md-2 btn btn-default "
+									ng-click="openMediumDatum(typ)">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</button>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<label for="Anzahl" class="control-label">Anzahl</label>
+							<div class="input-group" ng-repeat="typ in medienTypen">
+								<input type="number" class="form-control " style="width: 60px;"
+									ng-model="menge[typ]">
+							</div>
+						</div>
+						<div class="col-md-5">
+							<label for="Verleih" class="control-label">Verleih</label>
+							<h4 ng-bind="verleih.kurz"></h4>
+							<div ng-bind="verleih.name"></div>
+							<a ng-href="{{verleih.url}}" ng-bind="verleih.url" target="_blank"></a>
+							<div></div>
+						</div>
+
+					</div>
+					<div class="col-md-3">
+						<label for="Farbe" class="control-label">Farbwahl</label>
+						<div ng-repeat="(farbe, filmtyp) in farbModel">
+							<button ng-class="farbe" style="width: 90%;" ng-bind="filmtyp"
+								ng-click="neueFarbe(farbe)"></button>
+						</div>
+					</div>
+				</div>
+				<!-- ROW eND -->
+
+				<div class="row"></div>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<button class="btn btn-success" type="button" ng-click="ok('speichern')">speicher
+			Änderungen</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">einfach nur
+			abbrechen</button>
+		<button class="btn btn-danger" type="button" ng-click="delete()">lösche
+			Filmlauf</button>
+	</div>
+</body>
+
+
+
+
+</html>

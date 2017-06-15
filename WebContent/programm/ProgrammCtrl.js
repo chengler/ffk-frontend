@@ -11,12 +11,13 @@
         '$log',
         '$uibModal',
         'ModalFilmRowService',
-        'ModalFilmKWService',
+       // 'ModalFilmKWService',
+        'ModalVerleihBuchungsService',
         'RenderProgrammTableServices',
         'FfkUtils',
         'ModalBuchungsBearbeitungService',
         '$q',
-        function ($rootScope, $scope, $http, $log, $uibModal, ModalFilmRowService, ModalFilmKWService,
+        function ($rootScope, $scope, $http, $log, $uibModal, ModalFilmRowService, ModalVerleihBuchungsService,
                   RenderProgrammTableServices, FfkUtils, ModalBuchungsBearbeitungService, $q) {
             $log.info("init programmCtrl");
             var zeigeWunschFilme = false;
@@ -34,7 +35,7 @@
               var heute = new Date();
                 var thisKW = moment(FfkUtils.getKinoWocheFromDate(heute)).isoWeek();
                 console.log("Springe in der Tabelle zur KW "+ thisKW); // ofset 5 // 8 pro Woche
-                $rootScope.gridOptions.api.ensureIndexVisible( (3 + thisKW)*8 ); //5+
+                $rootScope.gridOptions.api.ensureIndexVisible( (5 + thisKW)*8 ); //5+
             }
 
             // Tabelle (field für auto Spaltenbreite)
@@ -266,6 +267,17 @@
             // http://angular-ui.github.io/bootstrap/#/modal
             //
             // Filmlaufmodal
+
+            // die neuen
+
+            // früher openModalKW
+            // Zum Bearbeiten der Verleihbuchung im Ordner distributores
+            $scope.openModalVerleihBuchung = function (vBID) {
+                ModalVerleihBuchungsService.editBuchung(vBID);
+
+            };
+
+            // dei alten
             $scope.openModalKW = function (rowIdx, colIdx, colType) {
                 ModalFilmKWService.editKW($scope, rowIdx, colIdx, colType);
                
