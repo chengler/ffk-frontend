@@ -67,8 +67,14 @@ angular
 
             }; // end render Datum
             /*
-             buchungsRenderer
+             buchungsRenderer(params, zeigeWunschFilme)
              Enthählt folgende Funktionen, welche die FilmSpalten der Programmtabelle  rendern.
+             params beinhaltet die Informationen des aktuellen aufrufes, wobei
+             params.data der jeweiligen Reihe aus dem Array (params.rowIndex)  der $rootScope.filmlauf Variablen .
+             zeigeWunschFilme true/false
+             var filmlaufBuchung = params.data[arryCol][1];
+             var filmlaufWunsch    enthalten immer den aktuellenEintrag aus dem filmlauf
+
              START RENDER, nach den Funktionen nutzt diese und gibt die formatierte Zelle zurück
 
              wochenBuchung
@@ -177,10 +183,12 @@ angular
                     return  link + filmLink + " ( " + medien + ")" + wochenBesucher;
                 }
 
-                // Infos zur Verleihbuchung in der KW Zeile
-                // kurze Wunschfilm Anzeige
-                // filmlaufWunsch =  [["bc-10", "vp2", 1]
-                function wochenBuchungKurz() {
+
+                /*
+                verleihBuchungKurz() Infos zur Verleihbuchung in der KW Zeile: kurze Wunschfilm Anzeige
+                 filmlaufWunsch =  [["bc-10", "vp2", 1]
+                */
+                function verleihBuchungKurz() {
                     console.log("wochenBuchungKurz verleihBuchungKurz() ");
                     // nur wenn vorhanden
                     if (filmlaufWunsch.length = 0) {
@@ -194,9 +202,9 @@ angular
 
                 /*
                  verleihWunschStandard() Infos zur Verleihbuchung in der KW Zeile:kurze Wunschfilm Anzeige
-                filmlaufWunsch :  [background, vBID, filmwoche]
+                 filmlaufWunsch :  [background, vBID, filmwoche]
                 */
-                function wochenBuchungWunsch() {
+                function verleihWunschStandard() {
                     console.log("wochenBuchungWunsch verleihWunschStandard ");
                     var result;
                     if (filmlaufWunsch.length = 0) {
@@ -220,8 +228,9 @@ angular
                  tagesBuchungLang
                  ringBuchungLang() Infos zur Ringbuchung in der Datumszeile: lange Film Anzeige
                  Die übliche Anzeige in der Programmtabelle
-                */
-                function tagesBuchungLang() {
+                 filmlaufBuchung:   [background, [fBID,fBID]]
+                 */
+                function ringBuchungLang() {
                     console.log("tagesBuchungLang ringBuchungLang ");
 
                     var myReturn = ""; // alle EinzelverleihBuchungen
@@ -311,13 +320,11 @@ angular
 
 
                 /*
-                 tagesBuchungenKurz
                  ringBuchungKurz() Infos zur Ringbuchung in der Datumszeile: kurze Wunschfilm Anzeige
                  filmlaufBuchung:   [background, [fBID,fBID]]
                  */
-                function tagesBuchungenKurz() {
+                function ringBuchungKurz() {
                     console.log("tagesBuchungenKurz ringBuchungKurz ");
-
                     var myReturn = ""; // alle EinzelverleihBuchungen
                     var ringBuchung;
                     var fBID;
@@ -343,7 +350,7 @@ angular
                  ringBuchungVerleih() Infos zur Ringbuchung in der Datumszeile: Verleih Anzeige
                  filmlaufBuchung:   [background, [fBID,fBID]]
                  */
-                function tagesBuchungVerleih() {
+                function ringBuchungVerleih() {
                     console.log("tagesBuchungenKurz ringBuchungVerleih ");
 
                     var myReturn = ""; // alle EinzelverleihBuchungen
@@ -378,11 +385,10 @@ angular
                     return myReturn;
                 }
                 /*
-                 wunschFilme
                  ringWunschStandard() Infos zu Ringwünschen in der Datumszeile: Standard Anzeige
                  filmlaufBuchung:   [background, [fBID,fBID]]
                  */
-                function wunschFilme() {
+                function ringWunschStandard() {
                     console.log("wunschFilme ringWunschStandard ");
 
                     var result = ""; // return "" wenn kein
@@ -405,16 +411,20 @@ angular
 /*
                 wochenBuchung
                 verleihBuchungLang() Infos zur Verleihbuchung in der KW Zeile: Lange Standard Anzeige
+                // filmlaufBuchung =  ["bc-10", "vp2", 1]
 
                 wochenBuchungKurz
                 verleihBuchungKurz() Infos zur Verleihbuchung in der KW Zeile: kurze Wunschfilm Anzeige
+                filmlaufWunsch =  ["bc-10", "vp2", 1]
 
-                wochenBuchungWunsch
+           wochenBuchungWunsch
                 verleihWunschStandard() Infos zur Verleihbuchung in der KW Zeile:kurze Wunschfilm Anzeige
+                filmlaufWunsch :  [background, vBID, filmwoche]
 
                 tagesBuchungLang
                 ringBuchungLang() Infos zur Ringbuchung in der Datumszeile: lange Film Anzeige
                 Die übliche Anzeige in der Programmtabelle
+                filmlaufBuchung:   [background, [fBID,fBID]]
 
                 tagesBuchungenKurz
                 ringBuchungKurz() Infos zur Ringbuchung in der Datumszeile: kurze Wunschfilm Anzeige
@@ -424,7 +434,7 @@ angular
                 ringBuchungVerleih() Infos zur Ringbuchung in der Datumszeile: Verleih Anzeige
                 filmlaufBuchung:   [background, [fBID,fBID]]
 
-                wunschFilme
+             wunschFilme
                 ringWunschStandard() Infos zu Ringwünschen in der Datumszeile: Standard Anzeige
                 filmlaufBuchung:   [background, [fBID,fBID]]
 
@@ -432,7 +442,16 @@ angular
 
                 /*
                  START RENDER
+                 filmlaufBuchung:   [background, [fBID,fBID]]
                  */
+
+                if(zeigeWunschFilme) {
+
+
+
+                } else {
+
+                }
                 // gibt es einen Eintrag für diese Spalte in Reihe
                 if (typeof buchung != 'undefined') {
                     //
