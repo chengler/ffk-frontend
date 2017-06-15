@@ -1,3 +1,16 @@
+/*
+Das Modul dient dem Rendern der ag-grid Tabelle auf Grundlage der $rootScope.filmlauf Variablen.
+Aufgerufen werden die 2 funktionen vom programmCtrl.js
+ this.datumsRenderer = function datumsRenderer(params) {
+ this.buchungsRenderer = function buchungsRenderer(params, zeigeWunschFilme) {
+
+params beinhaltet die Informationen des aktuellen aufrufes, wobei
+params.data der jeweiligen Reihe aus dem Array (params.rowIndex) aus der $rootScope.filmlauf Variablen entspricht.
+
+der Header muss "Film"+int lauten, da über params.colDef.headerName.substr(4); die jeweilige Filmspalte abgefragt wird.
+
+
+ */
 angular
     .module('programmTabellenRenderer', [ 'ui.bootstrap', 'ffkUtils' ])
     .constant('MODULE_VERSION', '0.0.1')
@@ -62,7 +75,7 @@ angular
                 //   [0] =  [ 0, 1, 2, 3 ] =[background, spieltag  , datum, lines in row]
                 var datum = params.data[0][2];
                 var colIdx = params.colDef.headerName.substr(4);
-                var arryCol = colIdx-1; um auf das array der Spalte zuzugreifen
+                var arryCol = colIdx-1; // um auf das richtige array [2] oder [3] der Spalte zuzugreifen
                 var rowIdx = params.rowIndex;
                 // ehemals nur Buchung
                 //  [1]    [ [0] .. ]   =  [background, vBID, filmwoche]  =   [ bc-10, vInt, int ]
@@ -180,7 +193,7 @@ angular
                     var verleihBuchung;
                     for (var i = 0; i < filmlaufBuchung[1].length; i++) {
                         fBID = filmlaufBuchung[1][i];
-                        ringBuchung = $rootScope.ringBuchungen[fBID]M
+                        ringBuchung = $rootScope.ringBuchungen[fBID];
                         console.log("aktuelle ringBuchung: "+ JSON.stringify(ringBuchung));
                         var filmOrt = $rootScope.spielorte[ringBuchung.sid]["ort"]; // sid
                         verleihBuchung = $rootScope.verleihBuchungen[ringBuchung.vBID];
@@ -203,8 +216,7 @@ angular
                         var medium;
                         var von = " ";
                         var nach = "";
-                        // wenn Medium vorhanden,
-                        // auch filmVon vorhanden
+                        // wenn Medium vorhandenauch filmVon vorhanden?
                         if (ringBuchung.medienID) {
                             medium = "<span  class = ' ok' >" + ringBuchung.medium
                                 + ringBuchung.medienID + " </span>";
@@ -214,28 +226,28 @@ angular
                             if (ringBuchung.nachID) {
                                 var filmNach = $rootScope.spielorte[ringBuchung.nachID]["ort"];
                                 nach = "<span class='ok '>↝" + filmNach + " </span>";
-                                // sonst draggable NACH (von
-                                // wo
-                                // wird
-                                // gezogen)
+                                // sonst draggable NACH (von wo wirdgezogen
                             } else {
                                 medium = ringBuchung.medium + ringBuchung.medienID + " ";
-                                nach = "<span title='Film weiterleiten: ziehe den Filme auf ein rotes Filmsymbol' class='grabbing draggable glyphicon glyphicon-film' id='"
+                                nach = "<span title='Film weiterleiten: ziehe den Filme auf ein rotes Filmsymbol' " +
+                                    "class='grabbing draggable glyphicon glyphicon-film' id='"
                                     + verleihBuchung + sourceIndex + "'  draggable>↴ </span>";
                             }
                                                       // kein Medium vorhanden:
                             // droppable aufs Medium
                         } else {
                             medium = ringBuchung.medium
-                                + " <span title='Filmmedium benötigt!  Auf dieses Feld kann ein passendes gelbes Filmsymbol gezogen werden' class='notOK glyphicon glyphicon-film' id='"
-                                + verleihBuchung + sourceIndex + "' droppable drop='handleDrop'> ← ↵ </span>";
+                                + " <span title='Filmmedium benötigt!  Auf dieses Feld kann ein passendes gelbes " +
+                                "Filmsymbol gezogen werden' class='notOK glyphicon glyphicon-film' id='"+
+                                verleihBuchung + sourceIndex + "' droppable drop='handleDrop'> ← ↵ </span>";
                         }
                         if ( $rootScope.logedInUser.sid == ringBuchung.ortID || $rootScope.logedInUser.role == "admin" ){
                             myReturn = myReturn + "<span class=' pointer' ng-click='openModalBuchung(" + rowIdx + ","
                                 + colIdx + ","+ fmax + ")' >" + "<small>" + filmBID + "</small> " + filmOrt + "</span>"
                                 + check[1] + check[2] + von + medium + nach ;
                         } else {
-                            myReturn = myReturn + "<small>" + filmBID + "</small> " + filmOrt + check[1] + check[2] + von + medium + nach ;
+                            myReturn = myReturn + "<small>" + filmBID + "</small> " + filmOrt + check[1] + check[2] +
+                                von + medium + nach ;
                         }
                         if (ringBuchung.garantie) { // übernimmt mindestgarantie
                             myReturn += "<span class='glyphicon glyphicon-star'></span>";
@@ -273,7 +285,7 @@ angular
                     var filmnr = 'f' + fmax;
                     var aktuelleBuchung;
                     // loop durch alle Filme
-                    for ( i = 0; i < filmlaufBuchung1].length; i++) {
+                    for ( i = 0; i < filmlaufBuchung[1].length; i++) {
                         fBID = filmlaufBuchung[1][i];
                         ringBuchung = $rootScope.ringBuchungen[fBID];
                         //console.log("ringBuchung "+JSON.stringify(aktuelleBuchung));
@@ -293,10 +305,10 @@ angular
                     var filmOrt;
                     // ein film mit "f1" "f2" ...
                     for ( i = 0; i < filmlaufBuchung[1].length; i++) {
-                        fBID = filmlaufBuchung1][i];
+                        fBID = filmlaufBuchung[1][i];
                         ringBuchung = $rootScope.ringBuchungen[fBID];
                         filmOrt = $rootScope.spielorte[ringBuchung.sid]["ort"]; // sid
-                        myReturn = myReturn + filmOrt
+                        myReturn = myReturn + filmOrt;
                         // Ort gesetzt und nun zu den Zahlen
                         // ZAhlen
                         if ( "besucher" in ringBuchung ) {
@@ -329,11 +341,11 @@ angular
                     // Anzahl Wunschfilme für tag und
                     for ( i = 0; i < filmlaufBuchung[1].length; i++) {
                         bc = filmlaufBuchung.bc;
-                        fBID = filmlaufBuchung[1][i]
+                        fBID = filmlaufBuchung[1][i];
                         ringWunsch = $rootScope.ringWunsch[fBID];
                             result = result + "<span class='label " + bc + "' style =  'color: black;'>"
                                 + $rootScope.spielorte[ringWunsch.sid].ort + "</span> ";
-                                              // wrapper für Wunschfilme
+                       // wrapper für Wunschfilme
                         result = "<span style = ' opacity:1; z-index: 2; float: right;'>" + result + "</span>";
                     }
                     return result;
