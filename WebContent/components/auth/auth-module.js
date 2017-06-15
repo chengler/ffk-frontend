@@ -112,18 +112,20 @@
             // dies ist der Zeit Grundwert für idx0(KW) und idx1(Tag)
             $rootScope.ersterDo = moment(ersterDo).hours(12).minutes(0).seconds(0).millisecond(0);
             // erstelle 60 Wochen a 8 einträge
+            var datum = ersterDo;
             for (var w = 0; w < 60; w++) {
-                var datum = moment(ersterDo).format('YYYY');
-                datum = datum + '-W'+ moment(ersterDo).format('ww');
+                var kw = moment(datum).format('YYYY');
+                kw = kw + '-W'+ moment(datum).format('ww');
                 // [background, kw  , datum, lines in row]
-                $rootScope.filmlauf.push([ [ "bc-g0", true, datum,  1], [] , []  ]);
-                var tag = ersterDo;
+                $rootScope.filmlauf.push([ [ "bc-g0", false, kw,  1], [] , []  ]);
+                var tag;
                 for (var t = 1; t < 8; t++) {
                   //  [background, kw  , datum, lines in row]
                   // [ "bc-g2", false,  "2016-12-18", 1
-                    $rootScope.filmlauf.push([[ "bc-g2", t,  moment(tag).format('YYYY-MM-DD'), 1], [], []  ] );
-                    tag = moment(tag).add(1, 'day');
+                    $rootScope.filmlauf.push([[ "bc-g2", t,  moment(datum).format('YYYY-MM-DD'), 1], [], []  ] );
+                    datum = moment(datum).add(1, 'day');
                 }
+                datum = moment(datum).add(1, 'day');
             }
 
             $rootScope.status.grundTabelleGeladen = true;
@@ -149,9 +151,9 @@ idx 211 = [ [ "bc-g2", 1-7, "2017-06-10", "bc-g2", 1], [["bc-11", fBID]    , ["b
                 [0] =  [ 0, 1, 2, 3 ] =[background, spieltag  , datum, lines in row] = [ int,  true|false , JJJJ-Www | JJJJ-MM-TT , int ]
                 [1]    [ [0] .. ]   =  [background, vBID, filmwoche]  =   [ bc-10, vInt, int ]    ; kw true  =>   verleihBuchungen
                 [2]    [ [0] .. ]   =  [background, vBID, filmwoche]  =   [ bc-20, vInt, int ]    ; kw true  =>   verleihWunsch
-                [1]    [ [0] .. ]   =  [background, [fBID,fBID]] =   [ bc-11, [fBID,fBID..]]      ; kw false =>  ringBuchungen
+                [1]    [ [0] .. ]   =  [background, [fBID,fBID]] .. =   [ bc-11, [fBID,fBID..]]      ; kw false =>  ringBuchungen
 
-                [2]    [ [0] .. ]   =  [background, [fBID,fBID]] =   [ bc-20, [fBID,fBID..]]      ; kw false =>  ringWunsch
+                [2]    [ [0] .. ]   =  [background, [fBID,fBID]] .. =   [ bc-20, [fBID,fBID..]]      ; kw false =>  ringWunsch
 
        */
 

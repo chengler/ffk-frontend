@@ -23,22 +23,6 @@
             $rootScope.zeigeWunschFilme = zeigeWunschFilme;
             $scope.wunschFilmTextBtn = "zeige Wunschfilme";
 
-            // setze env für Zeitumrechnungen
-            moment.locale('de');
-            // fehlende Serverlogik, dafür provisorische ID
-
-            $scope.server;
-
-            // jetzt in FfkUtils TODO replace
-           /* var provID = 0;
-            $scope.getNewProvID = function () {
-                provID = provID + 1;
-                return "p" + provID;
-            };*/
-
-            // testvariablen zur ausgabe im view
-            $scope.rd3 = "rd3";
-            $scope.rd4 = "rd4";
 
             // zeichne jedesmal neu
             // if ($rootScope.status.aggrid) sollte damit obsolet sein!
@@ -53,11 +37,10 @@
                 $rootScope.gridOptions.api.ensureIndexVisible( (5+thisKW)*8 );
             }
 
-
-
-            //
             // Tabelle (field für auto Spaltenbreite)
             // setze 1. Spalte
+            // params .data
+            // [0] =  [ 0, 1, 2, 3 ] =[background, spieltag  , datum, lines in row]
             var columnDefs = [{
                     headerName: "Datum",
                     field: "datum",
@@ -68,7 +51,7 @@
                         return RenderProgrammTableServices.datumsRenderer(params);
                     },
                     cellClass: function (params) {
-                        return "bc-00";
+                        return params.data[0][0];
                       //  return params.data.bc;
                     }
                 }];
@@ -195,46 +178,7 @@
                 }*/
             }
 
-            // END Lade TAbelle
 
-           /* if ($rootScope.status.grundTabelleGeladen == false) {
-                $log.info("erstelle  grundTabelle");
-                // erstelle row data
-                // 60 Wochen KW-1 minus 4, KW 52 plus 4
-                // buggy iso30 !important
-                var ersterDo = moment().isoWeek(30).isoWeekYear(new Date().getFullYear()).isoWeek(1).isoWeekday(4)
-                    .hour(12);
-                // 4 Wochen zurück
-                ersterDo = moment(ersterDo).subtract(4, 'weeks');
-                console.log("ersterDo " + ersterDo._d);
-                // erstelle 60 Wochen a 8 einträge
-
-                for (var w = 0; w < 60; w++) {
-                    var datum = moment(ersterDo).format('YYYY');
-                    datum = datum + 'W';
-                    datum = datum + moment(ersterDo).format('ww');
-                    $rootScope.filmlauf.push({
-                        "datum": datum,
-                        "bc": "bc-g0",
-                        "lines": 1,
-                        "col": 0
-                    });
-                    for (var t = 0; t < 7; t++) {
-                        $rootScope.filmlauf.push({
-                            "datum": moment(ersterDo).format('YYYYMMDD'),
-                            "bc": "bc-g2",
-                            "lines": 1,
-                            "col": 0
-                        });
-                        ersterDo = moment(ersterDo).add(1, 'day');
-                    }
-
-                }
-                $rootScope.status.grundTabelleGeladen = true;
-                console.log("grundTabelleGeladen " + $rootScope.status.grundTabelleGeladen);
-                initFilmlauf("grundTabelle");
-
-            }*/
 
 
             // SCOPE Methoden
