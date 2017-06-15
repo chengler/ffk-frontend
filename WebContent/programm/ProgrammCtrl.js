@@ -34,7 +34,7 @@
               var heute = new Date();
                 var thisKW = moment(FfkUtils.getKinoWocheFromDate(heute)).isoWeek();
                 console.log("Springe in der Tabelle zur KW "+ thisKW); // ofset 5 // 8 pro Woche
-                $rootScope.gridOptions.api.ensureIndexVisible( (5+thisKW)*8 );
+                $rootScope.gridOptions.api.ensureIndexVisible( (3 + thisKW)*8 ); //5+
             }
 
             // Tabelle (field für auto Spaltenbreite)

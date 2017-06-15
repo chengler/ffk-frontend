@@ -125,7 +125,6 @@
                     $rootScope.filmlauf.push([[ "bc-g2", t,  moment(datum).format('YYYY-MM-DD'), 1], [], []  ] );
                     datum = moment(datum).add(1, 'day');
                 }
-                datum = moment(datum).add(1, 'day');
             }
 
             $rootScope.status.grundTabelleGeladen = true;
@@ -145,8 +144,8 @@ struktur= [                  [0],                                    [1],       
                            Spalte 1                              Buchungen                           Wünsche
 idx 0 =   [ [ "bc-g0", false,  "2016-W49",  1          ], [           false                    ], [      false           ] ],  minimum Verleih
 idx 1 =   [ [ "bc-g2", 1-7,  "2016-12-18", 1        ], [           false                    ], [      false           ] ],  minimum Ring
-idx 208 = [ [ "bc-g0", false,  "2017-W23", "bc-g0", 1  ], [["bc-10", "vp2", 1], ["bc-20"..        ], [[ "bc-10","vp12" ],[bc-20 ..   ] ], standard Verleih
-idx 211 = [ [ "bc-g2", 1-7, "2017-06-10", "bc-g2", 1], [["bc-11", fBID]    , ["bc-22",fBID] .. ], [[ ["bc-11", fBID],["bc-22",fBID] .. ], standard Ring
+idx 208 = [ [ "bc-g0", false,  "2017-W23", "bc-g0", 1  ], [ ["bc-10", "vp2", 1], ["bc-20"..        ], [[ "bc-10","vp12" ],[bc-20 ..   ] ], standard Verleih
+idx 211 = [ [ "bc-g2", 1-7, "2017-06-10", "bc-g2", 1], [ ["bc-11", [fBID, ..]] , ["bc-22", [fBID] ], [[ ["bc-11", fBID],["bc-22",fBID] .. ], standard Ring
 
                 [0] =  [ 0, 1, 2, 3 ] =[background, spieltag  , datum, lines in row] = [ int,  true|false , JJJJ-Www | JJJJ-MM-TT , int ]
                 [1]    [ [0] .. ]   =  [background, vBID, filmwoche]  =   [ bc-10, vInt, int ]    ; kw true  =>   verleihBuchungen

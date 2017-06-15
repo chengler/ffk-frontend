@@ -1329,7 +1329,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     // [ [0] .. ]
                     for (var i = spaltenHier; i < spalten; i++){
                            // fülle mit  [false], falls noch kein array vorhanden
-                        $rootScope.filmlauf[idx][buchungsart].push([false]);
+                        $rootScope.filmlauf[idx][buchungsart].push(false);
                     }
                     // TODO fw stringfy immer noch nötig? setze var fw eins höher
                     // erstelle wocheneintrag
@@ -1356,7 +1356,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                         }
                         //[background, [fBID,fBID]]
                         //["bc-11"]
-                        $rootScope.filmlauf[idx+tage][buchungsart].push([basis+endung]);
+                        $rootScope.filmlauf[idx+tage][buchungsart].push([basis+endung,[]]);
                    }
                     // mehr als eine Filmwoche
                     idx += 8; // erhöhe idx um 8
@@ -1365,7 +1365,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         };
 
         // DOKO
-        // wenn wunsch true , dann ringWunsch und nicht ringBuchung!
+        // buchungen = $rootScope.ringBuchungen | $rootScope.ringWunsch
+        // buchungsart <=  1 = ringBuchung; 2= ringWunsch !
         this.setInFilmlaufRingAngelegenheiten = function( buchungen , buchungsart) {
             console.log("setInFilmlaufRingAngelegenheiten auf array " + buchungsart + " (1=Buchungen/2=Wünsche");
             //console.log("*********** " +JSON.stringify(buchungen))
@@ -1387,23 +1388,24 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     // um die buchungen zu finden idx - spieltag
                     kwidx = idx - $rootScope.filmlauf[idx][0][1];
                     vBID = buchung.vBID;
-                    // [["bc-10", "vp2", 1], ["bc-20"..
+                    // [background, [fBID,fBID]]
                     for ( var j = 0; j < $rootScope.filmlauf[kwidx][buchungsart].length; j ++){
                         if ( vBID == $rootScope.filmlauf[kwidx][buchungsart][j][1] ){
                             pos = j;
                             break;
                         }
                     }
-                    //   [["bc-11", fBID]    , ["bc-22",fBID] .. ]
+                    //   [ ["bc-11", [fBID]]    , [ "bc-22", [fBID]] .. ]
                     spaltenHier = $rootScope.filmlauf[idx][buchungsart].length;
                     // fehlende Spalten ([false] arrays) vor dem eintrag
                     for (var i = spaltenHier; i <= pos  ; i++) {
                         // fülle mit  [false], falls noch kein array vorhanden
-                        $rootScope.filmlauf[idx][buchungsart].push([false]);
+                        $rootScope.filmlauf[idx][buchungsart].push(false);
                     }
                     // speicher ring... im array der Spalte
                     // console.log(pos + " pos " + JSON.stringify( $rootScope.filmlauf[idx][buchungsart]))
-                    $rootScope.filmlauf[idx][buchungsart][pos].push(fBID);
+                    // pos[0: bc-11, 1:[fBID,fBID..]]
+                    $rootScope.filmlauf[idx][buchungsart][pos][1].push(fBID);
                 }
             }
         }
