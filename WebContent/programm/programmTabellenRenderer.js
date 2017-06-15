@@ -1,6 +1,7 @@
 /*
 Das Modul dient dem Rendern der ag-grid Tabelle auf Grundlage der $rootScope.filmlauf Variablen.
-Aufgerufen werden die 3 funktionen vom programmCtrl.js
+Aufgerufen werden die 3funktionen vom programmCtrl.js
+
  this.cellClassRenderer = function cellClassRenderer(params){ Hintergrundfarbe
  this.datumsRenderer    = function datumsRenderer(params) { Inhalt Spalte 1
  this.buchungsRenderer  = function buchungsRenderer(params, zeigeWunschFilme) { Inhalt Splate >1
@@ -16,23 +17,33 @@ angular
     .service(
         'RenderProgrammTableServices',
         function($rootScope, $log, FfkUtils) {
+
             /*
-            Holt aus demm Array[1] des $rootScopefilmlauf
-            aus der jeweiligen Spalte
-            array[0], die bc (backgroundcolor)
-            [1] = [["bc-10", "vp2", 1], ["bc-20"..        ]
-                */
-            this.cellClassRenderer = function cellClassRenderer(params){
-                var result = "";
-                var arryIdx = params.colDef.headerName.substr(4) -1 ;
-               // params.data[1] = [["bc-10", "vp2", 1], ["bc-20" oder []
-               // console.log("-- arryIdx " + arryIdx + " params.data  " + JSON.stringify(params.data));
-               // console.log(params.data[1][arryIdx]);
+             Holt aus demm Array[1] des $rootScopefilmlauf
+             aus der jeweiligen Spalte
+             array[0], die bc (backgroundcolor)
+             [1] = [["bc-10", "vp2", 1], ["bc-20"..        ]
+
+             */
+             this.cellClassRenderer = function cellClassRenderer(params){
+             var result = "";
+
+       /*
+             var arryIdx = params.colDef.headerName.substr(4) -1 ;
+             // params.data[1] = [["bc-10", "vp2", 1], ["bc-20" oder []
+             // console.log("-- arryIdx " + arryIdx + " params.data  " + JSON.stringify(params.data));
+             // console.log(params.data[1][arryIdx]);
+
                 if ( params.data[1][arryIdx] != undefined) { //es gibt eintrag
-               // console.log("+++++++++++++++ "+ JSON.stringify( params.data[1][arryIdx][0]  ))
+                    console.log("+++++++++++++++ arryIdx " + arryIdx + " params.data  " + JSON.stringify(params.data));
+                    console.log("+++++++++++++++ "+ JSON.stringify( params.data[1][arryIdx][0]  ))
+
                     result = params.data[1][colIdx][0]; // hole bc
                     }
                 return result;
+
+         */
+                 return "bc-10";
             };
 
            /*
@@ -135,11 +146,11 @@ angular
                 //  [1]    [ [0] .. ]   =  [background, vBID, filmwoche]  =   [ bc-10, vInt, int ]
                 //  [1]    [ [0] .. ]   =  [background, [fBID,fBID]] =   [ bc-11, [fBID,fBID..]]
                 // var buchung = params.data[col]; // {einzelBuchungObject aus filmlauf}
-                var filmlaufBuchung = params.data[1][colIdx];
+                var filmlaufBuchung = params.data[1][arryCol];
                 if (filmlaufBuchung == undefined) {
                     filmlaufBuchung =  false;
                 }
-                var filmlaufWunsch =  params.data[2][colIdx];
+                var filmlaufWunsch =  params.data[2][arryCol];
                 if (filmlaufWunsch == undefined) {
                     filmlaufWunsch =  false;
                 }
@@ -153,7 +164,7 @@ angular
                 function verleihBuchungLang() {
                     console.log("verleihBuchungLang() ");
 
-                    console.log("rowidx " + rowIdx + " colIdx " + colIdx + " params.data  " + JSON.stringify(params.data));
+                    console.log("rowidx " + rowIdx + " arryCol " + arryCol + " params.data  " + JSON.stringify(params.data));
                     console.log("filmlaufBuchung " + JSON.stringify(filmlaufBuchung));
                     console.log("filmlaufWunsch " + JSON.stringify(filmlaufWunsch) );
 

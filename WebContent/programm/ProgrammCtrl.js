@@ -284,7 +284,31 @@
 
             };
 
-  
+/*
+            // Service Buchungsrenderer
+            //noch nötig?
+            var buchungsRenderer = function (params) {
+                return RenderProgrammTableServices.buchungsRenderer(params, zeigeWunschFilme);
+            };
+
+            var cellClassRenderer = function (params) {
+                // workaround - schneide index aus
+                // index aus
+                //gehört in tablerenderer
+                return "bc-50";
+                /!*
+                 var idx = params.colDef.headerName.substr(4);
+                 // col existiert
+                 if (typeof params.data["col" + idx] != 'undefined') {
+                 return params.data["col" + idx].bc;
+                 } else {
+                 return "";
+                 }
+                 *!/
+
+            };
+
+            */
 
             // wenn bereits einmal initialisiert
             // setze neue Headers
