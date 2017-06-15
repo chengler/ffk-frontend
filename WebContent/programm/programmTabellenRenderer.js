@@ -162,7 +162,9 @@ angular
                     console.log("filmlaufWunsch " + JSON.stringify(filmlaufWunsch) );
 
                     if (  filmlaufBuchung) { // true = Eintrag
-                        var verleiBuchung = $rootScope.verleihBuchungen[filmlaufBuchung[1]];
+                        var vBID = filmlaufBuchung[1];
+                        var verleiBuchung = $rootScope.verleihBuchungen[vBID];
+
                         console.log("** verleiBuchung " +JSON.stringify(verleiBuchung));
                         var medien = "";
                         // wann startet diese KinoW in ms
@@ -205,8 +207,7 @@ angular
                         link = ""; // bearbeitungslink für filmwoche
                         if ( $rootScope.logedInUser.role == "admin"){
                             link = "<span title='Diesen Filmlauf bearbeiten' "
-                                + "class='glyphicon glyphicon-edit pointer' ng-click='openModalKW(" + rowIdx + ","
-                                + colIdx + ")' >" + "</span> ";
+                                + "class='glyphicon glyphicon-edit pointer' ng-click='openModalVerleihBuchung(" + rowIdx + ",1," + arryCol +")' >" + "</span> ";
                         }
                         var filmLink = ""; // der link um den film anzuzeigen
                         filmLink = "<span title='Filminfos anzeigen' "
@@ -246,12 +247,13 @@ angular
                     if (filmlaufWunsch.length = 0) {
                         return "";
                     }
-                    var verleihWunsch = $rootScope.verleihWunsch[filmlaufWunsch[1]];
+                    var vBID = $rootScope.verleihWunsch[filmlaufWunsch[1]];
+                    var verleihWunsch = $rootScope.verleihWunsch[vBID];
                     result = verleihWunsch['titel'];
                     var bc = verleihWunsch['bc'];
                     // wrapper für Wunschfilme
                     if ( $rootScope.logedInUser.role == "admin"){
-                        result = "<span ng-click='openModalKW("+ rowIdx	+ "," + colIdx + ", 1 )' title='Diesen Wunsch bearbeiten' class=' "
+                        result = "<span ng-click=ng-click='openModalVerleihBuchung(" + vBID + ", false)' title='Diesen Wunsch bearbeiten' class=' "
                                 + bc + " label glyphicon glyphicon-edit pointer' style = ' opacity:1; z-index: 2; float: right; color: black;'> "
                                 + result + "</span>";
                         } else {

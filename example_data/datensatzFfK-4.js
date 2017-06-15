@@ -110,7 +110,7 @@
     "vp2": {
         "fID": "fp1",
             "titel": "Happy Film",
-            "verleih": "vid1",
+            "vid": "vid1",
             "medien": {
             "BD": "20170526"
         },
@@ -140,7 +140,7 @@
     "vp4": {
         "fID": "fp3",
             "titel": "Sad Film",
-            "verleih": "vid2",
+            "vid": "vid2",
             "medien": {
             "BD": "20170323"
         },
@@ -231,11 +231,11 @@
     "filme": {
     "fp1": {
         "titel": "Happy Film",
-            "verleih": "vid1"
+            "vid": "vid1"
     },
     "fp3": {
         "titel": "Sad Film",
-            "verleih": "vid2"
+            "vid": "vid2"
     },
     "fp11": {
         "titel": "Mein Wunschfilm"

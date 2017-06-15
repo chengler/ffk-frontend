@@ -17,23 +17,8 @@
 
 
 			<form class="form-horizontal">
-				<div class="row" ng-if="isNew">
-					<div class="col-md-5">
-						<label for="Filmtitel" class="control-label">Filmtitel</label>
-						<p class=" ">
-							<input type="text" class="form-control" id="Filmtitel"
-								placeholder="der Titel des Films" ng-value='filmtitel'>
-						</p>
-					</div>
-				</div>
-
-				<div class="row" ng-if="isOld">
 					<h4 ng-class="bcColor" class="col-md-12" ng-bind="filmtitel"></h4>
-
-				</div>
-
-
-				<div class="row">
+					<div class="row">
 					<div class="col-md-9">
 						<div class=" col-md-5 ">
 							<div class="input-group col-md-push-4">

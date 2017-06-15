@@ -1,38 +1,37 @@
 angular.module('modalVerleihBuchung', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_VERSION', '0.0.1')
-//
-// SERVICES // ehemals modalFilmKW
+/*
+SERVICES // ehemals modalFilmKW
 
-//
+editBuchung( vBID, art)
+ vBID BuchungsID
+ 1 Buchung
+ 2 Wunsch
+Bearbeite VerleihBuchung
+*/
 // modal
 // http://angular-ui.github.io/bootstrap/#/modal
 .service('ModalVerleihBuchungsService', function($uibModal, $log, FfkUtils) {
-	this.editKW = function($scope, rowIdx, colIdx, colTyp) {
+	this.editBuchung = function(vBID, art) {
 		var modalInstance = $uibModal.open({
-			templateUrl : './components/distributores/modalVerleihBuchung.html?' + Math.random(),
-			controller : 'ModalKWInstanceCtrl',
+			templateUrl : './distributors/modalVerleihBuchung.html?' + Math.random(),
+			controller : 'ModalVerleihBuchungsInstanceCtrl',
 			size : "lg",
 			resolve : {
-				filmlaufIdx : function() {
-					return rowIdx;
+                vBID : function() {
+					return vBID;
 				},
-				colIdx : function() {
-					return colIdx;
-				},
-				scope : function() {
-					return $scope;
-				},
-				colTyp : function() {
-					var typ = "";
-					// nix = Film; 1 = Wunschfilm
-					if ( colTyp != undefined){
-						typ = colTyp;
+                //scope : function() {
+				//	return $scope;
+				//},
+                art : function() {
+					 if ( art == undefined){
+                         art = 1;
 					}
-					return typ;
+					return art;
 				}
 			}
 		});
-		// Filmtyp 1 ist Wunschfilmm undefined = normal
-		$log.debug("distributores/modalVerleihBuchung.js mit filmlaufIdx: " + rowIdx + " colIdx: " + colIdx + " Filmtyp " + colTyp);
+		console.log("distributores/modalVerleihBuchung.js  Modal gestartet");
 		// die Rückgabe
 		modalInstance.result.then(function(res) {
 			$log.debug("ModalReturn: " + JSON.stringify(res, 1, 4));
@@ -278,17 +277,17 @@ angular.module('modalVerleihBuchung', [ 'ui.bootstrap', 'ffkUtils' ]).constant('
 			
 
 		}, modalInstance.opened.then(function() {
-			console.log('open ModalFilmKWService');
+			console.log('opened modalVerleihBuchung');
 		}),
 
 		function() {
-			$log.info('Modal dismissed at: ' + new Date());
+			console.log('Modal dismissed at: ' + new Date());
 		});
 
 		
 		// verkürze Angebot um delWochen
 		shortFilmlauf = function(startIdx, laufzeit, col, delWochen) {
-			$log.debug("shortFilmlauf = function(startIdx, laufzeit, col, delWochen)");
+			console.log("shortFilmlauf = function(startIdx, laufzeit, col, delWochen)");
 			var enDelIdx = (laufzeit * 8) + startIdx;
 			var startDelIdx = enDelIdx + (delWochen * 8);
 			console.log("startDelIdx "+startDelIdx+" endDelIdx: "+enDelIdx);
@@ -351,74 +350,49 @@ angular.module('modalVerleihBuchung', [ 'ui.bootstrap', 'ffkUtils' ]).constant('
 
 
 
-// ModalKWInstanceCtrl
-// bezieht sich auf den Filmlauf der KW
-angular.module('modalVerleihBuchung').controller('ModalKWInstanceCtrl',
-		function(FfkUtils, $rootScope, $scope, $log, $uibModalInstance, filmlaufIdx, colIdx, colTyp) {
+// ModalVerleihBuchungsInstanceCtrl
+// bezieht sich auf die Verleihbuchung oder Verleihwunsch
+angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCtrl',
+		function(FfkUtils, $rootScope, $scope, $uibModalInstance, vBID, art) {
 
-			$log.debug("ffkFilmModul <- ModalKWInstanceCtrl (FilmverleihBuchungen KW Wochenübersicht)");
-			$log.debug("    filmlaufIdx : " + filmlaufIdx);
-			$log.debug("    colIdx : " + colIdx);
-			$log.debug("    colTyp : " + colTyp);
-			$log.debug("    filmlauf : " + Object.keys($rootScope.filmlauf).length + " Objecte");
-			$log.debug("    verleihBuchungen : " + Object.keys($rootScope.verleihBuchungen).length);
-			var col = 'col' + colIdx;
-			$scope.colType = ""; // "" bei Film
-			// 1 bei Wunschfilm
-			if (colTyp == 1 ){
-				col = col +"w";
-				$scope.colType = "w";
-			}
-			$log.debug("    col : " + col);
+			console.log("modalVerleihBuchung editBuchung geöffnet mit vBID " + vBID + " und art " + art + " (1Buchung/2Wunsch)");
+			var buchung; // die VerleihBuchung oder der Verleihwunsch
+            // lade Verleihbuchung, ausser es ist ein Wunsch
+            if (art == 2) {
+                buchung = $rootScope.verleihWunsch[vBID];
+            } else {
+                buchung = $rootScope.verleihBuchungen[vBID];
+            }
+            console.log("buchung geladen: "+JSON.stringify(buchung));
 
 			// background Farbe
-			$scope.bcColor = $rootScope.filmlauf[filmlaufIdx][col]['bc'];
+			$scope.bcColor = buchung.bc
 			var alteBC = $scope.bcColor;
 
 			// die VerleihbuchungsID
-			var vBID = $rootScope.filmlauf[filmlaufIdx][col]['vBID'];
 			// die FilmID
-			var fID = $rootScope.filmlauf[filmlaufIdx][col]['fID'];
+			var fID = buchung.fID
 
-			// die ausgewählte Buchung
-			var buchung = $rootScope.verleihBuchungen[vBID];
-			var wochenBuchung = $rootScope.verleihBuchungen[$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
 
-			if ( colTyp == 1){ // wunsch
-				//buchung = $rootScope.verleihBuchungen["wuensche"][vBID];
-                buchung = $rootScope.verleihWunsch[vBID];
-                //wochenBuchung = $rootScope.verleihBuchungen["wuensche"][$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
-                wochenBuchung = $rootScope.verleihWunsch[$rootScope.filmlauf[filmlaufIdx][col]["vBID"]];
-			}
 
 			// der Verleih
-			$scope.verleih = $rootScope.verleiher[buchung.vid];
 
-			// heute
+            $scope.verleih = $rootScope.verleiher[buchung.vid];
+            console.log($scope.verleih);
+
+
+            // heute
 			$scope.today = function() {
 				$scope.dt = new Date();
+                $scope.dt.setHours(12); // contra zeitverschiebungen
 			};
 			$scope.today();
 
 			// suche Start des Filmblocks
-			var result = FfkUtils.getFilmstart($rootScope.filmlauf, filmlaufIdx, colIdx, vBID);
-			var checkIDX = result.checkIDX;
-			var lz = result.laufzeit;
-			// suche nachfolgende Laufzeit
-			result = FfkUtils.getLaufzeit($rootScope.filmlauf, filmlaufIdx, colIdx, vBID);
-			lz = lz + result;
-			$log.debug("laufzeit gesammt =" + lz);
-			$scope.laufzeit = lz;
-
-			
-			
-			// berechne Startdatum
-			var start = moment($rootScope.filmlauf[checkIDX]['datum']);
-			start.add(3, 'days'); // Donnerstag der Woche
-			$log.debug("start=" + start._d);
+			$scope.laufzeit = buchung.laufzeit;
+			var start = moment(buchung.start).hour(12);
+		//	console.log("start=" + start._d);
 			$scope.dtStart = start._d;
-			var startIDX = checkIDX;
-
 			var endDatum = function() {
 				$scope.dtEnd = moment($scope.dtStart).add($scope.laufzeit * 7 - 1, 'days')._d;
 			};
@@ -569,8 +543,8 @@ angular.module('modalVerleihBuchung').controller('ModalKWInstanceCtrl',
 				  if (buchung.medien.hasOwnProperty(key)) {
 					var typ = key;
 					var datum = moment(buchung.medien[key]).hour(12)._d; 
-					console.log("typ "+ typ);
-					console.log("datum "+ datum);
+					//console.log("typ "+ typ);
+					//console.log("datum "+ datum);
 					// setze datum für medium
 					$scope.medium[typ]['dt'] = datum;
 					$scope.medium[typ].set = true;
@@ -593,7 +567,7 @@ angular.module('modalVerleihBuchung').controller('ModalKWInstanceCtrl',
 			};
 			
 			$scope.toggleMedium = function(typ) {
-				console.log("toogle "+typ);
+			//	console.log("toogle "+typ);
 				if ($scope['medium'][typ].set) {
 					$scope['medium'][typ].set = false;
 					$scope['medium'][typ].btn = "btn-danger";
@@ -623,6 +597,11 @@ angular.module('modalVerleihBuchung').controller('ModalKWInstanceCtrl',
 				$scope.bcColor = farbe;
 			};
 
+            $scope.header = "Filmlauf für '"+ buchung.titel+"' bearbeiten";
+            $scope.filmtitel = buchung.titel;
+
+
+/*
 
 			// neuer Filmlauf oder bestehender
 			if (colIdx == 0) {
@@ -638,14 +617,15 @@ angular.module('modalVerleihBuchung').controller('ModalKWInstanceCtrl',
 				$scope.header = "Filmlauf bearbeiten";
 				$scope.filmtitel = wochenBuchung["titel"];
 			}
+*/
 
 			$scope.delete = function() {
-				$log.debug("delete Filmlauf (vBId): " + vBID);
-			    if (confirm("Filmlauf '" + buchung.titel + "' wirklich löschen?") == true) {
+				console.log("delete VerleihBuchung, bzw Wunsch mit (vBID): " + vBID);
+			    if (confirm("VerleihBuchung/Wunsch '" + buchung.titel + "' wirklich löschen?") == true) {
 			    	$scope.ok('delete');
 
 			    } else {
-			    	$log.debug("delete abgebrochen");
+			    	console.log("delete abgebrochen");
 			    };
 			};
 		
@@ -656,7 +636,7 @@ angular.module('modalVerleihBuchung').controller('ModalKWInstanceCtrl',
 				var result = {};
 				// speichern oder löschen
 				result['typ'] = type;
-				result['colTyp'] = colTyp;
+				result['art'] = art;
 				
 				result['startIdx'] = startIDX; // alter startindex
 				result['laufzeit'] = lz; // alte laufzeit

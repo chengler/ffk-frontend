@@ -272,8 +272,14 @@
 
             // früher openModalKW
             // Zum Bearbeiten der Verleihbuchung im Ordner distributores
-            $scope.openModalVerleihBuchung = function (vBID) {
-                ModalVerleihBuchungsService.editBuchung(vBID);
+            // (rowIdx , 1 | 2, arryCol)
+            // rowIdx im filmlauf
+            // 1 Buchung, 2 Wunsch (array in filmlauf
+            // arrycol, welche position im array, welcher film in der Splate
+            $scope.openModalVerleihBuchung = function ( rowIdx, art, arrycol) {
+                console.log("openModalVerleihBuchung rowIdx " + rowIdx +" art: "+art +" arrycol "+ arrycol);
+                var vBID = $rootScope.filmlauf[rowIdx][art][arrycol][1];
+                ModalVerleihBuchungsService.editBuchung( vBID, art );
 
             };
 
