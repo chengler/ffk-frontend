@@ -106,9 +106,12 @@ app.run(function(version, author, $rootScope, $http, $locale) {
 	$rootScope.username = ""; // der angemeldete Benutzer // ersetzen
     $rootScope.ersterDo = ""; // Tag an dem die Programmtabelle beginnt idx0 KW; idx1 ersterDo
 
+    $rootScope.version = Math.random(); // damit templates nachgeladen werden, nach fertigstellung des Progs bsésser progversion
 
 
-	
-		
+
+
+
+
 
 });

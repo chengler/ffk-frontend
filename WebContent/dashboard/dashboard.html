@@ -21,13 +21,13 @@
 
 				<div data-ng-switch="logedInUser.role">
 					<div ng-switch-when="verleih">
-						<div ng-include="'dashboard/templateFehlendeVerleih.html?'"></div>
+						<div ng-include="'dashboard/templateFehlendeVerleih.html?' + version"></div>
 					</div>
 					<div ng-switch-when="spieler">
-						<div ng-include="'dashboard/templateFehlendeSpielort.html?'"></div>
+						<div ng-include="'dashboard/templateFehlendeSpielort.html?'+ version"></div>
 					</div>
 					<div ng-switch-when="admin">
-						<div ng-include="'dashboard/templateFehlendeAdmin.html?'"></div>
+						<div ng-include="'dashboard/templateFehlendeAdmin.html?'+ version "></div>
 					</div>
 				</div>
 

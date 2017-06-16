@@ -53,7 +53,6 @@ $scope.openModalBuchung = function (rowIdx, colIdx, filmNr ) {
 
                           Object.keys(inhalt).forEach(function (key) {
 
-
                             // Besuchereintritt
                             // lösche [null] Werte, 0 ist OK, 0 Besucher 500cen, bzw 4 Besucher 0 cent
                             var berecheWochenergebnissNeu = false;
@@ -68,13 +67,10 @@ $scope.openModalBuchung = function (rowIdx, colIdx, filmNr ) {
                                         // splice verkürzt arry lenghth
                                         i -= 1;
                                         arrayLength -=1;
-
                                     }
                                    console.log( i + "komplett nach durchlauf :" + JSON.stringify(inhalt.besucher));
                                 }
                             }
-
-
 
                             // TODO REST
                             // TODO VERleihbuchung

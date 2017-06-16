@@ -18,6 +18,8 @@
         function ( $scope, $rootScope,  $log, $locale, FfkUtils, ModalRingBuchungsBearbeitungService,
                    OpenModalVenueService, OpenModalDistributorService) {
             $log.info("init DashboardCtrl");
+        //    $scope.version = $rootScope.version; // damit templates nachgeladen werden, nach fertigstellung des Progs bsésser progversion
+
 
             // starte asyncrones laden
             // ergebniss landet in $rootScope.fehlendeRueckmeldungen = [];
@@ -82,6 +84,8 @@
             pom.click();
         }
     }
+
+
 
     // lade eine Datei im Array Format in das objekt mit dem name objektname
     $scope.lade = function(objektname, fileContent){
@@ -168,7 +172,7 @@
 
 
 
-            $scope.bearbeiteModal = function (fBID) {
+            $scope.besucherEintragen = function (fBID) {
                 console.log("bearbeite fBID " + fBID);
                 // [0] = verarbeitungsart [1] = input
                 ModalRingBuchungsBearbeitungService.editBuchung( ['fBID' , fBID ] );
