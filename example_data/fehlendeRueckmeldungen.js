@@ -1,6 +1,6 @@
 {
-    "admin" : ["fBIDp5","fBIDp6","fBIDp7"],
-    "sid8": ["fBIDp5","fBIDp6"],
-    "vid1": ["fBIDp5"]
+    "admin" : ["fBIDp11","fBIDp12","fBIDp13"],
+    "sid8": ["fBIDp11","fBIDp12"],
+    "vid1": ["fBIDp11"]
 
 }

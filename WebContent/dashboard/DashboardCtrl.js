@@ -126,7 +126,7 @@
 // Datumsanzeige Kinowoche
               // 0  [ "bc-g0", false,  "2016-W49",  1          ]
                 var kw40 = $rootScope.filmlauf[40][0][2].substr(6);
-                var mykw = filmlaufKW.substr(5);
+                var mykw = filmlaufKW.substr(6);
                 var diff = mykw-kw40;
                 var myIdx = 40+(diff*8);
                 //console.log($rootScope.filmlauf[40])
@@ -135,12 +135,13 @@
             // wird vom watcher aufgerufen nachdem alle Daten geladen sind
             var ladeAnsichten = function(){
                 console.log("lade Ansichten");
-//wer ist eingeloged
+                //wer ist eingeloged
 
                 // hole Infos zu fehlenden Rückmeldungen
-                console.log(JSON.stringify($rootScope.ringBuchungen));
+               console.log(JSON.stringify($rootScope.ringBuchungen));
+               console.log("fehlendeRueckmeldungen " + JSON.stringify($rootScope.fehlendeRueckmeldungen));
 
-               $rootScope.fehlendeRueckmeldungen.forEach(function (fBID) {
+                $rootScope.fehlendeRueckmeldungen.forEach(function (fBID) {
                    $scope.fbids[fBID] = {};
                    $scope.fbids[fBID].titel =
                        $rootScope.verleihBuchungen[  $rootScope.ringBuchungen[fBID]['vBID']]['titel'];
@@ -148,13 +149,12 @@
                        FfkUtils.getNamezurId( $rootScope.spielorteSortiert , $rootScope.ringBuchungen[fBID]['sid']);
 
                    $scope.fbids[fBID].sid = $rootScope.ringBuchungen[fBID]['sid'];
-                   $scope.fbids[fBID].vid =
-                       $rootScope.verleihBuchungen[$rootScope.ringBuchungen[fBID]['vBID']].verleih;
+                   $scope.fbids[fBID].vid = $rootScope.verleihBuchungen[$rootScope.ringBuchungen[fBID]['vBID']].vid;
 
 
                    // TODO verleichID !!
                    $scope.fbids[fBID].verleih = FfkUtils.getNamezurId( $rootScope.verleiherSortiert ,
-                       $rootScope.verleihBuchungen[$rootScope.ringBuchungen[fBID]['vBID']].verleih);
+                       $rootScope.verleihBuchungen[$rootScope.ringBuchungen[fBID]['vBID']].vid);
 
 
                    $scope.fbids[fBID].datum = moment($rootScope.ringBuchungen[fBID]['datum']).hour(12).format('DD.MM.YY');
@@ -196,7 +196,7 @@
                         $rootScope.status.verleihBuchungenGeladen && $rootScope.status.fehlendeRueckmeldungenGeladen) {
                         allesGeladen(); // clear watcher
                         console.log("***** starte Dashboardübersicht");
-                        console.log($rootScope.filmlauf[myIdx])
+                        console.log(JSON.stringify($rootScope.filmlauf[myIdx]));
                         ladeAnsichten();
                     }
                 }, true);

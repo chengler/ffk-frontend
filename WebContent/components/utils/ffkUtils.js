@@ -70,7 +70,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             var fehlende; // Rückmeldungen Eintritt und Besucher
             $http.get('../example_data/fehlendeRueckmeldungen.js?' + Math.random()).success(function (data) {
                 fehlende = data[fuerWen];
-                // $rootScope.fehlendeRueckmeldungen = fehlende;
+                 $rootScope.fehlendeRueckmeldungen = fehlende;
                 $rootScope.status.fehlendeRueckmeldungenGeladen = true;
 
                 console.log("Rückmeldung fehlt für fBID: " + JSON.stringify(fehlende));
