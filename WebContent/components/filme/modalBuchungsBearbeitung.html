@@ -33,7 +33,7 @@
 			<div class="col-md-2">
 				<select class="form-control" data-ng-model="buchungsChanges.medium"
 					ng-change='getNeueMedienIDs()'>
-					<option value="{{medium}}" selected="true">{{medium}}</option>
+					<option value="{{myRingbuchung.medium}}" selected="true">{{myRingbuchung.medium}}</option>
 					<option data-ng-repeat="m in medien" value="{{m}}">{{m}}</option>
 				</select>
 			</div>

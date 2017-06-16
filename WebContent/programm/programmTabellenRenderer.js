@@ -278,7 +278,7 @@ angular
                     if ( filmlaufBuchung[0]) { // es gibt einen eintrag
                         var filmNr;
                         for (var i = 0; i < filmlaufBuchung[1].length; i++) {
-                            filmNr = i;
+                            filmNr = i+1;
                             fBID = filmlaufBuchung[1][i];
                            // console.log("fBID " +fBID);
                            // console.log("i "+i+" filmlaufBuchung[1].length "+filmlaufBuchung[1].length);

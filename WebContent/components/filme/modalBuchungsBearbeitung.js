@@ -1,4 +1,5 @@
 // sollte in modalringbuchung integriert werden
+// buchungschanges schöne lösung!
 
 angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constant('MODULE_VERSION', '0.0.1')
     //
@@ -147,53 +148,50 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
 angular.module('modalBuchungsBearbeitung').controller(
     'ModalBuchungsBearbeitungInstanceCtrl',
     function ($rootScope, $scope, $log, $uibModalInstance, rowIdx, colIdx, filmNr, FfkUtils) {
-        console.log("ModalBuchungsBearbeitungInstanceCtrl mit rowIdx " + rowIdx + " colIdx " + colIdx + " filmNr "
-            + filmNr);
-        var datum = $rootScope.filmlauf[rowIdx].datum; // isodate 20160112
+        console.log("ModalBuchungsBearbeitungInstanceCtrl mit rowIdx "
+            + rowIdx + " colIdx " + colIdx + " filmNr " + filmNr);
+
+        var myFilmlauf = $rootScope.filmlauf[rowIdx];
+        console.log("myFilmlauf " + JSON.stringify(myFilmlauf));
+
+        // [1] = ["bc-11", [fBID, ..]] , ["bc-22", [fBID] ], get fBID
+        $scope.myRingbuchung = $rootScope.ringBuchungen[ myFilmlauf[1][colIdx-1][filmNr] ];
+        console.log("myRingbuchung " + JSON.stringify($scope.myRingbuchung));
+
+        $scope.myVerleihbuchung = $rootScope.verleihBuchungen [ $scope.myRingbuchung.vBID  ];
+        console.log("myVerleihbuchung " + JSON.stringify($scope.myVerleihbuchung));
+
+        var datum = myFilmlauf[0][2]; // isodate 20160112
         $scope.datum = moment(datum).format('DD.MM.YYYY'); // datum
-        // index der KW zeile
-        var kwRowIdx = FfkUtils.getKinoWochenRowIdx(rowIdx, datum);
-        // infos zum Film aus KW Zeile
-        $scope.kwInfos = $rootScope.filmlauf[kwRowIdx][col];
-        console.log(" kwInfos " + JSON.stringify($scope.kwInfos, 0, 0));
-
-        var verleihBuchung = $rootScope.verleihBuchungen[$scope.kwInfos.vBID];
-        console.log(" verleihBuchung " + JSON.stringify(verleihBuchung, 0, 0));
-
-        // die angeklickte zelle
-        var ringBuchung = $rootScope.filmlauf[rowIdx][col][film];
+        console.log("datum "+datum);
 
         // getätigte Änderungen werden hier gespeichert um nach dem Speichern bearbeitet zu werden
         // 1x lokal und 1x RESTfull
-        $scope.buchungsChanges = Object.create(ringBuchung);
+        $scope.buchungsChanges = Object.create($scope.myRingbuchung);
 
 
+         $scope.refOrt = [$scope.myRingbuchung.sid,
+         FfkUtils.getRefName($rootScope.spielorteSortiert, $scope.myRingbuchung.sid, 1)];
 
-
-        console.log(" ringBuchung " + JSON.stringify(ringBuchung, 0, 0));
-
-         $scope.refOrt = [ringBuchung.ortID,
-         FfkUtils.getRefName($rootScope.spielorteSortiert, ringBuchung.ortID, 1)];
-
-        $scope.medium = ringBuchung.medium;
-        console.log("aktuelles medium " + JSON.stringify($scope.medium, 0, 0));
+        $scope.medium = $scope.myRingbuchung.medium;
+        console.log("aktuelles medium " + JSON.stringify($scope.myRingbuchung.medium, 0, 0));
         // fülle Medien {BD: anzahl, dvd:anzahl..}
         $scope.medien = [];
         //console.log(datum);
         //console.log(verleihBuchung.medien);
         $scope.medien.push(""); // nix für abwahl
-        Object.keys(verleihBuchung.medien).forEach(function (medium) {
+        Object.keys($scope.myVerleihbuchung.medien).forEach(function (medium) {
             // Medium steht zur verfügung
-        console.log(" Medium steht zur verfügung "+verleihBuchung.medien[medium] +" <= " + datum);
-            if (verleihBuchung.medien[medium] <= datum) {
+        console.log(" Medium steht zur verfügung " + $scope.myVerleihbuchung.medien[medium] +" <= " + datum);
+            if ($scope.myVerleihbuchung.medien[medium] <= datum) {
                 $scope.medien.push(medium);
               //  console.log(JSON.stringify($scope.medien));
             }
         });
 
             console.log(" medien " + JSON.stringify($scope.medien, 0, 0));
-        if (ringBuchung.medienID != false){
-            $scope.medienID = ringBuchung.medienID;
+        if ($scope.myRingbuchung.medienID != false){
+            $scope.medienID = $scope.myRingbuchung.medienID;
         } else {
             $scope.medienID = "";
         }
@@ -205,9 +203,9 @@ angular.module('modalBuchungsBearbeitung').controller(
             console.log("getMedienIDs");
             $scope.medienIDs = [""];    // nix für abwahl
 
-            console.log( "verleihBuchung.menge " + JSON.stringify(verleihBuchung.menge));
+            console.log( "verleihBuchung.menge " + JSON.stringify($scope.myVerleihbuchung.menge));
             console.log( "$scope.buchungsChanges.medium " + JSON.stringify($scope.buchungsChanges.medium));
-            var menge = parseInt(verleihBuchung.menge[$scope.buchungsChanges.medium]);
+            var menge = parseInt($scope.myVerleihbuchung.menge[$scope.buchungsChanges.medium]);
             if (menge > 0) {
                 for (var i = 1; i <= menge; i++) {
                     var id = "#" + i;
@@ -215,7 +213,7 @@ angular.module('modalBuchungsBearbeitung').controller(
 
                 }
             }
-            console.log(" medienIDs für " + ringBuchung.medium + " = "
+            console.log(" medienIDs für " + $scope.myRingbuchung.medium + " = "
                 + JSON.stringify($scope.medienIDs, 0, 0));
         };
         $scope.getMedienIDs();
@@ -226,7 +224,7 @@ angular.module('modalBuchungsBearbeitung').controller(
             console.log( "verleihBuchung.menge " + JSON.stringify(verleihBuchung.menge));
             console.log( "$scope.buchungsChanges.medium " + JSON.stringify($scope.buchungsChanges.medium));
             $scope.medienIDs = [];
-            var menge = parseInt(verleihBuchung.menge[$scope.buchungsChanges.medium]);
+            var menge = parseInt($scope.myVerleihbuchung.menge[$scope.buchungsChanges.medium]);
             console.log("menge "+menge);
             if (menge > 0) {
                 for (var i = 1; i <= menge; i++) {
@@ -258,10 +256,10 @@ angular.module('modalBuchungsBearbeitung').controller(
         // null ist wichtig, da es gelöscht wird wenn es nicht geändet wird!
         $scope.besucher=[ [null,0], [null,0] ]; // keine eintragung für Besucher
         $scope.getBesucher = function () {
-            if ( "besucher" in ringBuchung ) {
-                if ( Array.isArray(ringBuchung.besucher)) {
+            if ( "besucher" in $scope.myRingbuchung ) {
+                if ( Array.isArray($scope.myRingbuchung.besucher)) {
                     // !! ändere nicht das original!! deep copy
-                    $scope.besucher=angular.copy(ringBuchung.besucher);
+                    $scope.besucher=angular.copy($scope.myRingbuchung.besucher);
                     $scope.besucher.push([null,0]);
 
                 }
@@ -272,9 +270,9 @@ angular.module('modalBuchungsBearbeitung').controller(
 
         // gesamt Besucherzahlen
         $scope.gesamtEintritt = 0;
-        if ( "gesamt" in ringBuchung){
-            $scope.gesamtBesucher= ringBuchung.gesamt[0];
-            $scope.gesamtEintritt= ringBuchung.gesamt[1];
+        if ( "gesamt" in $scope.myRingbuchung){
+            $scope.gesamtBesucher= $scope.myRingbuchung.gesamt[0];
+            $scope.gesamtEintritt= $scope.myRingbuchung.gesamt[1];
 
                     };
 
@@ -283,11 +281,11 @@ angular.module('modalBuchungsBearbeitung').controller(
         $scope.vonOrt = ["", ""];
         $scope.nachOrt = ["", ""];
 
-        var bv = ringBuchung.vonID;
+        var bv = $scope.myRingbuchung.vonID;
         if (bv != false) {
             $scope.vonOrt = [bv, FfkUtils.getRefName($rootScope.spielorteSortiert, bv, 1)];
                  }
-        var bn = ringBuchung.nachID;
+        var bn = $scope.myRingbuchung.nachID;
         if (bn != false) {
             $scope.nachOrt = [bn, FfkUtils.getRefName($rootScope.spielorteSortiert, bn, 1)];
         }
