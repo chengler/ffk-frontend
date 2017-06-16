@@ -13,7 +13,7 @@ Bearbeite VerleihBuchung
 .service('ModalVerleihBuchungsService', function($uibModal, $log, FfkUtils) {
 	this.editBuchung = function(vBID, art) {
 		var modalInstance = $uibModal.open({
-			templateUrl : './distributors/modalVerleihBuchung.html?' + Math.random(),
+			templateUrl : './components/verleihBuchungen/modalVerleihBuchung.html?' + Math.random(),
 			controller : 'ModalVerleihBuchungsInstanceCtrl',
 			size : "lg",
 			resolve : {
@@ -31,7 +31,7 @@ Bearbeite VerleihBuchung
 				}
 			}
 		});
-		console.log("    Modal startet. Pfad: distributores/modalVerleihBuchung.js");
+		console.log("    Modal startet. Pfad: ./components/verleihBuchungen/modalVerleihBuchung.js");
 		// die Rückgabe
 		modalInstance.result.then(function(res) {
 			$log.debug("ModalReturn: " + JSON.stringify(res, 1, 4));

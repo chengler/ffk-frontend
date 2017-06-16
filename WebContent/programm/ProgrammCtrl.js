@@ -11,14 +11,15 @@
         '$log',
         '$uibModal',
         'ModalFilmRowService',
+        'ModalFilmWochenService',
        // 'ModalFilmKWService',
         'ModalVerleihBuchungsService',
         'RenderProgrammTableServices',
         'FfkUtils',
         'ModalBuchungsBearbeitungService',
         '$q',
-        function ($rootScope, $scope, $http, $log, $uibModal, ModalFilmRowService, ModalVerleihBuchungsService,
-                  RenderProgrammTableServices, FfkUtils, ModalBuchungsBearbeitungService, $q) {
+        function ($rootScope, $scope, $http, $log, $uibModal, ModalFilmRowService, ModalFilmWochenService, ModalVerleihBuchungsService,
+                  RenderProgrammTableServices, FfkUtils, ModalBuchungsBearbeitungService, $q ) {
             $log.info("init programmCtrl");
             var zeigeWunschFilme = false;
             $rootScope.zeigeWunschFilme = zeigeWunschFilme;
@@ -183,8 +184,8 @@
                 columnDefs.push(header);
                 // setze Spalten
                 $rootScope.gridOptions.api.setColumnDefs(columnDefs);
-                if (colnr > maxCol) {
-                    maxCol = colnr;
+                if (colnr > $rootScope.filmlaufSpalten) {
+                    $rootScope.filmlaufSpalten = colnr;
                 }
             };
 
@@ -280,6 +281,13 @@
                 console.log("openModalVerleihBuchung rowIdx " + rowIdx +" art: "+art +" arrycol "+ arrycol);
                 var vBID = $rootScope.filmlauf[rowIdx][art][arrycol][1];
                 ModalVerleihBuchungsService.editBuchung( vBID, art );
+
+            };
+            // früher openModalFilm
+            // offnet Filmwoche um Ringbuchungen in dieswer Woche durzuführen
+            // um Wunschfilme anzulegen
+            $scope.openModalFilmWoche = function (rowIdx, colIdx) {
+                ModalFilmWochenService.editFilm($scope, rowIdx, colIdx);
 
             };
 

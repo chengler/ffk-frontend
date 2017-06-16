@@ -63,7 +63,7 @@ angular
                         tag = moment(tag).format('DD.MM. dd');
                         titel = " title='Filminfos anzeigen, Film buchen oder Wunschfilm hinzufügen.' ";
                         sign = "<strong>&oplus; </strong>";
-                        directive = " ng-click='openModalFilm(" + rowIdx + ")' ";
+                        directive = " ng-click='openModalFilmWoche(" + rowIdx + ")' ";
                         myReturn = "<span " + titel + datumsClass + directive + ">" + sign + "</span>" + tag;
 
                         // kw verleiÜbersicht
@@ -71,7 +71,7 @@ angular
                         tag = tag.substr(6, 2) + " KW " + tag.substr(2, 2);
                         titel = " title='Filmlauf oder Wunschfilm hinzufügen.'";
                         sign = '<strong>&plus;  </strong>';
-                        directive = " ng-click='openModalFilm(" + rowIdx + ")' ";
+                        directive = " ng-click='openModalFilmWoche(" + rowIdx + ")' ";
                         myReturn = "<span " + titel + datumsClass + directive + ">" + sign + "</span>" + tag;
                     }
                     // if != verleih
@@ -210,7 +210,7 @@ angular
                         }
                         var filmLink = ""; // der link um den film anzuzeigen
                         filmLink = "<span title='Filminfos anzeigen' "
-                            + "class='pointer' ng-click='openModalFilm(" + rowIdx + "," + colIdx + ")' >" + verleiBuchung.titel + "</span> ";
+                            + "class='pointer' ng-click='openModalFilmWoche(" + rowIdx + "," + colIdx + ")' >" + verleiBuchung.titel + "</span> ";
 
                         return  link + filmLink + " ( " + medien + ")" + wochenBesucher;
                     } else {

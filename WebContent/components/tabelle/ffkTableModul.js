@@ -1,3 +1,5 @@
+// jetzt programmtabellenrenderer
+
 angular
 		.module('ffkTableModul', [ 'ui.bootstrap', 'ffkUtils' ])
 		.constant('MODULE_VERSION', '0.0.1')

@@ -1,4 +1,4 @@
-<!--jetzt modalfilmwoche-->
+<!--früher modalfilmwoche-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +8,7 @@
 <body>
 
 <div class="modal-header"
-     ng-include="'./components/filme/templateModalRowHeader.html?33'">
+     ng-include="'./components/filme/modalFilmWocheTemplateHeader.html?'">
 
 </div>
 
@@ -38,7 +38,7 @@
                         </tr>
 
                         <td ng-show=" logedInUser.role == 'admin' ||  logedInUser.role == 'spieler'  "
-                                class="pointer bc-000" ng-click="neuerWunsch()">neuer Wunschfilm</td>
+                            class="pointer bc-000" ng-click="neuerWunsch()">neuer Wunschfilm</td>
 
                     </table>
                 </div>
@@ -51,12 +51,12 @@
                     <h4 ng-bind="modus.hinweis" ng-if="modus.status == 'unbekannt' "></h4>
 
                     <div ng-show=" modus.status == 'buchbar' ||  modus.status == 'gewunschen' "
-                         ng-include="'./components/filme/templateFilmInfosAnzeigen.html?1'"></div>
+                         ng-include="'./components/filme/modalFilmWocheTemplateFilmInfosAnzeigen.html?'"></div>
 
                     <!-- WUNSCH anlegen oder Film bearbeiten -->
                     <div ng-show=" modus.status == 'neuerWunsch' ||
                         modus.status == 'bearbeiteFilm' ||  modus.status == 'bearbeiteWunsch'"
-                         ng-include="'./components/filme/templateFilmBearbeiten.html?1'">
+                         ng-include="'./components/filme/modalFilmWocheTemplateFilmBearbeiten.html?'">
 
 
 
@@ -71,7 +71,7 @@
 </div>
 
 <div class="modal-footer"
-     ng-include="'./components/filme/templateModalRowFooter.html?42gg'">
+     ng-include="'./components/filme/modalFilmWocheTemplateFooter.html?'">
 </div>
 </body>
 </html>

@@ -1,3 +1,6 @@
+// jetzt modalverleiBuchuhng
+
+
 angular.module('modalFilmKW', [ 'ui.bootstrap', 'ffkUtils' ]).constant('MODULE_VERSION', '0.0.1')
 //
 // SERVICES

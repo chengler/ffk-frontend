@@ -1,3 +1,5 @@
+// jetzt modal Filmwoche
+
 angular
     .module('modalFilmRow', ['ui.bootstrap', 'ffkUtils'])
     .constant('MODULE_VERSION', '0.0.1')

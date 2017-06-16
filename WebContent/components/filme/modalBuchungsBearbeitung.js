@@ -1,3 +1,5 @@
+// sollte in modalringbuchung integriert werden
+
 angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constant('MODULE_VERSION', '0.0.1')
     //
     // SERVICES
