@@ -155,17 +155,16 @@ angular
                 // Lange Standard Anzeige
                 // filmlaufBuchung =  [["bc-10", "vp2", 1]
                 function verleihBuchungLang() {
+                   /*
                     console.log("verleihBuchungLang() ");
-
                     console.log("rowidx " + rowIdx + " arryCol " + arryCol + " params.data  " + JSON.stringify(params.data));
                     console.log("filmlaufBuchung " + JSON.stringify(filmlaufBuchung));
                     console.log("filmlaufWunsch " + JSON.stringify(filmlaufWunsch) );
-
+*/
                     if (  filmlaufBuchung) { // true = Eintrag
                         var vBID = filmlaufBuchung[1];
                         var verleiBuchung = $rootScope.verleihBuchungen[vBID];
-
-                        console.log("** verleiBuchung " +JSON.stringify(verleiBuchung));
+                        //console.log("** verleiBuchung " +JSON.stringify(verleiBuchung));
                         var medien = "";
                         // wann startet diese KinoW in ms
                         var datumInMs = moment(datum).isoWeekday(4);
@@ -269,20 +268,18 @@ angular
                  filmlaufBuchung:   [background, [fBID,fBID]]
                  */
                 function ringBuchungLang() {
-                    console.log("ringBuchungLang()");
-                    console.log("aktuelle filmlaufBuchung: "+ JSON.stringify(filmlaufBuchung));
+              //      console.log("ringBuchungLang()");
+              //      console.log("aktuelle filmlaufBuchung: "+ JSON.stringify(filmlaufBuchung));
                     var myReturn = ""; // rückgabewert
                     var fBID;
                     var ringBuchung;
                     var verleihBuchung;
 
                     if ( filmlaufBuchung[0]) { // es gibt einen eintrag
-                        console.log("ELSE FALSE");
-
                         for (var i = 0; i < filmlaufBuchung[1].length; i++) {
                             fBID = filmlaufBuchung[1][i];
-                            console.log("fBID " +fBID);
-                            console.log("i "+i+" filmlaufBuchung[1].length "+filmlaufBuchung[1].length);
+                           // console.log("fBID " +fBID);
+                           // console.log("i "+i+" filmlaufBuchung[1].length "+filmlaufBuchung[1].length);
                             ringBuchung = $rootScope.ringBuchungen[fBID];
                             var filmOrt = $rootScope.spielorte[ringBuchung.sid]["ort"]; // sid
                             verleihBuchung = $rootScope.verleihBuchungen[ringBuchung.vBID];
@@ -360,11 +357,10 @@ angular
                                     }
                                 }
                             }
-                            console.log("ringBuchungLang return " + myReturn);
+                          //  console.log("ringBuchungLang return " + myReturn);
                             myReturn = myReturn + "<br />";
                         }
                     }   else { //falls bedarf bei  filmlaufBuchung == false
-                        console.log("ELSE");
                     }
 
 
@@ -503,14 +499,14 @@ angular
                 if(zeigeWunschFilme) {  //wenn true
                 // wunschfilme und Spieltag (datumszeile)
                     if ( spieltag ) {
-                        console.log("************* wunschfilme und Spieltag  rowIdx "+ rowIdx);
+            //            console.log("************* wunschfilme und Spieltag  rowIdx "+ rowIdx);
                         endresult = "<span style = 'position:absolute; z-index: 1; opacity:0.3;'> "
                             + ringBuchungKurz() + "</span>"
                             + "<span style = ' opacity:1; z-index: 2; float: right;'>" + ringWunschStandard()
                             + "</span>";
                 // wunschfilme aber KEIN Spieltag (KW ZEile)
                     } else {
-                        console.log("************* wunschfilme KEIN Spieltag  rowIdx "+ rowIdx);
+            //            console.log("************* wunschfilme KEIN Spieltag  rowIdx "+ rowIdx);
 
                         endresult = "<span style = 'position:absolute; z-index: 1; opacity:0.3;'> "
                             + verleihBuchungKurz() + "</span>"
@@ -520,7 +516,7 @@ angular
                    } else {
                 // KEIN wunschfilme ABER Spieltag (datumszeile)
                     if ( spieltag ) {
-                        console.log("************* KEIN wunschfilme ABER Spieltag rowIdx "+rowIdx);
+             //           console.log("************* KEIN wunschfilme ABER Spieltag rowIdx "+rowIdx);
                         // und Kein Verleih
                         if ( $rootScope.logedInUser.role != "verleih") {
                             endresult = ringBuchungLang();
@@ -531,12 +527,12 @@ angular
                         ;
                 // KEIN wunschfilme, KEIN Spieltag (KW ZEile)
                     } else {
-                        console.log("************* KEIN wunschfilme KEIN Spieltag rowIdx "+rowIdx);
+            //            console.log("************* KEIN wunschfilme KEIN Spieltag rowIdx "+rowIdx);
                         endresult = verleihBuchungLang();
                     }
                 }
 
-            console.log("**endresult**** "+JSON.stringify(endresult))    ;
+          //  console.log("**endresult**** "+JSON.stringify(endresult))    ;
             return endresult;
 
 

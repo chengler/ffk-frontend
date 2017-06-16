@@ -31,7 +31,7 @@ Bearbeite VerleihBuchung
 				}
 			}
 		});
-		console.log("distributores/modalVerleihBuchung.js  Modal gestartet");
+		console.log("    Modal startet. Pfad: distributores/modalVerleihBuchung.js");
 		// die Rückgabe
 		modalInstance.result.then(function(res) {
 			$log.debug("ModalReturn: " + JSON.stringify(res, 1, 4));
@@ -277,7 +277,7 @@ Bearbeite VerleihBuchung
 			
 
 		}, modalInstance.opened.then(function() {
-			console.log('opened modalVerleihBuchung');
+			console.log('    modalVerleihBuchung geöffnet!');
 		}),
 
 		function() {
@@ -355,7 +355,7 @@ Bearbeite VerleihBuchung
 angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCtrl',
 		function(FfkUtils, $rootScope, $scope, $uibModalInstance, vBID, art) {
 
-			console.log("modalVerleihBuchung editBuchung geöffnet mit vBID " + vBID + " und art " + art + " (1Buchung/2Wunsch)");
+			console.log("    ModalVerleihBuchungsInstanceCtrl gestartet mit vBID " + vBID + " und art " + art + " (1Buchung/2Wunsch)");
 			var buchung; // die VerleihBuchung oder der Verleihwunsch
             // lade Verleihbuchung, ausser es ist ein Wunsch
             if (art == 2) {
@@ -363,24 +363,17 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
             } else {
                 buchung = $rootScope.verleihBuchungen[vBID];
             }
-            console.log("buchung geladen: "+JSON.stringify(buchung));
+         //   console.log("buchung geladen: "+JSON.stringify(buchung));
 
 			// background Farbe
 			$scope.bcColor = buchung.bc
 			var alteBC = $scope.bcColor;
-
 			// die VerleihbuchungsID
 			// die FilmID
 			var fID = buchung.fID
-
-
-
 			// der Verleih
-
             $scope.verleih = $rootScope.verleiher[buchung.vid];
-            console.log($scope.verleih);
-
-
+          //  console.log($scope.verleih);
             // heute
 			$scope.today = function() {
 				$scope.dt = new Date();
@@ -389,7 +382,8 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
 			$scope.today();
 
 			// suche Start des Filmblocks
-			$scope.laufzeit = buchung.laufzeit;
+            var laufz = buchung.laufzeit; // die alte laufzeit bei lzänderungen
+			$scope.laufzeit = laufz;
 			var start = moment(buchung.start).hour(12);
 		//	console.log("start=" + start._d);
 			$scope.dtStart = start._d;
@@ -635,18 +629,13 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
 			$scope.ok = function(type) {
 				var result = {};
 				// speichern oder löschen
-				result['typ'] = type;
 				result['art'] = art;
-				
 				result['startIdx'] = startIDX; // alter startindex
-				result['laufzeit'] = lz; // alte laufzeit
-				result['laufzeitNeu'] = $scope.laufzeit; 
-				
+				result['laufzeit'] = laufz; // alte laufzeit
+				result['laufzeitNeu'] = $scope.laufzeit;
 				result['vBID'] = vBID;
 				result['fID'] = fID;
 				result['delete'] = false;
-				result['new'] = false;
-				result['renew'] = false; // ??
 				result['medien'] = {};
 				result['menge'] = $scope.menge;
 				// 
