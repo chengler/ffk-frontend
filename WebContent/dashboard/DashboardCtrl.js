@@ -12,10 +12,10 @@
         '$log',
         '$locale',
         'FfkUtils',
-        'ModalRingBuchungsBearbeitungService',
+        'ModalRingBuchungEintrittBearbeitenService',
         'OpenModalVenueService',
         'OpenModalDistributorService',
-        function ( $scope, $rootScope,  $log, $locale, FfkUtils, ModalRingBuchungsBearbeitungService,
+        function ( $scope, $rootScope,  $log, $locale, FfkUtils, ModalRingBuchungEintrittBearbeitenService,
                    OpenModalVenueService, OpenModalDistributorService) {
             $log.info("init DashboardCtrl");
         //    $scope.version = $rootScope.version; // damit templates nachgeladen werden, nach fertigstellung des Progs bsésser progversion
@@ -175,7 +175,8 @@
             $scope.besucherEintragen = function (fBID) {
                 console.log("bearbeite fBID " + fBID);
                 // [0] = verarbeitungsart [1] = input
-                ModalRingBuchungsBearbeitungService.editBuchung( ['fBID' , fBID ] );
+
+                ModalRingBuchungEintrittBearbeitenService.editBesucher( ['fBID' , fBID ] );
 
             };
 

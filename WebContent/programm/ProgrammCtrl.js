@@ -297,13 +297,14 @@
                
             };
             // Filmmodal
-            $scope.openModalFilm = function (rowIdx, colIdx) {
+/*            $scope.openModalFilm = function (rowIdx, colIdx) {
                 ModalFilmRowService.editFilm($scope, rowIdx, colIdx);
                
-            };
+            };*/
 
             // ModalBuchungsBearbeitungService
-            $scope.openModalBuchung = function (rowIdx, colIdx, filmNr ) {
+            $scope.openModalBuchung = function (rowIdx, colIdx, filmNr, rr ) {
+                console.log(rr);
                 ModalBuchungsBearbeitungService.editBuchung(rowIdx, colIdx, filmNr, $rootScope.gridOptions);
                
 

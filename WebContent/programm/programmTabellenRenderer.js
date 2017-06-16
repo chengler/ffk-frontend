@@ -331,12 +331,10 @@ angular
                             }
 
                             if ( $rootScope.logedInUser.sid == ringBuchung.sid || $rootScope.logedInUser.role == "admin" ){
-                                myReturn +=  "<span class=' pointer' ng-click='openModalBuchung(" + rowIdx + ","+ colIdx + ","+ filmNr +")' >" + "<small>" + fBID + "</small> " + filmOrt + "</span>" + check[1] + check[2] + von + medium + nach ;
-/*
-                                myReturn +=  "<span class=' pointer' ng-click='openModalBuchung(" + rowIdx + ","
-                                    + colIdx + ","+ fmax + ")' >" + "<small>" + filmBID + "</small> " + filmOrt + "</span>"
-                                    + check[1] + check[2] + von + medium + nach ;
-                                */
+                                myReturn +=  "<span class=' pointer' ng-click='openModalBuchung(" + rowIdx
+                                    + ","+ colIdx + ","+ filmNr + ")' >" + "<small>" + fBID + "</small> "
+                                    + filmOrt + "</span>" + check[1] + check[2] + von + medium + nach ;
+
 
                             } else {
                                 myReturn +=  "<small>" + fBID + "</small> " + filmOrt + check[1] + check[2] +
