@@ -108,11 +108,12 @@
 },
     "verleihBuchungen": {
     "vp2": {
+        "vBID": "vp2",
         "fID": "fp1",
-            "titel": "Happy Film",
-            "vid": "vid1",
-            "medien": {
-            "BD": "20170526"
+        "titel": "Happy Film",
+        "vid": "vid1",
+        "medien": {
+        "BD": "20170526"
         },
         "menge": {
             "BD": 1,
@@ -139,6 +140,7 @@
     },
     "vp4": {
         "fID": "fp3",
+            "vBID": "vp4",
             "titel": "Sad Film",
             "vid": "vid2",
             "medien": {

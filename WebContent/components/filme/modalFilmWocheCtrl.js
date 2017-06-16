@@ -17,7 +17,7 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
         if ($rootScope.logedInUser.sid){
             $scope.sid = $rootScope.logedInUser.sid // spielort aktuell
         }
-        console.log("die sid "+$scope.sid);
+        console.log("die sid ist"+$scope.sid);
 
         $scope.bisherigerVerleih = false;
         $scope.filmChanges = {};
@@ -26,7 +26,16 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
         // Alle Filme dieses Tages
 
         var filmlaufTag = $rootScope.filmlauf[rowIdx];
-        var datum = moment(filmlaufTag["datum"]).hour(12);
+        console.log("filmlaufTag " + JSON.stringify(filmlaufTag));
+
+
+        var datum;
+        $scope.verleihAngelegenheiten;
+        $scope.myVerleiBuchungen = [];
+        $scope.myVerleiWunsche = [];
+
+        var idxVerleihangelegenheiten; // indegs der KW wochung Verleihbuchungen
+        var verleihAngelegenheiten;
 
         // steurinfos für die html anzeige
         $scope.modus = {};
@@ -42,84 +51,54 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
         // KW Zeile oder Tageszeile =>
         // $scope.wahl.row = 'kw' || 'tag'
         // $scope.datum = KW || datum
-        if (filmlaufTag["datum"].substr(4, 1) == 'W') {
+        //idx 0 =   [ [ "bc-g0", false,  "2016-W49",  1          ]
+        if (filmlaufTag[0][1] == false) { // wenn Verleihbuchung, else ringbuchung
             $log.debug("Kalenderwochenübersicht gewählt");
-            datum = moment(datum).isoWeekday(4); // fake day
+            idxVerleihangelegenheiten = rowIdx;
+            datum = moment(filmlaufTag[0][1]).isoWeekday(4).hour(12);; // nehme Donnerstag, start filmwocdhe
             $scope.datum = "KinoWoche " + moment(datum).format('w');
             $scope.modus.row = 'kw';
-            rowIdx = rowIdx + 1; //zum Filme einlesen
+            rowIdx = rowIdx + 1; //zum Filme einlesen  //unklar!
         } else {
+            // 0 = [ [ "bc-g2", 1-7,
+            idxVerleihangelegenheiten = rowIdx - filmlaufTag[0][1];
             $log.debug("Tagesübersicht gewählt");
+            datum = moment(datum).hour(12);
             $scope.datum = moment(datum).format('dd. DD.MM.YYYY');
             $scope.modus.row = 'tag';
         }
+        var verleihAngelegenheiten = $rootScope.filmlauf[idxVerleihangelegenheiten]
+
+        console.log("verleihAngelegenheiten " + JSON.stringify(verleihAngelegenheiten));
+
+
+
 
         if ($scope.modus.row == 'kw') {
             $scope.header = "Filme dieser Woche";
         } else {
             $scope.header = "Film auswählen für ";
         }
-// hole KW Woche
-        // der row Indefilmex der KW Zeile
-        // var wochenBuchungenIDX = rowIdx - moment(datum).format('E');
-        var wochenBuchungenIDX = FfkUtils.getKinoWochenRowIdx(rowIdx, datum);
-        // die KW Zeile vBID und Medien
-        var wochenBuchungen = $rootScope.filmlauf[wochenBuchungenIDX];
 
-        // gebuchte Filme
-        // lade infos zur vBID filmobject: key=col value = buchungsobj +bc
-        // lade infos zur wfID wochenWunschFilme: key=wfID v
-        var myObject;
-// sammel filme aus kw woche
         var machMenus = function () {
-            console.log("machMenus: status = " + $scope.modus.status);
-            $scope.filmObject = []; // Film der Woche aus Filmlauf
-            $scope.wochenWunschFilme = {}; // Wünsche der Woche
-            console.log(" wochenBuchungen  " + JSON.stringify( wochenBuchungen ));
-            for (var i = 1; i <= wochenBuchungen.col; i++) {
-                // wenn col existiert Filme in dieser Woche
-                if ( (typeof wochenBuchungen['col' + i] != 'undefined'))   {
-                    // ist false wenn nur Wunschfilm in Spalte
-                    var myVBID = wochenBuchungen['col' + i]["vBID"];
-                    if (! ((myVBID == false) || (myVBID == undefined)  )) {
-                        // buchungsinfos zum Film
-                        myObject = $rootScope.verleihBuchungen[wochenBuchungen['col' + i]["vBID"]];
-                        // hintergrundfarbe
-                        if ( ( typeof wochenBuchungen['col' + i]['bc']) == 'undefined') {
-                            myObject.bc = "bc-g0";
-                        } else {
-                            myObject.bc = wochenBuchungen['col' + i]['bc'];
-
-                        }
-
-
-                        // Spalte
-                        myObject.col = 'col' + i;
-                        $scope.filmObject.push(myObject);
-
-
-                        console.log(" myObject  " + JSON.stringify( myObject ));
-                        console.log(" $scope.filmObject  " + JSON.stringify( $scope.filmObject ));
-
-                    }
-                    // Filmwünsche in dieser Woche
-                    if (typeof wochenBuchungen['col' + i + 'w'] != 'undefined') {
-                        var wb = wochenBuchungen['col' + i + 'w'];
-                        console.log(JSON.stringify(wb));
-                        // TODO umstellung zur Variablen verleihWunsch aufräumen
-                        // myObject = $rootScope.verleihBuchungen["wuensche"][wb["vBID"]];
-                        myObject = $rootScope.verleihWunsch[wb["vBID"]];
-                        myObject.bc = wb['bc'];
-                        myObject.col = 'col' + i;
-                        myObject.wfID = wb["vBID"];
-                        $scope.wochenWunschFilme[myObject.wfID] = myObject;
-                    }
-                }
-            }
-            // $log.debug(" buchbarer Filme: " + JSON.stringify($scope.filmObject));
-            // $log.debug(" wochenWunschFilm : " + JSON.stringify($scope.wochenWunschFilme));
+        // lade die Verleihbuchungen der Woche in myVerleih ...
+        // 1 | 2 =  [ ["bc-10", "vp2", 1], ["bc-20"..        ]
+        for (i=0; i < verleihAngelegenheiten[1].length; i++ ){
+            $scope.myVerleiBuchungen.push($rootScope.verleihBuchungen[verleihAngelegenheiten[1][i][1]]);
         }
+        console.log("$scope.myVerleiBuchungen " + JSON.stringify($scope.myVerleiBuchungen));
+            // lade die VerleihWünsche der Woche in myVerleih ...
+            for (i=0; i < verleihAngelegenheiten[2].length; i++ ){
+            $scope.myVerleiWunsche.push($rootScope.verleihWunsch[verleihAngelegenheiten[2][i][1]]);
+        }
+        console.log("$scope.myVerleiWunsche " + JSON.stringify($scope.myVerleiWunsche));
+        };
         machMenus();
+
+
+        ///////////// hier gehts weiter
+
+
 
         $scope.getMedienVorOrt = function (sid) {
             $scope.sid = sid;

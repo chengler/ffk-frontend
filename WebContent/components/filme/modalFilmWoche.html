@@ -21,9 +21,9 @@
                 <h3>Filme in KW {{kw}}</h3>
                 <div class=" inforahmen">
                     <table class="table" style="width: 100%">
-                        <tr ng-repeat="film in filmObject track by $index">
-                            <td class="{{film.bc}} pointer" ng-bind="film.titel"
-                                ng-click="loadBuchbar(film.col)"></td>
+                        <tr ng-repeat="buchung in myVerleiBuchungen">
+                            <td class="{{buchung.bc}} pointer" ng-bind="buchung.titel"
+                                ng-click="loadBuchbar(buchung.vBID)"></td>
                         </tr>
                     </table>
                 </div>
@@ -32,9 +32,9 @@
                 <h3>Wünsche in KW {{kw}}</h3>
                 <div class=" inforahmen">
                     <table class="table" style="width: 100%">
-                        <tr class="rounded" ng-repeat="wunsch in wochenWunschFilme">
+                        <tr class="rounded" ng-repeat="wunsch in myVerleiWunsch">
                             <td class="{{wunsch.bc}} pointer" ng-bind="wunsch.titel"
-                                ng-click="loadGewunschen(wunsch)"></td>
+                                ng-click="loadGewunschen(wunsch.vBID)"></td>
                         </tr>
 
                         <td ng-show=" logedInUser.role == 'admin' ||  logedInUser.role == 'spieler'  "
