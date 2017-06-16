@@ -4,7 +4,7 @@
 // ModalFilmlWochenInstanceCtrl REIHE
 // bezieht sich auf die FilmverleihBuchungen in einer Woche (mit Datum)
 angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
-    function ($rootScope, $scope, $log, $uibModalInstance, rowIdx, FfkUtils, programmCtrlScope, colIdx) {
+    function ($rootScope, $scope, $log, $uibModalInstance, rowIdx, FfkUtils, colIdx) {
         console.log("ModalFilmlWochenInstanceCtrl für rowIdx " + rowIdx +" und colIdx " + colIdx);
 
         $scope.filmObject = []; // Film der Woche aus Filmlauf
@@ -136,26 +136,25 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
         };
 
         // buchbarer film angecklickt
-        $scope.loadBuchbar = function (col) {
-            console.log("loadBuchbar: " + col);
-            $scope.modus.col = col; // infos $scope.buchen
-            $scope.kwinfos = wochenBuchungen[col];
-            $scope.buchung = $rootScope.verleihBuchungen[$scope.kwinfos["vBID"]];
+        $scope.loadBuchbar = function (vBID) {
+            console.log("loadBuchbar: " + vBID);
             if ($scope.modus.row == 'tag') {
                 $log.debug("suche Medienverfügbarkeit für 'tag'");
-                $scope.medienLeihbar = FfkUtils.getLeihbar(filmlaufTag["datum"], $scope.buchung.medien);
+                $scope.medienLeihbar = FfkUtils.getLeihbar(datum, $rootScope.verleihBuchungen[vBID].medien);
                 $scope.modus.buchbar = true;
             }
-            $scope.fID = $scope.kwinfos.fID;
+            var fID =  $rootScope.verleihBuchungen[vBID].fID;
+            FfkUtils.ladeFilm(fID);
+            $scope.fID = fID;
             //versuche Film zu laden falls noch nicht vorhanden
-            FfkUtils.ladeFilm($scope.fID);
+
             $scope.modus.text = "Infos zum Film";
             $scope.modus.status = "buchbar";
         };
 
-        if (colIdx != undefined){ // aufruf mit row und colIdx, zeige nicht alle filme, sondern gleich den der col
+        if (colIdx != false){ // aufruf mit row und colIdx, zeige nicht alle filme, sondern gleich den der col
             console.log("gehe direkt zum film, da col "+ colIdx + "im Aufruf mitgegeben wurde");
-            $scope.loadBuchbar("col"+colIdx);
+            $scope.loadBuchbar($scope.myVerleiBuchungen[colIdx-1].vBID);
         }
 
 

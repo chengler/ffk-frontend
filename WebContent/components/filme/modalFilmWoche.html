@@ -21,9 +21,9 @@
                 <h3>Filme in KW {{kw}}</h3>
                 <div class=" inforahmen">
                     <table class="table" style="width: 100%">
-                        <tr ng-repeat="buchung in myVerleiBuchungen">
-                            <td class="{{buchung.bc}} pointer" ng-bind="buchung.titel"
-                                ng-click="loadBuchbar(buchung.vBID)"></td>
+                        <tr ng-repeat="mybuchung in myVerleiBuchungen">
+                            <td class="{{mybuchung.bc}} pointer" ng-bind="mybuchung.titel"
+                                ng-click="loadBuchbar(mybuchung.vBID)"></td>
                         </tr>
                     </table>
                 </div>

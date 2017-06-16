@@ -287,7 +287,7 @@
             // offnet Filmwoche um Ringbuchungen in dieswer Woche durzuführen
             // um Wunschfilme anzulegen
             $scope.openModalFilmWoche = function (rowIdx, colIdx) {
-                ModalFilmWochenService.editFilm($scope, rowIdx, colIdx);
+                ModalFilmWochenService.editFilm(rowIdx, colIdx);
 
             };
 

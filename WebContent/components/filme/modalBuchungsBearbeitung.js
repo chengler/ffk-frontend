@@ -149,8 +149,6 @@ angular.module('modalBuchungsBearbeitung').controller(
     function ($rootScope, $scope, $log, $uibModalInstance, rowIdx, colIdx, filmNr, FfkUtils) {
         console.log("ModalBuchungsBearbeitungInstanceCtrl mit rowIdx " + rowIdx + " colIdx " + colIdx + " filmNr "
             + filmNr);
-        var col = "col" + colIdx; // z.B col1
-        var film = 'f' + filmNr; // z.B f1
         var datum = $rootScope.filmlauf[rowIdx].datum; // isodate 20160112
         $scope.datum = moment(datum).format('DD.MM.YYYY'); // datum
         // index der KW zeile

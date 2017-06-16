@@ -276,7 +276,9 @@ angular
                     var verleihBuchung;
 
                     if ( filmlaufBuchung[0]) { // es gibt einen eintrag
+                        var filmNr;
                         for (var i = 0; i < filmlaufBuchung[1].length; i++) {
+                            filmNr = i;
                             fBID = filmlaufBuchung[1][i];
                            // console.log("fBID " +fBID);
                            // console.log("i "+i+" filmlaufBuchung[1].length "+filmlaufBuchung[1].length);
@@ -288,14 +290,14 @@ angular
                             // die zwei Checks
                             // belege check1 und check2
                             var check = [ "" ];
-                            for (var i = 1; i <= 2; i++) {
+                            for (var j = 1; j <= 2; j++) {
                                 if (ringBuchung["check" + i]) { check.push("<span title='schalte bei Klick um.' " +
                                     "class='ok pointer'  flipOnClick click='handleFlip' id='check"
-                                    + i + sourceIndex + "' > &#10003; </span>");
+                                    + j + sourceIndex + "' > &#10003; </span>");
                                 } else {
                                     check.push("<span title='schalte bei Klick um.'" +
                                         " class='notOK pointer' flipOnClick click='handleFlip' id='check"
-                                        + i + sourceIndex + "' > &#10008; </span>");
+                                        + j + sourceIndex + "' > &#10008; </span>");
                                 }
                             }
                             // Medium, von und nach
@@ -329,7 +331,7 @@ angular
                             }
 
                             if ( $rootScope.logedInUser.sid == ringBuchung.sid || $rootScope.logedInUser.role == "admin" ){
-                                myReturn +=  "<span class=' pointer' ng-click='openModalBuchung(" + rowIdx + ","+ colIdx + ")' >" + "<small>" + fBID + "</small> " + filmOrt + "</span>" + check[1] + check[2] + von + medium + nach ;
+                                myReturn +=  "<span class=' pointer' ng-click='openModalBuchung(" + rowIdx + ","+ colIdx + ","+ filmNr +")' >" + "<small>" + fBID + "</small> " + filmOrt + "</span>" + check[1] + check[2] + von + medium + nach ;
 /*
                                 myReturn +=  "<span class=' pointer' ng-click='openModalBuchung(" + rowIdx + ","
                                     + colIdx + ","+ fmax + ")' >" + "<small>" + filmBID + "</small> " + filmOrt + "</span>"
@@ -460,32 +462,32 @@ angular
                 } // end wunschfilme
 
 /*
-                wochenBuchung
+
                 verleihBuchungLang() Infos zur Verleihbuchung in der KW Zeile: Lange Standard Anzeige
                 // filmlaufBuchung =  ["bc-10", "vp2", 1]
 
-                wochenBuchungKurz
+
                 verleihBuchungKurz() Infos zur Verleihbuchung in der KW Zeile: kurze Wunschfilm Anzeige
                 filmlaufWunsch =  ["bc-10", "vp2", 1]
 
-           wochenBuchungWunsch
+
                 verleihWunschStandard() Infos zur Verleihbuchung in der KW Zeile:kurze Wunschfilm Anzeige
                 filmlaufWunsch :  [background, vBID, filmwoche]
 
-                tagesBuchungLang
+
                 ringBuchungLang() Infos zur Ringbuchung in der Datumszeile: lange Film Anzeige
                 Die übliche Anzeige in der Programmtabelle
                 filmlaufBuchung:   [background, [fBID,fBID]]
 
-                tagesBuchungenKurz
+
                 ringBuchungKurz() Infos zur Ringbuchung in der Datumszeile: kurze Wunschfilm Anzeige
                 filmlaufBuchung:   [background, [fBID,fBID]]
 
-                tagesBuchungVerleih
+
                 ringBuchungVerleih() Infos zur Ringbuchung in der Datumszeile: Verleih Anzeige
                 filmlaufBuchung:   [background, [fBID,fBID]]
 
-             wunschFilme
+
                 ringWunschStandard() Infos zu Ringwünschen in der Datumszeile: Standard Anzeige
                 filmlaufBuchung:   [background, [fBID,fBID]]
 

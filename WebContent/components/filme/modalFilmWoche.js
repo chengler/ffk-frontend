@@ -11,7 +11,7 @@ angular
     .service(
         'ModalFilmWochenService',
         function ($uibModal, $log, FfkUtils, $rootScope) {
-            this.editFilm = function ($scope, rowIdx, colIdx) { //nur row bei ganzer zeile (+ in der KW anzeige)
+            this.editFilm = function ( rowIdx, colIdx) { //nur row bei ganzer zeile (+ in der KW anzeige)
                 var modalInstance = $uibModal.open({            // col zur direkten filminfo (filmlinks in der kw zeile)
                     templateUrl: './components/filme/modalFilmWoche.html?' + Math.random(),
                     controller: 'ModalFilmlWochenInstanceCtrl',
@@ -21,10 +21,10 @@ angular
                             return rowIdx
                         },
                         colIdx: function () {
+                            if (colIdx == undefined){
+                                colIdx = false;
+                            }
                             return colIdx
-                        },
-                        programmCtrlScope: function () {
-                            return $scope;
                         }
                     }
                 });
