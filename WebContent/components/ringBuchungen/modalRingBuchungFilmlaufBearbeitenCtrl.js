@@ -10,26 +10,24 @@ angular.module('modalRingBuchung').controller(
         var myRingB = $rootScope.ringBuchungen[fBID];
         var myVerleihB = $rootScope.verleihBuchungen[myRingB.vBID];
         var datum = myRingB.datum; // isodate 20160112
+        $scope.buchungsChanges = Object.create(myRingB);
 
         $scope.schalter = {};
-
         $scope.schalter = {};
         $scope.schalter['delete'] = true;
         $scope.schalter['besucher'] = false;
         $scope.schalter['filmlauf'] = true;
 
-
         $scope.spielort = FfkUtils.getNamezurId( $rootScope.spielorteSortiert, myRingB.sid );
         $scope.filmtitel = myVerleihB.titel;
         $scope.datum = moment(datum).format('DD.MM.YYYY'); // datum
-        console.log("datum "+ datum);
         $scope.bcolor = myVerleihB.bc;
         $scope.myVersion =  $rootScope.version;
+        //console.log("datum "+ datum);
 
 
         // getätigte Änderungen werden hier gespeichert um nach dem Speichern bearbeitet zu werden
         // 1x lokal und 1x RESTfull
-        $scope.buchungsChanges = Object.create(myRingB);
 
 
         $scope.medium = myRingB.medium;

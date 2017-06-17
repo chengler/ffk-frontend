@@ -74,7 +74,7 @@ app.run(function(version, author, $rootScope, $http, $locale) {
 	$rootScope.usersSortiert = []; 
 
 	$rootScope.filmlauf = []; // die Tabellendaten
-    $rootScope.filmlaufSpalten = 0; // maximale anzahlder Spalten
+    $rootScope.filmlaufSpalten = 5; // maximale anzahlder Spalten
 
     $rootScope.filme = {}; // Die Filme
     $rootScope.ringBuchungen = {}; // Film Buchungen beim Ring fBID

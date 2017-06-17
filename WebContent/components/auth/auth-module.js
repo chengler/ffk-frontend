@@ -97,42 +97,9 @@
 
 
 
-		//erstelle  Grundtabelle
 
-        var ladeGrundtabelle = function () {
-            $log.info("***** erstelle  grundTabelle");
-            // 60 Wochen KW 1 minus 4 Wochen, KW 52 plus 4 Wochen
-            // buggy daher 1.Do im Jahr wie folgt rechnen!important
-            var ersterDo = moment().isoWeek(30).isoWeekYear(new Date().getFullYear()).isoWeek(1).isoWeekday(4)
-                .hour(12);
-            // 4 Wochen zurück
-            ersterDo = moment(ersterDo).subtract(4, 'weeks');
-            console.log("ersterDo in Tabelle" + ersterDo._d);
-            // erstelle grundwert für die Programmtabelle
-            // dies ist der Zeit Grundwert für idx0(KW) und idx1(Tag)
-            $rootScope.ersterDo = moment(ersterDo).hours(12).minutes(0).seconds(0).millisecond(0);
-            // erstelle 60 Wochen a 8 einträge
-            var datum = ersterDo;
-            for (var w = 0; w < 60; w++) {
-                var kw = moment(datum).format('YYYY');
-                kw = kw + '-W'+ moment(datum).format('ww');
-                // [background, kw  , datum, lines in row]
-                $rootScope.filmlauf.push([ [ "bc-g0", false, kw,  1], [] , []  ]);
-                var tag;
-                for (var t = 1; t < 8; t++) {
-                  //  [background, kw  , datum, lines in row]
-                  // [ "bc-g2", false,  "2016-12-18", 1
-                    $rootScope.filmlauf.push([[ "bc-g2", t,  moment(datum).format('YYYY-MM-DD'), 1], [], []  ] );
-                    datum = moment(datum).add(1, 'day');
-                }
-            }
-
-            $rootScope.status.grundTabelleGeladen = true;
-           // $rootScope.status.filmlaufGeladen = true;
-            console.log("grundTabelleGeladen " + $rootScope.status.grundTabelleGeladen);
-        };
         // was erledigt werden kann während das Programm auf das login wartet.
-        ladeGrundtabelle();
+        FfkUtils.ladeGrundtabelle();
 
 /*
 
@@ -156,27 +123,7 @@ idx 211 = [ [ "bc-g2", 1-7, "2017-06-10", "bc-g2", 1], [ ["bc-11", [fBID, ..]] ,
 
        */
 
-        var erstelleFilmlauf = function(){
-            console.log("erstelle Filmlauf");
-            if ($rootScope.status.filmlaufGeladen == true) {
-                console.log("************** Filmlauf wurde bereits geladen, also wird er nun auch nicht mehr berechnet");
-            } else {
-                $rootScope.status.erstelleFilmlauf = true; // verhinder, das jetzt noch ein Filmlauf aus einem Datensatz geladen wird.
-                // array 1 buchung, 2 wünsche
-                console.log("verleihBuchungen");
-                FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihBuchungen, 1);
-                console.log("verleihWunsch");
-                FfkUtils.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihWunsch, 2);
-                console.log("ringBuchungen");
-                FfkUtils.setInFilmlaufRingAngelegenheiten($rootScope.ringBuchungen, 1);
-                console.log("ringWünsche");
-                FfkUtils.setInFilmlaufRingAngelegenheiten($rootScope.ringWunsch, 2);
 
-
-
-            $rootScope.status.filmlaufGeladen = true;
-        }
-        }
 
         // setze watcher der mit dem berechnen des Filmlaufes beginnt, sobald alle daten da sind
 		 // setze watcher
@@ -195,7 +142,7 @@ idx 211 = [ [ "bc-g2", 1-7, "2017-06-10", "bc-g2", 1], [ ["bc-11", [fBID, ..]] ,
 		    {
              allesGeladen(); // clear watcher
                 console.log("********** starte mit erstelleFilmlauf");
-                erstelleFilmlauf();
+                FfkUtils.erstelleFilmlauf();
 		 }
 		 }, true);
 		 // lade Filmlauf sobald bekannt ist, wer sich angemeldet hat

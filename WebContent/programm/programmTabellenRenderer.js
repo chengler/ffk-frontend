@@ -147,6 +147,7 @@ angular
                 if (filmlaufWunsch == undefined) {
                     filmlaufWunsch =  false;
                 }
+
                 //[0] =  [ 0, 1, 2, 3 ] =[background, spieltag  , datum, lines in row]
                 var spieltag = params.data[0][1]; //false oder 1-7
                 var link = ""; // wenn links gelegt werden
@@ -226,13 +227,17 @@ angular
                  filmlaufWunsch =  [["bc-10", "vp2", 1]
                 */
                 function verleihBuchungKurz() {
-                    console.log("wochenBuchungKurz verleihBuchungKurz() ");
+                    var result
+              //      console.log("verleihBuchungKurz() ");
                     // nur wenn vorhanden
-                    if (filmlaufWunsch.length = 0) {
-                        return "";
+                    if (filmlaufBuchung == false) {
+                        result =  "";
+                    } else {
+                       // console.log(filmlaufBuchung);
+                       // console.log($rootScope.verleihBuchungen[filmlaufBuchung[1]]);
+                        result = $rootScope.verleihBuchungen[filmlaufBuchung[1]].titel;
                     }
-                    var verleiWunsch = $rootScope.verleihWunsch[filmlaufWunsch[1]];
-                    return wochenBuchung.titel;
+                    return result;
                 }
 
 
@@ -242,24 +247,28 @@ angular
                  filmlaufWunsch :  [background, vBID, filmwoche]
                 */
                 function verleihWunschStandard() {
-                    console.log("wochenBuchungWunsch verleihWunschStandard ");
+             //       console.log("+ verleihWunschStandard ");
+                   // console.log(filmlaufWunsch);
+                   // console.log($rootScope.verleihWunsch[filmlaufBuchung[1]]);
                     var result;
-                    if (filmlaufWunsch.length = 0) {
-                        return "";
-                    }
-                    var vBID = $rootScope.verleihWunsch[filmlaufWunsch[1]];
-                    var verleihWunsch = $rootScope.verleihWunsch[vBID];
-                    result = verleihWunsch['titel'];
+                    if (filmlaufWunsch == false) {
+                        result = "";
+                    } else {
+
+                    var verleihWunsch = $rootScope.verleihWunsch[filmlaufWunsch[1]];
+                    var vBID = verleihWunsch.vBID;
+                    var titel = verleihWunsch['titel'];
                     var bc = verleihWunsch['bc'];
                     // wrapper für Wunschfilme
-                    if ( $rootScope.logedInUser.role == "admin"){
-                        result = "<span ng-click=ng-click='openModalVerleihBuchung(" + vBID + ", false)' title='Diesen Wunsch bearbeiten' class=' "
-                                + bc + " label glyphicon glyphicon-edit pointer' style = ' opacity:1; z-index: 2; float: right; color: black;'> "
-                                + result + "</span>";
-                        } else {
-                        result = "<span title='Diesen Wunsch bearbeiten' class=' "	+ bc + " label' style = ' opacity:1; z-index: 2; float: right; color: black;'> "
-                                + result + "</span>";
-                        }
+                    if ($rootScope.logedInUser.role == "admin") {
+                        // result = "<span ng-click=ng-click='openModalVerleihBuchung(" + vBID + ")' title='Diesen Wunsch bearbeiten' class=' " + bc + " label glyphicon glyphicon-edit pointer' style = ' opacity:1; z-index: 2; float: right; color: black;'> "  + titel + "</span>";
+                        result = "<span title='Diesen Wunsch bearbeiten' class=' " + bc + " label' style = ' opacity:1; z-index: 2; float: right; color: black;'> "
+                            + titel + "</span>";
+                    } else {
+                        result = "<span title='Diesen Wunsch bearbeiten' class=' " + bc + " label' style = ' opacity:1; z-index: 2; float: right; color: black;'> " + titel + "</span>";
+                    }
+
+                }
                     return result;
                 }
                 /*
@@ -380,7 +389,7 @@ angular
                  filmlaufBuchung:   [background, [fBID,fBID]]
                  */
                 function ringBuchungKurz() {
-                    console.log("tagesBuchungenKurz ringBuchungKurz ");
+                  //  console.log("ringBuchungKurz ");
                     var myReturn = ""; // alle EinzelverleihBuchungen
                     var ringBuchung;
                     var fBID;
@@ -390,13 +399,18 @@ angular
                     var filmnr = 'f' + fmax;
                     var aktuelleBuchung;
                     // loop durch alle Filme
+                    if ( filmlaufWunsch == false) {
+                        myReturn = "";
+                    }else {
+
+
                     for ( i = 0; i < filmlaufBuchung[1].length; i++) {
                         fBID = filmlaufBuchung[1][i];
                         ringBuchung = $rootScope.ringBuchungen[fBID];
                         //console.log("ringBuchung "+JSON.stringify(aktuelleBuchung));
                         filmOrt =  $rootScope.spielorte[ringBuchung.sid]["ort"];
-                        myReturn = myReturn + "<small>" + filmBID + "</small> " + filmOrt + "<br />";
-                    }
+                        myReturn = myReturn + "<small>" + fBID + "</small> " + filmOrt + "<br />";
+                    }}
                    // myReturn = myReturn + "tagesBuchungenKurz";
                     return myReturn;
                 } // end tagesBuchungenKurz
@@ -407,13 +421,15 @@ angular
                  filmlaufBuchung:   [background, [fBID,fBID]]
                  */
                 function ringBuchungVerleih() {
-                    console.log("tagesBuchungenKurz ringBuchungVerleih ");
+                    console.log(" ringBuchungVerleih ");
 
                     var myReturn = ""; // alle EinzelverleihBuchungen
                     var fBID;
                     var ringBuchung;
                     var filmOrt;
-                    // ein film mit "f1" "f2" ...
+                    if ( !(filmlaufBuchung == false) ) {
+
+
                     for ( i = 0; i < filmlaufBuchung[1].length; i++) {
                         fBID = filmlaufBuchung[1][i];
                         ringBuchung = $rootScope.ringBuchungen[fBID];
@@ -436,31 +452,34 @@ angular
                         }
                         // beende diesen Ort
                         myReturn = myReturn + "<br />";
-                    }
+                    }   }
                     // end while
                     return myReturn;
                 }
                 /*
                  ringWunschStandard() Infos zu Ringwünschen in der Datumszeile: Standard Anzeige
-                 filmlaufBuchung:   [background, [fBID,fBID]]
+                 filmlaufWunsch:   [background, [fBID,fBID]]
                  */
                 function ringWunschStandard() {
-                    console.log("wunschFilme ringWunschStandard ");
+                //    console.log("ringWunschStandard ");
 
                     var result = ""; // return "" wenn kein
                     var fBID;
                     var ringWunsch;
                     var bc;
                     // Anzahl Wunschfilme für tag und
-                    for ( i = 0; i < filmlaufBuchung[1].length; i++) {
-                        bc = filmlaufBuchung.bc;
-                        fBID = filmlaufBuchung[1][i];
+
+                    if ( !(filmlaufWunsch == false) ) {
+                    for ( i = 0; i < filmlaufWunsch[1].length; i++) {
+                        bc = filmlaufWunsch[0];
+                        fBID = filmlaufWunsch[1][i];
+                        console.log(fBID);
                         ringWunsch = $rootScope.ringWunsch[fBID];
-                            result = result + "<span class='label " + bc + "' style =  'color: black;'>"
+                            result = result + "<span class=' " + bc + " label' style =  'color: black;'>"
                                 + $rootScope.spielorte[ringWunsch.sid].ort + "</span> ";
                        // wrapper für Wunschfilme
                         result = "<span style = ' opacity:1; z-index: 2; float: right;'>" + result + "</span>";
-                    }
+                    }}
                     return result;
                 } // end wunschfilme
 

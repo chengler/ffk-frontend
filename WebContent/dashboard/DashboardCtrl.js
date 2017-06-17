@@ -22,7 +22,7 @@
             // starte asyncrones laden
             // ergebniss landet in $rootScope.fehlendeRueckmeldungen = [];
         var  fehlendeRuekmeldungen =   FfkUtils.getFehlendeRuekmeldungen();
-        $scope.fbids ={}
+        $scope.fbids ={};
 
 
             $scope.zeigeVerleih= true;
@@ -65,7 +65,7 @@
                     'verleihWunsch': $rootScope.verleihWunsch,
                     'ringWunsch': $rootScope.ringWunsch,
                     'filme': $rootScope.filme, // nur zur entwicklung
-                    'myProvID' : {"counter " : $rootScope.myProvID.counter}
+                    'myProvID' :  $rootScope.myProvID.counter
                     };
         }
         console.log(name + "zum download bereit");

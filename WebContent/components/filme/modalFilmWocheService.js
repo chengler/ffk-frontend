@@ -29,7 +29,7 @@ angular.module('modalFilmWoche').service(
                 // ModalFilmlWochenInstanceCtrl wird auf rowIdx des
                 // Filmlaufs
                 // gestartet
-                $log.info(" ModalFilmWochenService rowIdx: " + rowIdx);
+                console.log("START ModalFilmWochenService:");
 
                 // TODO stack für asyncrone Serverantworten
 

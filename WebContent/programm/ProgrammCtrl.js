@@ -124,7 +124,7 @@
             // Init TAbelle
             // wenn spielorteGeladen und
             // $rootScope.status.$rootScope.status.filmlaufGeladen
-            function initFilmlauf(wo) {
+            var initFilmlauf = function(wo) {
                 console.log("initTabelle aufgerufen von " + wo);
             //    if ($rootScope.status.filmlaufGeladen & $rootScope.status.verleihBuchungenGeladen) {
                     var tstart = Date.now();
@@ -214,12 +214,12 @@
 
             // flip true and false in tabelle
             $scope.handleFlip = function (flipKey, flipIdx, flipCol, flipFilm) {
-             //    console.log("handleFlip 1/2 " + flipKey +" idx "+ flipIdx+"  col " + flipCol+" filmnr " + flipFilm);
+                 console.log("handleFlip 1/2 " + flipKey +" idx "+ flipIdx+"  col " + flipCol+" filmnr " + flipFilm);
                 var fBID = $rootScope.filmlauf[flipIdx][1][flipCol-1][1][flipFilm-1];
             //    console.log(fBID);
 
                 var bol = $rootScope.ringBuchungen[fBID][flipKey];
-            //    console.log("bol "+bol);
+                console.log("bol "+bol);
                 if (bol === true ? bol = false : bol = true);
 
                 console.log("bol "+bol);
@@ -295,6 +295,7 @@
             // offnet Filmwoche um Ringbuchungen in dieswer Woche durzuführen
             // um Wunschfilme anzulegen
             $scope.openModalFilmWoche = function (rowIdx, colIdx) {
+                console.log("openModalFilmWoche()");
                 ModalFilmWochenService.editFilm(rowIdx, colIdx);
 
             };
@@ -302,9 +303,9 @@
             // Koordinaten im Filmlauf
             // [1]    [ [spalte] .. ]   =  [background, [fBID,fBID]] .. =   [ bc-11, [fBID,fBID..]]
             $scope.besucherEintragen = function (rowIdx, colIdx, filmnr) {
-                var fBID = $rootScope.filmlauf[rowIdx][colIdx-1][1][filmnr][0];
+                var fBID = $rootScope.filmlauf[rowIdx][1][colIdx-1][1][filmNr-1];
                 // [0] = verarbeitungsart [1] = input
-                console.log("bearbeite fBID " + fBID);
+                console.log("besucherEintragen für fBID " + fBID);
                 ModalRingBuchungEintrittBearbeitenService.editBesucher( {"fBID":fBID,"refreshView" : true});
 
             };
@@ -374,8 +375,6 @@
 
 
             }
-
-
 
 
             // TESTFELD

@@ -218,7 +218,7 @@
             "start": "20170608",
             "bc": "bc-00",
             "col": "col1",
-            "wfID": "vp12",
+            "vBID": "vp12",
             "laufzeit": 1
     }
 },
@@ -243,7 +243,6 @@
         "titel": "Mein Wunschfilm"
     }
 },
-    "myProvID": {
-    "counter ": 15
-}
+    "myProvID":  20
+
 }
