@@ -2,25 +2,22 @@
 <html>
 <head>
     <meta charset="UTF-8"></meta>
-    <title>RingBuchung</title>
-
 </head>
 <body>
-<div class="modal-header" ng-class="bc=myVerleihB.bc">
+<div class="modal-header" ng-class="bc=bcolor">
     <div class="row">
-        <h3 class="col-md-7 modal-title">{{::myVerleihB.titel}}</h3>
+        <h3 class="col-md-7 modal-title">{{::filmtitel}}</h3>
         <h3 class="col-md-3 modal-title">{{::spielort}}</h3>
         <h3 class="col-md-2 modal-title">{{::datum}}</h3>
     </div>
 </div>
 <div class="modal-body">
-
     <div ng-if = 'schalter.besucher' >
-        <div ng-include="'components/ringBuchungen/modalRingBuchungEintrittBearbeitenTemplate.html?'+ version "></div>
+        <div ng-include="'./components/ringBuchungen/modalRingBuchungEintrittBearbeitenTemplate.html?'+ myVersion "></div>
     </div>
 
     <div ng-if = 'schalter.filmlauf' >
-        <div ng-include="'components/ringBuchungen/modalRingBuchungFilmlaufBearbeiten.html?'+ version "></div>
+        <div ng-include="'./components/ringBuchungen/modalRingBuchungFilmlaufBearbeitenTemplate.html?'+ myVersion "></div>
     </div>
 
 
@@ -32,9 +29,9 @@
         Änderungen</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">einfach nur
         abbrechen</button>
-    <div ng-if = 'schalter.delete' >
+    <span div ng-if = 'schalter.delete' >
     <button class="btn btn-danger" type="button" ng-click="delete()">lösche Buchung</button>
-    </div>
+    </span>
 </div>
 </body>
 </html>

@@ -1,16 +1,13 @@
-//
-// CONTROLLER
-//
-//
-// bezieht sich auf eine Ringbuchung
 angular.module('modalRingBuchung').controller(
     'ModalRingBuchungEintrittBearbeitenInstanceCtrl',
-    function ($scope,$rootScope,  $log, $uibModalInstance, input, FfkUtils) {
+    function ($scope, $rootScope, $log, $uibModalInstance, input, FfkUtils) {
         console.log("ModalRingBuchungEintrittBearbeitenInstanceCtrl mit input " + JSON.stringify(input)  );
+
+
 
         // schalter für ng-if ladet templates usw
         $scope.schalter = {};
-        var fBID = input[1];
+        var fBID = input.fBID;
         // input =[ 'fBID' , fBID ]
         // aufruf vom dashboard
 
@@ -36,6 +33,9 @@ angular.module('modalRingBuchung').controller(
          console.log('myVerleihB '+JSON.stringify($scope.myVerleihB));*/
 
         $scope.datum = moment($scope.myRingB.datum).hour(12).format('DD.MM.YYYY');
+        $scope.bcolor = $scope.myVerleihB.bc;
+
+        $scope.filmtitel = $scope.myVerleihB.titel;
 
 // Besucherzahlen
         // Besucherzahlen, setze Variablen
@@ -98,4 +98,7 @@ angular.module('modalRingBuchung').controller(
             console.log("canceling ...");
             $uibModalInstance.dismiss();
         };
+
+
+
     });

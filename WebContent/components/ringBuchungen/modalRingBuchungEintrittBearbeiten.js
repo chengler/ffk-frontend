@@ -16,7 +16,7 @@ angular.module('modalRingBuchung').service(
     function ($uibModal, $log, $rootScope) {
         this.editBesucher = function ( input) {
             var modalInstance = $uibModal.open({
-                templateUrl: './components/ringBuchungen/modalRingBuchungBearbeiten.html?' + Math.random(),
+                templateUrl: './components/ringBuchungen/modalRingBuchungBearbeiten.html?' + $rootScope.version,
                 controller: 'ModalRingBuchungEintrittBearbeitenInstanceCtrl',
                 size: "lg",
                 resolve: {
@@ -28,7 +28,6 @@ angular.module('modalRingBuchung').service(
             // ModalRingBuchungsBearbeitungService wird auf input gestartet
             $log.info("ModalRingBuchungsBearbeitungService editBuchung input: "
                 + JSON.stringify(input));
-
 
             // TODO stack für asyncrone Serverantworten
 
@@ -89,9 +88,9 @@ angular.module('modalRingBuchung').service(
                             break;
 
                     }
-                    if (input[0] = "refreshView"){
-                        $rootScope.gridOptions.api.refreshView();
 
+                    if (input.refreshView){
+                        $rootScope.gridOptions.api.refreshView();
                     }
 
 

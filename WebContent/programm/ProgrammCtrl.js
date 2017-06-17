@@ -303,10 +303,10 @@
             // Koordinaten im Filmlauf
             // [1]    [ [spalte] .. ]   =  [background, [fBID,fBID]] .. =   [ bc-11, [fBID,fBID..]]
             $scope.besucherEintragen = function (rowIdx, colIdx, filmnr) {
-                var fBID = $rootScope.filmlauf[rowIdx][colIdx-1][1][filmnr];
+                var fBID = $rootScope.filmlauf[rowIdx][colIdx-1][1][filmnr][0];
                 // [0] = verarbeitungsart [1] = input
                 console.log("bearbeite fBID " + fBID);
-                var bla = ModalRingBuchungEintrittBearbeitenService.editBesucher( ['refreshView' , fBID ] );
+                ModalRingBuchungEintrittBearbeitenService.editBesucher( {"fBID":fBID,"refreshView" : true});
 
             };
 
@@ -325,7 +325,10 @@
 
             // ModalBuchungsBearbeitungService
             $scope.openModalBuchung = function (rowIdx, colIdx, filmNr) {
-                ModalRingBuchungFilmlaufBearbeitenService.editBuchung(rowIdx, colIdx, filmNr, $rootScope.gridOptions);
+                var fBID = $rootScope.filmlauf[rowIdx][colIdx-1][1][filmNr][0];
+                // [0] = verarbeitungsart [1] = input
+                console.log("bearbeite fBID " + fBID);
+                ModalRingBuchungFilmlaufBearbeitenService.editBuchung({"fBID":fBID,"refreshView" : true});
                
 
 

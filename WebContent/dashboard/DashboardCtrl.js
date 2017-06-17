@@ -174,7 +174,7 @@
                 console.log("bearbeite fBID " + fBID);
                 // [0] = verarbeitungsart [1] = input
 
-                ModalRingBuchungEintrittBearbeitenService.editBesucher( ['fBID' , fBID ] );
+                ModalRingBuchungEintrittBearbeitenService.editBesucher( {"fBID":fBID});
 
             };
 

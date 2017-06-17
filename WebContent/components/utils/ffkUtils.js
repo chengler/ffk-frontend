@@ -37,7 +37,6 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             array.every( function( idname) {
                 if (idname[0] == id ) {
                     id = idname[1];
-
                     return false;
                 } else {
                     return true;
@@ -48,8 +47,33 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             // wird der name zur id nicht gefunden, wird die id zurückgegeben!
            // console.log (" id: "+id);
             return id;
+        };
+        // gebe bezeichung zu einer id zurück
+        // hole namen von id = sid | vid | uid
+        // id muss in sortetList[0] stehen
+        // der rückgabewert ist in sortetList[retpos]
+        // retpos ist die returnpossition bei sid oder Vid listen die [1] (2. Position)
+        this.getRefName = function (sortetList, id, retpos) {
+            // console.log("getRefName id = " + id);
+            var refName = "";
+            var typ = "";
+            if (typeof id == "undefined") {
+                return refName;
+            } else {
+                // vid sid oder uid
+                typ = id.substr(0, 3);
+            }
+            sortetList.some(function (listId) {
+                if (listId[0] == id) {
+                    refName = listId[retpos];
+                    return true;
+                }
+                return false;
+            });
+            return refName;
+        };
 
-        }
+
 
         // fehlende Rückmeldungen für logdinuser
         this.getFehlendeRuekmeldungen = function(){
@@ -592,30 +616,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 }
             }
         };
-        // gebe bezeichung zu einer id zurück
-        // hole namen von id = sid | vid | uid
-        // id muss in sortetList[0] stehen
-        // der rückgabewert ist in sortetList[retpos]
-        // retpos ist die returnpossition bei sid oder Vid listen die [1] (2. Position)
-        this.getRefName = function (sortetList, id, retpos) {
-            // console.log("getRefName id = " + id);
-            var refName = "";
-            var typ = "";
-            if (typeof id == "undefined") {
-                return refName;
-            } else {
-                // vid sid oder uid
-                typ = id.substr(0, 3);
-            }
-            sortetList.some(function (listId) {
-                if (listId[0] == id) {
-                    refName = listId[retpos];
-                    return true;
-                }
-                return false;
-            });
-            return refName;
-        };
+
         // vergbe provisorische ID und erlaub einen ident zu speichern
         this.getNewProvID = function (identCounter) {
             if (identCounter == undefined) {
