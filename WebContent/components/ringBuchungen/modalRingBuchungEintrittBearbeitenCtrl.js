@@ -3,7 +3,7 @@
 //
 //
 // bezieht sich auf eine Ringbuchung
-angular.module('modalRingBuchungsBearbeitung').controller(
+angular.module('modalRingBuchung').controller(
     'ModalRingBuchungEintrittBearbeitenInstanceCtrl',
     function ($scope,$rootScope,  $log, $uibModalInstance, input) {
         console.log("ModalRingBuchungEintrittBearbeitenInstanceCtrl mit input " + JSON.stringify(input)  );

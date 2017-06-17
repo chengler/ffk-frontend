@@ -1,13 +1,14 @@
 // sollte in modalringbuchung integriert werden
 // buchungschanges schöne lösung!
 
-angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constant('MODULE_VERSION', '0.0.1')
+//angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constant('MODULE_VERSION', '0.0.1')
     //
     // SERVICES
     //
     // modal
     // http://angular-ui.github.io/bootstrap/#/modal
-    .service(
+angular.module('modalRingBuchung').service(
+    //.service(
         'ModalRingBuchungFilmlaufBearbeitenService',
         function ($uibModal, $log, FfkUtils, $rootScope) {
             this.editBuchung = function (rowIdx, colIdx, filmNr, tabelle) {
@@ -146,7 +147,7 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
 // bezieht sich auf eine einzelbuchung aus dem Filmlauf
 // speicher Änderungen in der Variablen buchungsChanges
 // bei änderung werden diese dann übertragen, sonst verworfen
-angular.module('modalBuchungsBearbeitung').controller(
+angular.module('modalRingBuchung').controller(
     'ModalRingBuchungFilmlaufBearbeitenServiceInstanceCtrl',
     function ($rootScope, $scope, $log, $uibModalInstance, rowIdx, colIdx, filmNr, FfkUtils) {
         console.log("ModalRingBuchungFilmlaufBearbeitenServiceInstanceCtrl mit rowIdx "

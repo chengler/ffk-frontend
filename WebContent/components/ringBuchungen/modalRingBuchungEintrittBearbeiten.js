@@ -1,4 +1,3 @@
-var modul = angular.module('modalRingBuchungsBearbeitung', ['ui.bootstrap' ]).constant('MODULE_VERSION', '0.0.1');
 //
 // SERVICES
 //
@@ -12,7 +11,7 @@ $scope.openModalBuchung = function (rowIdx, colIdx, filmNr ) {
 /*$scope.openModalBuchung = function (input ) {
     ModalRingBuchungsBearbeitungService.editBuchung(input);*/
 
-modul.service(
+angular.module('modalRingBuchung').service(
     'ModalRingBuchungEintrittBearbeitenService',
     function ($uibModal, $log, $rootScope) {
         this.editBesucher = function ( input) {

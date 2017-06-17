@@ -1,8 +1,10 @@
 "use strict";
 
 (function() {
-    var dashboard;
-    dashboard = angular.module('app.dashboard', ["ngLocale"]);
+
+  //  var dashboard = angular.module('app.dashboard', ["ngLocale"]);
+    var dashboard = angular.module('app.dashboard', [ 'modalRingBuchung' , 'modalVenue', 'modalDistributor' ]);
+
 
     dashboard.config([ '$compileProvider', '$logProvider', function($compileProvider, $logProvider) {
         $compileProvider.debugInfoEnabled(true);

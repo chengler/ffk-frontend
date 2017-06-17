@@ -2,7 +2,8 @@
 "use strict";
 
 (function () {
-    var dashboard = angular.module('app.dashboard', [ 'modalRingBuchungsBearbeitung' , 'modalVenue', 'modalDistributor' ]);
+    var dashboard = angular.module('app.dashboard');
+
 
 
 

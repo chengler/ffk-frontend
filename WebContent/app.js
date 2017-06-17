@@ -1,7 +1,7 @@
 "use strict";
 
 var app = angular
-		.module('app', [ 'app.filme', 'app.auth', 'ngRoute', 'app.version', 'app.dashboard',
+		.module('app', [  'app.auth', 'ngRoute', 'app.version', 'app.dashboard',
 				'app.users',  'app.distributors', 'app.venue',    'app.programm', 'agGrid', 'ui.bootstrap',  'programmTabellenRenderer',
 				'ffkUtils']);
 
@@ -9,7 +9,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 	console.log("app.config start");
 	$routeProvider.when('/users', {
 		title : 'Benutzer | FfK',
-		templateUrl : './users/users.html?' + Math.random()
+        templateUrl : './users/users.html?' + Math.random()
 //		controller : 'userCtrl'
 			
 	}).when('/Dashboard', {
@@ -19,7 +19,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 			
 	}).when('/Programm', {
 		title : 'Programm | FfK',
-		templateUrl : './programm/programm.html?' + Math.random()
+        templateUrl : './programm/programm.html?' + Math.random()
 //		controller : 'ProgrammCtrl'
 			
 	}).when('/Distributors', {
