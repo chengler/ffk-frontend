@@ -8,12 +8,12 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
     // modal
     // http://angular-ui.github.io/bootstrap/#/modal
     .service(
-        'ModalBuchungsBearbeitungService',
+        'ModalRingBuchungFilmlaufBearbeitenService',
         function ($uibModal, $log, FfkUtils, $rootScope) {
             this.editBuchung = function (rowIdx, colIdx, filmNr, tabelle) {
                 var modalInstance = $uibModal.open({
-                    templateUrl: './components/filme/modalBuchungsBearbeitung.html?' + Math.random(),
-                    controller: 'ModalBuchungsBearbeitungInstanceCtrl',
+                    templateUrl: './components/ringBuchungen/modalRingBuchungFilmlaufBearbeiten.html?' + $rootScope.version,
+                    controller: 'ModalRingBuchungFilmlaufBearbeitenServiceInstanceCtrl',
                     size: "lg",
                     resolve: {
                         rowIdx: function () {
@@ -27,9 +27,10 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
                         }
                     }
                 });
+                console.log("version " +$rootScope.version);
                 // ModalFilmlRowInstanceCtrl wird auf rowIdx des Filmlaufs
                 // gestartet
-                $log.info("modalBuchungsBearbeitung: ModalBuchungsBearbeitungService rowIdx: " + rowIdx + " colIdx:"
+                $log.info("modalBuchungsBearbeitung: ModalRingBuchungFilmlaufBearbeitenService rowIdx: " + rowIdx + " colIdx:"
                     + colIdx + " filmNr " + filmNr);
 
                 // TODO stack für asyncrone Serverantworten
@@ -146,9 +147,9 @@ angular.module('modalBuchungsBearbeitung', ['ui.bootstrap', 'ffkUtils']).constan
 // speicher Änderungen in der Variablen buchungsChanges
 // bei änderung werden diese dann übertragen, sonst verworfen
 angular.module('modalBuchungsBearbeitung').controller(
-    'ModalBuchungsBearbeitungInstanceCtrl',
+    'ModalRingBuchungFilmlaufBearbeitenServiceInstanceCtrl',
     function ($rootScope, $scope, $log, $uibModalInstance, rowIdx, colIdx, filmNr, FfkUtils) {
-        console.log("ModalBuchungsBearbeitungInstanceCtrl mit rowIdx "
+        console.log("ModalRingBuchungFilmlaufBearbeitenServiceInstanceCtrl mit rowIdx "
             + rowIdx + " colIdx " + colIdx + " filmNr " + filmNr);
 
         var myFilmlauf = $rootScope.filmlauf[rowIdx];

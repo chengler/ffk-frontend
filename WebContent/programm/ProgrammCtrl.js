@@ -10,16 +10,15 @@
         '$http',
         '$log',
         '$uibModal',
-        'ModalFilmRowService',
         'ModalFilmWochenService',
        // 'ModalFilmKWService',
         'ModalVerleihBuchungsService',
         'RenderProgrammTableServices',
         'FfkUtils',
-        'ModalBuchungsBearbeitungService',
+        'ModalRingBuchungFilmlaufBearbeitenService',
         '$q',
-        function ($rootScope, $scope, $http, $log, $uibModal, ModalFilmRowService, ModalFilmWochenService, ModalVerleihBuchungsService,
-                  RenderProgrammTableServices, FfkUtils, ModalBuchungsBearbeitungService, $q ) {
+        function ($rootScope, $scope, $http, $log, $uibModal, ModalFilmWochenService, ModalVerleihBuchungsService,
+                  RenderProgrammTableServices, FfkUtils, ModalRingBuchungFilmlaufBearbeitenService, $q ) {
             $log.info("init programmCtrl");
             var zeigeWunschFilme = false;
             $rootScope.zeigeWunschFilme = zeigeWunschFilme;
@@ -303,9 +302,8 @@
             };*/
 
             // ModalBuchungsBearbeitungService
-            $scope.openModalBuchung = function (rowIdx, colIdx, filmNr, rr ) {
-                console.log(rr);
-                ModalBuchungsBearbeitungService.editBuchung(rowIdx, colIdx, filmNr, $rootScope.gridOptions);
+            $scope.openModalBuchung = function (rowIdx, colIdx, filmNr) {
+                ModalRingBuchungFilmlaufBearbeitenService.editBuchung(rowIdx, colIdx, filmNr, $rootScope.gridOptions);
                
 
 
