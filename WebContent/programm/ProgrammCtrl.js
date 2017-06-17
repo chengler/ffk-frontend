@@ -214,20 +214,19 @@
 
             // flip true and false in tabelle
             $scope.handleFlip = function (flipKey, flipIdx, flipCol, flipFilm) {
-                // console.log("handleFlip " + flipKey + flipIdx
-                // + flipCol);
-                // console.log($rootScope.filmlauf[flipIdx][flipCol][flipKey]);
+             //    console.log("handleFlip 1/2 " + flipKey +" idx "+ flipIdx+"  col " + flipCol+" filmnr " + flipFilm);
+                var fBID = $rootScope.filmlauf[flipIdx][1][flipCol-1][1][flipFilm-1];
+            //    console.log(fBID);
 
-                var bol = $rootScope.filmlauf[flipIdx][flipCol][flipFilm][flipKey];
-                if (bol === true ? bol = false : bol = true)
-                    ;
-                $rootScope.filmlauf[flipIdx][flipCol][flipFilm][flipKey] = bol;
+                var bol = $rootScope.ringBuchungen[fBID][flipKey];
+            //    console.log("bol "+bol);
+                if (bol === true ? bol = false : bol = true);
+
+                console.log("bol "+bol);
+                $rootScope.ringBuchungen[fBID][flipKey] = bol;
                 $rootScope.gridOptions.api.refreshView();
-                var fBID = $rootScope.filmlauf[flipIdx][flipCol][flipFilm]["fBID"];
-                console.log("TODO RESTfull post ./checkChance { fBID: " + fBID + ", " + flipKey + " : " + bol
-                    + " }");
-                $scope.server = "http.post('../checkChance') data: { fBID: " + fBID + ", " + flipKey + " : " + bol
-                    + " }";
+                $rootScope.infofenster = "{fBID:{ fBID: " + fBID + ", " + flipKey + " : " + bol + " }";
+                console.log = "{fBID:{ fBID: " + fBID + ", " + flipKey + " : " + bol + " }";
 
             };
 
@@ -325,7 +324,9 @@
 
             // ModalBuchungsBearbeitungService
             $scope.openModalBuchung = function (rowIdx, colIdx, filmNr) {
-                var fBID = $rootScope.filmlauf[rowIdx][colIdx-1][1][filmNr][0];
+             //   console.log($rootScope.filmlauf[rowIdx][colIdx-1][1][1][0]);
+             //   console.log(filmNr);
+                var fBID = $rootScope.filmlauf[rowIdx][colIdx-1][1][1][filmNr-1];
                 // [0] = verarbeitungsart [1] = input
                 console.log("bearbeite fBID " + fBID);
                 ModalRingBuchungFilmlaufBearbeitenService.editBuchung({"fBID":fBID,"refreshView" : true});

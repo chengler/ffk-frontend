@@ -71,6 +71,7 @@ angular.module('modalRingBuchung').service(
                                     }
                                 }
 
+
                                 // TODO REST
                                 // TODO VERleihbuchung
                                 // TODO Filmlauf
@@ -85,6 +86,16 @@ angular.module('modalRingBuchung').service(
 /// try and catch !!!!!!
 
                             $rootScope.ringBuchungen[fBID] = inhalt;
+console.log("{fBID: "+ JSON.stringify(inhalt)+"}");
+                            $rootScope.infofenster = "{fBID: "+ JSON.stringify(inhalt)+"}";
+
+                            var myring = $rootScope.ringBuchungen[fBID];
+
+                            $rootScope.infofenster = "{fBID:{ fBID: " + fBID + ", besucher:" + myring.besucher
+                                + ", gesamt: " + myring.gesamt + " }";
+
+                            console.log("{fBID:{ fBID: " + fBID + ", besucher: " + myring.besucher
+                                + ", gesamt: " + myring.gesamt + " }");
                             break;
 
                     }

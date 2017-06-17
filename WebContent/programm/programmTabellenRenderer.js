@@ -207,7 +207,7 @@ angular
                         link = ""; // bearbeitungslink für filmwoche
                         if ( $rootScope.logedInUser.role == "admin"){
                             link = "<span title='Diesen Filmlauf bearbeiten' "
-                                + "class='glyphicon glyphicon-edit pointer' ng-click='openModalVerleihBuchung(" + rowIdx + ",1," + arryCol +")' >" + "</span> ";
+                                + "class='glyphicon glyphicon-edit crosshair' ng-click='openModalVerleihBuchung(" + rowIdx + ",1," + arryCol +")' >" + "</span> ";
                         }
                         var filmLink = ""; // der link um den film anzuzeigen
                         filmLink = "<span title='Filminfos anzeigen' "
@@ -290,9 +290,9 @@ angular
                             var sourceIndex = " " + rowIdx + " " + colIdx + " " + i + 1;
                             // die zwei Checks
                             // belege check1 und check2
-                            var check = [ "" ];
+                            var check = [""];
                             for (var j = 1; j <= 2; j++) {
-                                if (ringBuchung["check" + i]) { check.push("<span title='schalte bei Klick um.' " +
+                                if (ringBuchung["check" + j]) { check.push("<span title='schalte bei Klick um.' " +
                                     "class='ok pointer'  flipOnClick click='handleFlip' id='check"
                                     + j + sourceIndex + "' > &#10003; </span>");
                                 } else {
@@ -301,6 +301,7 @@ angular
                                         + j + sourceIndex + "' > &#10008; </span>");
                                 }
                             }
+
                             // Medium, von und nach
                             var medium;
                             var von = " ";

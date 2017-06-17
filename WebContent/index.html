@@ -23,10 +23,14 @@
     <script type="text/javascript" src="./users/users-module.js"></script>
 
     <script type="text/javascript" src="./components/version/version-module.js"></script>
-    <script type="text/javascript" src="./components/verleihBuchungen/modalVerleihBuchung.js"></script>
+    <script type="text/javascript" src="./components/verleihBuchungen/modalVerleihBuchung-module.js"></script>
     <script type="text/javascript" src="./components/ringBuchungen/modalRingBuchung-module.js"></script>
     <script type="text/javascript" src="./components/auth/auth-module.js"></script>
     <script type="text/javascript" src="./components/utils/ffkUtils.js"></script>
+    <script type="text/javascript" src="./components/filme/modalFilmWoche-module.js"></script>
+
+
+
 
     <!-- <script type="text/javascript" src="./resources/scripts/filme/ffkFilmModul.js"></script> -->
 
@@ -47,12 +51,15 @@
 
 
 
-    <script type="text/javascript" src="./components/filme/modalFilmWoche.js"></script>
+    <script type="text/javascript" src="./components/filme/modalFilmWocheService.js"></script>
     <script type="text/javascript" src="./components/filme/modalFilmWocheCtrl.js"></script>
-    <script type="text/javascript" src="./components/ringBuchungen/modalRingBuchungFilmlaufBearbeiten.js"></script>
+    <script type="text/javascript" src="./components/ringBuchungen/modalRingBuchungFilmlaufBearbeitenService.js"></script>
     <script type="text/javascript" src="./components/ringBuchungen/modalRingBuchungFilmlaufBearbeitenCtrl.js"></script>
-    <script type="text/javascript" src="./components/ringBuchungen/modalRingBuchungEintrittBearbeiten.js"></script>
+    <script type="text/javascript" src="./components/ringBuchungen/modalRingBuchungEintrittBearbeitenService.js"></script>
     <script type="text/javascript" src="./components/ringBuchungen/modalRingBuchungEintrittBearbeitenCtrl.js"></script>
+    <script type="text/javascript" src="./components/verleihBuchungen/modalVerleihBuchungBearbeitenCtrl.js"></script>
+    <script type="text/javascript" src="./components/verleihBuchungen/modalVerleihBuchungBearbeitenService.js"></script>
+
 
 
 
@@ -69,7 +76,7 @@
         <div class=" container well ">
             <a href="#/Dashboard"
                title="zur Startseite, außerdem werden hier Infos wie gespeichert angezeigt."
-               class="btn btn-lg alert-success col-lg-5 col-sm-12">FfK Filmverwaltung für
+               class="btn btn-lg alert-success col-lg-5 col-sm-12" ng-bind="infofenster">FfK Filmverwaltung für
                 Kinoabspielringe</a> <span data-ng-if="loggedIn">
 
 					<button title="Für Details und Bearbeitung klicken"

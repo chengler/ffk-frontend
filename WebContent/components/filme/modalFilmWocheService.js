@@ -1,14 +1,12 @@
 // früher modal Filmwoche
 
-angular
-    .module('modalFilmWoche', ['ui.bootstrap', 'ffkUtils'])
-    .constant('MODULE_VERSION', '0.0.1')
+
     //
     // SERVICES
     //
     // modal
     // http://angular-ui.github.io/bootstrap/#/modal
-    .service(
+angular.module('modalFilmWoche').service(
         'ModalFilmWochenService',
         function ($uibModal, $log, FfkUtils, $rootScope) {
             this.editFilm = function ( rowIdx, colIdx) { //nur row bei ganzer zeile (+ in der KW anzeige)

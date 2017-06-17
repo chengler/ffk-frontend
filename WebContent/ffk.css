@@ -18,6 +18,10 @@ Mausgeschichten
 	cursor: grabbing;
 }
 
+.crosshair {
+	cursor:crosshair;
+}
+
 .notallowed {
 	cursor: not-allowed;
 }

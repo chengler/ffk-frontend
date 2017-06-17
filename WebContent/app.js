@@ -108,7 +108,7 @@ app.run(function(version, author, $rootScope, $http, $locale) {
 
     $rootScope.version = Math.random(); // damit templates nachgeladen werden, nach fertigstellung des Progs bsésser progversion
 
-
+    $rootScope.infofenster = 'FfK Filmverwaltung für Kinoabspielringe';
 
 
 
