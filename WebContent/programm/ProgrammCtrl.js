@@ -326,7 +326,8 @@
             $scope.openModalBuchung = function (rowIdx, colIdx, filmNr) {
              //   console.log($rootScope.filmlauf[rowIdx][colIdx-1][1][1][0]);
              //   console.log(filmNr);
-                var fBID = $rootScope.filmlauf[rowIdx][colIdx-1][1][1][filmNr-1];
+                console.log(JSON.stringify($rootScope.filmlauf[rowIdx][1][0]));
+                var fBID = $rootScope.filmlauf[rowIdx][1][colIdx-1][1][filmNr-1];
                 // [0] = verarbeitungsart [1] = input
                 console.log("bearbeite fBID " + fBID);
                 ModalRingBuchungFilmlaufBearbeitenService.editBuchung({"fBID":fBID,"refreshView" : true});
