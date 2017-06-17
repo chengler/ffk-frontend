@@ -4,9 +4,6 @@
 (function () {
     var dashboard = angular.module('app.dashboard');
 
-
-
-
     dashboard.controller('DashboardCtrl', [
         '$scope',
         '$rootScope',

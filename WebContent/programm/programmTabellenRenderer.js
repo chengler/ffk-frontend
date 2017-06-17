@@ -130,7 +130,8 @@ angular
                 console.log("buchungsRenderer");
 
                 //   [0] =  [ 0, 1, 2, 3 ] =[background, spieltag  , datum, lines in row]
-                var datum = params.data[0][2];
+                var datum = params.data[0][2]; // datum des eintrags film oder KW
+                var heute = new Date().setHours(12); // zeitverschiebungen ausschließen
                 var colIdx = params.colDef.headerName.substr(4);
                 var arryCol = colIdx-1; // um auf das richtige array [2] oder [3] der Spalte zuzugreifen
                 var rowIdx = params.rowIndex;
@@ -344,18 +345,21 @@ angular
                                 myReturn += "<span class='glyphicon glyphicon-star'></span>";
                             }
                             // Bei false zeige fehlende Besucherzahlen, ansonsten zeige Besucherzahlen
-                            if ( "besucher" in ringBuchung ) {
+                            if ( !(moment(datum).isAfter(heute, 'day')) ) { //heute oder früher
+                                var info;
                                 if ( ringBuchung.besucher == false || ringBuchung.besucher == undefined){
-                                    myReturn = myReturn + " Besucherzahlen fehlen!";
+                                    info = " Besucherzahlen fehlen!";
                                 } else {
                                     var arrayLength = ringBuchung.besucher.length;
                                     for (var i = 0; i < arrayLength; i++) {
                                         var besucher  = ringBuchung.besucher[i][0];
                                         // formatiere cent zu euro
                                         var eur = (ringBuchung.besucher[i][1] / 100).toFixed(2);
-                                        myReturn = myReturn + " //" + besucher +"a"+ eur +"€";
+                                        info = " //" + besucher +"a"+ eur +"€";
                                     }
                                 }
+                                myReturn = myReturn +  "<span class=' pointer' ng-click='besucherEintragen(" + rowIdx
+                                    + ","+ colIdx + ","+ filmNr + ")' >" + info + "</span>";
                             }
                           //  console.log("ringBuchungLang return " + myReturn);
                             myReturn = myReturn + "<br />";

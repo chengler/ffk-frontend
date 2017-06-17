@@ -16,9 +16,11 @@
         'RenderProgrammTableServices',
         'FfkUtils',
         'ModalRingBuchungFilmlaufBearbeitenService',
+        'ModalRingBuchungEintrittBearbeitenService',
         '$q',
         function ($rootScope, $scope, $http, $log, $uibModal, ModalFilmWochenService, ModalVerleihBuchungsService,
-                  RenderProgrammTableServices, FfkUtils, ModalRingBuchungFilmlaufBearbeitenService, $q ) {
+                  RenderProgrammTableServices, FfkUtils, ModalRingBuchungFilmlaufBearbeitenService,
+                  ModalRingBuchungEintrittBearbeitenService, $q ) {
             $log.info("init programmCtrl");
             var zeigeWunschFilme = false;
             $rootScope.zeigeWunschFilme = zeigeWunschFilme;
@@ -58,6 +60,7 @@
                 }];
 
 
+
             if ($rootScope.status.aggrid == false) {
                 // Tabelle, noch keine rowData
                 // funktion, da unterschiedliche linienhöhe
@@ -76,7 +79,12 @@
                     angularCompileRows: true
                 };
 
+
             }
+
+
+
+
             // START Lade Tabelle asyncron
             // lade Filmlauf in scope und erstelle Tabelle?
             // watch geladen
@@ -109,6 +117,8 @@
                     }
                 }, true);
             }
+
+
 
 
             // Init TAbelle
@@ -289,6 +299,18 @@
                 ModalFilmWochenService.editFilm(rowIdx, colIdx);
 
             };
+            // fehlende Besucher eintragen
+            // Koordinaten im Filmlauf
+            // [1]    [ [spalte] .. ]   =  [background, [fBID,fBID]] .. =   [ bc-11, [fBID,fBID..]]
+            $scope.besucherEintragen = function (rowIdx, colIdx, filmnr) {
+                var fBID = $rootScope.filmlauf[rowIdx][colIdx-1][1][filmnr];
+                // [0] = verarbeitungsart [1] = input
+                console.log("bearbeite fBID " + fBID);
+                var bla = ModalRingBuchungEintrittBearbeitenService.editBesucher( ['refreshView' , fBID ] );
+
+            };
+
+
 
             // dei alten
             $scope.openModalKW = function (rowIdx, colIdx, colType) {

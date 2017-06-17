@@ -28,7 +28,7 @@ angular.module('modalRingBuchung').service(
             // ModalRingBuchungsBearbeitungService wird auf input gestartet
             $log.info("ModalRingBuchungsBearbeitungService editBuchung input: "
                 + JSON.stringify(input));
-            input["kkk"] = "lll";
+
 
             // TODO stack für asyncrone Serverantworten
 
@@ -89,8 +89,10 @@ angular.module('modalRingBuchung').service(
                             break;
 
                     }
+                    if (input[0] = "refreshView"){
+                        $rootScope.gridOptions.api.refreshView();
 
-
+                    }
 
 
                     //progCtrScope.gridOptions.api.setRowData($rootScope.filmlauf);

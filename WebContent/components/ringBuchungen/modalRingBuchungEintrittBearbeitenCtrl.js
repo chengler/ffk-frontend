@@ -5,20 +5,21 @@
 // bezieht sich auf eine Ringbuchung
 angular.module('modalRingBuchung').controller(
     'ModalRingBuchungEintrittBearbeitenInstanceCtrl',
-    function ($scope,$rootScope,  $log, $uibModalInstance, input) {
+    function ($scope,$rootScope,  $log, $uibModalInstance, input, FfkUtils) {
         console.log("ModalRingBuchungEintrittBearbeitenInstanceCtrl mit input " + JSON.stringify(input)  );
 
         // schalter für ng-if ladet templates usw
         $scope.schalter = {};
-        var fBID = false;
+        var fBID = input[1];
         // input =[ 'fBID' , fBID ]
         // aufruf vom dashboard
-        if (input[0] == 'fBID'){
-            fBID = input[1];
+
+        // welche html teile werden angezeigt
             $scope.schalter['delete'] = false;
             $scope.schalter['besucher'] = true;
+            $scope.schalter['filmlauf'] = false;
 
-        }
+
 
 
         // aufruf über tabelle wäre fbid anderweitig zu klären
@@ -26,11 +27,10 @@ angular.module('modalRingBuchung').controller(
         //fBID geklärt, setze Variablen
         // getätigte Änderungen werden hier gespeichert um nach dem Speichern bearbeitet zu werden
         // 1x lokal und 1x RESTfull
-        $scope.myRingB = angular.copy($rootScope.ringBuchungen[fBID]);
-//        $scope.myRingB = Object.create($rootScope.ringBuchungen[fBID]);
-
+//        $scope.myRingB = angular.copy($rootScope.ringBuchungen[fBID]);
+        $scope.myRingB = Object.create($rootScope.ringBuchungen[fBID]);
+        $scope.spielort = FfkUtils.getNamezurId( $rootScope.spielorteSortiert,$rootScope.ringBuchungen[fBID].sid );
         $scope.myRingB["fBID"] = $rootScope.ringBuchungen[fBID].fBID; // zur späteren identifizierung
-
         $scope.myVerleihB = $rootScope.verleihBuchungen[$scope.myRingB.vBID];
         /*   console.log('myRingB '+JSON.stringify($scope.myRingB));
          console.log('myVerleihB '+JSON.stringify($scope.myVerleihB));*/

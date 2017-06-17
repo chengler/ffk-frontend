@@ -150,9 +150,9 @@ idx 211 = [ [ "bc-g2", 1-7, "2017-06-10", "bc-g2", 1], [ ["bc-11", [fBID, ..]] ,
                 [0] =  [ 0, 1, 2, 3 ] =[background, spieltag  , datum, lines in row] = [ int,  true|false , JJJJ-Www | JJJJ-MM-TT , int ]
                 [1]    [ [0] .. ]   =  [background, vBID, filmwoche]  =   [ bc-10, vInt, int ]    ; kw true  =>   verleihBuchungen
                 [2]    [ [0] .. ]   =  [background, vBID, filmwoche]  =   [ bc-20, vInt, int ]    ; kw true  =>   verleihWunsch
-                [1]    [ [0] .. ]   =  [background, [fBID,fBID]] .. =   [ bc-11, [fBID,fBID..]]      ; kw false =>  ringBuchungen
+                [1] =  [[0],[1] ..,[n]]  =  [background, [fBID,fBID]] .. =   [ bc-11, [fBID,fBID..]]      ; kw false =>  ringBuchungen
 
-                [2]    [ [0] .. ]   =  [background, [fBID,fBID]] .. =   [ bc-20, [fBID,fBID..]]      ; kw false =>  ringWunsch
+                [2]    [ [0],[1] ..,[n] ]   =  [background, [fBID,fBID]] .. =   [ bc-20, [fBID,fBID..]]      ; kw false =>  ringWunsch
 
        */
 

@@ -13,7 +13,7 @@ angular.module('modalRingBuchung').service(
         function ($uibModal, $log, FfkUtils, $rootScope) {
             this.editBuchung = function (rowIdx, colIdx, filmNr, tabelle) {
                 var modalInstance = $uibModal.open({
-                    templateUrl: './components/ringBuchungen/modalRingBuchungFilmlaufBearbeiten.html?' + $rootScope.version,
+                    templateUrl: './components/ringBuchungen/modalRingBuchungBearbeiten.html?' + $rootScope.version,
                     controller: 'ModalRingBuchungFilmlaufBearbeitenServiceInstanceCtrl',
                     size: "lg",
                     resolve: {
@@ -152,6 +152,21 @@ angular.module('modalRingBuchung').controller(
     function ($rootScope, $scope, $log, $uibModalInstance, rowIdx, colIdx, filmNr, FfkUtils) {
         console.log("ModalRingBuchungFilmlaufBearbeitenServiceInstanceCtrl mit rowIdx "
             + rowIdx + " colIdx " + colIdx + " filmNr " + filmNr);
+        $scope.schalter = {};
+        $scope.schalter['delete'] = true;
+        $scope.schalter['besucher'] = false;
+        $scope.schalter['filmlauf'] = true;
+/*
+
+       // var fBID = input[1];
+        var fBID = input[1];
+
+        $scope.myRingB = Object.create($rootScope.ringBuchungen[fBID]);
+        $scope.spielort = FfkUtils.getNamezurId( $rootScope.spielorteSortiert,$rootScope.ringBuchungen[fBID].sid );
+        $scope.myRingB["fBID"] = $rootScope.ringBuchungen[fBID].fBID; // zur späteren identifizierung
+        $scope.myVerleihB = $rootScope.verleihBuchungen[$scope.myRingB.vBID];
+*/
+
 
         var myFilmlauf = $rootScope.filmlauf[rowIdx];
         console.log("myFilmlauf " + JSON.stringify(myFilmlauf));
@@ -252,31 +267,6 @@ angular.module('modalRingBuchung').controller(
         $scope.setNeueMedienID = function(){
             console.log("setNeueMedienID " + JSON.stringify($scope.buchungsChanges.medienID) );
         }
-
-        // lese Besucherzahlen in die Variable scope.besucher
-        // ist in jedem Fall ein Array
-        // null ist wichtig, da es gelöscht wird wenn es nicht geändet wird!
-        $scope.besucher=[ [null,0], [null,0] ]; // keine eintragung für Besucher
-        $scope.getBesucher = function () {
-            if ( "besucher" in $scope.myRingbuchung ) {
-                if ( Array.isArray($scope.myRingbuchung.besucher)) {
-                    // !! ändere nicht das original!! deep copy
-                    $scope.besucher=angular.copy($scope.myRingbuchung.besucher);
-                    $scope.besucher.push([null,0]);
-
-                }
-            }
-            console.log("getBesucher: " + $scope.besucher);
-        }
-        $scope.getBesucher();
-
-        // gesamt Besucherzahlen
-        $scope.gesamtEintritt = 0;
-        if ( "gesamt" in $scope.myRingbuchung){
-            $scope.gesamtBesucher= $scope.myRingbuchung.gesamt[0];
-            $scope.gesamtEintritt= $scope.myRingbuchung.gesamt[1];
-
-                    };
 
 
         // von und nach Ort

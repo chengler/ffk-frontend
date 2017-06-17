@@ -8,15 +8,24 @@
 <body>
 <div class="modal-header" ng-class="bc=myVerleihB.bc">
     <div class="row">
-        <h3 class="col-md-10 modal-title">{{myVerleihB.titel}}</h3>
-        <h3 class="col-md-2 modal-title">{{datum}}</h3>
+        <h3 class="col-md-7 modal-title">{{::myVerleihB.titel}}</h3>
+        <h3 class="col-md-3 modal-title">{{::spielort}}</h3>
+        <h3 class="col-md-2 modal-title">{{::datum}}</h3>
     </div>
 </div>
 <div class="modal-body">
 
-    <div ng-show = 'schalter.besucher' >
+    <div ng-if = 'schalter.besucher' >
         <div ng-include="'components/ringBuchungen/modalRingBuchungEintrittBearbeitenTemplate.html?'+ version "></div>
     </div>
+
+    <div ng-if = 'schalter.filmlauf' >
+        <div ng-include="'components/ringBuchungen/modalRingBuchungFilmlaufBearbeiten.html?'+ version "></div>
+    </div>
+
+
+
+
 </div>
 <div class="modal-footer">
     <button class="btn btn-success" type="button" ng-click="ok('speichern')">speicher
