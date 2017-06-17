@@ -17,10 +17,9 @@
         'FfkUtils',
         'ModalRingBuchungFilmlaufBearbeitenService',
         'ModalRingBuchungEintrittBearbeitenService',
-        '$q',
-        function ($rootScope, $scope, $http, $log, $uibModal, ModalFilmWochenService, ModalVerleihBuchungsService,
+         function ($rootScope, $scope, $http, $log, $uibModal, ModalFilmWochenService, ModalVerleihBuchungsService,
                   RenderProgrammTableServices, FfkUtils, ModalRingBuchungFilmlaufBearbeitenService,
-                  ModalRingBuchungEintrittBearbeitenService, $q ) {
+                  ModalRingBuchungEintrittBearbeitenService) {
             $log.info("init programmCtrl");
             var zeigeWunschFilme = false;
             $rootScope.zeigeWunschFilme = zeigeWunschFilme;
@@ -38,7 +37,7 @@
                 var thisKW = moment(FfkUtils.getKinoWocheFromDate(heute)).isoWeek();
                 console.log("Springe in der Tabelle zur KW "+ thisKW); // ofset 5 // 8 pro Woche
                 $rootScope.gridOptions.api.ensureIndexVisible( (5 + thisKW)*8 ); //5+
-            }
+            };
 
             // Tabelle (field für auto Spaltenbreite)
             // setze 1. Spalte
@@ -61,7 +60,7 @@
 
 
 
-            if ($rootScope.status.aggrid == false) {
+            if ($rootScope.status.aggrid === false) {
                 // Tabelle, noch keine rowData
                 // funktion, da unterschiedliche linienhöhe
                 console.log("! $rootScope.gridOptions werden geladen");
@@ -127,7 +126,6 @@
             var initFilmlauf = function(wo) {
                 console.log("initTabelle aufgerufen von " + wo);
             //    if ($rootScope.status.filmlaufGeladen & $rootScope.status.verleihBuchungenGeladen) {
-                    var tstart = Date.now();
                     // definiere Spalten
                 console.log("definiere Spalten maxcol "+ $rootScope.filmlaufSpalten );
 
@@ -149,16 +147,15 @@
                     }
 
                     // // baue neu
-                console.log("setRowData");
+             //   console.log("setRowData");
                     $rootScope.gridOptions.api.setRowData($rootScope.filmlauf);
-                console.log("setColumnDefs");
+              //  console.log("setColumnDefs");
                     $rootScope.gridOptions.api.setColumnDefs(columnDefs);
                     // $rootScope.gridOptions.api.refreshView();
 
                     // // alle spalten in rahmen
                     $rootScope.gridOptions.api.sizeColumnsToFit();
-                    var zeit = Date.now() - tstart;
-                    console.log("gezeichnet in " + zeit + " ms");
+
                     $rootScope.status.aggrid = true;
 
                 console.log("initTabelle done");
@@ -214,7 +211,7 @@
 
             // flip true and false in tabelle
             $scope.handleFlip = function (flipKey, flipIdx, flipCol, flipFilm) {
-                 console.log("handleFlip 1/2 " + flipKey +" idx "+ flipIdx+"  col " + flipCol+" filmnr " + flipFilm);
+             //    console.log("handleFlip 1/2 " + flipKey +" idx "+ flipIdx+"  col " + flipCol+" filmnr " + flipFilm);
                 var fBID = $rootScope.filmlauf[flipIdx][1][flipCol-1][1][flipFilm-1];
             //    console.log(fBID);
 
@@ -226,7 +223,7 @@
                 $rootScope.ringBuchungen[fBID][flipKey] = bol;
                 $rootScope.gridOptions.api.refreshView();
                 $rootScope.infofenster = "{fBID:{ fBID: " + fBID + ", " + flipKey + " : " + bol + " }";
-                console.log = "{fBID:{ fBID: " + fBID + ", " + flipKey + " : " + bol + " }";
+                console.log("{fBID:{ fBID: " + fBID + ", " + flipKey + " : " + bol + " }");
 
             };
 
@@ -327,7 +324,7 @@
             $scope.openModalBuchung = function (rowIdx, colIdx, filmNr) {
              //   console.log($rootScope.filmlauf[rowIdx][colIdx-1][1][1][0]);
              //   console.log(filmNr);
-                console.log(JSON.stringify($rootScope.filmlauf[rowIdx][1][0]));
+               // console.log(JSON.stringify($rootScope.filmlauf[rowIdx][1][0]));
                 var fBID = $rootScope.filmlauf[rowIdx][1][colIdx-1][1][filmNr-1];
                 // [0] = verarbeitungsart [1] = input
                 console.log("bearbeite fBID " + fBID);
