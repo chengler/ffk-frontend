@@ -26,6 +26,9 @@
             $scope.wunschFilmTextBtn = "zeige Wunschfilme";
 
 
+             //http://www.yourangularjstutorial.com/how-to-use-watch/
+
+
             // zeichne jedesmal neu
             // if ($rootScope.status.aggrid) sollte damit obsolet sein!
             $rootScope.status.aggrid = false;
