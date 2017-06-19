@@ -56,7 +56,7 @@
 			// anmeldung erfolgreich | gescheitert
 			if ($rootScope.loggedIn) {
 				console.log("angemeldet ist nun " + JSON.stringify($rootScope.logedInUser));
-                //ladeGrundtabelle();
+                //erstelleGrundtabelle();
                 loadDatei();
 			} else {
 				console.log("anmeldung gescheitert");
@@ -99,7 +99,7 @@
 
 
         // was erledigt werden kann während das Programm auf das login wartet.
-        FfkUtils.ladeGrundtabelle();
+        FfkUtils.erstelleGrundtabelle();
 
 /*
 

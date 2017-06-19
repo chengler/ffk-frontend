@@ -9,7 +9,7 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
 
 /*
 
-        var myRingB = $rootScope.ringBuchungen[fBID];
+        var myRingB = $rootScope.ringBuchungen[rBID];
         var myVerleihB = $rootScope.verleihBuchungen[myRingB.vBID];
         var datum = myRingB.datum; // isodate 20160112
         $scope.mybuchungsChanges = Object.create(myRingB);
@@ -37,7 +37,7 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
         $scope.bisherigerVerleih = false;
         $scope.filmChanges = {};
 
-        // Object.create($rootScope.film(fBID
+        // Object.create($rootScope.film(rBID
         // Alle Filme dieses Tages
 
         var datum; //des index der Tabelle von wo aufgerufen wurde

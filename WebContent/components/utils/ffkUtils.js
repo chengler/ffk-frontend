@@ -1384,8 +1384,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             buchungSortiert = this.sortList(buchungSortiert , 0);
             // console.log("sortierte buchungen " + JSON.stringify(buchungSortiert));
 // START schleife durch Buchungen
-         //   console.log("************** buchungSortiert "+JSON.stringify(buchungSortiert));
-         //   console.log("************** buchungen "+JSON.stringify(buchungen));
+            console.log("************** buchungSortiert "+JSON.stringify(buchungSortiert));
+            console.log("************** buchungen "+JSON.stringify(buchungen));
 
             for (var anzahlB = 0; anzahlB < buchungSortiert.length; anzahlB++){ // alle Buchungen einzeln
                 console.log("anzahlB "+anzahlB+" buchungSortiert.length "+ buchungSortiert.length);
@@ -1397,10 +1397,9 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 spalten = $rootScope.filmlauf[idx][buchungsart].length ;
                 // maximale Spaltenzahl +1 wegend datumsspalte
                 if ( $rootScope.filmlaufSpalten < spalten +1 ){
-                    $rootScope.filmlaufSpalten = spalten +1;
+                    $rootScope.filmlaufSpalten = spalten +1 ;
                 }
-//                console.log("111111111111111111111111111111111111spalten "+spalten);
-//                console.log("$rootScope.filmlaufSpalten "+$rootScope.filmlaufSpalten);
+                console.log("$rootScope.filmlaufSpalten "+$rootScope.filmlaufSpalten);
 
                 //einzelne verleihBuchungen oder Wünsche
                 // Filmwochen
@@ -1412,14 +1411,13 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     // [ [0] .. ]
                     for (var s = spaltenHier; s < spalten; s++){
                            // fülle mit  [false], falls noch kein array vorhanden
-                        $rootScope.filmlauf[idx][buchungsart].push(false);
+                        $rootScope.filmlauf[idx][buchungsart].push([false ]);
                     }
                     // TODO fw stringfy immer noch nötig? setze var fw eins höher
                     // erstelle wocheneintrag
                     // [background, vBID, filmwoche]  =   [ bc-10, vInt, int ]
-  //                  console.log("+++push "+vBID)
-                    $rootScope.filmlauf[idx][buchungsart].push(
-                        [ buchungen[vBID].bc, vBID, fw]);
+                    console.log("+++push "+ vBID)
+                    $rootScope.filmlauf[idx][buchungsart].push( [ buchungen[vBID].bc, vBID, fw]) ;
 
 
                   //  console.log("datum "+buchungSortiert[i] + " auf idx "+ idx + " in spalte " + spalten);
@@ -1456,23 +1454,25 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             //console.log("*********** " +JSON.stringify(buchungen))
             //START
             // ringBuchung oder ringWunsch
-            var fBID; // key
+            var rBID; // key
             var buchung; // value
             var idx; // zielindex der Buchung
             var kwidx;// $rootScope.filmlauf[rowIdx][0][1];
             var vBID;
-            var pos; // pos in array des films nach verleiBuchung Wunsch
+            var pos; // pos in array des films nach verleiBuchung/Wunsch um die richtige Spalte zu bestimmen
             var spaltenHier; // spalten hier nach ringBuchung Wunsch
-            // [ [0] .. ]   =  [background, [fBID,fBID]] =   [ bc-11, [fBID,fBID..]]
+            // [ [0] .. ]   =  [background, [rBID,rBID]] =   [ bc-11, [rBID,rBID..]]
             // iteriere durch alle buchungen
-            for (fBID in buchungen) {
-                if (buchungen.hasOwnProperty(fBID)) {
-                    buchung = buchungen[fBID];
+            for (rBID in buchungen) {
+                if (buchungen.hasOwnProperty(rBID)) {
+                    buchung = buchungen[rBID];
+                    console.log("#+ buchung " +JSON.stringify(buchung))
+
                     idx = this.getFilmlaufIdxVonDatum(buchung.datum) + 1;//+1 für letzte KW Zeile
                     // um die buchungen zu finden idx - spieltag
                     kwidx = idx - $rootScope.filmlauf[idx][0][1];
                     vBID = buchung.vBID;
-                    // [background, [fBID,fBID]]
+                    // [background, [rBID,rBID]]
 
                     for ( var j = 0; j < $rootScope.filmlauf[kwidx][buchungsart].length; j ++){
                         if ( vBID == $rootScope.filmlauf[kwidx][buchungsart][j][1] ){
@@ -1480,24 +1480,26 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                             break;
                         }
                     }
-                    //   [ ["bc-11", [fBID]]    , [ "bc-22", [fBID]] .. ]
+                    //   [ ["bc-11", [rBID]]    , [ "bc-22", [rBID]] .. ]
                     spaltenHier = $rootScope.filmlauf[idx][buchungsart].length;
                     // fehlende Spalten ([false] arrays) vor dem eintrag
                     for (var i = spaltenHier; i <= pos  ; i++) {
                         // fülle mit  [false], falls noch kein array vorhanden
-                        $rootScope.filmlauf[idx][buchungsart].push(false);
+                        $rootScope.filmlauf[idx][buchungsart].push(["RingAngelegenheit"]);
                     }
                     // speicher ring... im array der Spalte
                     // console.log(pos + " pos " + JSON.stringify( $rootScope.filmlauf[idx][buchungsart]))
-                    // pos[0: bc-11, 1:[fBID,fBID..]]
-                    $rootScope.filmlauf[idx][buchungsart][pos][1].push(fBID);
+                    // pos[0: bc-11, 1:[rBID,rBID..]]
+                    console.log("ring "+JSON.stringify( $rootScope.filmlauf[idx] ))
+                    console.log("ring [idx][buchungsart][pos]"+idx+" "+buchungsart+" "+pos);
+                    $rootScope.filmlauf[idx][buchungsart][pos][1].push(rBID);
                 }
             }
         }
 
 
         //erstelle  Grundtabelle filmlauf
-        this.ladeGrundtabelle = function () {
+        this.erstelleGrundtabelle = function () {
             $log.info("***** erstelle  grundTabelle");
             // 60 Wochen KW 1 minus 4 Wochen, KW 52 plus 4 Wochen
             // buggy daher 1.Do im Jahr wie folgt rechnen!important
@@ -1530,7 +1532,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             console.log("grundTabelleGeladen " + $rootScope.status.grundTabelleGeladen);
         };
 
-        // wie ladeGrundtabelle, aber keine neuen Berechungen nur array 1 und 2
+        // wie erstelleGrundtabelle, aber keine neuen Berechungen nur array 1 und 2
         this.leereGrundtabelle = function () {
             for (i=0; i < 480; i++){
                 $rootScope.filmlauf[i][1]= [];
@@ -1552,7 +1554,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                 this.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihWunsch, 2);
                 console.log("ringBuchungen");
                 this.setInFilmlaufRingAngelegenheiten($rootScope.ringBuchungen, 1);
-                console.log("ringWünsche");
+                console.log("ringWünsche ");
+               // console.log(JSON.stringify($rootScope.ringWunsch));
                 this.setInFilmlaufRingAngelegenheiten($rootScope.ringWunsch, 2);
 
 

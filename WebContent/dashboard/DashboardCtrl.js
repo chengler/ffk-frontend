@@ -143,24 +143,24 @@
                console.log(JSON.stringify($rootScope.ringBuchungen));
                console.log("fehlendeRueckmeldungen " + JSON.stringify($rootScope.fehlendeRueckmeldungen));
 
-                $rootScope.fehlendeRueckmeldungen.forEach(function (fBID) {
-                   $scope.fbids[fBID] = {};
-                   $scope.fbids[fBID].titel =
-                       $rootScope.verleihBuchungen[  $rootScope.ringBuchungen[fBID]['vBID']]['titel'];
-                   $scope.fbids[fBID].ort =
-                       FfkUtils.getNamezurId( $rootScope.spielorteSortiert , $rootScope.ringBuchungen[fBID]['sid']);
+                $rootScope.fehlendeRueckmeldungen.forEach(function (rBID) {
+                   $scope.fbids[rBID] = {};
+                   $scope.fbids[rBID].titel =
+                       $rootScope.verleihBuchungen[  $rootScope.ringBuchungen[rBID]['vBID']]['titel'];
+                   $scope.fbids[rBID].ort =
+                       FfkUtils.getNamezurId( $rootScope.spielorteSortiert , $rootScope.ringBuchungen[rBID]['sid']);
 
-                   $scope.fbids[fBID].sid = $rootScope.ringBuchungen[fBID]['sid'];
-                   $scope.fbids[fBID].vid = $rootScope.verleihBuchungen[$rootScope.ringBuchungen[fBID]['vBID']].vid;
+                   $scope.fbids[rBID].sid = $rootScope.ringBuchungen[rBID]['sid'];
+                   $scope.fbids[rBID].vid = $rootScope.verleihBuchungen[$rootScope.ringBuchungen[rBID]['vBID']].vid;
 
 
                    // TODO verleichID !!
-                   $scope.fbids[fBID].verleih = FfkUtils.getNamezurId( $rootScope.verleiherSortiert ,
-                       $rootScope.verleihBuchungen[$rootScope.ringBuchungen[fBID]['vBID']].vid);
+                   $scope.fbids[rBID].verleih = FfkUtils.getNamezurId( $rootScope.verleiherSortiert ,
+                       $rootScope.verleihBuchungen[$rootScope.ringBuchungen[rBID]['vBID']].vid);
 
 
-                   $scope.fbids[fBID].datum = moment($rootScope.ringBuchungen[fBID]['datum']).hour(12).format('DD.MM.YY');
-                    $scope.fbids[fBID].id = $rootScope.ringBuchungen[fBID]['fBID'];
+                   $scope.fbids[rBID].datum = moment($rootScope.ringBuchungen[rBID]['datum']).hour(12).format('DD.MM.YY');
+                    $scope.fbids[rBID].id = $rootScope.ringBuchungen[rBID]['fBID'];
 
                 });
 

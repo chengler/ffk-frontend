@@ -140,7 +140,9 @@ angular
                 //  [1]    [ [0] .. ]   =  [background, [fBID,fBID]] =   [ bc-11, [fBID,fBID..]]
                 // var buchung = params.data[col]; // {einzelBuchungObject aus filmlauf}
                 var filmlaufBuchung = params.data[1][arryCol];
-                if (filmlaufBuchung == undefined) {
+                if (filmlaufBuchung == undefined ) { // keinerlei Buchungen
+                    filmlaufBuchung =  false;
+                }else if (filmlaufBuchung[0] == false){// eine leerspalte, weil in späterer spalte noch was folgt
                     filmlaufBuchung =  false;
                 }
                 var filmlaufWunsch =  params.data[2][arryCol];
@@ -163,7 +165,7 @@ angular
                     console.log("filmlaufBuchung " + JSON.stringify(filmlaufBuchung));
                     console.log("filmlaufWunsch " + JSON.stringify(filmlaufWunsch) );
 */
-                    if (  filmlaufBuchung) { // true = Eintrag
+                    if (  filmlaufBuchung ) { // true = Eintrag
                         var vBID = filmlaufBuchung[1];
                         var verleiBuchung = $rootScope.verleihBuchungen[vBID];
                         //console.log("** verleiBuchung " +JSON.stringify(verleiBuchung));
@@ -216,7 +218,7 @@ angular
 
                         return  link + filmLink + " ( " + medien + ")" + wochenBesucher;
                     } else {
-                        return "";
+                        return "verleihBuchungLang";
                     }
 
                 }

@@ -107,8 +107,8 @@
     }
 },
     "verleihBuchungen": {
-    "vp2": {
-        "vBID": "vp2",
+    "v2017p2": {
+        "vBID": "v2017p2",
         "fID": "fp1",
         "titel": "Happy Film",
         "vid": "vid1",
@@ -138,9 +138,9 @@
         ],
             "col": "col1"
     },
-    "vp4": {
+    "v2017p4": {
         "fID": "fp3",
-            "vBID": "vp4",
+            "vBID": "v2017p4",
             "titel": "Sad Film",
             "vid": "vid2",
             "medien": {
@@ -171,8 +171,8 @@
     }
 },
     "ringBuchungen": {
-    "fBIDp11": {
-        "fBID": "p11",
+    "rBID2017p11": {
+        "rBID": "r2017p11",
             "check1": false,
             "check2": false,
             "sid": "sid5",
@@ -182,10 +182,10 @@
             "nachID": false,
             "garantie": false,
             "datum": "20170624",
-            "vBID": "vp2"
+            "vBID": "v2017p2"
     },
-    "fBIDp12": {
-        "fBID": "p12",
+    "rBID2017p12": {
+        "rBID": "r2017p12",
             "check1": false,
             "check2": false,
             "sid": "sid1",
@@ -195,10 +195,10 @@
             "nachID": false,
             "garantie": false,
             "datum": "20170608",
-            "vBID": "vp2"
+            "vBID": "v2017p2"
     },
-    "fBIDp13": {
-        "fBID": "p13",
+    "rBID2017p13": {
+        "rBID": "2017p13",
             "check1": false,
             "check2": false,
             "sid": "sid5",
@@ -208,24 +208,24 @@
             "nachID": false,
             "garantie": false,
             "datum": "20170616",
-            "vBID": "vp4"
+            "vBID": "v2017p4"
     }
 },
     "verleihWunsch": {
-    "vp12": {
+    "v2017p12": {
         "fID": "fp11",
             "titel": "Mein Wunschfilm",
             "start": "20170608",
             "bc": "bc-00",
             "col": "col1",
-            "vBID": "vp12",
+            "vBID": "v2017p12",
             "laufzeit": 1
     }
 },
     "ringWunsch": {
-    "fBIDp13": {
-        "fBID": "p13",
-            "vBID": "vp12",
+    "rBIDp13": {
+        "rBID": "r2017p13",
+            "vBID": "v2017p12",
             "sid": "sid5",
             "datum": "20170610"
     }
