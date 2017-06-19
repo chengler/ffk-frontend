@@ -29,6 +29,8 @@
              //http://www.yourangularjstutorial.com/how-to-use-watch/
 
 
+
+
             // zeichne jedesmal neu
             // if ($rootScope.status.aggrid) sollte damit obsolet sein!
             $rootScope.status.aggrid = false;
@@ -169,7 +171,15 @@
                         + " verleihBuchungenGeladen " + $rootScope.status.verleihBuchungenGeladen + " grundTabelleGeladen "
                         + $rootScope.status.grundTabelleGeladen + " noch nicht alles geladen -> ende");
                 }*/
-            }
+// setze watcher: neue spalte
+                $scope.$watch('filmlaufSpalten', function(newValue, oldValue, scope) {
+                    if (newValue > oldValue ){
+                        console.log("++++++++++++ newValue "+newValue+" oldValue  "+oldValue);
+
+                        $scope.neueColum(newValue);
+                    }
+                });
+            }; // end init
 
 
 
@@ -196,6 +206,8 @@
                 if (colnr > $rootScope.filmlaufSpalten) {
                     $rootScope.filmlaufSpalten = colnr;
                 }
+                $rootScope.gridOptions.api.sizeColumnsToFit();
+
             };
 
             // zeige ganze Spalten
