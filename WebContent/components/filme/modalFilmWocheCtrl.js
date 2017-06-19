@@ -75,6 +75,7 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
             startDatum = moment($rootScope.filmlauf[ idxVerleihangelegenheiten+1][0][2]).hour(12);
         }
         startDatum = moment(startDatum).format('YYYYMMDD');
+        // filmlauf mit verleihangelegenheiten
         verleihAngelegenheiten = $rootScope.filmlauf[idxVerleihangelegenheiten];
         console.log("    Array verleihAngelegenheiten " + JSON.stringify(verleihAngelegenheiten));
         if ($scope.modus.row == 'kw') {
@@ -86,16 +87,17 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
         var machMenus = function () {
         // lade die Verleihbuchungen der Woche in myVerleih ...
         // 1 | 2 =  [ ["bc-10", "vp2", 1], ["bc-20"..        ]
-        for (i=0; i < verleihAngelegenheiten[1].length; i++ ){
-            $scope.myVerleiBuchungen.push($rootScope.verleihBuchungen[verleihAngelegenheiten[1][i][1]]);
+        for (var bi=0; bi < verleihAngelegenheiten[1].length; bi++ ){
+            $scope.myVerleiBuchungen.push($rootScope.verleihBuchungen[verleihAngelegenheiten[1][bi][1]]);
         }
 
     //    console.log("    $scope.myVerleiBuchungen vBID: " + JSON.stringify($scope.myVerleiBuchungen));
             // lade die VerleihWünsche der Woche in myVerleih ...
-            for (i=0; i < verleihAngelegenheiten[2].length; i++ ){
-            $scope.myVerleiWunsche.push($rootScope.verleihWunsch[verleihAngelegenheiten[2][i][1]]);
+            console.log("    verleihAngelegenheiten[2] " + JSON.stringify(verleihAngelegenheiten[2]));
+        for (var wi=0; wi < verleihAngelegenheiten[2].length; wi++ ){
+            $scope.myVerleiWunsche.push($rootScope.verleihWunsch[verleihAngelegenheiten[2][wi][1]]);
         }
-    //    console.log("    $scope.myVerleiWunsche vBID: " + JSON.stringify($scope.myVerleiWunsche));
+       console.log("    $scope.myVerleiWunsche vBID: " + JSON.stringify($scope.myVerleiWunsche));
         };
         machMenus();
 
@@ -156,8 +158,9 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
 
         // lade daten zum ausgewählten Filmwunsch
         $scope.loadGewunschen = function (wunsch) {
-            machMenus();
+         //   machMenus();
             console.log("loadGewunschen: " + JSON.stringify(wunsch, 0, 0));
+            wunsch = $rootScope.verleihWunsch[wunsch];
             FfkUtils.ladeFilm(wunsch.fID);
             $scope.kwinfos = wunsch.titel;
             $scope.mybuchung = wunsch;
@@ -233,13 +236,9 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
         //
         $scope.machBuchbar = function () {
 
-            var col = $scope.mybuchung.col;
             var result = {
                 "typ": "machBuchbar",
-                "kwRow": wochenBuchungenIDX,
-                "col": col,
-                "wfID": $scope.mybuchung.wfID,
-                'fID': $scope.mybuchung.fID
+                "vBID": $scope.wfID
             };
 
             var newVal = [];

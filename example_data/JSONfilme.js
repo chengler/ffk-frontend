@@ -9,5 +9,7 @@
  "f89": {  "titel" : "8 miles high"             , "text" : "In einer fernen, fernen Zukunft." },
  "f77": {  "titel" : "Im Weg"             , "text" : "dieser film steht einer Verlängerung im Weg." },
  "fp1": {        "titel": "Happy Film",        "verleih": "vid1"    },
- "fp3": {        "titel": "Agnes",        "verleih": "vid2"    }
+ "fp3": {        "titel": "Agnes",        "verleih": "vid2"    },
+ "fp11":{        "titel": "Mein Wunschfilm",        "verleih": "vid2"    }
 }]
+
