@@ -1128,6 +1128,22 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             programmCtrlScope.gridOptions.api.setRowData($rootScope.filmlauf);
         };
 
+        //r2017p13 : {"rBID":"r2017p13","vBID":"v2017p12","sid":"sid5","datum":"20170610"},
+        // neu und praktisch
+        this.setRingWunsch = function (vbid, sid, datumSpieltag) {
+            var jahr = moment().hours(12).format("YYYY"); // damit auch um Silvester alles läuft
+            var rBID = this.getNewProvID('r'+jahr);
+            var rBidWunsch2server = {"rBID":rBID, "vBID":vbid,"sid":sid,"datum": datumSpieltag};
+            $rootScope.ringWunsch[rBID] = rBidWunsch2server;
+            this.setInFilmlaufRingAngelegenheiten( [rBidWunsch2server], 2);
+
+            // TODO REST
+            console.log("rBidWunsch2server " + JSON.stringify(rBidWunsch2server) );
+            //
+        };
+
+
+
         // neu und praktisch
         this.setRingBuchung = function (vBID, sid, datum, medium, grantie) {
             console.log("setRingBuchung vBID "+vBID+" sid "+sid+" medium "+medium+" datum "+datum);
@@ -1140,7 +1156,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             // speicher in Buchungen
             $rootScope.ringBuchungen[rBID] = JSON.parse(JSON.stringify(rBID2server.rBID));
             // TODO REST
-            console.log("rBID2server " + JSON.stringify(rBID2server) );
+            console.log("rBidBuchung2server " + JSON.stringify(rBID2server) );
             // speicher in filmlauf
             // [1,2,3,4].indexOf(3); // produces 2
             this.setInFilmlaufRingAngelegenheiten( [ rBID2server.rBID] , 1);
@@ -1261,13 +1277,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         };
 
 
-        // setze Wunsch in variable RingWunsch
-        // TODO Rest
-        this.setRingWunsch = function(vBID , sid, datum){
-            console.log("setRingWunsch");
-            var fBID = this.getNewProvID("");
-            $rootScope.ringWunsch["fBID"+fBID] ={"fBID": fBID, "sid": sid, "datum": datum, "vBID": vBID };
-        }
+
 
         // die neue und chicke :-) diese nehmen!
         // ändert ringBuchungen nach {}
@@ -1294,29 +1304,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
 
 
-        // ein spielort will bei einem Filmwunsch mitspielen
-        this.mitspielen = function (col, sid, rowIdx, garantie) {
-            if (garantie == undefined) {
-                garantie = false;
-            }
-            var buchungsTag = $rootScope.filmlauf[rowIdx];
-            // wenn col eintrag nicht  existiert
-            if (!(col in buchungsTag)) {
-                buchungsTag[col] = {};
-            }
-            //  weiterer oder erster wunsch dieses tages
-            if (buchungsTag[col + 'w']) {
-                buchungsTag[col + 'w']['sids'].push([sid]);
-            } else {
-                var kwRow = this.getKinoWochenRowIdx(rowIdx);
-                var bc = $rootScope.filmlauf[kwRow][col + 'w']['bc'];
-                // "col1w":{"bc":"bc-40","sids":[["sid2"]]}
-                buchungsTag[col + 'w'] = {
-                    "bc": bc,
-                    "sids": [[sid, garantie]]
-                };
-            }
-        }
+
 
         // speicher objekt unter name
         // nicht verwendet wäre zum internen speichern

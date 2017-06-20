@@ -26,10 +26,7 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
         $scope.myVersion =  $rootScope.version; // zum nachladen von temlateänderungen
         var verleihIdx;
         $scope.spielOrtAuswahl; // für den admen
-
-
-
-        var datumSpieltag;   // fürs repeat
+        var datumSpieltag;   // der Tag von dem aus aufgerufen wurde
         $scope.medienLeihbar = {};      // zum Datum vorhanden und abspielbar
         var abspielOptionenVorOrt=[];
 
@@ -93,7 +90,7 @@ INIT 1
             $scope.vbid = JSON.parse(JSON.stringify(vBID));
             $scope.fid =  $rootScope.verleihWunsch[vBID].fID;
             FfkUtils.ladeFilm($scope.fid);
-            $scope.modus.text = "Infos zum Filmvorschlag";
+            $scope.modus.info = "Infos zum Filmvorschlag";
             $scope.modus.status = "gewunschen";
         };
 
@@ -140,6 +137,27 @@ INIT 1
             FfkUtils.setWunsch2Buchung($scope.vbid);
             $uibModalInstance.close({"msg": "machNix"});
         };
+
+        // Mitspielinteresse bekunden
+        $scope.mitspielen = function () {
+            console.log("    mitspielen (Ringwunsch)für sid " + $scope.sid );
+            if ($scope.sid != false){
+                FfkUtils.setRingWunsch($scope.vbid, $scope.sid, datumSpieltag);// setze in Tabelle
+                $uibModalInstance.close({'msg': 'nix'});
+            } else {
+                console.log("    ohne Spielort kein mitspielen möglich. mache nix");
+            }
+
+        };
+
+
+/*
+        $scope.garantieUebernehmen = function () {
+            FfkUtils.mitspielen($scope.mybuchung.col, $scope.sid, rowIdx, true);
+            $scope.machBuchbar();
+
+        };
+        */
 
         /*
         INIT 2

@@ -16,7 +16,7 @@
 		<span ng-if="users[logedInUser.uid].role == 'admin'">
 			<button class=" btn btn-success " type="button" ng-click="machBuchbar()">als buchbar setzen</button>
 		</span>
-		<span  ng-if="sid != 'false'">
+		<span  ng-if="sid != false">
 			<button class=" btn btn-success " type="button" ng-click="mitspielen()">Mitspielinteresse bekunden</button>
 			<button class=" btn btn-warning " type="button" ng-click="garantieUebernehmen()">Mindestgarantie übernehmen</button>
 		</span>
