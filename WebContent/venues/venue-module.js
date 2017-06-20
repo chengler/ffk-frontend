@@ -30,6 +30,16 @@
         	FfkUtils.masqueradeLoggedIn(sid);
 		}
 
+        $scope.startVideo = function(){
+        	console.log("TODO");
+		}
+
+
+
+
+
+
+
 	});
 
 })();

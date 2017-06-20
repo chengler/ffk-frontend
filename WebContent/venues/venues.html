@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
 <meta charset="UTF-8">
 
@@ -15,10 +15,17 @@
 	<div class="container">
 		<div data-ng-app="app.venue">
 			<div data-ng-controller="venueCtrl">
-				<h2>Spielorte!</h2>
+				<h2>Spielorte!
+					<button type="button" class="btn btn-default btn-sm" ng-click="startVideo()">
+					<span class="glyphicon glyphicon-film"></span> Übersichtsvideo
+				</button>
+				</h2>
 
 				Eine Übersicht der Spielorte mit der Möglichkeit der Kontaktaufnahme Für den Admin
 				auch die Möglichkeit der Datenänderung.
+
+
+
 
 				<table class="table table-hover table-striped">
 					<thead>
