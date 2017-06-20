@@ -226,8 +226,8 @@
     }
 },
     "ringWunsch": {
-    "r2017p13": {
-        "rBID": "r2017p13",
+    "r2017p23": {
+        "rBID": "r2017p23",
             "vBID": "v2017p12",
             "sid": "sid5",
             "datum": "20170610"
@@ -246,6 +246,6 @@
         "titel": "Mein Wunschfilm"
     }
 },
-    "myProvID":  23
+    "myProvID":  24
 
 }

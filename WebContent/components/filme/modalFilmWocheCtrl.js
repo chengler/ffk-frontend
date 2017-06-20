@@ -115,7 +115,7 @@ INIT 1
         };
 
         // Film buchen
-        $scope.buchen = function (medium, garantie) {
+        $scope.verleihBuchungBuchen = function (medium, garantie) {
             console.log("buchen "+ medium);
             console.log("$scope.vbid "+ $scope.vbid);
             if (garantie == undefined){
@@ -123,7 +123,12 @@ INIT 1
             }
             if ($scope.sid != false) { // nur wenn Spieort angegeben
                 // vBID, sid, datum, medium, grantie
-                FfkUtils.setRingBuchung($scope.vbid, $scope.sid, datumSpieltag, medium, garantie);
+                var jahr = moment().hours(12).format("YYYY"); // damit auch um Silvester alles läuft
+                var profID = FfkUtils.getNewProvID('r'+jahr);
+                console.log("profID "+profID);
+               FfkUtils.setRingBuchung(profID, $scope.vbid, $scope.sid, datumSpieltag, medium, garantie);
+               FfkUtils.setInFilmlaufRingAngelegenheiten( [ $rootScope.ringBuchungen[profID] ] , 1);
+
                 $uibModalInstance.close({'msg': 'Film gebucht'});
             } else { // Spielort fehlt
                 alert("Welcher Spielort soll mitspielen?\nBitte wählen sie einen aus.");
@@ -141,23 +146,15 @@ INIT 1
         // Mitspielinteresse bekunden
         $scope.mitspielen = function () {
             console.log("    mitspielen (Ringwunsch)für sid " + $scope.sid );
-            if ($scope.sid != false){
                 FfkUtils.setRingWunsch($scope.vbid, $scope.sid, datumSpieltag);// setze in Tabelle
                 $uibModalInstance.close({'msg': 'nix'});
-            } else {
-                console.log("    ohne Spielort kein mitspielen möglich. mache nix");
-            }
-
         };
 
-
-/*
         $scope.garantieUebernehmen = function () {
-            FfkUtils.mitspielen($scope.mybuchung.col, $scope.sid, rowIdx, true);
+            console.log("    garantieUebernehmen");
+            FfkUtils.setRingWunsch($scope.vbid, $scope.sid, datumSpieltag, true);// setze in Tabelle
             $scope.machBuchbar();
-
         };
-        */
 
         /*
         INIT 2

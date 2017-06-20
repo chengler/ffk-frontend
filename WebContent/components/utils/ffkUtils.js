@@ -1130,10 +1130,16 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         //r2017p13 : {"rBID":"r2017p13","vBID":"v2017p12","sid":"sid5","datum":"20170610"},
         // neu und praktisch
-        this.setRingWunsch = function (vbid, sid, datumSpieltag) {
+        this.setRingWunsch = function (vbid, sid, datumSpieltag, garantie) {
+            console.log("setRingWunsch");
+
             var jahr = moment().hours(12).format("YYYY"); // damit auch um Silvester alles läuft
             var rBID = this.getNewProvID('r'+jahr);
-            var rBidWunsch2server = {"rBID":rBID, "vBID":vbid,"sid":sid,"datum": datumSpieltag};
+            if (garantie == undefined){
+                garantie = false;
+            }
+            console.log("%%%%%%%%%%%%%%%%%% "+garantie);
+            var rBidWunsch2server = {"rBID":rBID, "vBID":vbid,"sid":sid,"datum": datumSpieltag, "garantie" : garantie };
             $rootScope.ringWunsch[rBID] = rBidWunsch2server;
             this.setInFilmlaufRingAngelegenheiten( [rBidWunsch2server], 2);
 
@@ -1145,10 +1151,12 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
 
         // neu und praktisch
-        this.setRingBuchung = function (vBID, sid, datum, medium, grantie) {
-            console.log("setRingBuchung vBID "+vBID+" sid "+sid+" medium "+medium+" datum "+datum);
-            var jahr = moment().hours(12).format("YYYY"); // damit auch um Silvester alles läuft
-            var rBID = this.getNewProvID('r'+jahr);
+        // die rBID muss vorher geholt werden (getNewProvID), damit die function vielfältiger einsetzbar ist
+        // bucht ringBuchungen aus verleihBuchungen (braucht provID)
+        // bucht RingBuchungen aus RingWünschen
+        this.setRingBuchung = function (rBID, vBID, sid, datum, medium, grantie) {
+            console.log("setRingBuchung vBID "+vBID+" sid "+sid+" datum "+ datum + " medium "
+                + medium + " grantie " + grantie );
             datum = moment(datum).format("YYYYMMDD");
             var rBID2server = {};
             rBID2server['rBID'] = {"rBID": rBID, "check1":false,"check2":false,"sid":sid,"medium":medium,
@@ -1159,12 +1167,15 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             console.log("rBidBuchung2server " + JSON.stringify(rBID2server) );
             // speicher in filmlauf
             // [1,2,3,4].indexOf(3); // produces 2
-            this.setInFilmlaufRingAngelegenheiten( [ rBID2server.rBID] , 1);
+
+            // darf nicht gesetzt werden, da sonst doppelt
+            //this.setInFilmlaufRingAngelegenheiten( [ rBID2server.rBID] , 1);
         };
 
 
         // mache einen Wunsch buchbar
         // anschließend muss die Tabelle neu erstellt werden
+        // verleih und Ringwünsche werden buchbar
         this.setWunsch2Buchung = function(vbid) {
             console.log("setWunsch2Buchung mit vBID " + vbid);
             vbid = JSON.parse(JSON.stringify(vbid));// deepcopy
@@ -1182,7 +1193,6 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             // lösche Wunsch
            console.log(JSON.stringify($rootScope.verleihWunsch));
           console.log(JSON.stringify(vbid));
-
             $rootScope.verleihWunsch[vbid] = null;
             delete $rootScope.verleihWunsch[vbid];
             // TODO REST
@@ -1199,12 +1209,14 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     var myRB = JSON.parse(JSON.stringify($rootScope.ringWunsch[key]));
                     // setze Ringbuchung und führe mit REST aus
                     // this.setInFilmlaufRingAngelegenheiten($rootScope.ringBuchungen, 1);
-                    this.setRingBuchung(vbid, myRB.sid, myRB.datum, "", false);
-                    $rootScope.ringWunsch = null;
-                    delete $rootScope.ringWunsch;
+                    this.setRingBuchung( myRB.rBID   ,vbid, myRB.sid, myRB.datum, "", myRB.garantie);
+                    $rootScope.ringWunsch[key] = null;
+                    delete $rootScope.ringWunsch[key];
                 }
-                this.setInFilmlaufRingAngelegenheiten($rootScope.ringWunsch, 2);
             }
+            this.setInFilmlaufRingAngelegenheiten($rootScope.ringBuchungen, 1);
+            this.setInFilmlaufRingAngelegenheiten($rootScope.ringWunsch, 2);
+
         };
 
         // neu und praktisch
@@ -1559,7 +1571,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     console.log("### idx" +idx);
                     // um die buchungen zu finden idx - spieltag
                     kwidx = idx - $rootScope.filmlauf[idx][0][1];
-                    console.log("### kwidx" +idx);
+                    console.log("### kwidx" +kwidx);
                     vBID = buchung.vBID;
                     // [background, [rBID,rBID]]
 
