@@ -225,7 +225,7 @@ angular
 
                         return  link  + " ( " + medien + ")" + wochenBesucher;
                     } else {
-                        return "verleihBuchungLang";
+                        return "";
                     }
 
                 }
