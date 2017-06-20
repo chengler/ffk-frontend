@@ -1581,6 +1581,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                             break;
                         }
                     }
+
+
                     //   [ ["bc-11", [rBID]]    , [ "bc-22", [rBID]] .. ]
                     spaltenHier = $rootScope.filmlauf[idx][buchungsart].length;
                     // fehlende Spalten ([false] arrays) vor dem eintrag

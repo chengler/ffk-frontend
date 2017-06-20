@@ -216,13 +216,14 @@ angular
                         link = ""; // bearbeitungslink für filmwoche
                         if ( $rootScope.logedInUser.role == "admin"){
                             link = "<span title='Diesen Filmlauf bearbeiten' "
-                                + "class='glyphicon glyphicon-edit crosshair' ng-click='openModalVerleihBuchung(" + rowIdx + ",1," + arryCol +")' >" + "</span> ";
+                                + "class='glyphicon glyphicon-edit pointer'" +
+                                " ng-click='openModalVerleihBuchung(" + rowIdx + ",1," + arryCol +")' >" +  verleiBuchung.titel+"</span> ";
                         }
-                        var filmLink = ""; // der link um den film anzuzeigen
-                        filmLink = "<span title='Filminfos anzeigen' "
-                            + "class='pointer' ng-click='openModalFilmWoche(" + rowIdx + "," + colIdx + ")' >" + verleiBuchung.titel + "</span> ";
+                      //  var filmLink = ""; // der link um den film anzuzeigen
+                       // filmLink = "<span title='Filminfos anzeigen' "
+                         //   + "class='pointer' ng-click='openModalFilmWoche(" + rowIdx + "," + colIdx + ")' >" + verleiBuchung.titel + "</span> ";
 
-                        return  link + filmLink + " ( " + medien + ")" + wochenBesucher;
+                        return  link  + " ( " + medien + ")" + wochenBesucher;
                     } else {
                         return "verleihBuchungLang";
                     }

@@ -7,8 +7,8 @@ Wunschfilme anlegen, buchbar setzen, mindestgarantie übernehmen
 
  */
 angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
-    function ($rootScope, $scope, $log, $uibModalInstance, rowIdx, FfkUtils) {
-        console.log("    ModalFilmlWochenInstanceCtrl rowIdx: " + rowIdx);
+    function ($rootScope, $scope, $log, $uibModalInstance, rowIdx, FfkUtils, colIdx) {
+        console.log("    ModalFilmlWochenInstanceCtrl rowIdx: " + rowIdx + " colIdx "+colIdx);
 
         // kann colidx weg?
 // Variablen
@@ -33,7 +33,8 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
         // steurinfos für die html anzeige
         $scope.modus = {};
         $scope.modus['info'] = "← Bitte wählen Sie einen Film.";
-        $scope.modus['status'] == 'unbekannt'; //buchbar, "gewunschen", neuerWunsch
+        $scope.modus['status'] == 'unbekannt'; //buchbar, "gewunschen", neuerWunsch, nixbuchen
+        $scope.modus['datum']; // datumsanzeige im Header, KW oder spieltag
          // kein buchbarer Film ausgewählt
 
 /*
@@ -52,7 +53,7 @@ INIT 1
         console.log("    datumSpieltag: " + JSON.stringify(datumSpieltag));
         verleihIdx = rowIdx - filmlaufTag[0][1];
         console.log("    verleihIdx: " + JSON.stringify(verleihIdx));
-
+        $scope.modus['datum'] = moment(datumSpieltag).format('DD.MM.YYYY');
         /*
         FUNKTIONEN
          */
@@ -167,6 +168,7 @@ INIT 1
             $scope.getMedienVorOrt(sid);
         }
         console.log("    sid: " + $scope.sid);
+
 
 
 
