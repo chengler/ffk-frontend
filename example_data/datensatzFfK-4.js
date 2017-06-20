@@ -171,7 +171,7 @@
     }
 },
     "ringBuchungen": {
-    "rBID2017p11": {
+    "r2017p11": {
         "rBID": "r2017p11",
             "check1": false,
             "check2": false,
@@ -184,7 +184,7 @@
             "datum": "20170624",
             "vBID": "v2017p2"
     },
-    "rBID2017p12": {
+    "r2017p12": {
         "rBID": "r2017p12",
             "check1": false,
             "check2": false,
@@ -197,8 +197,8 @@
             "datum": "20170608",
             "vBID": "v2017p2"
     },
-    "rBID2017p13": {
-        "rBID": "2017p13",
+    "r2017p13": {
+        "rBID": "r2017p13",
             "check1": false,
             "check2": false,
             "sid": "sid5",
@@ -209,6 +209,10 @@
             "garantie": false,
             "datum": "20170616",
             "vBID": "v2017p4"
+    },
+    "r2017p22": {"rBID":"r2017p22","check1":false,"check2":false,"sid":"sid5","medium":"BD","medienID":false,"vonID":false,"nachID":false,"garantie":false,
+        "datum":"20170620",
+        "vBID":"v2017p2"
     }
 },
     "verleihWunsch": {
@@ -223,7 +227,7 @@
     }
 },
     "ringWunsch": {
-    "rBIDp13": {
+    "r2017p13": {
         "rBID": "r2017p13",
             "vBID": "v2017p12",
             "sid": "sid5",
@@ -243,6 +247,6 @@
         "titel": "Mein Wunschfilm"
     }
 },
-    "myProvID":  20
+    "myProvID":  23
 
 }

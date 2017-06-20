@@ -8,7 +8,7 @@
 <body>
 
 <div class="modal-header"
-     ng-include="'./components/filme/modalFilmWocheTemplateHeader.html?'">
+     ng-include="'./components/filme/modalFilmWocheTemplateHeader.html?'+ myVersion">
 
 </div>
 
@@ -22,8 +22,8 @@
                 <div class=" inforahmen">
                     <table class="table" style="width: 100%">
                         <tr ng-repeat="mybuchung in myVerleiBuchungen">
-                            <td class="{{mybuchung.bc}} pointer" ng-bind="mybuchung.titel"
-                                ng-click="loadBuchbar(mybuchung.vBID)"></td>
+                            <td class="{{mybuchung[0]}} pointer" ng-bind="verleihBuchungen[mybuchung[1]].titel"
+                                ng-click="loadBuchbar(mybuchung[1])"></td>
                         </tr>
                     </table>
                 </div>
@@ -33,8 +33,8 @@
                 <div class=" inforahmen">
                     <table class="table" style="width: 100%">
                         <tr class="rounded" ng-repeat="wunsch in myVerleiWunsche">
-                            <td class="{{wunsch.bc}} pointer" ng-bind="wunsch.titel"
-                                ng-click="loadGewunschen(wunsch.vBID)"></td>
+                            <td class="{{wunsch[0]}} pointer" ng-bind="verleihWunsch[wunsch[1]].titel"
+                                ng-click="loadGewunschen(wunsch[1])"></td>
                         </tr>
 
                         <td ng-show=" logedInUser.role == 'admin' ||  logedInUser.role == 'spieler'  "
@@ -46,17 +46,16 @@
             <!-- /linke Spalte -->
             <!-- rechte Spalte -->
             <div class="col-md-8">
-                <h3 ng-bind="modus.text"></h3>
+                <h3 ng-bind="modus.info"></h3>
                 <div class="infofenster inforahmen">
-                    <h4 ng-bind="modus.hinweis" ng-if="modus.status == 'unbekannt' "></h4>
 
                     <div ng-show=" modus.status == 'buchbar' ||  modus.status == 'gewunschen' "
-                         ng-include="'./components/filme/modalFilmWocheTemplateFilmInfosAnzeigen.html?'"></div>
+                         ng-include="'./components/filme/modalFilmWocheTemplateFilmInfosAnzeigen.html?'+ myVersion">></div>
 
                     <!-- WUNSCH anlegen oder Film bearbeiten -->
                     <div ng-show=" modus.status == 'neuerWunsch' ||
                         modus.status == 'bearbeiteFilm' ||  modus.status == 'bearbeiteWunsch'"
-                         ng-include="'./components/filme/modalFilmWocheTemplateFilmBearbeiten.html?'">
+                         ng-include="'./components/filme/modalFilmWocheTemplateFilmBearbeiten.html?'+ myVersion">>
 
 
 
@@ -71,7 +70,7 @@
 </div>
 
 <div class="modal-footer"
-     ng-include="'./components/filme/modalFilmWocheTemplateFooter.html?'">
+     ng-include="'./components/filme/modalFilmWocheTemplateFooter.html?'+ myVersion">>
 </div>
 </body>
 </html>

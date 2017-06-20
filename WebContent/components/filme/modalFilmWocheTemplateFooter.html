@@ -4,11 +4,11 @@
     </div>
 
 	<!-- Auswahl für Filme -->
-	<span ng-if="modus.status == 'buchbar' && sid != 'false' ">
+	<span ng-if="modus.status == 'buchbar' && sid != false ">
 		<span ng-repeat=" (key, value) in medienLeihbar">
 			<button class=" btn btn-success" type="button" ng-click="buchen(value)">{{::value}} buchen</button>
 		</span>
-			<button class=" btn btn-success " type="button" ng-click="buchen()">ohne Medium	buchen</button>
+			<button class=" btn btn-success " type="button" ng-click="buchen('')">ohne Medium	buchen</button>
 	</span>
 
 	<!-- Auswahl für WunschFilme -->

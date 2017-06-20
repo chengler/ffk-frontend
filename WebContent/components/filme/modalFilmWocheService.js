@@ -178,8 +178,8 @@ angular.module('modalFilmWoche').service(
                                 }
                             }
                             // zeichne Tabelle neu
-                            console.log("zeichne Tabelle neu");
-                            $scope.gridOptions.api.setRowData($rootScope.filmlauf);
+                            console.log("zeichne Tabelle neu ????");
+                            $rootScope.gridOptions.api.setRowData($rootScope.filmlauf);
 
                         }, modalInstance.opened.then(function () {
                             console.log('');

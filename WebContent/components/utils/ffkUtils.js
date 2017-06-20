@@ -5,6 +5,32 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         // passiert z.B. wenn das Verleihbuchungsfenster verkleinert wird und Ringbuchungen im Wal stünden
         // TODO email an Spielort
         // TODO REST
+
+
+
+
+        this.changeVerleih = function(myid, myObject){
+            Object.keys(myObject).forEach(function(key) {
+                $rootScope.verleihBuchungen[myid][key] = myObject[key];
+                console.log("Änder " + key + " in : " + myObject[key]);
+                })
+
+            //TODO REST
+        };
+
+
+
+        this.changeFilm = function(myid, myObject){
+            for (var key in myObject) {
+                if (myObject.hasOwnProperty(key)) {
+                    $rootScope.filme[myid][key] = myObject[key];
+                    console.log("Änder " + key + " in : " + myObject[key]);
+                }
+            }
+            //TODO REST
+        };
+
+
         this.deleteRingBuchung = function(idx, col){
             console.log("deleteRingBuchungen auf " +idx+ " col " + col);
             i = 1;
@@ -963,12 +989,15 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         };
         // datum iso (aus Filmlauf.datum), Buchung.medien
         this.getLeihbar = function (datum, buchung) {
-            console.log("getLeihbar()");
+            console.log("getLeihbar() ");
+            // fehlertolerantz erhöhen
+            // akzeptiere 2017-12 201712 ...
+            datum = moment(datum).hours(12);
             var leihbar = [];
             for (var key in buchung) {
                 if (buchung.hasOwnProperty(key)) {
                     // filmmedium ist buchbar an diesem Tag
-                    if (buchung[key] <= datum) {
+                    if ( moment(buchung[key]).hours(12)  <= datum) {
                         leihbar.push(key);
                     }
                 }
@@ -1099,8 +1128,33 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             programmCtrlScope.gridOptions.api.setRowData($rootScope.filmlauf);
         };
 
-        this.setVerleihBuchungsWunsch = function( buchungsinfos, startDatum){
+        // neu und praktisch
+        this.setRingBuchung = function (vBID, sid, datum, medium, grantie) {
+            console.log("setRingBuchung vBID "+vBID+" sid "+sid+" medium "+medium+" datum "+datum);
+            var jahr = moment().hours(12).format("YYYY"); // damit auch um Silvester alles läuft
+            var rBID = this.getNewProvID('r'+jahr);
+            datum = moment(datum).format("YYYYMMDD");
+            var rBID2server = {};
+            rBID2server['rBID'] = {"rBID": rBID, "check1":false,"check2":false,"sid":sid,"medium":medium,
+                "medienID":false,"vonID":false,"nachID":false,"garantie":grantie,"datum": datum,"vBID":vBID};
+            // speicher in Buchungen
+            $rootScope.ringBuchungen[rBID] = JSON.parse(JSON.stringify(rBID2server.rBID));
+            // TODO REST
+            console.log("rBID2server " + JSON.stringify(rBID2server) );
+            // speicher in filmlauf
+            // [1,2,3,4].indexOf(3); // produces 2
+            this.setInFilmlaufRingAngelegenheiten( [ rBID2server.rBID] , 1);
+
+
+        }
+
+        // neu und praktisch
+        // erstelle film und verleihwunsch
+        // wenn datumSpieltag, sid, dann auch ringwunsch
+        // und baue neue Tabelle auf
+        this.setVerleihBuchungsWunsch = function( buchungsinfos, startDatum, datumSpieltag, sid){
             console.log("setVerleihWunsch. lege Film an und setze Wunsch");
+            var jahr = moment().hours(12).format("YYYY"); // damit auch um Silvester alles läuft
             var verleih = false;
             // die Infos des Verleihs gehören zum Verleihwunsch, nicht zum Film
             if (buchungsinfos.hasOwnProperty("verleih")){
@@ -1116,12 +1170,28 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             fid2server.fid["fid"] =  fid;
             console.log("fid2server " + JSON.stringify(fid2server) );
             // setze Wunsch
-            var vBID = this.getNewProvID('v');
-            vBID2server ={};
-            vBID2server['vBID'] = {"fID": fid, "titel": buchungsinfos.titel, "start": startDatum, "laufzeit": 1, "bc":"bc-00" };
+            var vBID = this.getNewProvID('v'+jahr);
+            var vBID2server ={};
+            vBID2server['vBID'] = {"fID": fid, "titel": buchungsinfos.titel,
+                "start": moment(startDatum).format("YYYYMMDD"), "laufzeit": 1, "bc":"bc-00" };
             $rootScope.verleihWunsch[vBID] = vBID2server.vBID;
             vBID2server.vBID['vBID']  =  vBID;
             console.log("vBID2server " + JSON.stringify(vBID2server) );
+            // Ringwunsch
+            //rBIDp13 : {"rBID":"r2017p13","vBID":"v2017p12","sid":"sid5","datum":"20170610"},
+            if ( sid == undefined | sid  == false ) {
+                console.log("rBID2server nein, da sid = " + sid);
+            } else {
+
+                var rBID = this.getNewProvID('r'+jahr);
+                var rBID2server = {};
+                rBID2server['rBID'] = {"rBID": rBID,"vBID": vBID,"sid":sid,
+                    "datum":moment(datumSpieltag).format("YYYYMMDD")} ;
+                $rootScope.ringWunsch[rBID] = rBID2server.rBID;
+                console.log("rBID2server " + JSON.stringify(rBID2server) );
+
+            }
+
 
             // zeichne einfach neu
             this.leereGrundtabelle();
@@ -1299,24 +1369,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             });
         };
 
-        this.aenderTitelInBuchung = function(fID ){
-            console.log("this.aenderTitelInBuchung von "+fID);
-            for (var key in $rootScope.verleihBuchungen) {
-                // skip loop if the property is from prototype
-                if (!$rootScope.verleihBuchungen.hasOwnProperty(key)) continue;
-                var obj = $rootScope.verleihBuchungen[key];
-                for (var prop in obj) {
-                    // skip loop if the property is from prototype
-                    if(!obj.hasOwnProperty(prop)) continue;
-                    if (prop == fID){
-                        obj['titel'] = $rootScope.filme[fID]['titel']
-                    }
 
-                }
-            }
-
-
-        };
 
         // änder  in usersSortiert
         // suche uid
@@ -1461,16 +1514,21 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             var vBID;
             var pos; // pos in array des films nach verleiBuchung/Wunsch um die richtige Spalte zu bestimmen
             var spaltenHier; // spalten hier nach ringBuchung Wunsch
+            var eintraege;
             // [ [0] .. ]   =  [background, [rBID,rBID]] =   [ bc-11, [rBID,rBID..]]
             // iteriere durch alle buchungen
             for (rBID in buchungen) {
                 if (buchungen.hasOwnProperty(rBID)) {
                     buchung = buchungen[rBID];
+                    rBID = buchungen[rBID].rBID;
                     console.log("#+ buchung " +JSON.stringify(buchung))
-
+                    console.log("getFilmlaufIdxVonDatum " + buchung.datum);
                     idx = this.getFilmlaufIdxVonDatum(buchung.datum) + 1;//+1 für letzte KW Zeile
+                    eintraege = 1;
+                    console.log("### idx" +idx);
                     // um die buchungen zu finden idx - spieltag
                     kwidx = idx - $rootScope.filmlauf[idx][0][1];
+                    console.log("### kwidx" +idx);
                     vBID = buchung.vBID;
                     // [background, [rBID,rBID]]
 
@@ -1484,15 +1542,26 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     spaltenHier = $rootScope.filmlauf[idx][buchungsart].length;
                     // fehlende Spalten ([false] arrays) vor dem eintrag
                     for (var i = spaltenHier; i <= pos  ; i++) {
-                        // fülle mit  [false], falls noch kein array vorhanden
                         $rootScope.filmlauf[idx][buchungsart].push(["RingAngelegenheit"]);
                     }
+
                     // speicher ring... im array der Spalte
                     // console.log(pos + " pos " + JSON.stringify( $rootScope.filmlauf[idx][buchungsart]))
                     // pos[0: bc-11, 1:[rBID,rBID..]]
+                    console.log("rBID " +rBID );
                     console.log("ring "+JSON.stringify( $rootScope.filmlauf[idx] ))
                     console.log("ring [idx][buchungsart][pos]"+idx+" "+buchungsart+" "+pos);
                     $rootScope.filmlauf[idx][buchungsart][pos][1].push(rBID);
+                    // update linien
+                    //gibts einen eintrag
+                        eintraege = $rootScope.filmlauf[idx][buchungsart][pos][1].length;
+                        console.log(JSON.stringify($rootScope.filmlauf[idx][buchungsart]));
+                        console.log(" eintraege " + eintraege);
+
+                    if ( $rootScope.filmlauf[idx][0][3] < eintraege ){
+                        $rootScope.filmlauf[idx][0][3] = eintraege;
+                    }
+                    console.log("ring "+JSON.stringify( $rootScope.filmlauf[idx] ))
                 }
             }
         }
@@ -1534,6 +1603,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         // wie erstelleGrundtabelle, aber keine neuen Berechungen nur array 1 und 2
         this.leereGrundtabelle = function () {
+            console.log("leereGrundtabelle");
             for (i=0; i < 480; i++){
                 $rootScope.filmlauf[i][1]= [];
                 $rootScope.filmlauf[i][2]= [];

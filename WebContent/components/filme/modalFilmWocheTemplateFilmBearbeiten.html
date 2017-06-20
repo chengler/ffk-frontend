@@ -10,7 +10,7 @@
 			<div class="form-group">
 				<label for="Verleih" class="control-label col-md-2">Verleih</label>
 				<div class="col-md-9">
-					<select data-ng-model="filmChanges.verleih"  selected="true">
+					<select data-ng-model="filmChanges.vid"  selected="true">
 						<option  value={{bisherigerVerleih[0]}} selected="true">{{bisherigerVerleih[1]}} </option>
 						<option data-ng-repeat="verleih in verleiherSortiert" value="{{verleih[0]}}">{{verleih[1]}}</option>
 					</select>
