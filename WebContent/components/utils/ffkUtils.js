@@ -1144,15 +1144,58 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             // speicher in filmlauf
             // [1,2,3,4].indexOf(3); // produces 2
             this.setInFilmlaufRingAngelegenheiten( [ rBID2server.rBID] , 1);
+        };
 
 
-        }
+        // mache einen Wunsch buchbar
+        // anschließend muss die Tabelle neu erstellt werden
+        this.setWunsch2Buchung = function(vbid) {
+            console.log("setWunsch2Buchung mit vBID " + vbid);
+            vbid = JSON.parse(JSON.stringify(vbid));// deepcopy
+            // die Verleihbuchung
+            // erstelle prototyp
+            $rootScope.verleihBuchungen[vbid] = {
+                "vBID": false, "fID": "false", "titel": false, "vid": false,
+                "medien": false, menge: false, start: false, "laufzeit": 1, "bc": "bc-00", "fw1": [0, 0]
+            };
+
+            // kopiere die daten aus VerleihWunsch in VerleihBuchung
+            for ( key in $rootScope.verleihWunsch[vbid] ){
+                $rootScope.verleihBuchungen[vbid][key] = JSON.parse(JSON.stringify($rootScope.verleihWunsch[vbid][key]));
+            }
+            // lösche Wunsch
+           console.log(JSON.stringify($rootScope.verleihWunsch));
+          console.log(JSON.stringify(vbid));
+
+            $rootScope.verleihWunsch[vbid] = null;
+            delete $rootScope.verleihWunsch[vbid];
+            // TODO REST
+            console.log("REST Wunsch2Buchung " + vbid);
+            // erstelle Tabelle neu
+            this.leereGrundtabelle();
+            this.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihBuchungen, 1);
+            this.setInFilmlaufVerleihAngelegenheiten($rootScope.verleihWunsch, 2);
+
+            // die Ringbuchungen
+            for (key in $rootScope.ringWunsch) {
+                if ($rootScope.ringWunsch[key].vBID == vbid) {
+                    console.log("ringWunsch2Buchung für " + [key]);
+                    var myRB = JSON.parse(JSON.stringify($rootScope.ringWunsch[key]));
+                    // setze Ringbuchung und führe mit REST aus
+                    // this.setInFilmlaufRingAngelegenheiten($rootScope.ringBuchungen, 1);
+                    this.setRingBuchung(vbid, myRB.sid, myRB.datum, "", false);
+                    $rootScope.ringWunsch = null;
+                    delete $rootScope.ringWunsch;
+                }
+                this.setInFilmlaufRingAngelegenheiten($rootScope.ringWunsch, 2);
+            }
+        };
 
         // neu und praktisch
         // erstelle film und verleihwunsch
         // wenn datumSpieltag, sid, dann auch ringwunsch
         // und baue neue Tabelle auf
-        this.setVerleihBuchungsWunsch = function( buchungsinfos, startDatum, datumSpieltag, sid){
+        this.setVerleihWunschFilmRing = function(buchungsinfos, startDatum, datumSpieltag, sid){
             console.log("setVerleihWunsch. lege Film an und setze Wunsch");
             var jahr = moment().hours(12).format("YYYY"); // damit auch um Silvester alles läuft
             var verleih = false;

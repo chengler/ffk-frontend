@@ -47,7 +47,7 @@ angular
                 // $log.debug("ffkTableModul <- RenderTableServices <-
                 // datumsRenderer");
                // console.log(params);
-                var datumsClass = " class='ok pointer' ";
+                var datumsClass = " class='ok glyphicon glyphicon-edit pointer' ";
                 var rowIdx = params.rowIndex;
                 // [ 0, 1, 2, 3 ] =[background, spieltag  , datum, lines in row]
                 var tag = params.data[0][2]; // Render aus ISO
@@ -62,17 +62,23 @@ angular
                     if ( params.data[0][1] ) { //SPIELTAG 1-7
                         tag = moment(tag).format('DD.MM. dd');
                         titel = " title='Filminfos anzeigen, Film buchen oder Wunschfilm hinzufügen.' ";
-                        sign = "<strong>&oplus; </strong>";
+                       // sign = "<strong>&oplus; </strong>";
                         directive = " ng-click='openModalFilmWoche(" + rowIdx + ")' ";
-                        myReturn = "<span " + titel + datumsClass + directive + ">" + sign + "</span>" + tag;
+                      //  myReturn = "<span " + titel + datumsClass + directive + ">" + "" + tag + "</span>";
+                        myReturn = "<span "  + titel + directive + ">"
+                                       + "<span "  +datumsClass + ">" +" " +"</span>"
+                                       + "<span>" + tag  +"</span>"
+                                 +"</span>";
+
 
                         // kw verleiÜbersicht
                     } else  {
                         tag = tag.substr(6, 2) + " KW " + tag.substr(2, 2);
-                        titel = " title='Filmlauf oder Wunschfilm hinzufügen.'";
-                        sign = '<strong>&plus;  </strong>';
-                        directive = " ng-click='openModalFilmWoche(" + rowIdx + ")' ";
-                        myReturn = "<span " + titel + datumsClass + directive + ">" + sign + "</span>" + tag;
+                       // titel = " title='Filmlauf oder Wunschfilm hinzufügen.'";
+                       // sign = '<strong>&plus;  </strong>';
+                       // directive = " ng-click='openModalFilmWoche(" + rowIdx + ")' ";
+                       // myReturn = "<span " + titel + datumsClass + directive + ">" + sign + "</span>" + tag;
+                        myReturn = "<span>" + tag + "</span>";
                     }
                     // if != verleih
                     // Rückgabe wenn verleih

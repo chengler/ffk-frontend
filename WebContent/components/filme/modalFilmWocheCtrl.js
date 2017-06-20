@@ -112,7 +112,7 @@ INIT 1
             $scope.modus.status = "unbekannt";
             var startdatum = $rootScope.filmlauf[verleihIdx +1 ][0][2];
             console.log("    startdatum(): " + JSON.stringify(startdatum));
-            FfkUtils.setVerleihBuchungsWunsch($scope.filmChanges, startdatum, datumSpieltag, $scope.sid);
+            FfkUtils.setVerleihWunschFilmRing($scope.filmChanges, startdatum, datumSpieltag, $scope.sid);
             // FfkUtils.setWunsch($scope.filmChanges);
             $scope.abbrechen();
         };
@@ -132,6 +132,13 @@ INIT 1
                 alert("Welcher Spielort soll mitspielen?\nBitte wählen sie einen aus.");
 
             }
+        };
+
+        $scope.machBuchbar = function () {
+            console.log("    machBuchbar");
+            console.log("    vBID" + $scope.vbid);
+            FfkUtils.setWunsch2Buchung($scope.vbid);
+            $uibModalInstance.close({"msg": "machNix"});
         };
 
         /*

@@ -221,7 +221,6 @@
             "titel": "Mein Wunschfilm",
             "start": "20170608",
             "bc": "bc-00",
-            "col": "col1",
             "vBID": "v2017p12",
             "laufzeit": 1
     }
