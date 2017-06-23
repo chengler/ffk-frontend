@@ -3,8 +3,11 @@
 (function() {
 	var auth = angular.module('app.auth', [ 'modalVenue', 'modalUser', 'ffkUtils' ]);
 
-	auth.controller('loginCtrl', function($log, $scope, $rootScope, $http, FfkUtils, OpenModalVenueService, OpenModalUserService, OpenModalDistributorService) {
+	auth.controller('loginCtrl', function($log, $scope, $rootScope, $http, FfkUtils, OpenModalVenueService, OpenModalUserService, OpenModalDistributorService, $sce) {
 		console.log("auth.controller called");
+
+
+        $scope.myVidauth =($sce.trustAsResourceUrl("https://www.youtube.com/embed/CSHkTurfPt0"));
 		// $rootScope.username = "";
 		// $rootScope.loggedIn = false;
 

@@ -12,12 +12,15 @@
 			<div data-ng-controller="DashboardCtrl">
 				<hr />
 
+				<div class="row col-sm-8">
+					<strong>{{datum | date:'dd.MM.yyyy' }} - {{kw}} -
+						vom {{kwDonnerstag | date:'dd.MM.yyyy' }}
+						bis {{kwEnde | date:'dd.MM.yyyy' }}
+					</strong>
+
+				</div>
 
 
-                <strong>{{datum | date:'dd.MM.yyyy' }} - {{kw}} -
-					vom {{kwDonnerstag | date:'dd.MM.yyyy' }}
-					bis {{kwEnde | date:'dd.MM.yyyy' }}
-				</strong>
 
 				<div data-ng-switch="logedInUser.role">
 					<div ng-switch-when="verleih">

@@ -5,7 +5,7 @@ var app = angular
 				'app.users',  'app.distributors', 'app.venue',    'app.programm', 'agGrid', 'ui.bootstrap',  'programmTabellenRenderer',
 				'ffkUtils']);
 
-app.config([ '$routeProvider', function($routeProvider) {
+app.config([ '$routeProvider', function($routeProvider, $sce) {
 	console.log("app.config start");
 	$routeProvider.when('/users', {
 		title : 'Benutzer | FfK',
@@ -54,7 +54,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 // };
 // }]);
 
-app.run(function(version, author, $rootScope, $http, $locale) {
+app.run(function(version, author, $rootScope, $http, $locale, $sce) {
 	console.log("app.run");
 	console.info("Version:", version);
 	console.info("Author:", author);
@@ -105,10 +105,48 @@ app.run(function(version, author, $rootScope, $http, $locale) {
 	$rootScope.spielort = {}; // der aktuelle Spielort 
 	$rootScope.username = ""; // der angemeldete Benutzer // ersetzen
     $rootScope.ersterDo = ""; // Tag an dem die Programmtabelle beginnt idx0 KW; idx1 ersterDo
+    $rootScope.reiter = "Startseite";
 
     $rootScope.version = Math.random(); // damit templates nachgeladen werden, nach fertigstellung des Progs bsésser progversion
 
     $rootScope.infofenster = 'FfK Filmverwaltung für Kinoabspielringe';
+
+
+
+
+    $rootScope.showVideo = {}
+    $rootScope.showVideo['status'] = false;
+    $rootScope.showVideo['text'] = "zeige Videos";
+    $rootScope.showHideVideo = function (){
+        if ($rootScope.showVideo.status) {
+            $rootScope.showVideo.status = false;
+            $rootScope.showVideo['text'] = "zeige Videos";
+        } else {
+            $rootScope.showVideo.status = true;
+            $rootScope.showVideo['text'] = "verberge Videos";
+        }
+    };
+
+
+    // https://stackoverflow.com/questions/20045150/how-to-set-an-iframe-src-attribute-from-a-variable-in-angularjs
+
+
+
+    $rootScope.myVids = [];
+/*
+
+    $rootScope.myVids = [];
+    $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/8uYldQKa3E0"));
+    $rootScope.myVids[1] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/uFl5bBGnEvQ"));
+
+*/
+
+
+
+
+
+
+
 
 
 

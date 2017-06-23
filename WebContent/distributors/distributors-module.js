@@ -2,9 +2,12 @@
 (function() {
 	var distributors = angular.module('app.distributors', [ 'agGrid','ui.bootstrap', 'modalDistributor', 'ffkUtils' ]);
 
-	distributors.controller('distributorsCtrl', function($log, $scope, $rootScope, OpenModalDistributorService, FfkUtils) {
+	distributors.controller('distributorsCtrl', function($log, $scope, $rootScope, OpenModalDistributorService, FfkUtils, $sce) {
 		console.log("init distributorsCtrl");
+        $rootScope.reiter = "Verleiher";
 
+        $rootScope.myVids = [];
+        $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/8uYldQKa3E0"));
 	
 		
 		

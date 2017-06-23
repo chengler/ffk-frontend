@@ -13,16 +13,17 @@
         'ModalRingBuchungEintrittBearbeitenService',
         'OpenModalVenueService',
         'OpenModalDistributorService',
+        '$sce',
         function ( $scope, $rootScope,  $log, $locale, FfkUtils, ModalRingBuchungEintrittBearbeitenService,
-                   OpenModalVenueService, OpenModalDistributorService) {
+                   OpenModalVenueService, OpenModalDistributorService, $sce) {
             $log.info("init DashboardCtrl");
-        //    $scope.version = $rootScope.version; // damit templates nachgeladen werden, nach fertigstellung des Progs bsésser progversion
-
+            $rootScope.reiter = "Übersicht"
+            $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/X8wTYTmR7Lg?rel=0"));
 
             // starte asyncrones laden
             // ergebniss landet in $rootScope.fehlendeRueckmeldungen = [];
         var  fehlendeRuekmeldungen =   FfkUtils.getFehlendeRuekmeldungen();
-        $scope.fbids ={};
+        $scope.rbids ={};
 
 
             $scope.zeigeVerleih= true;
@@ -144,23 +145,23 @@
                console.log("fehlendeRueckmeldungen " + JSON.stringify($rootScope.fehlendeRueckmeldungen));
 
                 $rootScope.fehlendeRueckmeldungen.forEach(function (rBID) {
-                   $scope.fbids[rBID] = {};
-                   $scope.fbids[rBID].titel =
+                   $scope.rbids[rBID] = {};
+                   $scope.rbids[rBID].titel =
                        $rootScope.verleihBuchungen[  $rootScope.ringBuchungen[rBID]['vBID']]['titel'];
-                   $scope.fbids[rBID].ort =
-                       FfkUtils.getNamezurId( $rootScope.spielorteSortiert , $rootScope.ringBuchungen[rBID]['sid']);
+                   $scope.rbids[rBID].ort =
+                   FfkUtils.getNamezurId( $rootScope.spielorteSortiert , $rootScope.ringBuchungen[rBID]['sid']);
 
-                   $scope.fbids[rBID].sid = $rootScope.ringBuchungen[rBID]['sid'];
-                   $scope.fbids[rBID].vid = $rootScope.verleihBuchungen[$rootScope.ringBuchungen[rBID]['vBID']].vid;
+                   $scope.rbids[rBID].sid = $rootScope.ringBuchungen[rBID]['sid'];
+                   $scope.rbids[rBID].vid = $rootScope.verleihBuchungen[$rootScope.ringBuchungen[rBID]['vBID']].vid;
 
 
                    // TODO verleichID !!
-                   $scope.fbids[rBID].verleih = FfkUtils.getNamezurId( $rootScope.verleiherSortiert ,
-                       $rootScope.verleihBuchungen[$rootScope.ringBuchungen[rBID]['vBID']].vid);
+                   $scope.rbids[rBID].verleih = FfkUtils.getNamezurId( $rootScope.verleiherSortiert ,
+                   $rootScope.verleihBuchungen[$rootScope.ringBuchungen[rBID]['vBID']].vid);
 
 
-                   $scope.fbids[rBID].datum = moment($rootScope.ringBuchungen[rBID]['datum']).hour(12).format('DD.MM.YY');
-                    $scope.fbids[rBID].id = $rootScope.ringBuchungen[rBID]['fBID'];
+                   $scope.rbids[rBID].datum = moment($rootScope.ringBuchungen[rBID]['datum']).hour(12).format('DD.MM.YY');
+                   $scope.rbids[rBID].id = $rootScope.ringBuchungen[rBID]['rBID'];
 
                 });
 
@@ -170,11 +171,11 @@
 
 
 
-            $scope.besucherEintragen = function (fBID) {
-                console.log("bearbeite fBID " + fBID);
+            $scope.besucherEintragen = function (rbid) {
+                console.log("bearbeite rBID " + rbid);
                 // [0] = verarbeitungsart [1] = input
 
-                ModalRingBuchungEintrittBearbeitenService.editBesucher( {"fBID":fBID});
+                ModalRingBuchungEintrittBearbeitenService.editBesucher( {"rBID":rbid});
 
             };
 

@@ -15,24 +15,24 @@ template nach ng-if-->
     </tr>
     </thead>
     <tbody>
-    <tr data-ng-repeat="fbid in fbids">
+    <tr data-ng-repeat="rbid in rbids">
         <!-- 							performance: http://ng-perf.com/ mit html per ng-bind-html="::fadsf"" als -->
         <!-- 							conditional template -->
         <!-- 							http://stackoverflow.com/questions/15974086/conditional-ng-include-in-angularjs -->
         <!-- 							eine push Lösung für ::bindings? -->
         <!-- 							http://stackoverflow.com/questions/14702981/angularjs-model-changes-after-websocket-data-push-from-server -->
-        <td class="col-sm-2" data-ng-bind="::fbid.titel"></td>
+        <td class="col-sm-2" data-ng-bind="::rbid.titel"></td>
         <td class="col-sm-1"  >
-            <button class="btn btn-info"  data-ng-bind="::fbid.ort" data-ng-click="showSpielort(fbid.sid)"></button>
+            <button class="btn btn-info"  data-ng-bind="::rbid.ort" data-ng-click="showSpielort(rbid.sid)"></button>
 
         </td>
         <td class="col-sm-1"  >
-            <button class="btn btn-info"  data-ng-bind="::fbid.verleih" data-ng-click="showVerleih(fbid.vid)"></button>
+            <button class="btn btn-info"  data-ng-bind="::rbid.verleih" data-ng-click="showVerleih(rbid.vid)"></button>
         </td>
-        <td class="col-sm-1" data-ng-bind="::fbid.datum" ></td>
-        <td class="col-sm-1" data-ng-bind="::fbid.id"></td>
+        <td class="col-sm-1" data-ng-bind="::rbid.datum" ></td>
+        <td class="col-sm-1" data-ng-bind="::rbid.id"></td>
         <td class="col-sm-1">
-            <button class="btn btn-success" data-ng-click="besucherEintragen('rBID'+ fbid.id)">
+            <button class="btn btn-success" data-ng-click="besucherEintragen(rbid.id)">
                 Besucher eintragen</button>
         </td>
 

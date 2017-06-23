@@ -688,21 +688,26 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
         // gebe dem looggedin user eine tempöräre rolle mit sid oder vid
         this.masqueradeLoggedIn = function ( vidOdersidID) {
+            console.log("masqueradeLoggedIn 2 "+ vidOdersidID);
             // gibt es eine feste Rolle
             // lege default fest für remasquerade
-            if ($rootScope.logedInUser.vid != undefined ){
-                $rootScope.logedInUser["maskedID"] = $rootScope.logedInUser.vid;
-            } else {
-                $rootScope.logedInUser["maskedID"] = false; // default falls noch nicht vorhanden
+            // wenn nicht schon maskiert, setze originalstand
+            if ($rootScope.logedInUser.masked == undefined | $rootScope.logedInUser.masked != true ) {
+                console.log("speicher originale Identität zwischen");
+                if ($rootScope.logedInUser.sid != undefined) {
+                    $rootScope.logedInUser["maskedID"] = $rootScope.logedInUser.sid;
+                    } else if ($rootScope.logedInUser.vid != undefined) {
+                    $rootScope.logedInUser["maskedID"] = $rootScope.logedInUser.vid;
+                        } else {
+                        $rootScope.logedInUser["maskedID"] = false; // default falls noch nicht vorhanden
+                }
+                if ($rootScope.logedInUser.idName != undefined ){
+                    $rootScope.logedInUser["maskedIdName"] = $rootScope.logedInUser.idName;
+                } else {
+                    $rootScope.logedInUser["maskedIdName"] = ""; // default falls noch nicht vorhanden
+                }
             }
-            if ($rootScope.logedInUser.sid != undefined ){
-                $rootScope.logedInUser["maskedID"] = $rootScope.logedInUser.sid;
-            }
-            if ($rootScope.logedInUser.idName != undefined ){
-                $rootScope.logedInUser["maskedIdName"] = $rootScope.logedInUser.idName;
-            } else {
-                $rootScope.logedInUser["maskedIdName"] = ""; // default falls noch nicht vorhanden
-            }
+
 // fole den namen
             var type = vidOdersidID.substr(0, 3);
             if (type == "vid") {

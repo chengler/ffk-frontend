@@ -42,12 +42,13 @@ angular.module('modalRingBuchung').service(
                     var aufgabe = inhalt.aufgabe;
                     inhalt.aufgabe = null;
                     delete  inhalt.aufgabe;
-                    var fBID = "fBID"+ inhalt.fBID;
+                    var rBID =  inhalt.rBID;
 
-
+                    console.log("{rBID: "+ JSON.stringify(inhalt)+"}");
                     switch (aufgabe) {
 
                         case "speichern" :
+                            console.log("speicher");
                             //gehe      durch      jeden    geänderten    Wert
 
                             Object.keys(inhalt).forEach(function (key) {
@@ -55,9 +56,9 @@ angular.module('modalRingBuchung').service(
                                 // Besuchereintritt
                                 // lösche [null] Werte, 0 ist OK, 0 Besucher 500cen, bzw 4 Besucher 0 cent
                                 var berecheWochenergebnissNeu = false;
-                                if (key == "besucher") {
+                          //      if (key == "besucher") {
                                     var arrayLength = inhalt.besucher.length;
-                                    //console.log("arrayLength :" + arrayLength + " besucher" + JSON.stringify(inhalt.besucher));
+                                    console.log("arrayLength :" + arrayLength + " besucher" + JSON.stringify(inhalt.besucher));
                                     for (var i = 0; i < arrayLength; i++) {
                                         var check = inhalt.besucher[i]; // immer das erste Array
                                         //  console.log( i + " diese Array :" + JSON.stringify(check));
@@ -69,7 +70,7 @@ angular.module('modalRingBuchung').service(
                                         }
                                         console.log( i + "komplett nach durchlauf :" + JSON.stringify(inhalt.besucher));
                                     }
-                                }
+                            //    }
 
 
                                 // TODO REST
@@ -78,24 +79,26 @@ angular.module('modalRingBuchung').service(
                                 // füge änderungen zur Ringbuchung
                                 //object.create
                                 console.log("Änderung " + key + " :" + inhalt[key]);
-                                //  $rootScope.ringBuchungen[fBID][key] = inhalt[key];
+                                //  $rootScope.ringBuchungen[rBID][key] = inhalt[key];
 
                             });
                             // angular.copy
 
 /// try and catch !!!!!!
+                            Object.keys(inhalt).forEach(function (key) {
+                                $rootScope.ringBuchungen[rBID][key] = inhalt[key];
 
-                            $rootScope.ringBuchungen[fBID] = inhalt;
-console.log("{fBID: "+ JSON.stringify(inhalt)+"}");
-                            $rootScope.infofenster = "{fBID: "+ JSON.stringify(inhalt)+"}";
+                            });
 
-                            var myring = $rootScope.ringBuchungen[fBID];
+                            console.log("{rBID: "+ JSON.stringify(inhalt)+"}");
+                            $rootScope.infofenster = "{rBID: "+ JSON.stringify(inhalt)+"}";
 
-                            $rootScope.infofenster = "{fBID:{ fBID: " + fBID + ", besucher:" + myring.besucher
+                            var myring = $rootScope.ringBuchungen[rBID];
+
+                            $rootScope.infofenster = "{rBID:{ rBID: " + rBID + ", besucher:" + myring.besucher
                                 + ", gesamt: " + myring.gesamt + " }";
 
-                            console.log("{fBID:{ fBID: " + fBID + ", besucher: " + myring.besucher
-                                + ", gesamt: " + myring.gesamt + " }");
+
                             break;
 
                     }

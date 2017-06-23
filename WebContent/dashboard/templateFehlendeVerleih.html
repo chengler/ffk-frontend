@@ -13,16 +13,16 @@ template nach ng-if-->
     </tr>
     </thead>
     <tbody>
-    <tr data-ng-repeat="fbid in fbids">
-        <td class="col-sm-2" data-ng-bind="::fbid.titel"></td>
+    <tr data-ng-repeat="rbid in rbids">
+        <td class="col-sm-2" data-ng-bind="::rbid.titel"></td>
         <td class="col-sm-1"  >
-            <button class="btn btn-info"  data-ng-bind="::fbid.ort" data-ng-click="showSpielort(fbid.sid)"></button>
+            <button class="btn btn-info"  data-ng-bind="::rbid.ort" data-ng-click="showSpielort(rbid.sid)"></button>
 
         </td>
-        <td class="col-sm-1" data-ng-bind="::fbid.datum" ></td>
-        <td class="col-sm-1" data-ng-bind="::fbid.id"></td>
+        <td class="col-sm-1" data-ng-bind="::rbid.datum" ></td>
+        <td class="col-sm-1" data-ng-bind="::rbid.id"></td>
         <td class="col-sm-1">
-            <button class="btn btn-success" data-ng-click="besucherEintragen('rBID'+ fbid.id)">
+            <button class="btn btn-success" data-ng-click="besucherEintragen(rbid.id)">
                 Besucher eintragen</button>
         </td>
 

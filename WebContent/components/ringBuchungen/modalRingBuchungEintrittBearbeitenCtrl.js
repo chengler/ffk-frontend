@@ -7,8 +7,8 @@ angular.module('modalRingBuchung').controller(
 
         // schalter für ng-if ladet templates usw
         $scope.schalter = {};
-        var fBID = input.fBID;
-        // input =[ 'fBID' , fBID ]
+        var rBID = input.rBID;
+        // input =[ 'rBID' , rBID ]
         // aufruf vom dashboard
 
         // welche html teile werden angezeigt
@@ -19,15 +19,15 @@ angular.module('modalRingBuchung').controller(
 
 
 
-        // aufruf über tabelle wäre fbid anderweitig zu klären
+        // aufruf über tabelle wäre rBID anderweitig zu klären
 
-        //fBID geklärt, setze Variablen
+        //rBID geklärt, setze Variablen
         // getätigte Änderungen werden hier gespeichert um nach dem Speichern bearbeitet zu werden
         // 1x lokal und 1x RESTfull
-//        $scope.myRingB = angular.copy($rootScope.ringBuchungen[fBID]);
-        $scope.myRingB = Object.create($rootScope.ringBuchungen[fBID]);
-        $scope.spielort = FfkUtils.getNamezurId( $rootScope.spielorteSortiert,$rootScope.ringBuchungen[fBID].sid );
-        $scope.myRingB["fBID"] = $rootScope.ringBuchungen[fBID].fBID; // zur späteren identifizierung
+//        $scope.myRingB = angular.copy($rootScope.ringBuchungen[rBID]);
+        $scope.myRingB = Object.create($rootScope.ringBuchungen[rBID]);
+        $scope.spielort = FfkUtils.getNamezurId( $rootScope.spielorteSortiert,$rootScope.ringBuchungen[rBID].sid );
+        $scope.myRingB["rBID"] = $rootScope.ringBuchungen[rBID].rBID; // zur späteren identifizierung
         $scope.myVerleihB = $rootScope.verleihBuchungen[$scope.myRingB.vBID];
         /*   console.log('myRingB '+JSON.stringify($scope.myRingB));
          console.log('myVerleihB '+JSON.stringify($scope.myVerleihB));*/
@@ -49,7 +49,7 @@ angular.module('modalRingBuchung').controller(
             $scope.myRingB.besucher = [[null,0]  ];
         }
         // füge immer noch mindestens  eine leere ZEile an
-        $scope.myRingB.besucher.push([null,0], [null,0] );
+        $scope.myRingB.besucher.push([null,0],[null,0] );
 
         //  Änderungen, wird aus der html Seite aufgerufen
         // änderungen vom typ Besucher [0] oder Eintritt typ[1] (array)
@@ -60,7 +60,7 @@ angular.module('modalRingBuchung').controller(
             $scope.myRingB.gesamt[1] = 0;
             for (i=0; i < $scope.myRingB.besucher.length ;i++){
                 //   console.log(" Eintritt, aktuelle Änderungen "+JSON.stringify($scope.myRingB.besucher)+" i " + i);
-                if ($scope.myRingB.besucher[i] != undefined ) { // besucherzahlen für dieses Array exisiteren
+                if ($scope.myRingB.besucher[i] != undefined | $scope.myRingB.besucher[i] != null ) { // besucherzahlen für dieses Array exisiteren
                     $scope.myRingB.gesamt[0] += $scope.myRingB.besucher[i][0];
                     $scope.myRingB.gesamt[1] += $scope.myRingB.besucher[i][0] * $scope.myRingB.besucher[i][1];
                 }

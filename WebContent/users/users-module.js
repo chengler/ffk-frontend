@@ -3,10 +3,12 @@
 (function() {
 	var users = angular.module('app.users', [ 'modalUser', 'ffkUtils' ]);
 
-	users.controller('userCtrl', function($log, $scope, $rootScope, OpenModalUserService, FfkUtils) {
+	users.controller('userCtrl', function($log, $scope, $rootScope, OpenModalUserService, FfkUtils, $sce) {
 		console.log("init UserCtrl");
 
-
+        $rootScope.reiter = "Benutzer";
+        $rootScope.myVids = [];
+        $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/8uYldQKa3E0"));
 
 		$scope.showUser = function(uid) {
 			$log.debug("OpenModalUserService.editUser(uid): " + uid);

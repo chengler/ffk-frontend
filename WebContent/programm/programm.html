@@ -10,7 +10,7 @@
 
 			<div data-ng-controller="ProgrammCtrl">
 
-				<h2>Programmübersicht!</h2>
+				<div class="col-sm-8 row">
 				<button type="button" class="btn btn-info" ng-click="ganzeSpalte()">Spalten
 					ganz anzeigen</button>
 				<button type="button" class="btn btn-info" ng-click="alleSpalten()">alle
@@ -18,10 +18,9 @@
 				<button type="button" class="btn btn-warning" ng-click="toggleWunschfilme()"
 					ng-bind="wunschFilmTextBtn"></button>
 
+				</div>
 
-
-				<div>Serveraktionen: {{server}}</div>
-				<div ag-grid="gridOptions" class="ag-fresh" style="height: 600px; width: 100%"></div>
+				<div ag-grid="gridOptions" class="ag-fresh row col-sm-12" style="height: 600px; width: 100%"></div>
 			</div>
 		</div>
 	</div>

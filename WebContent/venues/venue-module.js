@@ -3,9 +3,13 @@
 (function() {
 	var venue = angular.module('app.venue', [ 'ui.bootstrap', 'modalVenue', 'ffkUtils']);
 
-	venue.controller('venueCtrl', function($log, $scope, $rootScope, OpenModalVenueService, FfkUtils) {
+	venue.controller('venueCtrl', function($log, $scope, $rootScope, OpenModalVenueService, FfkUtils, $sce) {
 		$log.info("\ninit venueCtrl");
-//		$scope.vid = "5";
+        $rootScope.reiter = "Spielorte";
+
+        $sce
+        $rootScope.myVids = [];
+        $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/8uYldQKa3E0"));
 
 		$scope.showSpielort = function(sid) {
 			OpenModalVenueService.editVenue(sid);
@@ -33,9 +37,6 @@
         $scope.startVideo = function(){
         	console.log("TODO");
 		}
-
-
-
 
 
 

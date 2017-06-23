@@ -119,7 +119,7 @@ angular.module('modalVenue').controller('ModalVenueInstanceCtrl',
 
             // setze Medienvariblen zur Verfügbarkeit
 			// alle Medientypen
-            $scope.medienTypen = ["BD","35mm","DCP","analog"];
+            $scope.medienTypen = ["BD","DVD","DCP","analog"];
 			// die abspielbaren Medientypen des Spielortes
             var sidMedien;
             if (sid == undefined){

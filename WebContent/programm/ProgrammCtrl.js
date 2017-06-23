@@ -17,10 +17,18 @@
         'FfkUtils',
         'ModalRingBuchungFilmlaufBearbeitenService',
         'ModalRingBuchungEintrittBearbeitenService',
+         '$sce',
          function ($rootScope, $scope, $http, $log, $uibModal, ModalFilmWochenService, ModalVerleihBuchungsService,
                   RenderProgrammTableServices, FfkUtils, ModalRingBuchungFilmlaufBearbeitenService,
-                  ModalRingBuchungEintrittBearbeitenService) {
+                  ModalRingBuchungEintrittBearbeitenService, $sce) {
             $log.info("init programmCtrl");
+             $rootScope.reiter = "Programm";
+
+             $rootScope.myVids = [];
+             $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/8uYldQKa3E0"));
+             $rootScope.myVids[1] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/uFl5bBGnEvQ"));
+
+
             var zeigeWunschFilme = false;
             $rootScope.zeigeWunschFilme = zeigeWunschFilme;
             $scope.wunschFilmTextBtn = "zeige Wunschfilme";

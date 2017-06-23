@@ -93,6 +93,19 @@
         </div>
         <div class="container">
             <div class="col-sm-12 " data-ng-if="loggedIn">
+
+                <div ng-if="showVideo.status == true">
+                    <div class="col-sm-4">
+                         <span ng-repeat="myVid in myVids">
+                        <iframe  width="320" ng-src="{{myVid}} " frameborder="0" allowfullscreen ></iframe>
+                         </span>
+                     </div>
+                </div>
+                <div class="col-sm-9">
+                <button type="button" class="btn btn-default " ng-click="showHideVideo()">
+                    <span class="glyphicon glyphicon-film"></span> {{showVideo.text}}
+                </button>
+
                 <a href="#/Dashboard" title="zur Übersicht" class="btn btn-primary  "
                    data-ng-click="">Übersicht </a>
                 <a href="#/Programm" title="zum Programm"
@@ -107,13 +120,25 @@
                                                           class="btn btn-primary  "   data-ng-click="">Benutzer</a>
                 <span ng-if="logedInUser.masked">
                     <button class="btn btn-warning"
-                            data-ng-click="reMasquerade()">demasquiere mich</button>
+                            data-ng-click="reMasquerade()">zurückwechseln</button>
                 </span>
+                </div>
+                <div class="col-sm-7">
+                    <h2 ng-bind="reiter"></h2>
+                </div>
 
+
+
+
+
+             <!--   <iframe width="420" height="345" src={{myVideo}}>
+                -->
 
                 <div class="container">
                     <div data-ng-view="ng-view"></div>
                 </div>
+
+
 
             </div>
 
@@ -138,6 +163,8 @@
                                 anmelden
                             </label> <a href="#" class="pull-right need-help">Passwort vergessen? </a> <span
                                 class="clearfix"></span>
+                            <iframe ng-src="{{myVidauth}}" frameborder="0" allowfullscreen>  </iframe>
+
                         </form>
                     </div>
                 </div>

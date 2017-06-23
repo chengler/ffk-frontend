@@ -23,7 +23,7 @@
     "sid1": {
         "medien": [
             "BD",
-            "35mm",
+            "DVD",
             "DCP"
         ],
             "name": "Kino unterm Dach",
@@ -33,7 +33,7 @@
     "sid2": {
         "medien": [
             "BD",
-            "35mm"
+            "DVD"
         ],
             "name": "Filmclub Blendwerk",
             "ort": "Stralsund",
@@ -58,7 +58,7 @@
     },
     "sid5": {
         "medien": [
-            "35mm",
+            "DVD",
             "DCP"
         ],
             "name": "Kirchengemeinde",
@@ -67,7 +67,7 @@
     },
     "sid6": {
         "medien": [
-            "35mm"
+            "DVD"
         ],
             "name": "Lindenkino",
             "ort": "Alt Rehse",
@@ -84,7 +84,7 @@
     "sid8": {
         "medien": [
             "BD",
-            "35mm",
+            "DVD",
             "DCP"
         ],
             "name": "Kino35",
