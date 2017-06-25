@@ -8,7 +8,7 @@
 
         $rootScope.reiter = "Benutzer";
         $rootScope.myVids = [];
-        $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/8uYldQKa3E0"));
+        $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/Ek18_yY0tOM"));
 
 		$scope.showUser = function(uid) {
 			$log.debug("OpenModalUserService.editUser(uid): " + uid);

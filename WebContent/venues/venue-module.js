@@ -9,7 +9,7 @@
 
         $sce
         $rootScope.myVids = [];
-        $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/8uYldQKa3E0"));
+        $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/yujwbsHEgPo"));
 
 		$scope.showSpielort = function(sid) {
 			OpenModalVenueService.editVenue(sid);

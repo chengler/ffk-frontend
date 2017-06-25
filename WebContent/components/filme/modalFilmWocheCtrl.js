@@ -115,6 +115,14 @@ INIT 1
             $scope.abbrechen();
         };
 
+        // Film bearbeiten
+        $scope.bearbeiteFilm = function(){
+            console.log("    bearbeiteFilm(): "+$scope.fid);
+            $scope.modus['info'] = "Film bearbeiten";
+            $scope.modus.status = "bearbeiteFilm";
+            $scope.filmChanges =  Object.create($rootScope.filme[$scope.fid]);
+        };
+
         // Film buchen
         $scope.verleihBuchungBuchen = function (medium, garantie) {
             console.log("buchen "+ medium);

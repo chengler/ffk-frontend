@@ -7,7 +7,7 @@
         $rootScope.reiter = "Verleiher";
 
         $rootScope.myVids = [];
-        $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/8uYldQKa3E0"));
+        $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/Tki-gmb7pSI"));
 	
 		
 		

@@ -25,7 +25,7 @@
              $rootScope.reiter = "Programm";
 
              $rootScope.myVids = [];
-             $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/8uYldQKa3E0"));
+             $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/Ar9wyUwWmP0"));
              $rootScope.myVids[1] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/uFl5bBGnEvQ"));
 
 
@@ -322,11 +322,11 @@
             // fehlende Besucher eintragen
             // Koordinaten im Filmlauf
             // [1]    [ [spalte] .. ]   =  [background, [fBID,fBID]] .. =   [ bc-11, [fBID,fBID..]]
-            $scope.besucherEintragen = function (rowIdx, colIdx, filmnr) {
-                var fBID = $rootScope.filmlauf[rowIdx][1][colIdx-1][1][filmNr-1];
+            $scope.besucherEintragen = function (rowIdx, colIdx, filmNr) {
+                var rBID = $rootScope.filmlauf[rowIdx][1][colIdx-1][1][filmNr-1];
                 // [0] = verarbeitungsart [1] = input
-                console.log("besucherEintragen für fBID " + fBID);
-                ModalRingBuchungEintrittBearbeitenService.editBesucher( {"fBID":fBID,"refreshView" : true});
+                console.log("besucherEintragen für rBID " + rBID);
+                ModalRingBuchungEintrittBearbeitenService.editBesucher( {"rBID":rBID,"refreshView" : true});
 
             };
 

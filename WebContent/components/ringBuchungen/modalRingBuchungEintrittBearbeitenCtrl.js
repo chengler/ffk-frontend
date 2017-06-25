@@ -8,6 +8,7 @@ angular.module('modalRingBuchung').controller(
         // schalter für ng-if ladet templates usw
         $scope.schalter = {};
         var rBID = input.rBID;
+     //   console.log("rBID "+rBID);
         // input =[ 'rBID' , rBID ]
         // aufruf vom dashboard
 
