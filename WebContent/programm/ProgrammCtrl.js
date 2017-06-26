@@ -26,7 +26,7 @@
 
              $rootScope.myVids = [];
              $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/Ar9wyUwWmP0"));
-             $rootScope.myVids[1] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/uFl5bBGnEvQ"));
+             $rootScope.myVids[1] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/vjuZhfipd2M"));
 
 
             var zeigeWunschFilme = false;
