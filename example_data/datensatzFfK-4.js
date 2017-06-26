@@ -235,12 +235,10 @@
 },
     "filme": {
     "fp1": {
-        "titel": "Happy Film",
-            "vid": "vid1"
+        "titel": "Happy Film"
     },
     "fp3": {
-        "titel": "Sad Film",
-            "vid": "vid2"
+        "titel": "Sad Film"
     },
     "fp11": {
         "titel": "Mein Wunschfilm"

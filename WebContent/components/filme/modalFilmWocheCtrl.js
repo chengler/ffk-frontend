@@ -21,6 +21,7 @@ angular.module('modalFilmWoche').controller('ModalFilmlWochenInstanceCtrl',
         var filmlaufRing;                //$rootScope.filmlauf
         var filmlaufVerleih;                   //$rootScope.filmlauf
         $scope.myVerleiBuchungen = []; // vBIDs fürs repeat
+
         $scope.myVerleiWunsche = [];   // vBIDs fürs repeat
         $scope.filmChanges = {}; // änderungen oder neurungen am film
         $scope.myVersion =  $rootScope.version; // zum nachladen von temlateänderungen
@@ -81,6 +82,13 @@ INIT 1
             FfkUtils.ladeFilm($scope.fid);
             $scope.modus.status = "buchbar";
             $scope.modus.info = "Infos zum Film";
+// hole Verleihinfos auch benötigt für die bearbeitung
+            $scope.vbid = FfkUtils.getVBIDfromFid($scope.fid, $scope.myVerleiBuchungen);
+            $scope.vid = $rootScope.verleihBuchungen[$scope.vbid].vid;
+            $scope.bisherigerVerleih = [ $scope.vid  , FfkUtils.getNamezurId( $rootScope.verleiherSortiert , $scope.vid) ];
+
+
+
 
 
         };
@@ -121,6 +129,37 @@ INIT 1
             $scope.modus['info'] = "Film bearbeiten";
             $scope.modus.status = "bearbeiteFilm";
             $scope.filmChanges =  Object.create($rootScope.filme[$scope.fid]);
+            // hole Verleih in variable key : value
+
+            $scope.filmChanges['vid'] = FfkUtils.getNamezurId($rootScope.spielorteSortiert ,$scope.vid);
+        };
+// filmänderungen speichern
+        $scope.speicherFilm = function(){
+            console.log("    speicherFilm(): "+$scope.fid);
+            $scope.modus['info'] = "Infos zum Film";
+            $scope.modus.status = "buchbar";
+            console.log("Änderungen " + JSON.stringify( $scope.filmChanges ));
+            // Änderungen am Verleih?
+                      if ( $scope.filmChanges.vid == undefined |
+                $scope.filmChanges.vid == $rootScope.verleihBuchungen[$scope.vbid].vid){
+                console.log("beim der vid keine Änderungen");
+            }else {
+                FfkUtils.changeVerleih($scope.vbid, {'vid': $scope.filmChanges.vid });
+                $scope.bisherigerVerleih = [ $scope.filmChanges.vid  ,
+                    FfkUtils.getNamezurId( $rootScope.verleiherSortiert , $scope.filmChanges.vid) ];
+
+            }
+            // vid gehört in die Verleihbuchung, nicht zum Film
+            $scope.filmChanges.vid = null;
+            delete $scope.filmChanges.vid;
+            // gibt es Änderungen?
+            if (  Object.keys($scope.filmChanges).length > 0 ){
+                FfkUtils.changeFilm($scope.fid, $scope.filmChanges);
+            } else {
+                console.log("bei der fid keine Änderungen");
+            }
+
+
         };
 
         // Film buchen

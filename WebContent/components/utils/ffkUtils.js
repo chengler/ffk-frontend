@@ -8,10 +8,11 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
 
 
-
-        this.changeVerleih = function(myid, myObject){
+// änder vBID um myObject
+        this.changeVerleih = function(vBID, myObject){
+            console.log("changeVerleih vBID: " +vBID)
             Object.keys(myObject).forEach(function(key) {
-                $rootScope.verleihBuchungen[myid][key] = myObject[key];
+                $rootScope.verleihBuchungen[vBID][key] = myObject[key];
                 console.log("Änder " + key + " in : " + myObject[key]);
                 })
 
@@ -20,10 +21,12 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
 
 
-        this.changeFilm = function(myid, myObject){
+        this.changeFilm = function(fid, myObject){
+            console.log("changeFilm fID: " +fid)
+
             for (var key in myObject) {
                 if (myObject.hasOwnProperty(key)) {
-                    $rootScope.filme[myid][key] = myObject[key];
+                    $rootScope.filme[fid][key] = myObject[key];
                     console.log("Änder " + key + " in : " + myObject[key]);
                 }
             }
@@ -50,19 +53,37 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
 
         };
-
-
+        // hole vBID von fID;
+        // benötigt die Buchungen der Woche, da es mehrere verleihBuchungen für einen film geben könnte
+        // suche nach fID in vorgegebenen VerleihBuchungen
+        // es darf keine zwei vBIDs mit der gleichen fID geben!
+        this.getVBIDfromFid = function (fID, wochenVerleihBuchungen){
+            console.log("getVBIDfromFid " + fID);
+            var vBID;
+            for ( var obj in wochenVerleihBuchungen){
+                console.log(wochenVerleihBuchungen[obj][1]);
+                console.log($rootScope.verleihBuchungen[wochenVerleihBuchungen[obj][1]].fID);
+                if ($rootScope.verleihBuchungen[wochenVerleihBuchungen[obj][1]].fID == fID){
+                    vBID =  wochenVerleihBuchungen[obj][1];
+                }
+            }
+            console.log("return " +vBID);
+            return vBID;
+        };
 
         // hole name aus sortiertem array
         // format : [ id , name ]
         // für sid und vid für spielorteSortiert und verleiherSortiert
         // gebe id zurück, fals nichts gefunden wird
         this.getNamezurId= function(array , id){
-        //    console.log ("getNamezurId ");
+            console.log ("getNamezurId id " + id);
+            var result;
             var gefunden = false;
             array.every( function( idname) {
+            //    console.log(JSON.stringify( idname ));
                 if (idname[0] == id ) {
-                    id = idname[1];
+
+                    result = idname[1];
                     return false;
                 } else {
                     return true;
@@ -72,7 +93,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
 
             // wird der name zur id nicht gefunden, wird die id zurückgegeben!
            // console.log (" id: "+id);
-            return id;
+            return result;
         };
         // gebe bezeichung zu einer id zurück
         // hole namen von id = sid | vid | uid

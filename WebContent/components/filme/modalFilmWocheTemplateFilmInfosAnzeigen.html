@@ -1,5 +1,11 @@
-<div ng-repeat="(key,value) in filme[fid]">
+
+<div class='row' ng-repeat="(key,value) in filme[fid]">
 	<div class="col-md-2">{{key}}</div>
-	<div class="col-md-11">{{value}}</div>
+	<div class="col-md-10">{{value}}</div>
+
+</div>
+<div class='row'>
+	<div class="col-md-2">Verleih:</div>
+	<div class="col-md-10">{{bisherigerVerleih[1]}}</div>
 </div>
 <button class="btn btn-success" type="button" ng-click="bearbeiteFilm()">Film bearbeiten</button>
