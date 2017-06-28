@@ -23,7 +23,9 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
             } else {
                 buchung = $rootScope.verleihBuchungen[vBID];
             }
-         //   console.log("buchung geladen: "+JSON.stringify(buchung));
+            console.log("buchung geladen: "+JSON.stringify(buchung));
+            console.log("    buchung.laufzeit: "+      buchung.laufzeit);
+
 
 			// background Farbe
 			$scope.bcColor = buchung.bc
@@ -42,53 +44,32 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
 			$scope.today();
 
 			// suche Start des Filmblocks
-            var laufz = buchung.laufzeit; // die alte laufzeit bei lzänderungen
-			$scope.laufzeit = laufz;
+			$scope.laufzeitNeu =JSON.parse(JSON.stringify(buchung.laufzeit));
 			var start = moment(buchung.start).hour(12);
 		//	console.log("start=" + start._d);
 			$scope.dtStart = start._d;
 			var endDatum = function() {
-				$scope.dtEnd = moment($scope.dtStart).add($scope.laufzeit * 7 - 1, 'days')._d;
+				$scope.dtEnd = moment(start).add($scope.laufzeitNeu * 7 - 1, 'days').format('DD.MM.YY');
 			};
 			endDatum();
-			var dtStartDateWatcher;
-			var dtEndDateWatcher;
 
-			// Änderungen des Enddatums ändert die Laufzeit
-			var endDiff = 0;
-			watchDtEnd = function() {
-				dtEndDateWatcher = $scope.$watch('dtEnd', function(newValue, oldValue) {
-					if (!(newValue == oldValue)) { // Änderung
-						// Änderung des Enddatums in Wochen
-						var diff = moment(newValue).diff(moment(oldValue), 'weeks');
-						console.log("endDvvvvvvvvvvvvvvvviffendDiffendDiff "+endDiff);
-						// min 1 Woche Laufzeit oder setze End zurück
-						endDiff = endDiff +diff; // was ändert sich
-													// insgesammt
-							$scope.laufzeit = $scope.laufzeit + diff; // änderung
-																		// scope
-							updateOptionsMedien(); // zeitraum Medienwahl
-							console.log("Ende verschoben um Woche(n): " +diff);
-						
-					}
-				});
-			};
-			watchDtEnd();
-			var startDiff = 0;
+			var dtStartDateWatcher;
+            var startDiff = 0;
 			// Änderungen des Startdatums ändert die Enddatum
 			watchDtStart = function() {
 				dtStartDateWatcher = $scope.$watch('dtStart', function(newValue, oldValue) {
 					if (!(newValue == oldValue)) {
 						dtStartDateWatcher(); // beende watcher
-						dtEndDateWatcher();
-						$scope.dtStart = newValue; // setze Startdatum
-						endDatum(); // berechne neues enddatum
+                        // start immer am DO
+                        start = moment(newValue).isoWeekday(4);
+//						$scope.dtStart = moment(start).format('DD.MM.YY'); // setze Startdatum
+                        $scope.dtStart = start._d;
+
+                        endDatum(); // berechne neues enddatum
 						updateOptionsMedien(); // zeitraum Medienwahl
 						watchDtStart(); // starte watcher
-						watchDtEnd();
 						// Änderung des Startdatums in Wochen
-						startDiff = moment(newValue).diff(moment(oldValue), 'weeks');
-						console.log("Start verschoben um Woche(n) : ", startDiff); // 1 );
+						console.log("Start neu: ", $scope.dtStart ); // 1 );
 					}
 				});
 			};
@@ -96,17 +77,14 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
 
 			// Änderungen laufzeit ändert enddatum
 			$scope.neueLaufzeit = function(val) {
-				if ($scope.laufzeit <= 1 && val == -1) {
+				if ($scope.laufzeitNeu <= 1 && val == -1) {
 					alert("Die Laufzeit muss mindestens eine Woche betragen.");
 				} else {
 					// setze neue laufzeit
-					$scope.laufzeit = $scope.laufzeit + val;
-					dtEndDateWatcher();
+					$scope.laufzeitNeu = $scope.laufzeitNeu + val;
 					endDatum(); // setze enddatum
 					updateOptionsMedien(); // zeitraum Medienwahl
-					watchDtEnd();
-					endDiff = endDiff + val;
-					console.log("Ende verschoben um Woche(n): ", endDiff);
+                    console.log("laufzeitNeu" + $scope.laufzeitNeu)
 				}
 			};
 
@@ -126,14 +104,7 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
         //        minDate : minimalDate,
 				startingDay : 1
 			};
-			$scope.dateOptionsEnd = {
-		//		dateDisabled : disabledEnd,
-				formatYear : 'yy',
-		//		maxDate : new Date($scope.dt.getFullYear() + 1, 0, 31),
-		//		minDate : $scope.dtStart,
-				// minDate : new Date($scope.dt.getFullYear(), 0, 1),
-				startingDay : 1
-			};
+
 			// wird aktualisiert, wenn die laufzeit geändert wird
 			var updateOptionsMedien = function() {
 				$scope.dateOptionsMedien = {
@@ -160,16 +131,12 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
 			$scope.openStartDatum = function() {
 				$scope.popupStartDatum.opened = true;
 			};
-			$scope.openEndDatum = function() {
-				$scope.popupEndDatum.opened = true;
-			};
+
 
 			$scope.popupStartDatum = {
 				opened : false
 			};
-			$scope.popupEndDatum = {
-				opened : false
-			};
+
 
 			// Darstellung des Datums
 			$scope.format = 'dd.MM.yy';
@@ -196,7 +163,10 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
 			for (var key in buchung.medien) {
 				  if (buchung.medien.hasOwnProperty(key)) {
 					var typ = key;
-					var datum = moment(buchung.medien[key]).hour(12)._d; 
+				if (buchung.medien[key] != false) {
+
+
+                     var datum = moment(buchung.medien[key]).hour(12)._d;
 					//console.log("typ "+ typ);
 					//console.log("datum "+ datum);
 					// setze datum für medium
@@ -204,7 +174,10 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
 					$scope.medium[typ].set = true;
 					$scope.medium[typ].btn = "btn-success";
 				   };
-				   if (buchung.menge != undefined) {
+
+                  }
+
+				   if (buchung.menge != undefined ) {
 					   $scope.menge[key] = buchung.menge[key];
 				   };
 				};
@@ -235,16 +208,16 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
 
 			// Farben
 			$scope.farbModel = {
-				"bc-00" : "Filmtyp J",
-				"bc-10" : "Filmtyp A",
-				"bc-20" : "Filmtyp B",
-				"bc-30" : "Filmtyp C",
-				"bc-40" : "Filmtyp D",
-				"bc-50" : "Filmtyp E",
-				"bc-60" : "Filmtyp F",
-				"bc-70" : "Filmtyp G",
-				"bc-80" : "Filmtyp H",
-				"bc-90" : "Filmtyp I"
+				"bc-00" : "Filmtyp A",
+				"bc-10" : "Filmtyp B",
+				"bc-20" : "Filmtyp C",
+				"bc-30" : "Filmtyp D",
+				"bc-40" : "Filmtyp E",
+				"bc-50" : "Filmtyp F",
+				"bc-60" : "Filmtyp G",
+				"bc-70" : "Filmtyp H",
+				"bc-80" : "Filmtyp I",
+				"bc-90" : "Filmtyp J"
 			};
 
 			$scope.neueFarbe = function(farbe) {
@@ -274,98 +247,114 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
 */
 
 			$scope.delete = function() {
-				console.log("delete VerleihBuchung, bzw Wunsch mit (vBID): " + vBID);
+				console.log("delete VerleihBuchung, bzw Wunsch "+art+ " mit (vBID): " + vBID);
 			    if (confirm("VerleihBuchung/Wunsch '" + buchung.titel + "' wirklich löschen?") == true) {
-			    	$scope.ok('delete');
+                    //TODO REST vBID;
+                    var myBuchung;
+                    var myRingBuchungen;
+                    if (art == 1 ){
+                        $rootScope.verleihBuchungen[vBID] = null;
+                        delete $rootScope.verleihBuchungen[vBID];
+                        myRingBuchungen = $rootScope.ringBuchungen;
+                               } else {
+                        $rootScope.verleihWunsch[vBID] = null;
+                        delete $rootScope.verleihWunsch[vBID];
+                        myRingBuchungen = $rootScope.ringWunsch;
+                    }
+                    console.log(myBuchung);
+                    myBuchung = null;
+                    delete myBuchung;
+                    console.log(myBuchung);
+
+
+                    //
+                    for (ringB in myRingBuchungen ){
+
+                       // eine Ringbuchung zur Verleihbuchung
+                       if (myRingBuchungen[ringB].vBID == vBID){
+                           console.log("Ringbuchung "+ringB+ " wird gelöscht, da Verleihbuchung "
+                               +vBID + " gelöscht wurde");
+                           myRingBuchungen[ringB] = null;
+                           delete myRingBuchungen[ringB];
+
+                       }
+                    }
+
+                    $uibModalInstance.close({});
 
 			    } else {
 			    	console.log("delete abgebrochen");
 			    };
+
 			};
 		
 			
 			
 			// modal speichern
-			$scope.ok = function(type) {
+			$scope.speichern = function() {
+				console.log("speichern: ");
 				var result = {};
-				// speichern oder löschen
-				result['art'] = art;
-				result['startIdx'] = startIDX; // alter startindex
-				result['laufzeit'] = laufz; // alte laufzeit
-				result['laufzeitNeu'] = $scope.laufzeit;
-				result['vBID'] = vBID;
-				result['fID'] = fID;
-				result['delete'] = false;
-				result['medien'] = {};
-				result['menge'] = $scope.menge;
-				// 
-				// neue Medienverfügbarkeit
-				// result['medien'] erhält änderungen
-				// entweder neues datum oder false bei löschung
-				// console.log("buchung.medien
-				// "+JSON.stringify(buchung.medien));
 
-                if (  buchung.medien == undefined){
-                    buchung['medien'] = {};
-				}
-				for (var typ in $scope.medium){
-					var geaendert = false;
-					// console.log("eintrag "+typ);
-					var isoDate = moment($scope.medium[typ].dt).format('YYYYMMDD');
-					
-					// typ gabs nicht
-					if (  buchung.medien[typ] == undefined){
-						// gibts aber jetzt
-					  if ($scope.medium[typ].set) {
-						  geaendert = true;
-						  };
-						  // gabs, aber nun neues Datum oder gibts nun nicht
-							// mehr
-					  } else if ( ((buchung.medien[typ] != isoDate) & ($scope.medium[typ].set)) | ( ! ($scope.medium[typ].set)  )){
-						  geaendert = true;
-			 				 
-						 };
-					if (geaendert) {
-						if ($scope.medium[typ].set) {
-						result['medien'][typ] = isoDate;
-						} else {
-							result['medien'][typ] = false;
-						}
-						$log.info("   Eintrag geändert "+ [typ] + " : " + result['medien'][typ]);
-						};
-				}
-				// lösche object, wenn kein Inhalt
-				if (Object.keys(result['medien']).length == 0 ) {
-					delete result['medien'];
-				}
-				// console.log(JSON.stringify(result['medien']));
-				
 
-				
-				
-				
-				// änderung der Farbe Farbe ?
-					result['bc'] = $scope.bcColor;;
-				if ($scope.bcColor != alteBC) {
-					result['renew'] = true;
+				//Änderung der Laufzeit
+                if ($scope.laufzeitNeu != buchung.laufzeit){
+                    result['laufzeit'] = $scope.laufzeitNeu;
 				}
-				// Änderung der Medien
+                //Änderung des Starts
+                if (moment(start).format('YYYYMMDD') != buchung.start){
+                    result['start'] = moment(start).format('YYYYMMDD');
+                }
+                if($scope.bcColor != buchung.bc){
+                    result['bc'] = $scope.bcColor;
+                }
+                //Änderung Medium
+                var medienDateNeu;
+                var medienStatusNeu;
+                var medienStatusAlt;
+                result['medien'] = {};
+                result['menge'] = {};
+                for( var typ in $scope['medium']){
+                    //menge
+                    if( $scope.menge[typ] != buchung.menge[typ]) {
+                        result['menge'][typ] = $scope.menge[typ];
+                    }
 
-				// Änderung Start
-				if (startDiff != 0) {
-					result['startNeu'] = $scope.dtStart;
-					result['startDiff'] = startDiff;
-					result['delete'] = true;
-					result['new'] = true;
+                    //medien":{"BD":"20170526"}
+                    medienDateNeu = moment($scope['medium'][typ].dt).format('YYYYMMDD');
+                    medienStatusNeu = $scope['medium'][typ].set;
+                     if( buchung.medien[typ] == undefined | buchung.medien[typ] == false){
+                         medienStatusAlt = false;
+                     } else {
+                         medienStatusAlt = true;
+                     }
+                                         // neues Datum
+                    if (medienStatusNeu == true & medienStatusAlt == false){
+    //                    console.log(typ + " hat nun datum");
+                        result.medien[typ] = medienDateNeu;
+                    }
+                    // kein Datum mehr
+                    if (medienStatusNeu == false & medienStatusAlt == true){
+  //                      console.log(typ +" hat kein Datum mehr");
+                        result.medien[typ] = false;
+                    }
+                    //anderes Datum
+                    if (medienStatusNeu == true & medienStatusAlt == true){
+                        if (medienDateNeu != buchung.medien[typ]){
+//                            console.log(typ + " hat nun anderes Datum");
+                            result.medien[typ] = medienDateNeu;
+                        }
+                        // medium hat nun datum
+                    }
 
-				}
-				// Änderung End
-				if (endDiff != 0) {
-					result['endDiff'] = endDiff;
-					result['delete'] = true;
-					result['new'] = true;
+                }
+                //console.log(" $scope.medium " + JSON.stringify($scope.medium));
+                //console.log(" $scope.menge " + JSON.stringify($scope.menge));
 
-				}
+
+
+
+
+                console.log("result "+JSON.stringify(result));
 				$uibModalInstance.close(result);
 			};
 

@@ -180,6 +180,10 @@ angular
                         var datumInMs = moment(datum).isoWeekday(4);
                         for ( var key in verleiBuchung.medien) {
                             if (verleiBuchung.medien.hasOwnProperty(key)) {
+                                // is not false
+                                if(verleiBuchung.medien[key] != false){
+
+
                                 // ab wann ist dieses medium verfügbar
                                 // console.log("moment : " +verleiBuchung.medien[key])
                                 var medienStart = moment(verleiBuchung.medien[key]);
@@ -194,7 +198,7 @@ angular
                                 } else {
                                     medien = medien + key + " ";
                                 }
-
+                                }
                             }
                            // console.log("** medien" +JSON.stringify(medien));
                         }

@@ -40,7 +40,7 @@
 							<label for="Laufzeit" class="control-label">Spielwochen</label>
 							<div>
 								<span style="color: red" class="glyphicon glyphicon-minus-sign pointer"
-									ng-click="neueLaufzeit(-1)"> </span> <span ng-bind="laufzeit"></span> <span>Woche(n)</span>
+									ng-click="neueLaufzeit(-1)"> </span> <span ng-bind="laufzeitNeu"></span> <span>Woche(n)</span>
 								<span style="color: green" class="glyphicon glyphicon-plus-sign pointer"
 									ng-click="neueLaufzeit(1)"> </span>
 							</div>
@@ -51,6 +51,9 @@
 								<div>
 									<strong>Ende</strong>
 								</div>
+								<input type="text" class=" col-md-6 btn"  ng-model="dtEnd"   />
+
+							<!--
 								<input type="text" class=" col-md-6 btn notallowed" readonly="true"
 									uib-datepicker-popup="{{format}}" ng-model="dtEnd" is-open="popupEndDatum.opened"
 									datepicker-options="dateOptionsEnd" ng-required="true" current-text="heute"
@@ -58,6 +61,8 @@
 								<button type="button" class="btn btn-default" ng-click="openEndDatum()">
 									<i class="glyphicon glyphicon-calendar"></i>
 								</button>
+								-->
+
 							</div>
 						</div>
 
@@ -123,7 +128,7 @@
 	</div>
 
 	<div class="modal-footer">
-		<button class="btn btn-success" type="button" ng-click="ok('speichern')">speicher
+		<button class="btn btn-success" type="button" ng-click="speichern()">speicher
 			Änderungen</button>
 		<button class="btn btn-warning" type="button" ng-click="cancel()">einfach nur
 			abbrechen</button>

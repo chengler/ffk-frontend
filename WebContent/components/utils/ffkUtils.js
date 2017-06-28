@@ -1600,8 +1600,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     console.log("### kwidx" +kwidx);
                     vBID = buchung.vBID;
                     // [background, [rBID,rBID]]
-
-                    for ( var j = 0; j < $rootScope.filmlauf[kwidx][buchungsart].length; j ++){
+                    var j
+                    for (  j = 0; j < $rootScope.filmlauf[kwidx][buchungsart].length; j ++){
                         if ( vBID == $rootScope.filmlauf[kwidx][buchungsart][j][1] ){
                             pos = j;
                             break;
@@ -1613,7 +1613,8 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                     spaltenHier = $rootScope.filmlauf[idx][buchungsart].length;
                     // fehlende Spalten ([false] arrays) vor dem eintrag
                     for (var i = spaltenHier; i <= pos  ; i++) {
-                        $rootScope.filmlauf[idx][buchungsart].push(["RingAngelegenheit"]);
+                        $rootScope.filmlauf[idx][buchungsart].push([]);
+                        //$rootScope.filmlauf[idx][buchungsart].push(["RingAngelegenheit"]);
                     }
 
                     // speicher ring... im array der Spalte
