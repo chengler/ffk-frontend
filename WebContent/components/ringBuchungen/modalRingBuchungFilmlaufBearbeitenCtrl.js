@@ -6,8 +6,8 @@ angular.module('modalRingBuchung').controller(
 
 
         // schalter für ng-if ladet templates usw
-        var fBID = input.fBID;
-        var myRingB = $rootScope.ringBuchungen[fBID];
+        var rBID = input.rBID;
+        var myRingB = $rootScope.ringBuchungen[rBID];
         var myVerleihB = $rootScope.verleihBuchungen[myRingB.vBID];
         var datum = myRingB.datum; // isodate 20160112
         $scope.buchungsChanges = Object.create(myRingB);
@@ -78,7 +78,7 @@ angular.module('modalRingBuchung').controller(
         // falls medium geändert wird
         $scope.getNeueMedienIDs = function () {
             console.log("getNeueMedienIDs");
-            console.log( "verleihBuchung.menge " + JSON.stringify(verleihBuchung.menge));
+            console.log( "verleihBuchung.menge " + JSON.stringify(myVerleihB.menge));
             console.log( "$scope.buchungsChanges.medium " + JSON.stringify($scope.buchungsChanges.medium));
             $scope.medienIDs = [];
             var menge = parseInt(myVerleihB.menge[$scope.buchungsChanges.medium]);

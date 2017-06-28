@@ -1321,13 +1321,12 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         // ändert ringBuchungen nach {}
         // fbid als appendix wie 1 {buchungsChanges} die änderungen
         // TODO REST anbindung
-        this.changeRingBuchung = function( fBID, buchungsChanges ) {
-            console.log("changeRingBuchung " + fBID );
-            fBID = "fBID"+fBID;
-            Object.keys(buchungsChanges).forEach(function (key) {
-                $rootScope.ringBuchungen[fBID][key] = buchungsChanges[key];
+        this.changeRingBuchung = function( rBID, buchungsChanges ) {
+            console.log("changeRingBuchung " + rBID );
+             Object.keys(buchungsChanges).forEach(function (key) {
+                $rootScope.ringBuchungen[rBID][key] = buchungsChanges[key];
             });
-        }
+        };
 
         // die neue und chicke :-) diese nehmen!
         //    row(int) col wie col1 film wie f1; {filmlaufChanges}, die Änderungen

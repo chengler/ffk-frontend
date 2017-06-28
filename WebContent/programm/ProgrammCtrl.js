@@ -350,10 +350,10 @@
              //   console.log($rootScope.filmlauf[rowIdx][colIdx-1][1][1][0]);
              //   console.log(filmNr);
                // console.log(JSON.stringify($rootScope.filmlauf[rowIdx][1][0]));
-                var fBID = $rootScope.filmlauf[rowIdx][1][colIdx-1][1][filmNr-1];
+                var rBID = $rootScope.filmlauf[rowIdx][1][colIdx-1][1][filmNr-1];
                 // [0] = verarbeitungsart [1] = input
-                console.log("bearbeite fBID " + fBID);
-                ModalRingBuchungFilmlaufBearbeitenService.editBuchung({"fBID":fBID,"refreshView" : true});
+                console.log("bearbeite rBID " + rBID);
+                ModalRingBuchungFilmlaufBearbeitenService.editBuchung({"rBID":rBID,"refreshView" : true});
                
 
 

@@ -7,7 +7,7 @@
     //
     // modal
     // http://angular-ui.github.io/bootstrap/#/modal
-// input {fBID: fBID, refreshView: true]
+// input {rBID: rBID, refreshView: true]
 angular.module('modalRingBuchung').service(
     //.service(
         'ModalRingBuchungFilmlaufBearbeitenService',
@@ -25,7 +25,7 @@ angular.module('modalRingBuchung').service(
                 });
                 // ModalFilmlRowInstanceCtrl wird auf rowIdx des Filmlaufs
                 // gestartet
-                $log.info("modalBuchungsBearbeitung: ModalRingBuchungFilmlaufBearbeitenService mit input "
+                console.log("modalBuchungsBearbeitung: ModalRingBuchungFilmlaufBearbeitenService mit input "
                     + JSON.stringify(input) );
 
                 // TODO stack für asyncrone Serverantworten
@@ -34,91 +34,37 @@ angular.module('modalRingBuchung').service(
                 modalInstance.result.then(function (buchungsChanges, typ) {
                         $log.debug("modalBuchungsBearbeitung ModalBuchungsBearbeitungService ModalReturn Änderungen: "
                             + JSON.stringify(buchungsChanges, 1, 4));
-                        console.log("Änderung auf row/col/film " + rowIdx + "/" + colIdx + "/" + filmNr +" was noch wäre:");
-                        console.log($rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr]);
-                        var fBID = $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr]["fBID"];
+                        var rBID = input.rBID;
 
                         //console.log("buchungsChanges.msg: " + buchungsChanges.msg);
                         if (buchungsChanges.msg ==  'delete'){
                             // lösche anweisung msg
-                            buchungsChanges.msg = null;
-                            delete buchungsChanges.msg;
-                            // lösche ein fBID im Filmlauf
-                            $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr] = null;
-                            delete $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr];
-                            //  renumeriere alle filme nach dem gelöschten
-                            var i = filmNr;
-                            while (true){
-                                 // gibt es einen Film mit einer höheren nummer
-                                if ( $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + (i+1)] ){
-                                    // f2 wird f1 wenn i =1
-                                    $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + i] = $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + (i+1)];
-                                    // nulle und lösche
-                                    $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + (i+1)] = null;
-                                    delete $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + (i+1)];
-                                } else {
-                                    break;
-                                }
-                                i += 1  ; // gibt es einen weiteren film?
-                            }
-
-                            // lösche ein fBID via REST
+                            $rootScope.ringBuchungen[rBID] = null;
+                            delete $rootScope.ringBuchungen[rBID];
+                            // lösche ein rBID im Filmlauf <= erstelle neu!
+                            // lösche ein rBID via REST
                             // TODO REST
-                            console.log('RESTfull Set(„fBID'+fBID+'“ : false)');
+                            console.log('RESTfull Set(„rBID'+rBID+'“ : false)');
                             // TODO überprüfe maximale Anzahl der Filme (lines) und reduziere wenn nötig
+
+
+                            FfkUtils.leereGrundtabelle();
+                            $rootScope.status.filmlaufGeladen = false;
+                            FfkUtils.erstelleFilmlauf();
+
+                            // zeichne Tabelle neu
+                          //  $rootScope.gridOptions.api.setRowData($rootScope.filmlauf);
                         }
 // ändere einen filmeintrag
                         if (buchungsChanges.msg ==  'save'){
                             // lösche anweisung msg
                             buchungsChanges.msg = null;
                             delete buchungsChanges.msg;
-                            Object.keys(buchungsChanges).forEach(function (key) {
-                                console.log("Änderung " + key + " :" + buchungsChanges[key]);
-
-            // Besuchereintritt
-                  // lösche [null] Werte, 0 ist OK, 0 Besucher 500cent, bzw 4 Besucher 0 cent
-                                var berecheWochenergebnissNeu = false;
-                                if (key == "besucher"){
-                                    var arrayLength = buchungsChanges.besucher.length;
-                                    for (var i = 0; i < arrayLength; i++) {
-                                        var check = buchungsChanges.besucher[i];
-                                        if (check[0] == null || check[1] == null){
-                                            buchungsChanges.besucher.splice(i, 1);
-                                            // splice verkürzt arry lenghth
-                                            arrayLength = arrayLength -1;
-                                        }
-                                    }
-                                } else if (key == "gesamt"){
-                                    berecheWochenergebnissNeu = true;
-                                }
-                                // ändere Filmlauf
-                                $rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr][key] = buchungsChanges[key];
-                  // Ergebnisse erst speichern, da grundlage für berechnung!
-                                if (berecheWochenergebnissNeu) {
-                                    var kwZeile = FfkUtils.getKinoWochenRowIdx(rowIdx);
-                                    var we = FfkUtils.summiereWochenergebniss(kwZeile,colIdx);
-                                    console.log("ändere Gesamteinnahmender Woche auf "+we);
-                                }
-
-
-
-                                // zeige Änderungen
-                            });
-                            // speicher in RingBuchung und RESt
-
+                            FfkUtils.changeRingBuchung(rBID, buchungsChanges);
                         }
-                        $log.debug("nach folgenden Änderungen: "
-                            + JSON.stringify(buchungsChanges, 2, 4));
-                        $log.debug("ist nun am Ende von ModalReturn: "
-                            + JSON.stringify($rootScope.filmlauf[rowIdx]['col' + colIdx]['f' + filmNr], 2, 4));
-                        // ändere ein fBID via REST
-                        // TODO REST VIA utils
-                        $log.debug('RESTfull Set(„fBID'+fBID+'“ : '     + JSON.stringify(buchungsChanges, 0, 0));
-                        FfkUtils.changeRingBuchung(fBID, buchungsChanges);
-                   //     console.log('RESTfull Set(„fBID'+fBID+'“ : ' + buchungsChanges + ' )');
 
-
-
+                   //
+                   //     console.log('RESTfull Set(„rBID'+rBID+'“ : ' + buchungsChanges + ' )');
 
                         if (input.refreshView){
                             $rootScope.gridOptions.api.refreshView();
