@@ -14,3 +14,6 @@ cd ffk-frontend
 npm install
 
 Über npm wird bower nachinstaliert. Über Bower werden die Projektabhängigkeiten installiert.
+
+check :
+https://stackoverflow.com/questions/18136746/npm-install-failed-with-cannot-run-in-wd#19132229

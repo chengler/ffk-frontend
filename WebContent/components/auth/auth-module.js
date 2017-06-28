@@ -7,7 +7,7 @@
 		console.log("auth.controller called");
 
 
-        $scope.myVidauth =($sce.trustAsResourceUrl("https://www.youtube.com/embed/CSHkTurfPt0"));
+        $scope.myVidauth =($sce.trustAsResourceUrl("https://www.youtube.com/embed/87y3bFmNGeg"));
 		// $rootScope.username = "";
 		// $rootScope.loggedIn = false;
 
