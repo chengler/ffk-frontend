@@ -1324,7 +1324,12 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         this.changeRingBuchung = function( rBID, buchungsChanges ) {
             console.log("changeRingBuchung " + rBID );
              Object.keys(buchungsChanges).forEach(function (key) {
-                $rootScope.ringBuchungen[rBID][key] = buchungsChanges[key];
+                 var val = buchungsChanges[key];
+                 /*if (val == ""){
+                     val = false;
+                 }*/
+                $rootScope.ringBuchungen[rBID][key] = val;
+                console.log("    set "+key+" : "+buchungsChanges[key]);
             });
         };
 

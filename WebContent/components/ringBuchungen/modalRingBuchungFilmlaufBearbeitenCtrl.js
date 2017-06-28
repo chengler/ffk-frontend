@@ -91,21 +91,24 @@ angular.module('modalRingBuchung').controller(
             }
             $scope.medienID=""; // neues Medium, leere MedienID
             $scope.buchungsChanges.medienID=false;
-            $scope.vonOrt=false;
-            $scope.nachOrt=false;
-            $scope.buchungsChanges.vonID=false;
-            $scope.buchungsChanges.nachID=false;
 
-            if(!$scope.$$phase) { // update die anzeige
-                $scope$apply();
-            }
+
+
             console.log(" medienIDs für " + $scope.buchungsChanges.medium + " = "
                 + JSON.stringify($scope.medienIDs, 0, 0));
+            $scope.setNeueMedienID();
         };
 
         // änderung der medienID
         $scope.setNeueMedienID = function(){
             console.log("setNeueMedienID " + JSON.stringify($scope.buchungsChanges.medienID) );
+            $scope.vonOrt = ["", ""];
+            $scope.nachOrt= ["", ""];
+            $scope.buchungsChanges.vonID="";
+            $scope.buchungsChanges.nachID="";
+            if(!$scope.$$phase) { // update die anzeige
+                $scope$apply();
+            }
         }
 
 
@@ -113,10 +116,12 @@ angular.module('modalRingBuchung').controller(
         $scope.vonOrt = ["", ""];
         $scope.nachOrt = ["", ""];
 
+        //buchung von
         var bv = myRingB.vonID;
         if (bv != false) {
             $scope.vonOrt = [bv, FfkUtils.getRefName($rootScope.spielorteSortiert, bv, 1)];
         }
+        //buchung nach
         var bn = myRingB.nachID;
         if (bn != false) {
             $scope.nachOrt = [bn, FfkUtils.getRefName($rootScope.spielorteSortiert, bn, 1)];
@@ -124,6 +129,7 @@ angular.module('modalRingBuchung').controller(
 
 
         $scope.changeVonOrt = function () {
+            console.log('changeVonOrt '+ JSON.stringify($scope.vonOrt[0]));
             $scope.buchungsChanges.vonID = $scope.vonOrt[0];
         };
         $scope.changeNachOrt = function () {

@@ -32,7 +32,7 @@ angular.module('modalRingBuchung').service(
 
                 // Die Antwort des ModalFilmlRowInstanceCtrl
                 modalInstance.result.then(function (buchungsChanges, typ) {
-                        $log.debug("modalBuchungsBearbeitung ModalBuchungsBearbeitungService ModalReturn Änderungen: "
+                        console.log("modalBuchungsBearbeitung ModalBuchungsBearbeitungService ModalReturn Änderungen: "
                             + JSON.stringify(buchungsChanges, 1, 4));
                         var rBID = input.rBID;
 
@@ -69,6 +69,7 @@ angular.module('modalRingBuchung').service(
                         if (input.refreshView){
                             $rootScope.gridOptions.api.refreshView();
                         }
+                        $rootScope.gridOptions.api.refreshView();
 
 
                     },

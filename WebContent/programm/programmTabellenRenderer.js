@@ -328,11 +328,15 @@ angular
                             var medium;
                             var von = " ";
                             var nach = "";
-                            // wenn Medium vorhandenauch filmVon vorhanden?
+                            // wenn Medium vorhanden, auch filmVon vorhanden?
                             if (ringBuchung.medienID) {
                                 medium = "<span  class = ' ok' >" + ringBuchung.medium
                                     + ringBuchung.medienID + " </span>";
-                                var filmVon = $rootScope.spielorte[ringBuchung.vonID]["ort"];
+                                var filmVon = "";
+                                if (ringBuchung.vonID != false | ringBuchung.vonID != ""){
+                                    filmVon = $rootScope.spielorte[ringBuchung.vonID]["ort"];
+                                }
+
                                 von = "<span class='ok'> " + filmVon + "↝ </span>";
                                 // wenn NACH bereits vergeben
                                 if (ringBuchung.nachID) {
