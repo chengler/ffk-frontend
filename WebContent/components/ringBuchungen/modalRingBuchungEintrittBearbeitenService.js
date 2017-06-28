@@ -43,6 +43,15 @@ angular.module('modalRingBuchung').service(
                     inhalt.aufgabe = null;
                     delete  inhalt.aufgabe;
                     var rBID =  inhalt.rBID;
+                    var gesamtALT;
+                    if ( $rootScope.ringBuchungen[rBID].gesamt == undefined ){
+                        gesamtALT = [0,0];
+                        $rootScope.ringBuchungen[rBID]['gesamt'] = [0,0];
+                    } else {
+                        gesamtALT = JSON.parse(JSON.stringify($rootScope.ringBuchungen[rBID].gesamt));
+                    }
+
+//
 
                     console.log("{rBID: "+ JSON.stringify(inhalt)+"}");
                     switch (aufgabe) {
@@ -72,17 +81,16 @@ angular.module('modalRingBuchung').service(
                                     }
                             //    }
 
+                                console.log("Änderung " + key + " :" + inhalt[key]);
 
                                 // TODO REST
-                                // TODO VERleihbuchung
-                                // TODO Filmlauf
-                                // füge änderungen zur Ringbuchung
-                                //object.create
-                                console.log("Änderung " + key + " :" + inhalt[key]);
-                                //  $rootScope.ringBuchungen[rBID][key] = inhalt[key];
+
+
+
+
+
 
                             });
-                            // angular.copy
 
 /// try and catch !!!!!!
                             Object.keys(inhalt).forEach(function (key) {
@@ -92,11 +100,31 @@ angular.module('modalRingBuchung').service(
 
                             console.log("{rBID: "+ JSON.stringify(inhalt)+"}");
                             $rootScope.infofenster = "{rBID: "+ JSON.stringify(inhalt)+"}";
-
                             var myring = $rootScope.ringBuchungen[rBID];
-
                             $rootScope.infofenster = "{rBID:{ rBID: " + rBID + ", besucher:" + myring.besucher
                                 + ", gesamt: " + myring.gesamt + " }";
+
+// ändere VErleihbuchung besucherzahlen falls nötig
+                            // nur lokal, der Server kann das selbst ausrechnen
+                            console.log("Ändere VErleihbuchung");
+                            // rechne auf server gesammt in fw
+                            var diffBesucher =    $rootScope.ringBuchungen[rBID].gesamt[0] - gesamtALT[0] ;
+                            var diffEintritt =  $rootScope.ringBuchungen[rBID].gesamt[1] - gesamtALT[1] ;
+                            var myDIFF;
+                            console.log('diffBesucher '+diffBesucher+' diffEintritt '+diffEintritt);
+                            if ( diffBesucher != 0 | diffEintritt != 0){
+                                myDIFF = [diffBesucher, diffEintritt  ]; // wieviel Besucher mehr ...
+                                var vbid = $rootScope.ringBuchungen[rBID].vBID;
+                                var vStart = moment($rootScope.verleihBuchungen[vbid].start);
+                                var rTage = moment($rootScope.ringBuchungen[rBID].datum);
+                                var filmwoche = (rTage.diff(vStart, 'weeks'))  +1;
+                                console.log(myDIFF);
+                                console.log("filmwoche "+ filmwoche );
+                                $rootScope.verleihBuchungen[vbid]['fw'+filmwoche][0] += myDIFF[0];
+                                $rootScope.verleihBuchungen[vbid]['fw'+filmwoche][1] += myDIFF[1];
+                            }
+
+
 
 
                             break;

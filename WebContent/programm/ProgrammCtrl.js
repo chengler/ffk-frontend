@@ -27,9 +27,11 @@
              $rootScope.myVids = [];
              $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/Ar9wyUwWmP0"));
              $rootScope.myVids[1] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/vjuZhfipd2M"));
+             $rootScope.myVids[2] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/O9lzs-v8axQ"));
 
 
-            var zeigeWunschFilme = false;
+
+             var zeigeWunschFilme = false;
             $rootScope.zeigeWunschFilme = zeigeWunschFilme;
             $scope.wunschFilmTextBtn = "zeige Wunschfilme";
 

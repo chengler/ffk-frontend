@@ -80,7 +80,6 @@ angular.module('modalRingBuchung').controller(
         //1. speicher Datensatz
         $scope.ok = function ( aufgabe ) { //"speichern"
             $scope.myRingB['aufgabe'] = aufgabe;
-
             console.log( "OK " + aufgabe + " inhalt: " +  JSON.stringify($scope.myRingB));
             // übergebe  an modalInstance.result.then(function (buchungsChanges) {
             $uibModalInstance.close( $scope.myRingB);

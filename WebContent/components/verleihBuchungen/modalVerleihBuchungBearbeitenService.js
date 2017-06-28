@@ -34,10 +34,23 @@ modul.service('ModalVerleihBuchungsService', function($rootScope, $uibModal, $lo
             // die Rückgabe
             modalInstance.result.then(function(res) {
                 console.log("vBID "+vBID);
-                    $log.debug("ModalReturn: " + JSON.stringify(res, 1, 4));
+                    console.log("ModalReturn: " + JSON.stringify(res, 1, 4));
                     var myBuchung;
+
+                    var laufzeitAlt = false;
+
                     if (art == 1 ){
                         myBuchung = $rootScope.verleihBuchungen[vBID];
+                        if(res.laufzeit){ // Laufzeitänderung?
+                            // betrachte nur verlängerungen
+                            var fw = myBuchung.laufzeit +1;
+                            console.log('fw '+fw+' res.laufzeit '+res.laufzeit);
+                            for ( fw ; fw <= res.laufzeit; fw ++ ){
+                                //"fw2":[0,0]
+                                myBuchung['fw'+fw] = [0,0];
+                            }
+                        }
+                      //  laufzeitAlt = JSON.parse(JSON.stringify($rootScope.verleihBuchungen[vBID].laufzeit));
                     } else {
                         myBuchung = $rootScope.verleihWunsch[vBID];
                     };
@@ -73,22 +86,26 @@ modul.service('ModalVerleihBuchungsService', function($rootScope, $uibModal, $lo
 
                 // lösche Ringbuchungen die nicht mehr im Zeitraum sind
                 // überprüfe immer alle, nicht zeitrelevant aber einfacher
-                var start = $rootScope.verleihBuchungen[vBID].start;
-                var ende = moment(start).add($rootScope.verleihBuchungen[vBID].laufzeit * 7 -1 , 'days').format('YYYYMMDD');
-                var buchTag;
-                for ( var rbid in $rootScope.ringBuchungen){
-                    buchTag = $rootScope.ringBuchungen[rbid].datum;
-                    console.log("start "+start+" buchTag "+buchTag+" ende "+ende);
-                    if ( buchTag < start |  buchTag > ende){
-                        console.log("Ringbuchung nicht mehr im Buchbaren Bereich. Lösche " + rbid);
-                        $rootScope.ringBuchungen[rbid] = null;
-                        delete $rootScope.ringBuchungen[rbid];
-                        //TODO REst
+                if ($rootScope.verleihBuchungen[vBID] != undefined )
+                    {
+                        var start = $rootScope.verleihBuchungen[vBID].start;
+                        var ende = moment(start).add($rootScope.verleihBuchungen[vBID].laufzeit * 7 - 1, 'days').format('YYYYMMDD');
+                        var buchTag;
+                        for (var rbid in $rootScope.ringBuchungen) {
+                            buchTag = $rootScope.ringBuchungen[rbid].datum;
+                            console.log("start " + start + " buchTag " + buchTag + " ende " + ende);
+                            if (buchTag < start | buchTag > ende) {
+                                console.log("Ringbuchung nicht mehr im Buchbaren Bereich. Lösche " + rbid);
+                                $rootScope.ringBuchungen[rbid] = null;
+                                delete $rootScope.ringBuchungen[rbid];
+                                //TODO REst
+                            }
+
+
+                        }
+                    } else {
+                        console.log("Verleihbuchung nicht existent; vermutlich wurde sie eben gelöscht");
                     }
-
-
-                }
-
                     FfkUtils.leereGrundtabelle();
                     $rootScope.status.filmlaufGeladen = false;
                     FfkUtils.erstelleFilmlauf();

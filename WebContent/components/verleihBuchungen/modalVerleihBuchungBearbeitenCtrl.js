@@ -261,11 +261,7 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
                         delete $rootScope.verleihWunsch[vBID];
                         myRingBuchungen = $rootScope.ringWunsch;
                     }
-                    console.log(myBuchung);
-                    // lösche Verleibuchung
-                    myBuchung = null;
-                    delete myBuchung;
-                    console.log(myBuchung);
+
 
 
                     // lösche Ringbuchungen
