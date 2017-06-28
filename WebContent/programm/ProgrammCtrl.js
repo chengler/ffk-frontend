@@ -28,6 +28,9 @@
              $rootScope.myVids[0] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/Ar9wyUwWmP0"));
              $rootScope.myVids[1] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/vjuZhfipd2M"));
              $rootScope.myVids[2] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/O9lzs-v8axQ"));
+             $rootScope.myVids[3] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/CJ4EVRrvvGg"));
+             $rootScope.myVids[4] =($sce.trustAsResourceUrl("https://www.youtube.com/embed/_PS7vokvAKY"));
+
 
 
 
@@ -236,19 +239,19 @@
 
             // flip true and false in tabelle
             $scope.handleFlip = function (flipKey, flipIdx, flipCol, flipFilm) {
-             //    console.log("handleFlip 1/2 " + flipKey +" idx "+ flipIdx+"  col " + flipCol+" filmnr " + flipFilm);
-                var fBID = $rootScope.filmlauf[flipIdx][1][flipCol-1][1][flipFilm-1];
-            //    console.log(fBID);
+                 console.log("handleFlip 1/2 " + flipKey +" idx "+ flipIdx+"  col " + flipCol+" filmnr " + flipFilm);
+                var rBID = $rootScope.filmlauf[flipIdx][1][flipCol-1][1][flipFilm];
+                console.log(rBID);
 
-                var bol = $rootScope.ringBuchungen[fBID][flipKey];
+                var bol = $rootScope.ringBuchungen[rBID][flipKey];
                 console.log("bol "+bol);
                 if (bol === true ? bol = false : bol = true);
 
                 console.log("bol "+bol);
-                $rootScope.ringBuchungen[fBID][flipKey] = bol;
+                $rootScope.ringBuchungen[rBID][flipKey] = bol;
                 $rootScope.gridOptions.api.refreshView();
-                $rootScope.infofenster = "{fBID:{ fBID: " + fBID + ", " + flipKey + " : " + bol + " }";
-                console.log("{fBID:{ fBID: " + fBID + ", " + flipKey + " : " + bol + " }");
+                $rootScope.infofenster = "{rBID:{ rBID: " + rBID + ", " + flipKey + " : " + bol + " }";
+                console.log("{rBID:{ rBID: " + rBID + ", " + flipKey + " : " + bol + " }");
 
             };
 
