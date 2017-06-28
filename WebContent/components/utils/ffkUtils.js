@@ -1572,7 +1572,7 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
         // buchungen = $rootScope.ringBuchungen | $rootScope.ringWunsch
         // buchungsart <=  1 = ringBuchung; 2= ringWunsch !
         this.setInFilmlaufRingAngelegenheiten = function( buchungen , buchungsart) {
-            console.log("setInFilmlaufRingAngelegenheiten auf array " + buchungsart + " (1=Buchungen/2=Wünsche");
+            console.log("## setInFilmlaufRingAngelegenheiten auf array " + buchungsart + " (1=Buchungen/2=Wünsche");
             //console.log("*********** " +JSON.stringify(buchungen))
             //START
             // ringBuchung oder ringWunsch
@@ -1581,42 +1581,48 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
             var idx; // zielindex der Buchung
             var kwidx;// $rootScope.filmlauf[rowIdx][0][1];
             var vBID;
-            var pos; // pos in array des films nach verleiBuchung/Wunsch um die richtige Spalte zu bestimmen
-            var spaltenHier; // spalten hier nach ringBuchung Wunsch
-            var eintraege;
+            // pos in array des films nach verleiBuchung/Wunsch um die richtige Spalte zu bestimmen
+            var pos;
+            var spaltenHier; // aktuelle Anzahl der Spalten im filmlauf array
+            var eintraege; // der wievielte Film pro Zelle/
             // [ [0] .. ]   =  [background, [rBID,rBID]] =   [ bc-11, [rBID,rBID..]]
-            // iteriere durch alle buchungen
+
+            // iteriere durch alle ringBuchungen/Wünsch
             for (rBID in buchungen) {
                 if (buchungen.hasOwnProperty(rBID)) {
                     buchung = buchungen[rBID];
                     rBID = buchungen[rBID].rBID;
-                    console.log("#+ buchung " +JSON.stringify(buchung))
-                    console.log("getFilmlaufIdxVonDatum " + buchung.datum);
-                    idx = this.getFilmlaufIdxVonDatum(buchung.datum) + 1;//+1 für letzte KW Zeile
                     eintraege = 1;
-                    console.log("### idx" +idx);
+                    console.log("    # verarbeite RingBuchung/Wunsch " +JSON.stringify(buchung))
+                    //console.log("getFilmlaufIdxVonDatum " + buchung.datum);
+                    idx = this.getFilmlaufIdxVonDatum(buchung.datum) + 1;//+1 für letzte KW Zeile
+                    console.log("    # idx" +idx);
                     // um die buchungen zu finden idx - spieltag
                     kwidx = idx - $rootScope.filmlauf[idx][0][1];
-                    console.log("### kwidx" +kwidx);
+                    console.log("    # kwidx" +kwidx);
                     vBID = buchung.vBID;
                     // [background, [rBID,rBID]]
-                    var j
-                    for (  j = 0; j < $rootScope.filmlauf[kwidx][buchungsart].length; j ++){
-                        if ( vBID == $rootScope.filmlauf[kwidx][buchungsart][j][1] ){
-                            pos = j;
+                    // suche Position/Spalte
+                    var posIdx
+                    for (  posIdx = 0; posIdx < $rootScope.filmlauf[kwidx][buchungsart].length; posIdx ++){
+                        if ( vBID == $rootScope.filmlauf[kwidx][buchungsart][posIdx][1] ){
+                            pos = posIdx;
                             break;
                         }
                     }
+                    console.log("    # pos "+pos+" => in film" + (pos+1));
 
 
                     //   [ ["bc-11", [rBID]]    , [ "bc-22", [rBID]] .. ]
                     spaltenHier = $rootScope.filmlauf[idx][buchungsart].length;
+                    console.log("    # spaltenHier "+spaltenHier);
                     // fehlende Spalten ([false] arrays) vor dem eintrag
-                    for (var i = spaltenHier; i <= pos  ; i++) {
-                        $rootScope.filmlauf[idx][buchungsart].push([]);
+                    var spaltenIdx;
+                    for ( spaltenIdx = spaltenHier; spaltenIdx <= pos  ; spaltenIdx++) {
+                        $rootScope.filmlauf[idx][buchungsart].push(["spaltenreserver"]);
+                        console.log("    # Spalte Eingefügt bei "+spaltenHier+" muss auf pos "+pos );
                         //$rootScope.filmlauf[idx][buchungsart].push(["RingAngelegenheit"]);
                     }
-
                     // speicher ring... im array der Spalte
                     // console.log(pos + " pos " + JSON.stringify( $rootScope.filmlauf[idx][buchungsart]))
                     // pos[0: bc-11, 1:[rBID,rBID..]]
@@ -1629,14 +1635,14 @@ angular.module('ffkUtils', []).constant('MODULE_VERSION', '0.0.1').service(
                         eintraege = $rootScope.filmlauf[idx][buchungsart][pos][1].length;
                         console.log(JSON.stringify($rootScope.filmlauf[idx][buchungsart]));
                         console.log(" eintraege " + eintraege);
-
+                    // gibt es mehr als einen Eintrag?
                     if ( $rootScope.filmlauf[idx][0][3] < eintraege ){
                         $rootScope.filmlauf[idx][0][3] = eintraege;
                     }
                     console.log("ring "+JSON.stringify( $rootScope.filmlauf[idx] ))
                 }
             }
-        }
+        };
 
 
         //erstelle  Grundtabelle filmlauf

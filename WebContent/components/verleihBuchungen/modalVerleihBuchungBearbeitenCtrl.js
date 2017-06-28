@@ -262,12 +262,14 @@ angular.module('modalVerleihBuchung').controller('ModalVerleihBuchungsInstanceCt
                         myRingBuchungen = $rootScope.ringWunsch;
                     }
                     console.log(myBuchung);
+                    // lösche Verleibuchung
                     myBuchung = null;
                     delete myBuchung;
                     console.log(myBuchung);
 
 
-                    //
+                    // lösche Ringbuchungen
+
                     for (ringB in myRingBuchungen ){
 
                        // eine Ringbuchung zur Verleihbuchung

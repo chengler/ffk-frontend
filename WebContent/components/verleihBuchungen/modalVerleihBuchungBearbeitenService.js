@@ -69,7 +69,26 @@ modul.service('ModalVerleihBuchungsService', function($rootScope, $uibModal, $lo
                         myBuchung[toDo] = res[toDo];
                      }
                     }
-                    // TODO REST
+                    // TODO REST Verleihbuchung
+
+                // lösche Ringbuchungen die nicht mehr im Zeitraum sind
+                // überprüfe immer alle, nicht zeitrelevant aber einfacher
+                var start = $rootScope.verleihBuchungen[vBID].start;
+                var ende = moment(start).add($rootScope.verleihBuchungen[vBID].laufzeit * 7 -1 , 'days').format('YYYYMMDD');
+                var buchTag;
+                for ( var rbid in $rootScope.ringBuchungen){
+                    buchTag = $rootScope.ringBuchungen[rbid].datum;
+                    console.log("start "+start+" buchTag "+buchTag+" ende "+ende);
+                    if ( buchTag < start |  buchTag > ende){
+                        console.log("Ringbuchung nicht mehr im Buchbaren Bereich. Lösche " + rbid);
+                        $rootScope.ringBuchungen[rbid] = null;
+                        delete $rootScope.ringBuchungen[rbid];
+                        //TODO REst
+                    }
+
+
+                }
+
                     FfkUtils.leereGrundtabelle();
                     $rootScope.status.filmlaufGeladen = false;
                     FfkUtils.erstelleFilmlauf();
