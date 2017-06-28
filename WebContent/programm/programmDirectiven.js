@@ -47,7 +47,9 @@
 
 			el.addEventListener('dragstart', function(e) {
 				console.log("dragstart: " + el.id);
-				e.dataTransfer.effectAllowed = 'move';
+               console.log(JSON.stringify(el.id));
+
+                e.dataTransfer.effectAllowed = 'move';
 				e.dataTransfer.setData(dragvBID, this.id);
 				this.classList.add('drag');
 				return false;

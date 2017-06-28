@@ -309,7 +309,9 @@ angular
                             var filmOrt = $rootScope.spielorte[ringBuchung.sid]["ort"]; // sid
                             verleihBuchung = $rootScope.verleihBuchungen[ringBuchung.vBID];
                             // für links - zeile - spalte - flmnr
-                            var sourceIndex = " " + rowIdx + " " + colIdx + " " + i + 1;
+                            var sourceIndex = " " + rowIdx + " " + colIdx + " " + i ;
+                   //         var sourceIndex = " " + rowIdx + " " + colIdx + " " + i + 1;
+
                             // die zwei Checks
                             // belege check1 und check2
                             var check = [""];
@@ -347,15 +349,29 @@ angular
                                     medium = ringBuchung.medium + ringBuchung.medienID + " ";
                                     nach = "<span title='Film weiterleiten: ziehe den Filme auf ein rotes Filmsymbol' " +
                                         "class='grabbing draggable glyphicon glyphicon-film' id='"
+                                        + verleihBuchung.vBID + sourceIndex + "'  draggable>↴ </span>";
+
+/*
+                                    nach = "<span title='Film weiterleiten: ziehe den Filme auf ein rotes Filmsymbol' " +
+                                        "class='grabbing draggable glyphicon glyphicon-film' id='"
                                         + verleihBuchung + sourceIndex + "'  draggable>↴ </span>";
+                                    */
+
                                 }
                                 // kein Medium vorhanden:
                                 // droppable aufs Medium
                             } else {
                                 medium = ringBuchung.medium
                                     + " <span title='Filmmedium benötigt!  Auf dieses Feld kann ein passendes gelbes " +
+                                    "Filmsymbol gezogen werden' class='notOK glyphicon glyphicon-film' id='"
+                                     + verleihBuchung.vBID+ sourceIndex + "' droppable drop='handleDrop'> ← ↵ </span>";
+/*
+                                medium = ringBuchung.medium
+                                    + " <span title='Filmmedium benötigt!  Auf dieses Feld kann ein passendes gelbes " +
                                     "Filmsymbol gezogen werden' class='notOK glyphicon glyphicon-film' id='"+
                                     verleihBuchung + sourceIndex + "' droppable drop='handleDrop'> ← ↵ </span>";
+                                */
+
                             }
 
                             if ( $rootScope.logedInUser.sid == ringBuchung.sid || $rootScope.logedInUser.role == "admin" ){

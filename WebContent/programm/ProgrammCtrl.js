@@ -254,9 +254,17 @@
 
 
             // 'verschicke Film nach d&d'
-            $scope.handleDrop = function (dragIdx, dragCol, dragFilm, binIdx, binCol, binFilm) {
-                var von = $rootScope.filmlauf[dragIdx][dragCol][dragFilm];
-                var nach = $rootScope.filmlauf[binIdx][binCol][binFilm];
+            $scope.handleDrop = function ( dragIdx, dragCol, dragFilm, binIdx, binCol, binFilm) {
+
+
+                console.log( 'dragIdx ' + dragIdx + ' dragCol '+ dragCol  + ' dragFilm ' +  dragFilm
+                    +' binIdx '+binIdx+' binCol ' +binCol +' binFilm ' + binFilm)
+                var vonRBID = $rootScope.filmlauf[dragIdx][1][dragCol-1][1][dragFilm];
+                var nachRBID = $rootScope.filmlauf[binIdx][1][binCol-1][1][binFilm];
+                console.log('vonRBID '+vonRBID + ' nachRBID '+nachRBID);
+                var vonBuchung = $rootScope.ringBuchungen[vonRBID];
+                var nachBuchung = $rootScope.ringBuchungen[nachRBID];
+             /*
                 nach.medienID = von.medienID;
                 nach.vonID = von.ortID;
                 von.nachID = nach.ortID;
@@ -267,11 +275,12 @@
                 var wechselInNach = { "vonID": von.sid, "medium": von.medium, "medienID":von.medienID };
                 // speicher Änderungen in rootScope.ringBuchung; später auch via REST
                 console.log("TODO beende RESTfull post ./FilmVonNach: in ffkutils.changeRingBuchung");
-                FfkUtils.changeRingBuchung(von.fBID , wechselInVon );
-                FfkUtils.changeRingBuchung(nach.fBID , wechselInNach);
-                // speicher in Filmlauf
-                FfkUtils.changeFilmlauf(dragIdx,dragCol,dragFilm, wechselInVon  );
-                FfkUtils.changeFilmlauf(binIdx,binCol,binFilm, wechselInNach  );
+                */
+
+                FfkUtils.changeRingBuchung(vonRBID , { 'nachID': nachBuchung.sid } );
+                FfkUtils.changeRingBuchung(nachRBID , { 'vonID': vonBuchung.sid,
+                    'medium': vonBuchung.medium ,"medienID":vonBuchung.medienID } );
+
 
                 $rootScope.gridOptions.api.refreshView();
             };
