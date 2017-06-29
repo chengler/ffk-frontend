@@ -1,0 +1,3436 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass scrartcl
+\begin_preamble
+\usepackage{scrlayer-scrpage}
+\lohead{Frontend Dokumentation}
+\rohead{Filmverwaltung für Kinoabspielringe}
+\pagestyle{scrheadings}
+\setheadsepline{.4pt}%Kopflinie unter Kapitelüberschrift
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language ngerman
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_title "Pflichtenheft Filmverwaltung für Kinoabspielringe"
+\pdf_author "Christian Engler"
+\pdf_subject "SIn13 Softwarprojekt"
+\pdf_keywords "Kino, Sozialinformatik"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language german
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{titlepage}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{titlepage}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabbing}
+\end_layout
+
+\begin_layout Plain Layout
+
+Anzahl Seiten insgesamt:x
+\backslash
+= 
+\backslash
+kill
+\end_layout
+
+\begin_layout Plain Layout
+
+Titel: 
+\backslash
+>Dokumentation Frontend 
+\backslash
+
+\backslash
+ 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Projekt: 
+\backslash
+> Filmverwaltung für Kinoabspielringe (FfK)
+\backslash
+
+\backslash
+ 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Autor des Dokumentes: 
+\backslash
+>   Christian Engler 
+\backslash
+
+\backslash
+ 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Matrikelnummer: 
+\backslash
+>   438 471
+\backslash
+
+\backslash
+ 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Erstellungsdatum: 
+\backslash
+> 29.05.2017  
+\backslash
+
+\backslash
+ 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Anzahl Seiten insgesamt: 
+\backslash
+> 27  
+\backslash
+
+\backslash
+ 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Version: 
+\backslash
+> 0.1  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabbing}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{page}{0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{roman}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{arabic}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{scrheadings}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Frontend
+\end_layout
+
+\begin_layout Standard
+Das Frontend, die Bedienoberfläche, kann lokal und unabhängig vom Backend
+ entwickelt und verwendet werden.
+ Das Backend wird erst dann benötigt, wenn Daten mit dem Server via eines
+ RESTfull Services ausgetauscht werden.
+ Das Austauschformat sind JSON Files
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+JavaScript Object Notation, kurz JSON: 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www.json.org/json-de.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Zur Entwicklung des Frontends wird auf JSON-Files im lokalen Filesystem
+ zurückgegriffen.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Installation-Entw-frontend"
+
+\end_inset
+
+Installation Entwicklungsumgebung Frontend
+\end_layout
+
+\begin_layout Standard
+Das Frontend kann sowohl mit der unter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:IDE-Backend"
+
+\end_inset
+
+ vorgestellten Entwicklungsumgebung bearbeitet werden, oder ein einer Separaten.
+ Die separate Installation hat den großen Vorteil, dass die Umgebung schnell
+ aufgesetzt werden kann und statt Eclipse zum Beispiel die JavaScript IDE
+ Webstrom
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.jetbrains.com/webstorm/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ verwendet werden kann.
+ Dies macht vor allem dann Sinn, wenn nur am Frontend weiter entwickelt
+ werden soll.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Das Frontend lässt sich zu jedem Zeitpunkt problemlos ins Backend integrieren,
+ da die Ordnerstruktur (siehe 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Ordner_WebContent"
+
+\end_inset
+
+ WebContent) identisch ist!
+\end_layout
+
+\begin_layout Subsubsection
+Voraussetzung
+\end_layout
+
+\begin_layout Standard
+Es werden lokal zwei Pakete benötigt:
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+git
+\family default
+ zur Versionsverwaltung und zum einfachen Download via github.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://git-scm.com/downloads
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+nodejs
+\family default
+ als Paketverwaltung für die JavaSript Bibliotheken.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://nodejs.org/en/download/ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Auf der in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Testumgebung-auf-Debian"
+
+\end_inset
+
+ vorgeschlagenen Testumgebung geschieht dies durch den Befehl 
+\end_layout
+
+\begin_layout Quote
+
+\family typewriter
+apt-get install git npm
+\end_layout
+
+\begin_layout Subsubsection
+Installation
+\end_layout
+
+\begin_layout Standard
+Wechseln Sie anschließend in das Verzeichnis, in welches der Entwicklungsordner
+ installiert werden soll und geben folgenden Befehl ein:
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+git clone 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/chengler/ffk-frontend.git
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+cd
+\family typewriter
+ ffk-frontend
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+npm install
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+Sollten Sie folgende Fehlermeldung erhalten: 
+\begin_inset Quotes gld
+\end_inset
+
+/usr/bin/env: »node": Datei oder Verzeichnis nicht gefunden
+\begin_inset Quotes grd
+\end_inset
+
+ legen Sie folgenden Softlink auf node an: 
+\begin_inset Quotes gld
+\end_inset
+
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+\begin_inset Quotes grd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dabei wird über 
+\family typewriter
+npm
+\family default
+ die Paketverwaltung 
+\family typewriter
+Bower
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://bower.io/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\family default
+ nachgeladen und ausgeführt.
+ Mit 
+\family typewriter
+npm start
+\family default
+ können Sie testen, ob die Installation erfolgreich war.
+ Es sollte folgender Text erscheinen:
+\end_layout
+
+\begin_layout Quote
+
+\family typewriter
+Starting up http-server, serving ./ on port: 8000
+\begin_inset Newline newline
+\end_inset
+
+Hit CTRL-C to stop the server 
+\end_layout
+
+\begin_layout Standard
+Wenn Sie nun einen Webbrowser Ihrer Wahl öffnen, erreichen Sie da Hauptverzeichn
+is unter 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://localhost:8000/
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Zum starten der Anwendung wählen sie mit dem Browser den Ordner 
+\family typewriter
+WebContent
+\family default
+ und dort die Datei
+\family typewriter
+ index.html.
+\end_layout
+
+\begin_layout Subsection
+Verzeichnisse und Dateien
+\end_layout
+
+\begin_layout Subsubsection
+Dateien im Hauptverzeichnis
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+package.json
+\family default
+ enthält die Pakete, welche mit 
+\family typewriter
+npm install
+\family default
+ installiert werden.
+ Diese werden im Ordner node_modules abgelegt und sind nur für die Entwicklungsu
+mgebung relevant.
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+bower.json
+\family default
+ enthält die 
+\emph on
+Projektabhängigkeiten
+\emph default
+ welche über Bower nachinstalliert werden.
+ Der Zielort ist in .bowerrc festgelegt.
+ (bower wird durch 
+\family typewriter
+npm install
+\family default
+ installiert und ausgeführt)
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+.bowerrc
+\family default
+ verweist auf den Ordner 
+\family typewriter
+WebContent/bower_components
+\end_layout
+
+\begin_layout Itemize
+.
+\family typewriter
+gitignore
+\family default
+ enthält die Dateien, welche nicht über git verwaltet werden.
+ Dies sind die Ordner und Dateien in 
+\family typewriter
+node_modules, bower_components
+\family default
+ und 
+\family typewriter
+example_data
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+README.md 
+\family default
+ist eine html Datei, welche die Installationsanleitung des Frontends enthält.
+\end_layout
+
+\begin_layout Subsubsection
+Unterverzeichnisse im Hauptverzeichnis
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+node_modules 
+\family default
+ist nur für Entwicklung und Testing nötig.
+ Die darin enthaltenen Pakete wird durch 
+\family typewriter
+package.json
+\family default
+ festgelegt.
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+example_data
+\family default
+ enthält die JSON Beispieldateien, damit auch ohne RESTfull Service entwickelt
+ werden kann.
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+WebContent
+\family default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "Ordner_WebContent"
+
+\end_inset
+
+ enthält die für den Betrieb notwendigen Dateien und Ordner und wird im
+ folgenden Unterpunkt erklärt.
+\end_layout
+
+\begin_layout Subsubsection
+Das WebContent Verzeichnis
+\end_layout
+
+\begin_layout Standard
+Es ist inhaltlich mit dem Backend-Ordner
+\family typewriter
+ Workspace/AprototypeWeb/WebContent
+\family default
+ identisch und enthält alles, was für die Implementierung des Programmes
+ notwendig ist.
+\end_layout
+
+\begin_layout Paragraph*
+Verzeichnisse
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+bower_components
+\family default
+: Dieser Ordner enthält die durch 
+\family typewriter
+bower.json
+\family default
+ festgelegten Erweiterungen und darf nicht direkt bearbeitet werden.
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+components
+\family default
+: Dieser Ordner enthält die kleinen Helferlein, welche von anderen Modulen
+ verwendet werden.
+ Hervorzuheben ist der Unterordner 
+\family typewriter
+utils
+\family default
+, welcher die lokale Bibliothek des Frontends darstellt.
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+dashboard
+\family default
+: Dateien für die Ansicht des Menüpunktes/Views 
+\begin_inset Quotes gld
+\end_inset
+
+Übersicht
+\begin_inset Quotes grd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+distributors
+\family default
+: Dateien für die Ansicht des Menüpunktes/Views 
+\begin_inset Quotes gld
+\end_inset
+
+Verleiher
+\begin_inset Quotes grd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+programm
+\family default
+: Dateien für die Ansicht des Menüpunktes/Views 
+\begin_inset Quotes gld
+\end_inset
+
+Programm
+\begin_inset Quotes grd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+users
+\family default
+: Dateien für die Ansicht des Menüpunktes/Views 
+\begin_inset Quotes gld
+\end_inset
+
+Benutzerverwaltung
+\begin_inset Quotes grd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+venues
+\family default
+: Dateien für die Ansicht des Menüpunktes/Views 
+\begin_inset Quotes gld
+\end_inset
+
+Spielorte
+\begin_inset Quotes grd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Dateien
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+app.js
+\family default
+: Die zentrale JavaScript Datei, welche von 
+\family typewriter
+index.html
+\family default
+ aufgerufen wird und alles weitere steuert.
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+ffk.css
+\family default
+: Die lokalen css Anweisungen.
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+index.html:
+\family default
+ Die Startseite 
+\family typewriter
+mit
+\family default
+ Anmeldefenster, welches die 
+\family typewriter
+app.js
+\family default
+ mit seinen Abhängigkeiten ladet.
+ Nach Beendigung der Entwicklung sollten auf die minimierten JavaScript
+ Bibliotheken verwiesen werden.
+\end_layout
+
+\begin_layout Subsubsection
+Verwendete Technologien
+\end_layout
+
+\begin_layout Standard
+Kern der Webanwendung bildet JavaScript.
+ Die darauf aufbauenden Technologien werden in
+\family typewriter
+ der Datei bower.json
+\family default
+ festgelegt und im Ordner 
+\family typewriter
+bower_components
+\family default
+ abgelegt.
+ Für den Webbrowser wird der Stand ES5 vorausgesetzt.
+ Dies wird von allen gängigen Browsern
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+vgl.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://kangax.github.io/compat-table/es5/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ unterstützt.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Aktuell befindet sich in der Datei 
+\family typewriter
+WebContent/components/filme/ffkFilmModul.js (// TODO -> ES5)
+\family default
+ noch eine
+\family typewriter
+ for..
+ of
+\family default
+ 
+\family typewriter
+loop
+\family default
+ nach ECMAScript 2015 (ES6).
+ Dieser muss noch umgeschrieben werden, um die Anforderung 
+\begin_inset Quotes gld
+\end_inset
+
+#34 Windows Internet Explorer Version 10 wird unterstützt
+\begin_inset Quotes grd
+\end_inset
+
+ zu erfüllen.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Folgende Frameworks/Bibliotheken werden verwendet:
+\end_layout
+
+\begin_layout Itemize
+angular
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+ 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://angularjs.org/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Als Webframework wird AngularJS Version 1.4 verwendet 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+angular-route
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Eine gute Einführung zur verwendeten Technik: 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www.w3schools.com/angular/angular_modules.asp
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Diese Erweiterung erlaubt es, eine Single-Page-Webapplication zu erzeugen.
+ Dadurch wird es möglich, dass je nach aufgerufener URL nicht bei einem
+ Webserver nachgefragt wird, sondern unterschiedliche AngularJS Controller
+ geladen werden.
+ Das Browserverhalten der 
+\begin_inset Quotes gld
+\end_inset
+
+vor
+\begin_inset Quotes grd
+\end_inset
+
+ und 
+\begin_inset Quotes gld
+\end_inset
+
+zurück
+\begin_inset Quotes grd
+\end_inset
+
+ Buttons bleibt dabei erhalten.
+\end_layout
+
+\begin_layout Itemize
+angular-bootstrap
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://angular-ui.github.io/bootstrap/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Von Bootstrap selbst werden nur die css, nicht jedoch die JavaScript Komponente
+n genutzt.
+ Diese Aufgabe erfüllt angular-bootstrap.
+ Es werden bisher ui.bootstrap.modal und ui.bootstrap.datepicker verwendet.
+ Die Bibliothek kann für den produktiven Einsatz also noch verkleinert werden.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+bootstrap
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Eine Übersicht über die nutzbaren Elemente findet sich hier:
+\family sans
+ 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://getbootstrap.com/components/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Für das grafische Design wird Bootstrap 3.x verwendet.
+ JavaScript Dateien von Bootstrap und das hierfür benötigte 
+\family typewriter
+jquery
+\family default
+ wird nicht verwendet.
+ 
+\end_layout
+
+\begin_layout Itemize
+moment
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://momentjs.com/docs/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Für die Berechnung der Kalenderwochen, Umrechnung auf die Kinowoche in
+ Deutschland und Umformungen der Datumsdarstellungen wird moment.js verwendet.
+ verwendet.
+ 
+\end_layout
+
+\begin_layout Itemize
+ag-grid
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.ag-grid.com/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Für die Darstellung der Programmtabelle wird AG-Grid der Version 4.x verwendet.
+\end_layout
+
+\begin_layout Subsection
+Globale Variablen und Objekte
+\end_layout
+
+\begin_layout Standard
+Die globalen Variablen werden in der Datei 
+\family typewriter
+app.js
+\family default
+ festgelegt und dokumentiert.
+ Es ist darauf zu achten, dass diese Variablen nicht überlagert werden.
+ 
+\end_layout
+
+\begin_layout Standard
+In runden Klammern werden die üblichen Variablennamen angegeben.
+\end_layout
+
+\begin_layout Subsubsection
+Boolean 
+\end_layout
+
+\begin_layout Description
+loggedIn: true | false
+\end_layout
+
+\begin_layout Subsubsection
+Objekte 
+\end_layout
+
+\begin_layout Description
+logedInUser = 
+\family typewriter
+{"uid":"uid0","logName":"jh","role":"admin","name":"Jens-Hagen Schwadt"}
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+uid: BenutzerID (uid)
+\end_layout
+
+\begin_layout Description
+name: Benutzername lang,
+\end_layout
+
+\begin_layout Description
+logName: Anmeldename,
+\end_layout
+
+\begin_layout Description
+role: Benutzerrolle: admin, spieler, verleih (role)
+\end_layout
+
+\begin_layout Description
+idName: Name des Verleihs oder Spielortes für den der Benutzer verantwortlich
+ ist.
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+Arrays
+\end_layout
+
+\begin_layout Description
+spielorteSortiert:
+\begin_inset CommandInset label
+LatexCommand label
+name "spielorteSortiert:"
+
+\end_inset
+
+ 
+\family typewriter
+[ ["sid6","Alt Rehse"], ...
+ ]
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+[0] = SpielortID (sid)
+\end_layout
+
+\begin_layout Description
+[1] = Spielortname (sortiert nach [1])
+\end_layout
+
+\end_deeper
+\begin_layout Description
+verleiherSortiert:
+\begin_inset CommandInset label
+LatexCommand label
+name "verleiherSortiert"
+
+\end_inset
+
+ 
+\family typewriter
+[ ["vid2","Almamode"], ...
+ ]
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+[0] = VerleihID (vid)
+\end_layout
+
+\begin_layout Description
+[1] = VerleihName (sortiert nach [1])
+\end_layout
+
+\end_deeper
+\begin_layout Description
+usersSortiert:
+\begin_inset CommandInset label
+LatexCommand label
+name "usersSortiert"
+
+\end_inset
+
+ 
+\family typewriter
+[ ["uid1","max","spieler","sid8","Christian Engler"], ...
+ ] 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+[0] = UserID (uid)
+\end_layout
+
+\begin_layout Description
+[1] = Anmeldename (logName)
+\end_layout
+
+\begin_layout Description
+[2] = Benutzerrolle (role)
+\end_layout
+
+\begin_layout Description
+[3] = ID Spielort oder VerleihID (sid | vid)
+\end_layout
+
+\begin_layout Description
+[4] = Name (sortiert nach [4]
+\end_layout
+
+\end_deeper
+\begin_layout Description
+filmlauf
+\begin_inset CommandInset label
+LatexCommand label
+name "filmlauf-[-[idx0]"
+
+\end_inset
+
+ 
+\family typewriter
+[ [idx0] ...
+ [idx479] ] 
+\end_layout
+
+\begin_layout Description
+Der
+\begin_inset space ~
+\end_inset
+
+Filmlauf
+\begin_inset space ~
+\end_inset
+
+idx umfasst 60 Kinowochen (KW).
+ Diese bestehen aus 480 Indices.
+ 8 Indices beschreiben eine KW.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+Die
+\begin_inset space ~
+\end_inset
+
+Basis von 52 Wochen eines Jahres sind immer die KWs 1 bis 52.
+ 
+\end_layout
+
+\begin_layout Description
+Der
+\begin_inset space ~
+\end_inset
+
+Vorlauf von 4 KWs umfasst Die KWs 49-52 oder im Falle einer KW 53 im Vorjahr
+ die KWs 50-53
+\end_layout
+
+\begin_layout Description
+Der
+\begin_inset space ~
+\end_inset
+
+Nachlauf umfasst die KWs 1-3 im nächsten Jahr oder im Falle einer KW 53
+ im aktuellen Jahr die KWs 53-3
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Der Index idx32 bezeichnet also immer die KW1 des Jahres.
+\end_layout
+
+\begin_layout Description
+minimum 
+\family typewriter
+{"datum":"2015W50","bc":"bc-g0","lines":1,"col":0}
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+datum: 2015W50 | 20151210 isoDatum oder isoKW
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+bc: Hintergrundfarbe css-code
+\end_layout
+
+\begin_layout Description
+lines: maximale Filmeinträge für diese Reihe
+\end_layout
+
+\begin_layout Description
+col: maximale Spalten dieser Reihe
+\end_layout
+
+\end_deeper
+\begin_layout Description
+optionale_Objekte_pro_Spalte_Datum_KW col1 für Film oder col1w für Filmwunsch
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+col1, col2 ..
+ : 
+\family typewriter
+{"bc":"bc-10","vBID":"v123","fID":"f30"}
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+bc: Hintergrundfarbe css-code
+\end_layout
+
+\begin_layout Description
+vBID: BuchungsID
+\end_layout
+
+\begin_layout Description
+fID: FilmID
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Description
+optionale_Objekte_pro_Spalte_Datum_Tag col1 für Film oder col1w für Filmwunsch
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+col1": 
+\family typewriter
+{"bc":"bc-12","f1":{}}
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+bc: Hintergrundfarbe css-code
+\end_layout
+
+\begin_layout Description
+vBID: BuchungsID
+\end_layout
+
+\begin_layout Description
+f1, f2 ...
+ ..
+ : 
+\family typewriter
+{"fBID":61,"check1":true,"check2":false,"ortID":"sid4",
+\begin_inset Newline newline
+\end_inset
+
+"medium":"BD","medienID":"#3","vonID":"sid2","nachID":false
+\family default
+}
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+fBID: FilmId -fid (vergleiche mit 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fBID-[das Objekt]"
+
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Description
+check1: true|false - Ring bestätigt
+\end_layout
+
+\begin_layout Description
+check2: true|false - Spielort bestätigt
+\end_layout
+
+\begin_layout Description
+ortID: sid
+\end_layout
+
+\begin_layout Description
+medium: BD | DVD | DCP | analog - abhängig von Buchungen Medien
+\end_layout
+
+\begin_layout Description
+medienID: #1, #2 - abhängig von Buchungen Menge
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
+\end_deeper
+\begin_layout Subsubsection
+Array von Objekten
+\end_layout
+
+\begin_layout Standard
+Es werden nie alle Objekte geladen, sondern nur die benötigten.
+ Ist der Objektkey nicht vorhanden, wird das Objekt nachgeladen.
+\end_layout
+
+\begin_layout Description
+users
+\begin_inset CommandInset label
+LatexCommand label
+name "users-Objekt"
+
+\end_inset
+
+ 
+\family typewriter
+[{ uid1 : {"logName":"max","role":"spieler","ref":"sid8","name":"Christian
+ Engler"}, ...
+ ]
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+BenutzerID (uid):
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+logName: Anmeldename
+\end_layout
+
+\begin_layout Description
+role: Benutzerrolle: admin, spieler, verleih (role)
+\end_layout
+
+\begin_layout Description
+ref: SpielortID oder VerleihID (sid | vid)
+\end_layout
+
+\begin_layout Description
+name: Benutzername lang
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Description
+spielorte
+\begin_inset CommandInset label
+LatexCommand label
+name "spielorte-Objekt"
+
+\end_inset
+
+ 
+\family typewriter
+[{ sid8 : {"medien":["BD","35mm","DCP"],"name":"Kino35","ort":"Fulda","url":"htt
+p://www.35kino.de"}, ...]
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+SpielortID (sid) : 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+medien: 
+\family typewriter
+[|"BD" |, "35mm" |,"DCP" |
+\begin_inset Quotes grd
+\end_inset
+
+,
+\begin_inset Quotes grd
+\end_inset
+
+analog
+\begin_inset Quotes grd
+\end_inset
+
+]
+\end_layout
+
+\begin_layout Description
+name: Name des Spielortes
+\end_layout
+
+\begin_layout Description
+ort: Ort des Spielortes - intern wird immer der Name des Ortes verwendet
+\end_layout
+
+\begin_layout Description
+url: zur Website des Spielortes
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Description
+verleiher
+\begin_inset CommandInset label
+LatexCommand label
+name "verleiher-Objekt"
+
+\end_inset
+
+ 
+\family typewriter
+[{ vid1 : {"kurz":"X-Verleih","name":"X Filme Creative Pool GmbH","url":"http://
+www.x-filme.de/","trailer":"https://www.youtube.com/user/xverleih/videos"},
+ ...
+ }
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+VerleihID (vid):
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+kurz: verwendete Bezeichung im Programm
+\end_layout
+
+\begin_layout Description
+name: Volle Name des Verleihs
+\end_layout
+
+\begin_layout Description
+url: Homepage des Verleihs
+\end_layout
+
+\begin_layout Description
+trailer: URL der Trailerwebsite z.B bei Youtube
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Description
+filme
+\begin_inset CommandInset label
+LatexCommand label
+name "filme-Objekt"
+
+\end_inset
+
+ 
+\family typewriter
+[{ f30 : {"titel":"die Taube auf dem Dach","text":"Sie rege zum denken an."},
+ ...] 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+FilmID (fid):
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+titel: Titel des Films
+\end_layout
+
+\begin_layout Description
+text: Beschreibung des Films
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Description
+verleihBuchungen
+\begin_inset CommandInset label
+LatexCommand label
+name "buchung-Objekt"
+
+\end_inset
+
+ 
+\family typewriter
+[{v123 : {"fID":"f30","titel":"die Taube auf dem Dach","medien":{"BD":"20160115"
+},"menge":{"BD":1},"vid":"vid1","start":"20160114","laufzeit":1}, ...
+ ] 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+BuchungsID (vBID):
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+fID: FilmID (fid)
+\end_layout
+
+\begin_layout Description
+titel: Titel des Films gleich wie im Film
+\end_layout
+
+\begin_layout Description
+medien: 
+\family typewriter
+{"BD":"20160115"}
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+BD: Startdatum der Medienverfügbarkeit
+\end_layout
+
+\begin_layout Description
+DCP: 
+\end_layout
+
+\begin_layout Description
+analog:
+\end_layout
+
+\begin_layout Description
+DVD:
+\end_layout
+
+\end_deeper
+\begin_layout Description
+menge:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+BD: Anzahl der Medien
+\end_layout
+
+\begin_layout Description
+DCP: 
+\end_layout
+
+\begin_layout Description
+analog:
+\end_layout
+
+\begin_layout Description
+DVD:
+\end_layout
+
+\end_deeper
+\begin_layout Description
+vid: ID des Verleihs (vid)
+\end_layout
+
+\begin_layout Description
+start: Ab wann für den Verleih buchbar (obsolet?)
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Description
+verleihBuchungen 
+\family typewriter
+[{ wuensche : {"v777":{"fID":"f88","titel":"The last Rasta"}, ...
+ ]
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+wuensche:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+BuchungsID (vBID): 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+fID: FilmID
+\end_layout
+
+\begin_layout Description
+titel: Filmtitel
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
+\begin_layout Description
+ringBuchungen
+\begin_inset CommandInset label
+LatexCommand label
+name "fBID-[das Objekt]"
+
+\end_inset
+
+ [ { fBID1:{"fBID":"1", "datum":"20170525","vBID":"vp4 ", "ortID":"sid8",
+ ...
+ }, ...] 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+fBID: (int); eindeutige ringBuchungsID
+\end_layout
+
+\begin_layout Description
+check1: true|false; Ring bestätigt
+\end_layout
+
+\begin_layout Description
+check2: true|false; - Spielort bestätigt
+\end_layout
+
+\begin_layout Description
+ortID: sid; SpieortID - wer bucht
+\end_layout
+
+\begin_layout Description
+vBID: v(int); 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "buchung-Objekt"
+
+\end_inset
+
+ - bei wem
+\end_layout
+
+\begin_layout Description
+datum: yyyymmdd; Bsp.
+ 20170522 - wann
+\end_layout
+
+\begin_layout Description
+medium: BD|DVD|DCP|analog; welches Medium
+\end_layout
+
+\begin_layout Description
+medienID: int; ID des Mediums für den Versand
+\end_layout
+
+\begin_layout Description
+vonID: sid; von welchem Spielort kommt das Medium
+\end_layout
+
+\begin_layout Description
+nachID: sid; an welchen Spielort wird das Medium weitergeschickt
+\end_layout
+
+\begin_layout Description
+garantie: true|false: übernimmt komplette Mindestgarantie
+\end_layout
+
+\begin_layout Description
+besucher: [[int(Besucher),int(cent)], [] ...
+ ]; Array von Arrays Format [int,int]
+\end_layout
+
+\begin_layout Description
+gesamt: [int(alle Besucher), int(gesamteinnahmen)]
+\end_layout
+
+\end_deeper
+\begin_layout Description
+medium: BD | DVD | DCP | analog - abhängig von Buchungen Medien
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "buchung-Objekt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+medienID: #1, #2 - abhängig von Buchungen Menge
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+reserviert: noch nicht in Verwendung.
+ Unterscheidet sich von der Verwendung im Filmlauf, das hier dere Key fBID99
+ ist und nicht key fBID mit dem Value 99
+\end_layout
+
+\begin_layout Description
+ringbuchungID (fBID):
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+check1: true|false;
+\end_layout
+
+\begin_layout Description
+check1: true|false;
+\end_layout
+
+\begin_layout Description
+ortID: sID|false; die SpielortID
+\end_layout
+
+\begin_layout Description
+medien: 
+\family typewriter
+[|"BD" |, "35mm" |,"DCP" |
+\begin_inset Quotes grd
+\end_inset
+
+,
+\begin_inset Quotes grd
+\end_inset
+
+analog
+\begin_inset Quotes grd
+\end_inset
+
+]
+\end_layout
+
+\begin_layout Description
+medienID: int|false; Falls mehrere Medien im Umlauf sein sollten
+\end_layout
+
+\begin_layout Description
+vonID: sID|vID|false|true; woher kommt das Medium; true: der Spielort kümmert
+ sich selbst darum
+\end_layout
+
+\begin_layout Description
+nachID: sID|vID|false; wohin geht es
+\end_layout
+
+\begin_layout Description
+besucher : [false|[ int, int], ...]; false: noch keine Besucher; bsp: 65 Besucher
+ zu 350 Cent
+\end_layout
+
+\begin_layout Description
+gesamt: false|[ int, int]; false: noch keine Besucher; oder alle Besucher
+ und Betrag x in cent
+\end_layout
+
+\begin_layout Description
+datum: iso; Tag der Buchung i ISO Format
+\end_layout
+
+\begin_layout Description
+bc: string: Hintergrundfarbe für den Filmtyp;
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Description
+Verwendung: 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+Filmlauf {"fBID":int,
+\begin_inset Quotes grd
+\end_inset
+
+check1":true,"check2":true,"ortID":"sID|false","medium":"BD","medienID":int|fals
+e,"vonID":sID|false,"nachID":sID|false}
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Quotes gld
+\end_inset
+
+bc
+\begin_inset Quotes grd
+\end_inset
+
+ die vergebene Hintergrundfarbe von bc-00, bc-10, bc-20, ...
+ bc-90
+\end_layout
+
+\begin_layout Description
+Abrechnung {
+\begin_inset Quotes grd
+\end_inset
+
+fBID
+\begin_inset Quotes grd
+\end_inset
+
+: int, 
+\begin_inset Quotes gld
+\end_inset
+
+besucher
+\begin_inset Quotes grd
+\end_inset
+
+ : {[20,3], [40,4], [2,0] ...}, "datum": "20170111
+\begin_inset Quotes grd
+\end_inset
+
+}; 20 Besucher zu 3€ und 40 Besucher zu 4 €, 3 Besucher zu 0€ Eintritt,
+ Spieltag 11.01.2017
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Aufgabe: Enthält die Information einer Filmbuchung eines Spielortes beim
+ Abspielring (Einer Buchung beim Verleih 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "buchung-Objekt"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Description
+Backend: Es bietet sich an Filmbuchungen eigens ein einer Datenbank abzuspeicher
+n.
+ Zumindest muss das Backend mit Settern und Gettern zu fBID umgehen können.
+\end_layout
+
+\begin_layout Section
+Schnittstellenbeschreibung
+\end_layout
+
+\begin_layout Standard
+Das Backend verfügt über eine REST Schnittstelle und erlaubt eine sichere
+ Authentifizierung, z.B.
+ über keycloak.org oder https.
+ Diese ist noch festzulegen.
+\end_layout
+
+\begin_layout Subsection
+Getter
+\end_layout
+
+\begin_layout Subsubsection
+Benutzer, Spielorte, Verleiher
+\end_layout
+
+\begin_layout Standard
+Get(Key:Value > 0) gibt ein Array mit Objekt der ID des Volue zurück.
+\end_layout
+
+\begin_layout Standard
+Get(Key:Value = 0) gibt ein Array mit sortierten Arrays zurück.
+\end_layout
+
+\begin_layout Paragraph
+Keys vom Typ string 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+uid
+\begin_inset Quotes grd
+\end_inset
+
+ (Benutzer)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Value = 0 => Objekt 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "usersSortiert"
+
+\end_inset
+
+ (
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "usersSortiert"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+Value > 0 => Array 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "users-Objekt"
+
+\end_inset
+
+ (
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "users-Objekt"
+
+\end_inset
+
+)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+sid
+\begin_inset Quotes grd
+\end_inset
+
+ (Spielorte)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Value = 0 => Objekt 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "spielorteSortiert:"
+
+\end_inset
+
+ (
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "spielorte-Objekt"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+Value > 0 => Array 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "spielorte-Objekt"
+
+\end_inset
+
+ (
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "spielorte-Objekt"
+
+\end_inset
+
+)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+vid
+\begin_inset Quotes grd
+\end_inset
+
+ (Verleiher)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Value = 0 => Objekt 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "verleiherSortiert"
+
+\end_inset
+
+ (
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "verleiher-Objekt"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+Value > 0 => Array 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "verleiher-Objekt"
+
+\end_inset
+
+ (
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "verleiher-Objekt"
+
+\end_inset
+
+)
+\end_layout
+
+\end_deeper
+\begin_layout Paragraph
+Beispiel
+\end_layout
+
+\begin_layout Itemize
+Get(
+\begin_inset Quotes gld
+\end_inset
+
+uid
+\begin_inset Quotes grd
+\end_inset
+
+:1) gibt ein Array mit dem Objekt 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "users-Objekt"
+
+\end_inset
+
+ wie unter 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "users-Objekt"
+
+\end_inset
+
+ beschreiben mit dem Key 
+\begin_inset Quotes gld
+\end_inset
+
+uid1
+\begin_inset Quotes grd
+\end_inset
+
+ zurück.
+\end_layout
+
+\begin_layout Itemize
+Get(
+\begin_inset Quotes gld
+\end_inset
+
+sid
+\begin_inset Quotes grd
+\end_inset
+
+:0) gibt ein sortiertes Array mit 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "spielorteSortiert:"
+
+\end_inset
+
+ wie unter 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "spielorteSortiert:"
+
+\end_inset
+
+ beschreiben zurück.
+\end_layout
+
+\begin_layout Subsubsection
+Filme
+\end_layout
+
+\begin_layout Standard
+Get(Key:Value > 0) gibt ein Array mit Objekt zurück.
+\end_layout
+
+\begin_layout Paragraph
+Key vom Typ string 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+fid
+\begin_inset Quotes grd
+\end_inset
+
+ (Film)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Value > 0 => Array 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "filme-Objekt"
+
+\end_inset
+
+ (
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "filme-Objekt"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+String =
+\begin_inset Quotes grd
+\end_inset
+
+suchbegriff
+\begin_inset Quotes grd
+\end_inset
+
+ => Array mit Arrays [ [
+\begin_inset Quotes gld
+\end_inset
+
+fid2
+\begin_inset Quotes grd
+\end_inset
+
+,
+\begin_inset Quotes grd
+\end_inset
+
+titel
+\begin_inset Quotes grd
+\end_inset
+
+], ...]
+\end_layout
+
+\end_deeper
+\begin_layout Paragraph
+Beispiel
+\end_layout
+
+\begin_layout Itemize
+Get(
+\begin_inset Quotes gld
+\end_inset
+
+fid
+\begin_inset Quotes grd
+\end_inset
+
+:30) gibt ein Array mit dem Objekt 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "filme-Objekt"
+
+\end_inset
+
+ wie unter 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "filme-Objekt"
+
+\end_inset
+
+ beschreiben mit dem Key 
+\begin_inset Quotes gld
+\end_inset
+
+fid30
+\begin_inset Quotes grd
+\end_inset
+
+ zurück.
+\end_layout
+
+\begin_layout Itemize
+Get(Key:Value = String) gibt ein Array mit sortierten Arrays nach [2] Titel
+ zurück.
+ [ [
+\begin_inset Quotes gld
+\end_inset
+
+fid2
+\begin_inset Quotes grd
+\end_inset
+
+,
+\begin_inset Quotes grd
+\end_inset
+
+titel
+\begin_inset Quotes grd
+\end_inset
+
+], ...], wobei String ein Teil des Titels ist.
+ (zur Titelsuche, ob bereits ein gleicher, ähnlicher Film vorhanden ist.)
+\end_layout
+
+\begin_layout Subsubsection
+Buchungen und Buchungswünsche
+\end_layout
+
+\begin_layout Standard
+Dies bezieht sich auf die Buchungen, welche der Abspielring bei den Verleihen
+ tätigt.
+\end_layout
+
+\begin_layout Standard
+getBuchung(Key: Value [, Key: Value]) und analog GetWunsch(Key: Value) 
+\end_layout
+
+\begin_layout Paragraph
+Key vom Typ string 
+\end_layout
+
+\begin_layout Itemize
+vBID gibt Buchung/Wunsch mit der ID des Value zurück.
+\end_layout
+
+\begin_layout Itemize
+fBID gibt Buchung mit der ID des Value zurück.
+\end_layout
+
+\begin_layout Itemize
+fID gibt vBIDs zur FilmID zurück
+\end_layout
+
+\begin_layout Itemize
+sID gibt vBIDs zur SpielortID der aktuellen Kinowoche zurück
+\end_layout
+
+\begin_layout Itemize
+vID gibt vBIDs zur VerleihID der aktuellen Kinowoche zurück
+\end_layout
+
+\begin_layout Itemize
+sidFehlende: gibt die fehlenden Rückmeldungen zum Spielort zurück.
+ ( Array mit fBIDs: [int(fBID), int(fBID)...] )
+\end_layout
+
+\begin_layout Itemize
+vidFehlende: gibt die Fehlenden Rückmeldungen zum Verleih zurück
+\end_layout
+
+\begin_layout Itemize
+Fehlende: gibt alle fehlenden Rückmeldungen zurück.
+ (Adminrückmeldung)
+\end_layout
+
+\begin_layout Standard
+Optionales Keys
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+jahr
+\begin_inset Quotes grd
+\end_inset
+
+ : 2018 ausgabe für 2018
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+kw
+\begin_inset Quotes grd
+\end_inset
+
+ : 16 ausgabe für KW 16 des aktuellen Jahres
+\end_layout
+
+\begin_layout Paragraph
+Beispiel
+\end_layout
+
+\begin_layout Itemize
+GetBuchung(
+\begin_inset Quotes gld
+\end_inset
+
+vBID
+\begin_inset Quotes grd
+\end_inset
+
+: 123) gibt ein Array mit dem Objekt 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "buchung-Objekt"
+
+\end_inset
+
+ wie unter 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "buchung-Objekt"
+
+\end_inset
+
+ beschreiben mit dem Key 
+\begin_inset Quotes gld
+\end_inset
+
+v123
+\begin_inset Quotes grd
+\end_inset
+
+ zurück.
+\end_layout
+
+\begin_layout Itemize
+GetBuchung(
+\begin_inset Quotes gld
+\end_inset
+
+fID
+\begin_inset Quotes grd
+\end_inset
+
+: 88) gibt ein Array mit den Objekt 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "buchung-Objekt"
+
+\end_inset
+
+ zurück, welche sich auf den Film mit der fID 
+\begin_inset Quotes gld
+\end_inset
+
+f88
+\begin_inset Quotes grd
+\end_inset
+
+ beziehen.
+\end_layout
+
+\begin_layout Subsubsection
+Ringbuchungen
+\end_layout
+
+\begin_layout Standard
+Dies bezieht sich auf die Buchungen, welche eine Spielstätte beim Abspielring
+ tätigt.
+\end_layout
+
+\begin_layout Standard
+getRingBuchung(Key: Value)
+\end_layout
+
+\begin_layout Subsubsection
+Filmlauf
+\end_layout
+
+\begin_layout Standard
+GetFilmlauf(
+\begin_inset Quotes gld
+\end_inset
+
+jahr
+\begin_inset Quotes grd
+\end_inset
+
+: int, 
+\begin_inset Quotes gld
+\end_inset
+
+idx
+\begin_inset Quotes grd
+\end_inset
+
+: int [,Key:Value])
+\end_layout
+
+\begin_layout Paragraph
+[ Key vom Typ String ist der Zeitraum mit dem Value als int]
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+Wochen
+\begin_inset Quotes grd
+\end_inset
+
+: 1 gibt die komplette Woche zurück.
+ (also 8 Indices)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+Wochen
+\begin_inset Quotes grd
+\end_inset
+
+: 2 gibt auch die nächste zurück
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+Wochen
+\begin_inset Quotes grd
+\end_inset
+
+: 0 verhält sich, als wäre der Schalter nicht gesetzt
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+Wochen
+\begin_inset Quotes grd
+\end_inset
+
+= -3 sind die aktuelle Woche und die zwei davor
+\end_layout
+
+\begin_layout Paragraph
+Beispiel
+\end_layout
+
+\begin_layout Itemize
+GetFilmlauf(
+\begin_inset Quotes gld
+\end_inset
+
+jahr
+\begin_inset Quotes grd
+\end_inset
+
+: 2001, 
+\begin_inset Quotes gld
+\end_inset
+
+idx
+\begin_inset Quotes grd
+\end_inset
+
+: 2 ) Gibt ein Array mit dem Objekt idx2 von 2017 zurück
+\end_layout
+
+\begin_layout Itemize
+GetFilmlauf( 
+\begin_inset Quotes gld
+\end_inset
+
+jahr
+\begin_inset Quotes grd
+\end_inset
+
+:2017, 
+\begin_inset Quotes gld
+\end_inset
+
+idx
+\begin_inset Quotes grd
+\end_inset
+
+: 32, 
+\begin_inset Quotes gld
+\end_inset
+
+Wochen
+\begin_inset Quotes grd
+\end_inset
+
+: 4 ) Gibt ein Array mit den Objekt idx32 bis 35 zurück
+\end_layout
+
+\begin_layout Itemize
+GetFilmlauf( 
+\begin_inset Quotes gld
+\end_inset
+
+jahr
+\begin_inset Quotes grd
+\end_inset
+
+:2017, 
+\begin_inset Quotes gld
+\end_inset
+
+idx
+\begin_inset Quotes grd
+\end_inset
+
+: 0, 
+\begin_inset Quotes gld
+\end_inset
+
+Wochen
+\begin_inset Quotes grd
+\end_inset
+
+: 60 ) Gibt den kompletten Filmlauf zurück 
+\end_layout
+
+\begin_layout Subsubsection
+Filmbuchung
+\end_layout
+
+\begin_layout Standard
+Bezieht sich auf die Buchung
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fBID-[das Objekt]"
+
+\end_inset
+
+ eines Abspielortes für einen Film des Abspieringes.
+\end_layout
+
+\begin_layout Standard
+getFbid(key:value [, key:value] )
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+fBID
+\begin_inset Quotes grd
+\end_inset
+
+:int gibt komplettes Array mit Buchungsobjekt zurück
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+vBID
+\begin_inset Quotes grd
+\end_inset
+
+:int gibt Array mit allens Buchungsobjekten (fBIDs) zur Verleihbuchung zurück.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+sID
+\begin_inset Quotes grd
+\end_inset
+
+:int gibt Array mit allen offenen fBIDs (noch keine Besucher gemeldet, aber
+ Spieltag in der Vergangenheit) {Besucher: [false]} des Spielortes zurück.
+ int=0 Rückgabe für alle Spielorte
+\end_layout
+
+\begin_layout Subsection
+Setter
+\end_layout
+
+\begin_layout Subsubsection
+Benutzer, Spielorte und Verleiher
+\end_layout
+
+\begin_layout Standard
+Set(Key:Value > 0, Objekt) ändert bestehendes Objekt.
+\end_layout
+
+\begin_layout Standard
+Set(Key:Value = 0, Objekt) legt neues Objekt an.
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+uid
+\begin_inset Quotes grd
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Value = 0 => 
+\begin_inset Quotes gld
+\end_inset
+
+logName
+\begin_inset Quotes grd
+\end_inset
+
+ muss angegeben und eindeutig sein.
+ Keys siehe 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "users-Objekt"
+
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Itemize
+Value > 0 => Keys siehe 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "users-Objekt"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+sid
+\begin_inset Quotes grd
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Value = 0 => 
+\begin_inset Quotes gld
+\end_inset
+
+name
+\begin_inset Quotes grd
+\end_inset
+
+ muss angegeben und eindeutig sein.
+ Keys siehe 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "spielorte-Objekt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Value > 0 => Keys siehe 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "spielorte-Objekt"
+
+\end_inset
+
+.
+ 
+\begin_inset Quotes gld
+\end_inset
+
+name
+\begin_inset Quotes grd
+\end_inset
+
+ muss eindeutig sein.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+vid
+\begin_inset Quotes grd
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Value = 0 => 
+\begin_inset Quotes gld
+\end_inset
+
+kurz
+\begin_inset Quotes grd
+\end_inset
+
+ muss angegeben und eindeutig sein.
+ Keys siehe 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "verleiher-Objekt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Value > 0 => Keys siehe 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "verleiher-Objekt"
+
+\end_inset
+
+.
+ 
+\begin_inset Quotes gld
+\end_inset
+
+kurz
+\begin_inset Quotes grd
+\end_inset
+
+ muss eindeutig sein.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\family typewriter
+Sollte ein eindeutiges Feld nicht eindeutig sein, legt das Backend nichts
+ an und gibt eine Fehlermeldung zurück.
+\end_layout
+
+\begin_layout Standard
+Wir ein Objekt erfolgreich neu angelegt wird die ID als int zurückgegeben.
+\end_layout
+
+\begin_layout Paragraph
+Beispiel
+\end_layout
+
+\begin_layout Itemize
+Set(
+\begin_inset Quotes gld
+\end_inset
+
+uid
+\begin_inset Quotes grd
+\end_inset
+
+:1, 
+\family typewriter
+{logName":"neu","name":"Marianne Meyer"}
+\family default
+) ändert 
+\begin_inset Quotes gld
+\end_inset
+
+logName
+\begin_inset Quotes grd
+\end_inset
+
+ und 
+\begin_inset Quotes gld
+\end_inset
+
+name
+\begin_inset Quotes grd
+\end_inset
+
+ von 
+\begin_inset Quotes gld
+\end_inset
+
+uid1
+\end_layout
+
+\begin_layout Itemize
+Set(
+\begin_inset Quotes gld
+\end_inset
+
+uid
+\begin_inset Quotes grd
+\end_inset
+
+:0, 
+\family typewriter
+{logName":"neu","name":"Marianne Meyer"}
+\family default
+) legt neuen Benutzer mit 
+\family typewriter
+logName
+\family default
+ 
+\begin_inset Quotes gld
+\end_inset
+
+neu
+\begin_inset Quotes grd
+\end_inset
+
+ und mit dem Name 
+\family typewriter
+"Marianne Meyer" an.
+ Die userID wird vom Backend eindeutig vergeben.
+\end_layout
+
+\begin_layout Subsubsection
+Filme
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Setter Filme "
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Set(Key:Value > 0, Objekt)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+fid
+\begin_inset Quotes grd
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Value >0 => ändert bestehendes Objekt.
+\end_layout
+
+\begin_layout Itemize
+Value = 0 =>legt neues Objekt an.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Wir ein Objekt erfolgreich neu angelegt wird die ID als int zurückgegeben.
+\end_layout
+
+\begin_layout Paragraph
+Beispiel
+\end_layout
+
+\begin_layout Itemize
+Set(
+\begin_inset Quotes gld
+\end_inset
+
+fid
+\begin_inset Quotes grd
+\end_inset
+
+:30, 
+\family typewriter
+{"text":"Neuer Text zum Film
+\begin_inset Quotes grd
+\end_inset
+
+}
+\family default
+) ändert 
+\begin_inset Quotes gld
+\end_inset
+
+text
+\begin_inset Quotes grd
+\end_inset
+
+ wie angegeben.
+\end_layout
+
+\begin_layout Itemize
+Set(
+\begin_inset Quotes gld
+\end_inset
+
+fid
+\begin_inset Quotes grd
+\end_inset
+
+:0, 
+\family typewriter
+{titel:":"neu""}
+\family default
+) legt neuen Film mit 
+\family typewriter
+Titel
+\family default
+ 
+\begin_inset Quotes gld
+\end_inset
+
+neu
+\begin_inset Quotes grd
+\end_inset
+
+ an.
+
+\family typewriter
+ Die fID wird vom Backend eindeutig vergeben.
+\end_layout
+
+\begin_layout Subsubsection
+Buchungen und Buchungswünsche
+\begin_inset CommandInset label
+LatexCommand label
+name "sub: Setter Buchungen"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dies bezieht sich auf die Buchungen, welche der Abspielring bei den Verleihen
+ tätigt.
+\end_layout
+
+\begin_layout Standard
+setBuchung(Key: Value) oder setWunsch(Key: Value)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+vBID
+\begin_inset Quotes grd
+\end_inset
+
+ > 0 => ändere bestehendes Objekt 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "buchung-Objekt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+vBID
+\begin_inset Quotes grd
+\end_inset
+
+ = 0 => erstelle neues Objekt 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+fBID
+\begin_inset Quotes grd
+\end_inset
+
+ > 0 => ändere bestehendes Objekt 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fBID-[das Objekt]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+fBID
+\begin_inset Quotes grd
+\end_inset
+
+ = 0 => erstelle neues Objekt 
+\end_layout
+
+\begin_layout Standard
+Wird ein Objekt erfolgreich neu angelegt wird die ID als int zurückgegeben.
+\end_layout
+
+\begin_layout Subsubsection
+Filmlauf
+\end_layout
+
+\begin_layout Standard
+Gibt es nicht als Setter, sondern nur als Getter um das Frontend bei der
+ Aufbereitung der Daten zu unterstützen.
+ Der filmlauf wird durch folgende Setter beeinflüßt:
+\end_layout
+
+\begin_layout Itemize
+Filme: set(
+\begin_inset Quotes gld
+\end_inset
+
+fid
+\begin_inset Quotes grd
+\end_inset
+
+ ...) ändert den Namen und die weiteren Atribute eines Films (
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Setter Filme "
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+Buchung oder Wunsch eines Filmes vom Rings beim Verleih: setBuchung(
+\begin_inset Quotes gld
+\end_inset
+
+vBID
+\begin_inset Quotes grd
+\end_inset
+
+) Ändert die Daten welche beim Öffnen eines Filmlaufs erstellt werden.
+ Wie Medienverfügbarkeit, Ausleihzeitraum, filmID (
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub: Setter Buchungen"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+Buchung des Spielortes beim Ring.
+ Dabei handelt es sich vor allem um die Weitergabe des Films an andere Spielstät
+ten und das Melden der Besuchszahlen.
+ (
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Setter Filmbuchung"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Subsubsection
+Filmbuchung
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Setter Filmbuchung"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Bezieht sich auf die Buchung (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fBID-[das Objekt]"
+
+\end_inset
+
+) eines Abspielortes für einen Film des Abspieringes.
+\end_layout
+
+\begin_layout Standard
+set(key:value, Objekt )
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes gld
+\end_inset
+
+fBID
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Value > 0 => ändert bestehendes Objekt.
+\end_layout
+
+\begin_layout Itemize
+Value = 0 =>legt neues Objekt an.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Wir ein Objekt erfolgreich neu angelegt wird die ID als int zurückgegeben.
+\end_layout
+
+\begin_layout Paragraph
+Beispiel
+\end_layout
+
+\begin_layout Itemize
+Set(
+\begin_inset Quotes gld
+\end_inset
+
+fBID
+\begin_inset Quotes grd
+\end_inset
+
+:3, {besucher : {[20,3], [40,4]}}) Die zahlenden Besucher werden ergänzt.
+ (20 zu 3 €, 40 zu 4 €)
+\end_layout
+
+\begin_layout Section
+Zeitplan
+\end_layout
+
+\begin_layout Standard
+Die Umsetzung erfolgt in 4 Modulen.
+ Jedes hat einen Umfang von 150 Stunden.
+\end_layout
+
+\begin_layout Subsection
+Modul 1 - Vorbereitung
+\end_layout
+
+\begin_layout Standard
+Die Arbeitsprozesse werden erfasst.
+ Dafür wird die Business Process Model and Notation (BPMN)
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www.bpmn.org/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ der Version 2 verwendet.
+\end_layout
+
+\begin_layout Standard
+Es werden die Anforderungsspezifikationen und das Pflichtenheft festgelegt.
+\end_layout
+
+\begin_layout Subsection
+Modul 2 - Frontend
+\end_layout
+
+\begin_layout Standard
+Es wird das HTML Gerüst für die Kernziele erstellt.
+ Ein Bedienkonzept wird entwickelt.
+ Die Umsetzung des Frontend erfolgt in der zuvor festgelegten Programmiersprache.
+\end_layout
+
+\begin_layout Subsection
+Modul 3 - Frontend
+\end_layout
+
+\begin_layout Standard
+Das Frontend wird in den Funktionen der Kernziele fertiggestellt.
+ Die Schnittellen werden noch nicht an ein Backend angebunden, sondern laufen
+ lokal im Dateisystem.
+ Die Funktionen werden an Hand des Workflows dokumentiert.
+ Es wird eine sichere Authentifizierung erarbeitet.
+\end_layout
+
+\begin_layout Subsection
+Modul 4 - Backend
+\end_layout
+
+\begin_layout Standard
+Das Backend wird erstellt.
+ Dabei werden alle für das Frontend benötigte Schnittstellen zur Verfügung
+ gestellt.
+ Eine sichere Authentifizierung und das Speichern in einer Datenbank ist
+ möglich.
+ Die Dokumentation wird abgeschlossen.
+ 
+\end_layout
+
+\end_body
+\end_document
