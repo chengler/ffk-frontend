@@ -338,7 +338,7 @@ pagestyle{scrheadings}
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Part*
 Frontend
 \end_layout
 
@@ -376,7 +376,7 @@ Zur Entwicklung des Frontends wird auf JSON-Files im lokalen Filesystem
  zurückgegriffen.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Installation-Entw-frontend"
@@ -387,14 +387,8 @@ Installation Entwicklungsumgebung Frontend
 \end_layout
 
 \begin_layout Standard
-Das Frontend kann sowohl mit der unter 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:IDE-Backend"
-
-\end_inset
-
- vorgestellten Entwicklungsumgebung bearbeitet werden, oder ein einer Separaten.
+Das Frontend kann sowohl mit der Entwicklungsumgebung des Backends bearbeitet
+ werden, oder meit einer Separaten.
  Die separate Installation hat den großen Vorteil, dass die Umgebung schnell
  aufgesetzt werden kann und statt Eclipse zum Beispiel die JavaScript IDE
  Webstrom
@@ -434,10 +428,11 @@ reference "Ordner_WebContent"
 
 \end_inset
 
- WebContent) identisch ist!
+ WebContent) identisch ist! Bei einer seperaten Entwicklung muss sie wieder
+ volltsändig zu integrieren sein.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Voraussetzung
 \end_layout
 
@@ -502,14 +497,7 @@ https://nodejs.org/en/download/
 \end_layout
 
 \begin_layout Standard
-Auf der in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:Testumgebung-auf-Debian"
-
-\end_inset
-
- vorgeschlagenen Testumgebung geschieht dies durch den Befehl 
+Auf einem klassischen Debian-Linux System geschieht dies durch den Befehl:
 \end_layout
 
 \begin_layout Quote
@@ -518,7 +506,7 @@ reference "sub:Testumgebung-auf-Debian"
 apt-get install git npm
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Installation
 \end_layout
 
@@ -555,7 +543,7 @@ cd
 \family typewriter
 npm install
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -574,6 +562,33 @@ Sollten Sie folgende Fehlermeldung erhalten:
 
 sudo ln -s /usr/bin/nodejs /usr/bin/node
 \begin_inset Quotes grd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Wenn Sie das System auf einem Webserver deployen möchten, kann es bei der
+ Installation mit Rootrechten Probleme geben.
+ Verwenden Sie den Schalter 
+\family typewriter
+npm install --unsafe-perm .
+ Weitere Infos finden Sie auf 
+\begin_inset CommandInset href
+LatexCommand href
+name "Npm install failed with “cannot run in wd” auf stackoverflow"
+target "https://stackoverflow.com/questions/18136746/npm-install-failed-with-cannot-run-in-wd#19132229"
+
 \end_inset
 
 
@@ -660,11 +675,16 @@ WebContent
  index.html.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Standard
+https://stackoverflow.com/questions/18136746/npm-install-failed-with-cannot-run-i
+n-wd#19132229
+\end_layout
+
+\begin_layout Section
 Verzeichnisse und Dateien
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Dateien im Hauptverzeichnis
 \end_layout
 
@@ -735,7 +755,7 @@ README.md
 ist eine html Datei, welche die Installationsanleitung des Frontends enthält.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Unterverzeichnisse im Hauptverzeichnis
 \end_layout
 
@@ -777,17 +797,52 @@ name "Ordner_WebContent"
  folgenden Unterpunkt erklärt.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Itemize
+Doku enthält Projektdokumentationen, wie dieses Dokument.
+\end_layout
+
+\begin_layout Subsection
 Das WebContent Verzeichnis
 \end_layout
 
 \begin_layout Standard
-Es ist inhaltlich mit dem Backend-Ordner
-\family typewriter
- Workspace/AprototypeWeb/WebContent
-\family default
- identisch und enthält alles, was für die Implementierung des Programmes
- notwendig ist.
+Die Struktur des Dateiverzeichnisses WebContent orientiert sich an der 
+\begin_inset Quotes gld
+\end_inset
+
+Best Practice Recommendations for Angular App Structure
+\begin_inset Quotes grd
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pu
+b
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ von Google.
+ 
+\end_layout
+
+\begin_layout Standard
+Es gibt zwei 'components' Verzeichnisse.
+ Alle anderen Verzeichnisse orientieren sie direkt am Main-Menü der Benutzerschn
+ittstelle.
 \end_layout
 
 \begin_layout Paragraph*
@@ -942,7 +997,11 @@ app.js
  Bibliotheken verwiesen werden.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
+Die Struktur innerhalb der Verzeichnisse
+\end_layout
+
+\begin_layout Subsection
 Verwendete Technologien
 \end_layout
 
@@ -1203,7 +1262,7 @@ https://www.ag-grid.com/
  Für die Darstellung der Programmtabelle wird AG-Grid der Version 4.x verwendet.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 Globale Variablen und Objekte
 \end_layout
 
@@ -1221,7 +1280,7 @@ app.js
 In runden Klammern werden die üblichen Variablennamen angegeben.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Boolean 
 \end_layout
 
@@ -1229,7 +1288,7 @@ Boolean
 loggedIn: true | false
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Objekte 
 \end_layout
 
@@ -1262,7 +1321,7 @@ idName: Name des Verleihs oder Spielortes für den der Benutzer verantwortlich
 \end_layout
 
 \end_deeper
-\begin_layout Subsubsection
+\begin_layout Subsection
 Arrays
 \end_layout
 
@@ -1534,7 +1593,7 @@ medienID: #1, #2 - abhängig von Buchungen Menge
 \end_deeper
 \end_deeper
 \end_deeper
-\begin_layout Subsubsection
+\begin_layout Subsection
 Array von Objekten
 \end_layout
 
@@ -3352,84 +3411,6 @@ fBID
 
 :3, {besucher : {[20,3], [40,4]}}) Die zahlenden Besucher werden ergänzt.
  (20 zu 3 €, 40 zu 4 €)
-\end_layout
-
-\begin_layout Section
-Zeitplan
-\end_layout
-
-\begin_layout Standard
-Die Umsetzung erfolgt in 4 Modulen.
- Jedes hat einen Umfang von 150 Stunden.
-\end_layout
-
-\begin_layout Subsection
-Modul 1 - Vorbereitung
-\end_layout
-
-\begin_layout Standard
-Die Arbeitsprozesse werden erfasst.
- Dafür wird die Business Process Model and Notation (BPMN)
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-http://www.bpmn.org/
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- der Version 2 verwendet.
-\end_layout
-
-\begin_layout Standard
-Es werden die Anforderungsspezifikationen und das Pflichtenheft festgelegt.
-\end_layout
-
-\begin_layout Subsection
-Modul 2 - Frontend
-\end_layout
-
-\begin_layout Standard
-Es wird das HTML Gerüst für die Kernziele erstellt.
- Ein Bedienkonzept wird entwickelt.
- Die Umsetzung des Frontend erfolgt in der zuvor festgelegten Programmiersprache.
-\end_layout
-
-\begin_layout Subsection
-Modul 3 - Frontend
-\end_layout
-
-\begin_layout Standard
-Das Frontend wird in den Funktionen der Kernziele fertiggestellt.
- Die Schnittellen werden noch nicht an ein Backend angebunden, sondern laufen
- lokal im Dateisystem.
- Die Funktionen werden an Hand des Workflows dokumentiert.
- Es wird eine sichere Authentifizierung erarbeitet.
-\end_layout
-
-\begin_layout Subsection
-Modul 4 - Backend
-\end_layout
-
-\begin_layout Standard
-Das Backend wird erstellt.
- Dabei werden alle für das Frontend benötigte Schnittstellen zur Verfügung
- gestellt.
- Eine sichere Authentifizierung und das Speichern in einer Datenbank ist
- möglich.
- Die Dokumentation wird abgeschlossen.
- 
 \end_layout
 
 \end_body
