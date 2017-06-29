@@ -217,7 +217,7 @@ Erstellungsdatum:
 
 Anzahl Seiten insgesamt: 
 \backslash
-> 27  
+> 17  
 \backslash
 
 \backslash
@@ -956,7 +956,7 @@ Spielorte
 \end_layout
 
 \begin_layout Paragraph*
-Dateien
+Dateien 
 \end_layout
 
 \begin_layout Itemize
@@ -995,12 +995,212 @@ app.js
  mit seinen Abhängigkeiten ladet.
  Nach Beendigung der Entwicklung sollten auf die minimierten JavaScript
  Bibliotheken verwiesen werden.
+ Außerdem enthält sie die Haupt-Menüpunkte des Benutzerinterfaces und bindet
+ die Unterpunkte ein.
 \end_layout
 
-\begin_layout Subsection
-Die Struktur innerhalb der Verzeichnisse
+\begin_layout Paragraph
+Datein innerhalb der Verzeichnisse
 \end_layout
 
+\begin_layout Standard
+Die Dateistruktur ist inerhalb der Ordner sehr ähnlich und wird hier exemplarisc
+h erläutert.
+\end_layout
+
+\begin_layout Standard
+Der Ordner 
+\begin_inset Quotes gld
+\end_inset
+
+
+\family typewriter
+Programm
+\family default
+
+\begin_inset Quotes grd
+\end_inset
+
+ eignet sich gut für den Standard.
+\end_layout
+
+\begin_layout Description
+programm
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+programm.html wird von der Datei index.html nach dem aufrufen des Menüpunktes
+ Programm includiert.
+ Aus dieser html-Seite wird der angular Controller geladen.
+\end_layout
+
+\begin_layout Description
+programm-modul.js wurde von app.js bei start bereits geladen.
+ Gibt es keine weiteren JavaScript Datein in diesem Ordner ist in dieser
+ Datei die Programmlogik für den Menüpunkt Programm enthalten.
+ 
+\end_layout
+
+\begin_layout Description
+ProgrammCtrl.js Ist der Controller umfangreich, wird er in diese Datei ausgelager
+t.
+ Ansonsten ist er ein Teil von programm-modul.js.
+ Wird vom programm.html geladen.
+\end_layout
+
+\begin_layout Description
+programmDirectiven.js Wird Angular um eigene Directiven erweitert, sind diese
+ auszulagern.
+ In diesem FAll ist es die Drag&Drop Funktionalität der Tabelle
+\end_layout
+
+\begin_layout Description
+programmTabellenRenderer.js Auf Grund des logischen Zusammenhangs in diesem
+ Ordner.
+ Um die Datein Übersichtlich zu halten wurde die Programmlogik, welche die
+ Formatierungsregeln für die Tabelle enthält ausgelagert.
+ Da diese nur vom ProgrammCtrl aufgerufen wird, ist sie hier richtig.
+ Ansonsten müsste sie in den Ordner 
+\family typewriter
+Components
+\family default
+.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Der nun folgende Ordner 
+\begin_inset Quotes gld
+\end_inset
+
+
+\family typewriter
+ringBuchung
+\family default
+
+\begin_inset Quotes grd
+\end_inset
+
+ eignet sich gut als Demonstration für Html-Erweiterungen.
+ 
+\family typewriter
+
+\begin_inset Quotes gld
+\end_inset
+
+ringBuchung
+\begin_inset Quotes grd
+\end_inset
+
+ 
+\family default
+ist im Ordner 
+\begin_inset Quotes gld
+\end_inset
+
+
+\family typewriter
+components
+\family default
+
+\begin_inset Quotes grd
+\end_inset
+
+, da er nicht Teil des Hauptmenüs ist, und Teile davon aus unterschiedlichen
+ Hauptmenüs aufgerufen werden.
+ Thematisch dreht es sich jedoch immer um Ringbuchungen, also Buchungen
+ von Spielorten beim Abspielring.
+ 
+\series bold
+Modal 
+\series default
+steht für die Eigenschaft eines modalen Fensters, welches über dem Hauptfenster
+ eingeblendet wird.
+ 
+\end_layout
+
+\begin_layout Description
+components/ringBuchungen
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+modalRingBuchungBearbeiten.html Das Hauptfenster, dass weiter templates includier
+t
+\end_layout
+
+\begin_layout Description
+modalRingBuchungEintrittBearbeitenTemplate.html zum erfassen der Besucherzahlen
+\end_layout
+
+\begin_layout Description
+modalRingBuchungEintrittBearbeitenService.js um aufrufbar zu sein und die
+ Aufgabe zu beenden.
+\end_layout
+
+\begin_layout Description
+modalRingBuchungEintrittBearbeitenCtrl.js zum Berechnen der Besucherzahlen
+\end_layout
+
+\begin_layout Description
+modalRingBuchungFilmlaufBearbeitenTemplate.html ein weiteres Template
+\end_layout
+
+\begin_layout Description
+...
+\end_layout
+
+\end_deeper
+\begin_layout Description
+components/utils
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+ffkUtils enthält eine Bibliothek von 
+\begin_inset Quotes gld
+\end_inset
+
+Helferlein
+\begin_inset Quotes grd
+\end_inset
+
+ welche von den anderen Datein verwendet werden.
+ Diese sind im Programmcode selbst dokumentiert.
+ Sie umfassen Dinge wie:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+erstelleGrundtabelle() erstellt den Filmlauf mit Zeitangaben (Datumszeile)
+\end_layout
+
+\begin_layout Description
+leereGrundtabelle() leere alles bis auf die Zeitangaben (Datumszeile)
+\end_layout
+
+\begin_layout Description
+setInFilmlaufRingAngelegenheiten(buchungen,
+\begin_inset space ~
+\end_inset
+
+buchungsart) Je nach Buchungsart (Wunsch oder Buchung) wird ein Array mit
+ Ringbuchungen im Filmlauf abgebildet.
+ Dies kann auch eine einzelne Buchung sein.
+\end_layout
+
+\begin_layout Description
+changeFilm(fid,
+\begin_inset space ~
+\end_inset
+
+myObjekt) Anhand von FilmID und dem Objekt mit den Änderungen, werden die
+ Änderungen vorgenommen und auch gleich dem Server übermittelt.
+\end_layout
+
+\end_deeper
+\end_deeper
 \begin_layout Subsection
 Verwendete Technologien
 \end_layout
@@ -1471,128 +1671,76 @@ Nachlauf umfasst die KWs 1-3 im nächsten Jahr oder im Falle einer KW 53
 Der Index idx32 bezeichnet also immer die KW1 des Jahres.
 \end_layout
 
+\begin_layout Standard
+Jedes der 480 Arrays beinhaltet 3 Arrays die wie folgt aufgebaut sind.
+\end_layout
+
 \begin_layout Description
-minimum 
-\family typewriter
-{"datum":"2015W50","bc":"bc-g0","lines":1,"col":0}
+Array[0] beinhaltet die Datumsinformationen.
+ Daraus wird in der Programmtabelle die erste Splate gerändert
+\end_layout
+
+\begin_layout Description
+Array[1] beinhaltet die Buchungen des Rings beim Verleih (Verleihbuchung)
+ und des Spielortes beim Ring (Ringbuchung)
+\end_layout
+
+\begin_layout Description
+Array[2] Ist gleich aufgebaut wie Array[1], beinhaltet jedoch Wünsche und
+ keine festen Buchungen.
+\end_layout
+
+\begin_layout Description
+Array[0] Auf eine Wochenübersicht folgen 7 Tagesübersichten
 \end_layout
 
 \begin_deeper
 \begin_layout Description
-datum: 2015W50 | 20151210 isoDatum oder isoKW
-\end_layout
-
-\begin_deeper
-\begin_layout Description
-bc: Hintergrundfarbe css-code
+Verleihübersicht ist die Wochenübersicht
 \end_layout
 
 \begin_layout Description
-lines: maximale Filmeinträge für diese Reihe
+Ringübersicht ist die Tagesübersicht
 \end_layout
 
 \begin_layout Description
-col: maximale Spalten dieser Reihe
+Der einzige Unterschied des Arra 0 ist der wert des Array [1].
+ Er ist false bei einer Wochenübersicht.
+ Bei der Tagesübersicht enthält er den Spieltag, was gleichbedeutend dem
+ Abstand zur Wochenübersicht ist.
 \end_layout
 
 \end_deeper
 \begin_layout Description
-optionale_Objekte_pro_Spalte_Datum_KW col1 für Film oder col1w für Filmwunsch
+Array[1][2] Diese Arrays können beliebig viele innere Arrays beinhalten.
+ Jedes innere Array bedeutet eine Spalte in der Tabelle.
+ Dabei gibt es vom Aufbau Unterschiede.
 \end_layout
 
 \begin_deeper
 \begin_layout Description
-col1, col2 ..
- : 
-\family typewriter
-{"bc":"bc-10","vBID":"v123","fID":"f30"}
-\end_layout
-
-\begin_deeper
-\begin_layout Description
-bc: Hintergrundfarbe css-code
+Verleihübersicht Das innere Array hat eine Hintergrundfarbe, den Bezug zur
+ Verleihbuchung und die Info, in der wie vielten Spielwoche sich diese Buchung
+ befindet.
 \end_layout
 
 \begin_layout Description
-vBID: BuchungsID
-\end_layout
-
-\begin_layout Description
-fID: FilmID
+Ringübersicht Das innere Array hat auch eine Hintergrundfarbe und ein weiteres
+ Array.
+ Dieses beinhaltet die verschiedenen Ringbuchungen zu je einer Verleihbuchung.
 \end_layout
 
 \end_deeper
-\end_deeper
 \begin_layout Description
-optionale_Objekte_pro_Spalte_Datum_Tag col1 für Film oder col1w für Filmwunsch
-\end_layout
-
-\begin_deeper
-\begin_layout Description
-col1": 
-\family typewriter
-{"bc":"bc-12","f1":{}}
-\end_layout
-
-\begin_deeper
-\begin_layout Description
-bc: Hintergrundfarbe css-code
-\end_layout
-
-\begin_layout Description
-vBID: BuchungsID
-\end_layout
-
-\begin_layout Description
-f1, f2 ...
- ..
- : 
-\family typewriter
-{"fBID":61,"check1":true,"check2":false,"ortID":"sid4",
-\begin_inset Newline newline
-\end_inset
-
-"medium":"BD","medienID":"#3","vonID":"sid2","nachID":false
-\family default
-}
-\end_layout
-
-\begin_deeper
-\begin_layout Description
-fBID: FilmId -fid (vergleiche mit 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fBID-[das Objekt]"
+\begin_inset Graphics
+	filename filmlaufARRAY.png
+	width 100text%
 
 \end_inset
 
-) 
+
 \end_layout
 
-\begin_layout Description
-check1: true|false - Ring bestätigt
-\end_layout
-
-\begin_layout Description
-check2: true|false - Spielort bestätigt
-\end_layout
-
-\begin_layout Description
-ortID: sid
-\end_layout
-
-\begin_layout Description
-medium: BD | DVD | DCP | analog - abhängig von Buchungen Medien
-\end_layout
-
-\begin_layout Description
-medienID: #1, #2 - abhängig von Buchungen Menge
-\end_layout
-
-\end_deeper
-\end_deeper
-\end_deeper
-\end_deeper
 \begin_layout Subsection
 Array von Objekten
 \end_layout
@@ -3411,6 +3559,55 @@ fBID
 
 :3, {besucher : {[20,3], [40,4]}}) Die zahlenden Besucher werden ergänzt.
  (20 zu 3 €, 40 zu 4 €)
+\end_layout
+
+\begin_layout Subsection
+Qualitätssicherung
+\end_layout
+
+\begin_layout Standard
+Auf 
+\begin_inset CommandInset href
+LatexCommand href
+name "github"
+target "https://github.com/chengler/ffk-frontend/issues"
+
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://github.com/chengler/ffk-frontend/issues
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+ werden die bekannten Bugs gelistet und jeder Anwender hat die Möglichkeit
+ neue Bugs zu melden und Verbesserungsvorschläge einzureichen.
+ Außerdem kann er sich ein bild über die öffenen Bugs ein eingereichten
+ Wünsche machen.
+ 
+\end_layout
+
+\begin_layout Standard
+Das Programm selbst gibt über die Konsole des Webbrowsers viele Informationen
+ aus, so dass sich bei zeitunkritischen Vorgängen recht genau bestimmen
+ lässt, wann und wo sich ein Fehler ereignet hat.
+ Im Zeitkritischen Bereich (rendern der Tabelle, berechnen des Filmlaufes)
+ sind die Debug Informationen abgeschaltet, lassen sich jedoch leicht wieder
+ aktivieren.
 \end_layout
 
 \end_body
